@@ -1,0 +1,40 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+.menu-dropdown{
+    background-color: #003070;
+    width: 25vw;
+    height: 100vh;
+}
+
+.indereq-logo{
+    margin-top: 25px;
+    width: 322px;
+    height: 77px;
+}
+.options{
+    margin-top: 40px;
+    /* background-color: purple; */
+    width: 100%;
+    height: 340px;
+}
+.block-section{
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    margin-top: 10px;
+    /* background-color: chocolate; */
+    height: 75px;
+}
+.logo-section{
+
+}
+
+.title-option{
+font-size: 1.5rem;
+color: #ffffff;
+margin-left: 20px;
+}
+
