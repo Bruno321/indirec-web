@@ -1,12 +1,12 @@
 import React from 'react';
 
+import Login from './Pages/Login/Login';
+
 export const App = () => {
- 
+
     return(
-        <div>
-           HOLA
-        </div>
+        // <Login />
+        <>Aquí pon tus pantallas para probar</>
     )
-    
 }
 
