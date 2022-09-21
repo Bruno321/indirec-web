@@ -1,0 +1,65 @@
+.qr-container{
+    font-family: 'Inter';
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.qr-container>h1{
+    margin: 0;
+    font-size: 3.4rem;
+}
+.qr-container>h2{
+    margin: 5px;
+    font-size: 2.5rem;
+}
+.qr{
+    width: 50%;
+}
+.qr>div{
+    padding-top: 80% !important;
+}
+.qr-button{
+    background-color: #FA8018;
+    width: 25%;
+    height: 55px;
+    color: white;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.modal-status{
+    color: #007505;
+    font-size: 1.8rem;
+    margin: 0;
+}
+.modal-title{
+    font-size: 1.5rem;
+    margin: 0;
+}
+.modal-deportista{
+    color: #003070;
+    font-size: 2rem;
+    margin: 0;
+}
+.modal-text{
+    font-size: 1.2rem;
+    margin: 0;
+}
+.qr-image{
+    width: 150px;
+    height: 150px;
+}
+.qr-hidden{
+    width: 50%;
+    height: 70vh;
+}
+.modal-status-fail{
+    color: #FA8018;
+    font-size: 1.8rem;
+}
+.modal-fill{
+    width: 10px;
+    height: 30vh;
+}
