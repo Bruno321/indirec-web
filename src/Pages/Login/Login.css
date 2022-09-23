@@ -63,11 +63,27 @@
 }
 
 .form-input {
+  width: 100%;
   font-size: 18px;
   padding: 6px 0;
   border: none;
   border-bottom: 1px solid black;
   outline: none;
+}
+
+.container-input-password {
+  display: flex;
+  width: 100%;
+  border-bottom: 1px solid black;
+}
+
+.input-password {
+  border-bottom: none;
+}
+
+.eye-icon {
+  width: 24px;
+  cursor: pointer;
 }
 
 .btn-login {

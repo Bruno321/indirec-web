@@ -1,0 +1,20 @@
+.footer{
+width: 100vw;
+height: 20vh;
+background-color: #003070;
+}
+.container-info{
+/* background-color: pink; */
+width: 100vw;
+height: 20vh;
+display: flex;
+justify-content: center;
+align-items: center;
+flex-direction: column;
+
+}
+
+.information-dev{
+color: #eee;
+font-size: 18px;
+}

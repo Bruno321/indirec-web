@@ -16,16 +16,16 @@ const MenuDropdown = () => {
       </div>
       <div className = "options">
         <div className = "block-section">
-          <img src = {FootballIcon} className = "logo-section"/>
-          <span className = "title-option margin-deportista">Deportistas</span>
+          <img src = {FootballIcon} className = "logo-section margin-img"/>
+          <span className = "title-option margin-txt underline-default txt-deportista">Deportistas</span>
         </div>
         <div className = "block-section">
-          <img src = {ClockIcon} className = "logo-section"/>
-          <span className = "title-option margin-asistencia">Asistencias</span>
+          <img src = {ClockIcon} className = "logo-section margin-img"/>
+          <span className = "title-option margin-txt hover-animation">Asistencias</span>
         </div>
         <div className = "block-section">
-            <img src = {RollCallIcon} className = "logo-section"/>
-          <span className = "title-option margin-lista">Pase de Lista</span>
+            <img src = {RollCallIcon} className = "logo-section margin-img"/>
+          <span className = "title-option margin-lista hover-animation">Pase de Lista</span>
         </div>
         </div>
     </aside>
