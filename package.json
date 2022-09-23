@@ -33,6 +33,7 @@
     "moment": "^2.29.3",
     "react": "^16.14.0",
     "react-dom": "^16.14.0",
+    "react-qr-code": "^2.0.8",
     "react-select": "^5.3.1",
     "sweetalert2": "^11.4.14",
     "sweetalert2-react-content": "^4.2.0"
