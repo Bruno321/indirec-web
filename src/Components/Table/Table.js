@@ -1,8 +1,8 @@
 import React from "react";
 import "./Table.css";
-import iconDelete from "../../Assets/img/delete.png";
-import iconEdit from "../../Assets/img/edit.png";
-import search from "../../Assets/img/search.png"
+import iconDelete from "../../Assets/icons/delete.png";
+import iconEdit from "../../Assets/icons/edit.png";
+import search from "../../Assets/icons/search.png"
 
 /**
  * @param datos Se recibe como un arreglo de objetos.
