@@ -1,26 +1,32 @@
-import { Router } from '@reach/router';
-import React from 'react';
 import MenuDropdown from "./Components/MenuDropdown/MenuDropdown.js";
 import Footer from "./Components/Footer/Footer.js";
+import React,{useContext} from "react";
+import { LoginContext } from "./Context/LoginContext";
 
 // Pages
-import Login from './Pages/Login/Login';
 import MainPage from './Pages/MainPage/MainPage';
 
 export const App = () => {
+    const {isAuth} = useContext(LoginContext)
 
     return(
         <div>
+            {/* <>Aquí pon tus pantallas para probar</> */}
             <Router>
-                {/* The ternary operator checks if the email in local storage is equal to
-                admin@gmail.com. If it is, it will render the MainPage and Login components. If it
-                is not, it will render the Login component. */}
-                { localStorage.email == "admin@gmail.com" ? 
+                { isAuth != null? 
+                // Hay sesion iniciada
                     <>
+                        {/* <NotFound default/> */}
                         <MainPage path='/' />
-                        <Login path='/login' />
+                        <Redirect from='/login' to='/' noThrow />
+
                     </>
-                : <Login path='/' />
+                : 
+                // No hay sesion iniciada
+                <>
+                    <Login path='/login' />
+                    <Redirect from='/' to='/login' noThrow />
+                </>
                 }
             </Router>
         </div>

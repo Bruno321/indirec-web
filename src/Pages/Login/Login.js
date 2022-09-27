@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useContext } from "react";
 
 import "./Login.css";
 
@@ -6,8 +6,11 @@ import logoIndereq from "../../Assets/icons/logo-Indereq.svg";
 import imageMain from "../../Assets/img/image-main.png";
 import eyeOff from "../../Assets/icons/eye-off.svg";
 import eye from "../../Assets/icons/eye.svg";
+import axios from "axios";
+import { LoginContext } from "../../Context/LoginContext";
 
 const Login = () => {
+    const {iniciarSesion} = useContext(LoginContext)
     /* A hook that allows to change the state of the passwordShown variable to show the password. */
     const [passwordShown, setPasswordShown] = useState(false);
     const togglePassword = () => setPasswordShown(!passwordShown);
@@ -16,22 +19,25 @@ const Login = () => {
     const [eyeShown, setEyeShown] = useState(true);
     const toggleEye = () => setEyeShown(!eyeShown);
 
+    const [loginData,setLoginData] = useState({password:"",email:""})
     /* This is the function that is triggered when the user clicks the Submit button. */
     const handleSubmit = (event) => {
         event.preventDefault();
-        const email = document.getElementById('email').value
-        const password = document.getElementById('password').value
-        console.log(email, password);
 
-        /* This is the code that allows the user to log in. If the email and password are correct, the
-        user is redirected to the home page. If not, an alert is shown. */
-        if (email == "admin@gmail.com" && password == 123) {
-            window.location.href = '/';
-            localStorage.email = email;
-        }
-        else {
-            alert("El usuario y/o contraseña son incorrectos")
-        }
+        iniciarSesion('tokenfalso')
+        // axios.post('http://localhost:3000/api/auth',{
+        //     email,
+        //     password
+        // })
+        // .then((response)=>{
+        //     //token
+        //     setIsAuth(response.data.token)
+        // })
+        // .catch((e)=>{
+        //     // Alert datos incorrectos
+        //     console.log(e)
+        // })
+        
     }
 
 
@@ -61,6 +67,8 @@ const Login = () => {
                     placeholder="usuario@email.com"
                     id="email"
                     className="form-input"
+                    value={loginData.email}
+                    onChange={(e)=>setLoginData({...loginData,email:e.target.value})}
                     required
                 />
 
@@ -72,6 +80,8 @@ const Login = () => {
                         className="form-input input-password"
                         id="password"
                         required
+                        value={loginData.password}
+                        onChange={(e)=>setLoginData({...loginData,password:e.target.value})}
                     />
                     <img 
                         src={eyeShown ? eyeOff : eye} 
