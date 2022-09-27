@@ -1,5 +1,7 @@
 import { Router } from '@reach/router';
 import React from 'react';
+import MenuDropdown from "./Components/MenuDropdown/MenuDropdown.js";
+import Footer from "./Components/Footer/Footer.js";
 
 // Pages
 import Login from './Pages/Login/Login';

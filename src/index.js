@@ -1,9 +1,12 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import ReactDOM  from 'react-dom';
 import {App} from './app'
-
+import NavigationContext from "./Context/NavigationContext.js";
 
 ReactDOM.render(
+    <NavigationContext.Provider>
         <App/>
-    ,
-    document.getElementById('app'))
+        </NavigationContext.Provider>
+        ,
+    document.getElementById('app')
+    );
