@@ -1,4 +1,5 @@
 .container{
+    /* width: 100%; */
     padding: 10px;
     box-sizing: border-box;
 }
@@ -65,4 +66,12 @@ h3{
 
 .img:hover{
     cursor: pointer;
+}
+
+
+@media screen and (max-width: 800px) {
+    table {
+      display: block;
+      overflow-x: auto;
+    }
 }
