@@ -1,0 +1,8 @@
+.mainPage-body{
+    display: flex;
+    flex-direction:row;
+}
+
+.content-container{
+    width: 75vw;
+}

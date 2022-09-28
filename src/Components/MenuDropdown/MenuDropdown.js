@@ -15,7 +15,6 @@ const MenuDropdown = () => {
 
   const {screen, setScreen} = useContext(NavigationContext);
 
-
   return (
     <aside className="menu-dropdown">
       <div className = "options">
