@@ -1,5 +1,6 @@
 import React,{useContext} from "react";
 import { LoginContext } from "./Context/LoginContext";
+import Login from "./Pages/Login/Login";
 import {Router, Redirect} from '@reach/router'
 // Pages
 import MainPage from './Pages/MainPage/MainPage';

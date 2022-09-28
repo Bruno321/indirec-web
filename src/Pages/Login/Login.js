@@ -59,7 +59,7 @@ const Login = () => {
         <div className="right-side">
             <form onSubmit={handleSubmit} className="form">
                 <h1>Bienvenido a INDEREQ</h1>
-                <h2>Iniciar Sesión</h2>
+                <h2>Iniciar sesión</h2>
 
                 <label>Correo electrónico:</label>
                 <input
