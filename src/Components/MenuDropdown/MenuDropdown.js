@@ -7,7 +7,7 @@ import RollCallIcon from "../../assets/icons/roll-call-icon.png";
 import FootballIcon from "../../assets/icons/football-icon.png";
 // Importar Contextos
 import {NavigationContext} from "../../Context/NavigationContext.js";
-
+import IndereqLogo from "../../assets/img/indereq-logo.png";
 import "./MenuDropdown.css";
 
 
@@ -17,6 +17,9 @@ const MenuDropdown = () => {
 
   return (
     <aside className="menu-dropdown">
+      <div>
+        <img src={IndereqLogo} alt="Logotipo de la INDEREQ" className="indereq-logo"/>
+      </div>
       <div className = "options">
         <div className = "block-section" onClick={()=>setScreen(0)}>
           <img src = {FootballIcon} className = "logo-section margin-img"/>
