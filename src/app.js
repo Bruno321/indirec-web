@@ -1,17 +1,34 @@
-import React from "react";
-import QRScanner from './Components/QRScanner/QRScanner';
+import React,{useContext} from "react";
+import { Router,Redirect } from '@reach/router';
+import { LoginContext } from "./Context/LoginContext";
 
+// Pages
 import Login from './Pages/Login/Login';
-import MenuDropdown from './Components/MenuDropdown/MenuDropdown';
+import MainPage from './Pages/MainPage/MainPage';
 
 export const App = () => {
+    const {isAuth} = useContext(LoginContext)
 
     return(
         <div>
-            {/* <Login /> */}
-            {/* <QRScanner /> */}
-            <MenuDropdown />
             {/* <>Aquí pon tus pantallas para probar</> */}
+            <Router>
+                { isAuth != null? 
+                // Hay sesion iniciada
+                    <>
+                        {/* <NotFound default/> */}
+                        <MainPage path='/' />
+                        <Redirect from='/login' to='/' noThrow />
+
+                    </>
+                : 
+                // No hay sesion iniciada
+                <>
+                    <Login path='/login' />
+                    <Redirect from='/' to='/login' noThrow />
+                </>
+                }
+            </Router>
         </div>
     )
 }
