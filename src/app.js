@@ -1,8 +1,6 @@
-import MenuDropdown from "./Components/MenuDropdown/MenuDropdown.js";
-import Footer from "./Components/Footer/Footer.js";
 import React,{useContext} from "react";
 import { LoginContext } from "./Context/LoginContext";
-
+import {Router, Redirect} from '@reach/router'
 // Pages
 import MainPage from './Pages/MainPage/MainPage';
 
