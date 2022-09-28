@@ -1,9 +1,9 @@
+import MenuDropdown from "./Components/MenuDropdown/MenuDropdown.js";
+import Footer from "./Components/Footer/Footer.js";
 import React,{useContext} from "react";
-import { Router,Redirect } from '@reach/router';
 import { LoginContext } from "./Context/LoginContext";
 
 // Pages
-import Login from './Pages/Login/Login';
 import MainPage from './Pages/MainPage/MainPage';
 
 export const App = () => {
