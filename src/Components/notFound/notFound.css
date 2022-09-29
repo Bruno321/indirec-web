@@ -1,0 +1,77 @@
+.container-notFound{
+    /* background-color: purple; */
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+}
+.error-404-img{
+    margin-left: 75px;
+    width: 500px;
+    height: 500px;
+}
+
+.section-img{
+/* background-color: pink; */
+display: flex;
+
+}
+
+.section-text{
+    /* background-color: blue; */
+    text-align: center;
+    align-items: center;
+    display: flex;
+    flex-flow:column wrap;
+    justify-content: center;
+}
+.container-text{
+    display: column;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.title{
+    font-size: 40px;
+    font-weight: 600;
+    color: #003070;
+}
+.txt-global{
+    margin-top: 5px;
+}
+.subtitle{
+    margin-top: 0px;
+    font-size: 30px;
+    font-weight: 500;
+
+}
+
+.paragraph{
+    font-weight: 400;
+    font-size: 20px;
+
+}
+.size-section{
+    width: 50vw;
+    height: 100vh;
+    align-items: center;
+}
+
+.btn-regresar{
+    margin-top: 10px;
+    color: #ffffff;
+    background-color: #003070;
+    width: 150px;
+    height: 45px;
+    border-radius: 15px;
+    transition: .2s;
+    cursor: pointer;
+    border: 0px;
+    font-size: 15px;
+}
+.btn-regresar:hover{
+    background-color: #ffffff;
+    color: #003070;
+    border: 1px solid black;
+    font-size: 15px;
+}
