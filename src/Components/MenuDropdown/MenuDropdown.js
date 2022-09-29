@@ -23,16 +23,23 @@ const MenuDropdown = () => {
       <div className = "options">
         <div className = "block-section" onClick={()=>setScreen(0)}>
           <img src = {FootballIcon} className = "logo-section margin-img"/>
-          <span className = "title-option margin-txt underline-default txt-deportista">Deportistas</span>
+          <span className = "title-option margin-txt txt-deportista" style = {{
+            textDecoration: screen === 0 ? "underline white" : "none",
+            
+          }}>Deportistas</span>
         </div>
         {/*onClick = {()=> setData(1)}*/}
         <div className = "block-section" onClick={()=>setScreen(1)}>
-          <img src = {ClockIcon} className = "logo-section margin-img"/>
-          <span className = "title-option margin-txt hover-animation">Asistencias</span>
+          <img src = {ClockIcon} className = "logo-section margin-img margin-img-asistencia"/>
+          <span className = "title-option margin-asistencias" style ={{
+            textDecoration: screen === 1 ? "underline white" : "none",
+          }}>Asistencias</span>
         </div>
         <div className = "block-section" onClick={()=>setScreen(2)}>
             <img src = {RollCallIcon} className = "logo-section margin-img"/>
-          <span className = "title-option margin-lista hover-animation">Pase de Lista</span>
+          <span className = "title-option margin-lista hover-animation" style ={{
+            textDecoration: screen === 2 ? "underline white" : "none",
+          }}>Pase de Lista</span>
         </div>
         </div>
     </aside>
