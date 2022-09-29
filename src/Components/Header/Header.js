@@ -10,7 +10,7 @@ const Header = () => {
 
     return(
         <header>
-            <img src={MenuBurger}/>
+            <img src={MenuBurger} />
             <img src={Search}/>
             <input type={"text"} placeholder="Buscar por apellido(s)..." className='search-input'/>
             <div className='filtro-container'>

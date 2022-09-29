@@ -42,12 +42,6 @@ const Table = (props) => {
                 :
                     <h3>Asistencias</h3>
             }
-            <label htmlFor="buscador">Buscar por apellido(s):</label>
-            <br/>
-            <div className="container-search">
-                <input type='text' id="buscador"/>
-                <img src={search} className="img"/>
-            </div>
             <table id="data">
                 <tbody>
                     <tr className="header">
@@ -75,7 +69,12 @@ const Table = (props) => {
                                 </>
                         }
                     </tr>
-                    {
+                    {datos.length===0  
+                    ? 
+                    <div>No hay datos para mostrar</div>
+                    :
+                    <>
+                        {
                         tipo == 'deportistas'
                         ?   
                         datos.map( (element, index) => 
@@ -105,6 +104,9 @@ const Table = (props) => {
                                 </tr>
                             )
                     }
+                    </>
+                    }
+                    
                 </tbody>
             </table>
         </div>

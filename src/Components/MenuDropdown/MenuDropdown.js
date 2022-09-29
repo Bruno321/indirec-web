@@ -39,7 +39,19 @@ const MenuDropdown = () => {
             <img src = {RollCallIcon} className = "logo-section margin-img"/>
           <span className = "title-option margin-lista hover-animation" style ={{
             textDecoration: screen === 2 ? "underline white" : "none",
-          }}>Pase de Lista</span>
+          }}>Registrar deportista</span>
+        </div>
+        <div className = "block-section" onClick={()=>setScreen(3)}>
+            <img src = {RollCallIcon} className = "logo-section margin-img"/>
+          <span className = "title-option margin-lista hover-animation" style ={{
+            textDecoration: screen === 3 ? "underline white" : "none",
+          }}>Pase de lista</span>
+        </div>
+        <div className = "block-section" onClick={()=>console.log("cerrar sesion")}>
+            <img src = {RollCallIcon} className = "logo-section margin-img"/>
+          <span className = "title-option margin-lista hover-animation" style ={{
+            textDecoration: screen === 4 ? "underline white" : "none",
+          }}>Cerrar sesión</span>
         </div>
         </div>
     </aside>

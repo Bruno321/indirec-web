@@ -1,11 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState,useContext } from 'react';
 import { QrReader } from 'react-qr-reader';
 import Swal from 'sweetalert2';
+import {NavigationContext} from '../../Context/NavigationContext'
 import './QRScanner.css'
 
 const QRScanner = () => {
     const [allowRecord, setAllowRecord] = useState(true);
 
+    const {setScreen} = useContext(NavigationContext)
     return (
         <div className='qr-container'>
             <h1>Bienvenido!</h1>
@@ -81,7 +83,7 @@ const QRScanner = () => {
             <div className='qr-hidden'></div>
             }
             {/* <p>{data}</p> */}
-            <div className='qr-button'>No tengo QR</div>
+            <div className='qr-button' onClick={()=>setScreen(2)}>No tengo QR</div>
         </div>
     )
 } 

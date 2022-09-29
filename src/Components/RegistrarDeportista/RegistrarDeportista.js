@@ -1,0 +1,166 @@
+import React from 'react';
+import Header from '../Header/Header';
+import Footer from '../Footer/Footer';
+//Cargamos los estilos
+import "./RegistrarDeportista.css";
+import { useState } from 'react';
+
+const RegistrarDeportista = () => {
+    const [radioButton,setRadioButton] = useState("0")
+ 
+    const [form,setForm] = useState({
+        expediente:"",
+        nombres:"",
+        apellidos:"",
+        sexo: "0",
+        facultad:"Facultad de Derecho",
+        jugadorSeleccionado:radioButton,
+        numSeguroSocial:"",
+        correo:"",
+        telefono:"",
+        telefonoEmergencia:"",
+        deporte:"Futbol",
+        fotoCardex:"",
+        fotoIdentificacionOficial:"",
+        foto:""
+    })
+
+    const token = localStorage.getItem('token')
+
+    const handleSubmit = (e) => {
+        console.log(form)
+        e.preventDefault()
+        // let bodyFormData = new FormData();
+        // bodyFormData.append('expediente', form.expediente);
+        // bodyFormData.append('nombres', form.nombres);
+        // bodyFormData.append('apellidos', form.apellidos);
+        // bodyFormData.append('sexo', parseInt(form.sexo));
+        // bodyFormData.append('facultad', form.facultad);
+        // bodyFormData.append('jugadorSeleccionado', form.jugadorSeleccionado);
+        // bodyFormData.append('numSeguroSocial', form.numSeguroSocial);
+        // bodyFormData.append('correo', form.correo);
+        // bodyFormData.append('telefono', form.telefono);
+        // bodyFormData.append('telefonoEmergencia', form.telefonoEmergencia);
+        // bodyFormData.append('deporte', form.deporte);
+        // bodyFormData.append('fotoCardex', form.fotoCardex);
+        // bodyFormData.append('fotoIdentificacionOficial', form.fotoIdentificacionOficial);
+        // bodyFormData.append('foto', form.foto);
+        
+        // axios({
+        //     method: "POST",
+        //     url: "https://bolsa-uaq-api-2022.herokuapp.com/api/empresa/registrar",
+        //     data: bodyFormData,
+        //     headers: { "Content-Type": "multipart/form-data","Access-Control-Allow-Origin":null ,'Authorization': `Bearer ${token}`},
+        //     mode: 'cors',
+        // })
+    }
+    return(
+        <div>
+            <div className='obtenerQr'>
+
+            <h1>Registro para obtención de QR</h1>
+            <p>NOTA: Los campos con "*" son obligatorios</p><br></br>
+
+            <div className='formulario' onSubmit={(e)=>handleSubmit(e)}>
+                <form>
+                    <div className='form-izquierda'>
+                        <div className='form-primero'>
+                            <div>
+                                <label>Expediente*</label><br/>
+                                <input type="text" className="registrarDeportista-input" onChange={(e)=>setForm({...form,expediente:e.target.value})}/>
+                            </div>
+                            <div>
+                                <label>No. Seguro Social*</label><br/>
+                                <input type="text"  className="registrarDeportista-input" onChange={(e)=>setForm({...form,expediente:e.target.value})}/>
+                            </div>
+                        </div>
+
+                        <div className='form-segundo'>
+                            <label>Nombre(s)*</label><br/>
+                            <input type="text"  className="registrarDeportista-input" onChange={(e)=>setForm({...form,nombres:e.target.value})}/><p></p>
+                            <label>Apellidos* (Apellido Paterno, Apellido Materno)</label><br/>
+                            <input type="text" className="registrarDeportista-input" onChange={(e)=>setForm({...form,apellidos:e.target.value})}/><p></p>
+                            <label>Correo electrónico*</label><br/>
+                            <input type="e-mail" className="registrarDeportista-input" onChange={(e)=>setForm({...form,correo:e.target.value})}/><p></p>
+                        </div>
+
+                        <div className='form-tercero'>
+                            <div>
+                                <label>Teléfono celular*</label><br/>
+                                <input type="text" className="registrarDeportista-input" onChange={(e)=>setForm({...form,telefono:e.target.value})}/>
+                            </div>
+
+                            <div>
+                                <label>Teléfono de emergencia*</label><br/>
+                                <input type="text" className="registrarDeportista-input" onChange={(e)=>setForm({...form,telefonoEmergencia:e.target.value})}/>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className='form-medio'>
+                        <label>Facultad*</label><br/>
+                        <select value={form.facultad} onChange={(e)=>setForm({...form,facultad:e.target.value})}>
+                            <option value="Facultad de Derecho">Facultad de Derecho</option>
+                            <option value="Facultad de Enfermería">Facultad de Enfermería</option>
+                            <option value="Facultad de Contaduría y administración">Facultad de Contaduría y administración</option>
+                            <option value="Facultad de Filosofía">Facultad de Filosofía</option>
+                            <option value="Facultad de Psicología">Facultad de Psicología</option>
+                            <option value="Facultad de Ciencias Naturales">Facultad de Ciencias Naturales</option>
+                            <option value="Facultad de Ingeniería">Facultad de Ingeniería</option>
+                            <option value="Facultad de Bellas Artes">Facultad de Bellas Artes</option>
+                            <option value="Facultad de Medicina">Facultad de Medicina</option>
+                            <option value="Facultad de Informática">Facultad de Informática</option>
+                            <option value="Facultad de Química">Facultad de Química</option>
+                            <option value="Facultad de Ciencias Políticas y Sociales">Facultad de Ciencias Políticas y Sociales</option>
+                            <option value="Facultad de Lenguas y letras">Facultad de Lenguas y letras</option>
+                            <option>Escuela de Bachilleres</option>
+                        </select><p></p>
+                        
+                        <label>Sexo*</label><br/>
+                        <select value={form.sexo} onChange={(e)=>setForm({...form,sexo:e.target.value})}>
+                            <option value="0">Masculino</option>
+                            <option value="1">Femenino</option>
+                        </select><p></p>
+                        
+                        <label>Kárdex*</label><br/>
+                        <input type="file" className="registrarDeportista-input" onChange={(e)=>setForm({...form,fotoCardex:e.target.files[0]})}/><p></p>
+                        
+                        <label>Identificación oficial*</label><br/>
+                        <input type="file" className="registrarDeportista-input" onChange={(e)=>setForm({...form,fotoIdentificacionOficial:e.target.files[0]})}/><p></p>
+                        
+                        <label>Foto del deportista*</label><br/>
+                        <input type="file" className="registrarDeportista-input" onChange={(e)=>setForm({...form,foto:e.target.files[0]})}/><p></p>
+                    </div>
+
+                    <div className='form-derecha'>
+                        <label>Deporte*</label><br></br>
+                        <select value={form.deporte} onChange={(e)=>setForm({...form,deporte:e.target.value})}>
+                            <option value="Futbol">Futbol</option>
+                            <option value="Basquetball">Basquetball</option>
+                        </select><p></p>
+
+                        <label>Deportista seleccionado*</label><br></br>
+                        <div className='form-options'>
+                            <input type="radio" className="registrarDeportista-input" value="0" checked={radioButton==="0"?"checked":""} onChange={(e) => {setRadioButton("0");setForm({...form,jugadorSeleccionado:e.target.value})}}/>
+                            <label >Si</label>
+                            <input type="radio" className="registrarDeportista-input" value="1" checked={radioButton==="1"?"checked":""} onChange={(e) => {setRadioButton("1");setForm({...form,jugadorSeleccionado:e.target.value})}}/>
+                            <label >No</label><p></p>
+                        </div>
+                        <label>Número de jugador*</label><br></br>
+                        <input type="text" className="registrarDeportista-input"/><p></p>
+
+                        <label>Subdivisión de deporte*</label><br></br>
+                        <select>
+                            <option>xddd</option>
+                        </select>
+                    </div>
+            <input type="submit" className='CustomButton'  value="Guardar información"/>
+                </form>
+            </div>
+            </div>
+        </div>
+    )
+    
+}
+
+export default RegistrarDeportista;

@@ -8,6 +8,7 @@ import eyeOff from "../../Assets/icons/eye-off.svg";
 import eye from "../../Assets/icons/eye.svg";
 import axios from "axios";
 import { LoginContext } from "../../Context/LoginContext";
+import Swal from "sweetalert2";
 
 const Login = () => {
     const {iniciarSesion} = useContext(LoginContext)
@@ -19,24 +20,32 @@ const Login = () => {
     const [eyeShown, setEyeShown] = useState(true);
     const toggleEye = () => setEyeShown(!eyeShown);
 
-    const [loginData,setLoginData] = useState({password:"",email:""})
+    const [loginData,setLoginData] = useState({
+        password:"",
+        email:""
+    })
     /* This is the function that is triggered when the user clicks the Submit button. */
     const handleSubmit = (event) => {
         event.preventDefault();
-
-        iniciarSesion('tokenfalso')
-        // axios.post('http://localhost:3000/api/auth',{
-        //     email,
-        //     password
-        // })
-        // .then((response)=>{
-        //     //token
-        //     setIsAuth(response.data.token)
-        // })
-        // .catch((e)=>{
-        //     // Alert datos incorrectos
-        //     console.log(e)
-        // })
+        // iniciarSesion('tokenfalso')
+        axios.post('http://localhost:3000/api/auth',{
+            email:loginData.email,
+            password:loginData.password
+        })
+        .then((response)=>{
+            //token
+            // console.log(response.data)
+            iniciarSesion(response.data.token)
+        })
+        .catch((e)=>{
+            // Alert datos incorrectos
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Correo o contraseña incorrectos',
+              })
+            console.log(e)
+        })
         
     }
 
@@ -57,7 +66,7 @@ const Login = () => {
         </div>
 
         <div className="right-side">
-            <form onSubmit={handleSubmit} className="form">
+            <form onSubmit={(e)=>handleSubmit(e)} className="form">
                 <h1>Bienvenido a INDEREQ</h1>
                 <h2>Iniciar sesión</h2>
 

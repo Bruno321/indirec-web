@@ -1,4 +1,4 @@
-input, select{
+.registrarDeportista-input, select{
     border-color: #E3E2E2;
     border-width: 1px;
     border-radius: 5px;
@@ -10,11 +10,11 @@ input, select{
     padding: 0px 20px;
 }
 
-input[type=submit], select, input[type=file]::-webkit-file-upload-button{
+.registrarDeportista-input[type=submit], select, input[type=file]::-webkit-file-upload-button{
     cursor: pointer;
 }
 
-input[type=file]{
+.registrarDeportista-input[type=file]{
     background-color: #F0F2F3;
     padding: 0px;
 }
