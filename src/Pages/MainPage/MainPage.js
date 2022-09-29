@@ -9,16 +9,15 @@ const MainPage = () => {
 
   return (
     <>
-      <Header/>
       <div className="mainPage-container">
+        <MenuDropDown/>
         <div className="mainPage-body">
-          <MenuDropDown/>
+          <Header/>
           <div className="content-container">
             <MainPageRenderManager/>
           </div>
         </div>
       </div>
-      <Footer/>
     </>
   );
 };

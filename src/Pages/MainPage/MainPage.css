@@ -1,10 +1,18 @@
 .mainPage-body{
     display: flex;
-    flex-direction:row;
+    flex-direction:column;
+    background-color: #E8E8E8;
+    width: 100%;
 }
 
+.mainPage-container{
+    display: flex;
+}
 .content-container{
-    width: 100%;
+    width: 97%;
     padding: 10px;
     box-sizing: border-box;
+    background-color: white;
+    margin: 20px;
+    min-height: 85vh;
 }
