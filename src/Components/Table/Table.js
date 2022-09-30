@@ -80,13 +80,13 @@ const Table = (props) => {
                         datos.map( (element, index) => 
                         <tr key={index}>
                             <td>{element.expediente}</td>
-                            <td>{element.nombre}</td>
+                            <td>{element.nombres}</td>
                             <td>{element.apellidos}</td>
                             <td>{element.facultad}</td>
                             <td>{element.correo}</td>
                             <td>{element.telefono}</td>
                             <td>{element.telefonoEmergencia}</td>
-                            <td>{element.noJugador}</td>
+                            <td>{element.numJugador}</td>
                             <td className="container-edits"> 
                                 <img src={iconEdit} className='icons'/>
                                 <img src={iconDelete} className='icons delete'/> 

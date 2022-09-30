@@ -58,25 +58,26 @@ const MainPageRenderManager = () => {
 
     // Los fetch ocurren cada que screen se actualiza (depende el valor de screen es a que ruta se hara)
     useEffect(()=>{
+        console.log(data)
+        setData([])
         if(screen===0){
             axios.get('http://localhost:3000/api/deportistas',{headers:{"Access-Control-Allow-Origin":null,'Authorization': `Bearer ${token}`}, mode: 'cors'})
             .then((response)=>{
-                console.log(response.data.data)
                 setData(response.data.data)
             })
             .catch((e)=>{
                 console.log(e)
             })
         }
-        if(screen===1){
-            axios.get('http://localhost:3000/api/deportistas/asistencias',{headers:{"Access-Control-Allow-Origin":null,'Authorization': `Bearer ${token}`}, mode: 'cors'})
-            .then(()=>{
+        // if(screen===1){
+        //     axios.get('http://localhost:3000/api/deportistas/asistencias',{headers:{"Access-Control-Allow-Origin":null,'Authorization': `Bearer ${token}`}, mode: 'cors'})
+        //     .then(()=>{
     
-            })
-            .catch((e)=>{
-                console.log(e)
-            })
-        }
+        //     })
+        //     .catch((e)=>{
+        //         console.log(e)
+        //     })
+        // }
 
 
     },[screen])

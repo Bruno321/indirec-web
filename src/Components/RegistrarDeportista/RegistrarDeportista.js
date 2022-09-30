@@ -1,10 +1,10 @@
 import React from 'react';
 import Header from '../Header/Header';
-import Footer from '../Footer/Footer';
 //Cargamos los estilos
 import "./RegistrarDeportista.css";
 import { useState } from 'react';
-
+import axios from 'axios';
+import Swal from 'sweetalert2';
 const RegistrarDeportista = () => {
     const [radioButton,setRadioButton] = useState("0")
  
@@ -16,6 +16,7 @@ const RegistrarDeportista = () => {
         facultad:"Facultad de Derecho",
         jugadorSeleccionado:radioButton,
         numSeguroSocial:"",
+        numJugador:"",
         correo:"",
         telefono:"",
         telefonoEmergencia:"",
@@ -30,29 +31,45 @@ const RegistrarDeportista = () => {
     const handleSubmit = (e) => {
         console.log(form)
         e.preventDefault()
-        // let bodyFormData = new FormData();
-        // bodyFormData.append('expediente', form.expediente);
-        // bodyFormData.append('nombres', form.nombres);
-        // bodyFormData.append('apellidos', form.apellidos);
-        // bodyFormData.append('sexo', parseInt(form.sexo));
-        // bodyFormData.append('facultad', form.facultad);
-        // bodyFormData.append('jugadorSeleccionado', form.jugadorSeleccionado);
-        // bodyFormData.append('numSeguroSocial', form.numSeguroSocial);
-        // bodyFormData.append('correo', form.correo);
-        // bodyFormData.append('telefono', form.telefono);
-        // bodyFormData.append('telefonoEmergencia', form.telefonoEmergencia);
-        // bodyFormData.append('deporte', form.deporte);
-        // bodyFormData.append('fotoCardex', form.fotoCardex);
-        // bodyFormData.append('fotoIdentificacionOficial', form.fotoIdentificacionOficial);
-        // bodyFormData.append('foto', form.foto);
+        let bodyFormData = new FormData();
+        bodyFormData.append('expediente', form.expediente);
+        bodyFormData.append('nombres', form.nombres);
+        bodyFormData.append('apellidos', form.apellidos);
+        bodyFormData.append('sexo', parseInt(form.sexo));
+        bodyFormData.append('facultad', form.facultad);
+        bodyFormData.append('jugadorSeleccionado', form.jugadorSeleccionado);
+        bodyFormData.append('numSeguroSocial', form.numSeguroSocial);
+        bodyFormData.append('numJugador', form.numJugador);
+        bodyFormData.append('correo', form.correo);
+        bodyFormData.append('telefono', form.telefono);
+        bodyFormData.append('telefonoEmergencia', form.telefonoEmergencia);
+        bodyFormData.append('deporte', form.deporte);
+        bodyFormData.append('fotoCardex', form.fotoCardex);
+        bodyFormData.append('fotoIdentificacionOficial', form.fotoIdentificacionOficial);
+        bodyFormData.append('foto', form.foto);
         
-        // axios({
-        //     method: "POST",
-        //     url: "https://bolsa-uaq-api-2022.herokuapp.com/api/empresa/registrar",
-        //     data: bodyFormData,
-        //     headers: { "Content-Type": "multipart/form-data","Access-Control-Allow-Origin":null ,'Authorization': `Bearer ${token}`},
-        //     mode: 'cors',
-        // })
+        axios({
+            method: "POST",
+            url: "http://localhost:3000/api/deportistas",
+            data: bodyFormData,
+            headers: { "Content-Type": "multipart/form-data","Access-Control-Allow-Origin":null ,'Authorization': `Bearer ${token}`},
+            mode: 'cors',
+        })
+        .then((response)=>{
+            Swal.fire(
+                'Jugador agregado exitosamente',
+                'Este aparecera en la lista',
+                'success'
+              )
+        })
+        .catch((e)=>{
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Algo salio mal, intenta mas tarde',
+              })
+            console.log(e)
+        })
     }
     return(
         <div>
@@ -71,7 +88,7 @@ const RegistrarDeportista = () => {
                             </div>
                             <div>
                                 <label>No. Seguro Social*</label><br/>
-                                <input type="text"  className="registrarDeportista-input" onChange={(e)=>setForm({...form,expediente:e.target.value})}/>
+                                <input type="text"  className="registrarDeportista-input" onChange={(e)=>setForm({...form,numSeguroSocial:e.target.value})}/>
                             </div>
                         </div>
 
@@ -147,12 +164,12 @@ const RegistrarDeportista = () => {
                             <label >No</label><p></p>
                         </div>
                         <label>Número de jugador*</label><br></br>
-                        <input type="text" className="registrarDeportista-input"/><p></p>
+                        <input type="text" className="registrarDeportista-input" onChange={(e)=>setForm({...form,numJugador:e.target.value})}/><p></p>
 
-                        <label>Subdivisión de deporte*</label><br></br>
+                        {/* <label>Subdivisión de deporte*</label><br></br>
                         <select>
                             <option>xddd</option>
-                        </select>
+                        </select> */}
                     </div>
             <input type="submit" className='CustomButton'  value="Guardar información"/>
                 </form>
