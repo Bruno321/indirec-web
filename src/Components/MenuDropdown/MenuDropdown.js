@@ -5,6 +5,8 @@ import React, {useContext, useState} from "react";
 import ClockIcon from "../../assets/icons/clock-icon.png";
 import RollCallIcon from "../../assets/icons/roll-call-icon.png";
 import FootballIcon from "../../assets/icons/football-icon.png";
+import LogoutIcon from "../../assets/icons/log-out.png";
+import RegisterIcon from "../../assets/icons/register.png";
 // Importar Contextos
 import {NavigationContext} from "../../Context/NavigationContext.js";
 import IndereqLogo from "../../assets/img/indereq-logo.png";
@@ -36,7 +38,7 @@ const MenuDropdown = () => {
           }}>Asistencias</span>
         </div>
         <div className = "block-section" onClick={()=>setScreen(2)}>
-            <img src = {RollCallIcon} className = "logo-section margin-img"/>
+            <img src = {RegisterIcon} className = "logo-section margin-img"/>
           <span className = "title-option margin-lista hover-animation" style ={{
             textDecoration: screen === 2 ? "underline white" : "none",
           }}>Registrar deportista</span>
@@ -48,7 +50,7 @@ const MenuDropdown = () => {
           }}>Pase de lista</span>
         </div>
         <div className = "block-section" onClick={()=>console.log("cerrar sesion")}>
-            <img src = {RollCallIcon} className = "logo-section margin-img"/>
+            <img src = {LogoutIcon} className = "logo-section margin-img"/>
           <span className = "title-option margin-lista hover-animation" style ={{
             textDecoration: screen === 4 ? "underline white" : "none",
           }}>Cerrar sesión</span>

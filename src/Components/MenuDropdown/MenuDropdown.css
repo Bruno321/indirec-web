@@ -6,8 +6,7 @@
 .menu-dropdown{
     background-color: #003070;
     width: 20vw;
-    /* width: 25vw; */
-    height: 100vh;
+    min-height: 100vh;
 }
 
 .indereq-logo{
@@ -21,7 +20,8 @@
     height: 340px;
 }
 .block-section{
-    justify-content: center;
+    justify-content: flex-start ;
+    padding-left: 5%;
     align-items: center;
     display: flex;
     margin-top: 10px;
@@ -47,7 +47,7 @@
     margin-bottom: 25px;
 }
 .title-option{
-    text-align: center;
+    text-align: start;
     font-size: 1.5rem;
     color: #ffffff;
     transition: .2s;
