@@ -2,8 +2,8 @@ import React from "react";
 import "./Table.css";
 import iconDelete from "../../Assets/icons/delete.png";
 import iconEdit from "../../Assets/icons/edit.png";
-import search from "../../Assets/icons/search.png"
-
+import moment from "moment/moment";
+moment.locale('es');
 /**
  * @param datos Se recibe como un arreglo de objetos.
  * @param tipo El tipo de datos especifica a la tabla que campos se renderizan. Los parametros son 'asistencias' o 'deportistas'
@@ -55,9 +55,8 @@ const Table = (props) => {
                                     <th>Facultad</th>
                                     <th>Correo</th>
                                     <th>Teléfono</th>
-                                    <th>Tel. de emergencia</th>
                                     <th>No. Jugador</th>
-                                    <th></th>
+                                    <th>Opciones</th>
                                 </>
                             :
                                 <>
@@ -85,7 +84,6 @@ const Table = (props) => {
                             <td>{element.facultad}</td>
                             <td>{element.correo}</td>
                             <td>{element.telefono}</td>
-                            <td>{element.telefonoEmergencia}</td>
                             <td>{element.numJugador}</td>
                             <td className="container-edits"> 
                                 <img src={iconEdit} className='icons'/>
@@ -94,14 +92,28 @@ const Table = (props) => {
                         </tr>
                     )
                         :
-                            datos.map( (element, index) => 
-                                <tr key={index}>
-                                    <td>{element.nombre}</td>
-                                    <td>{element.apellidos}</td>
-                                    <td>{element.fecha}</td>
-                                    <td>{element.horaEntrada}</td>
-                                    <td>{element.horaSalida}</td>
-                                </tr>
+                            // datos.map( (element, index) => 
+                            //     <tr key={index}>
+                            //         <td>{element.nombre}</td>
+                            //         <td>{element.apellidos}</td>
+                            //         <td>{moment(element.fecha).format("dddd, MMMM D, YYYY")}</td>
+                            //         <td>{moment(element.horaEntrada).format("h:mm a")}</td>
+                            //         <td>{moment(element.horaSalida).format("h:mm a")}</td>
+                            //     </tr>
+                            // )
+                            datos.map( (element, index) => {
+                                return (
+                                    <>
+                                    <tr key={index} >
+                                        <td>{element.deportistum ? element.deportistum.nombres : null}</td>
+                                        <td>{element.deportistum ? element.deportistum.apellidos : null}</td>
+                                        <td>{moment(element.fecha).format("dddd, MMMM D, YYYY")}</td>
+                                        <td>{moment(element.horaEntrada).format("h:mm a")}</td>
+                                        <td>{moment(element.horaSalida).format("h:mm a")}</td>
+                                    </tr>
+                                    </>
+                                )
+                            }
                             )
                     }
                     </>

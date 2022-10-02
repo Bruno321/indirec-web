@@ -10,7 +10,6 @@ const QRScanner = () => {
     const {setScreen} = useContext(NavigationContext)
     return (
         <div className='qr-container'>
-            <h1>Bienvenido!</h1>
             <h2>Por favor, escanea el QR</h2>
             {allowRecord  ?  
             <QrReader
@@ -21,6 +20,7 @@ const QRScanner = () => {
 
                     let parsed = JSON.parse(result?.text)
                     if(parsed.id && parsed.nombreC && parsed.fecha){
+                      //Aqui va el post
                         Swal.fire({
                             title: '<h1 class="modal-status">Escaneo exitoso</h1>',
                             html:
