@@ -9,6 +9,7 @@ import LogoutIcon from "../../assets/icons/log-out.png";
 import RegisterIcon from "../../assets/icons/register.png";
 // Importar Contextos
 import {NavigationContext} from "../../Context/NavigationContext.js";
+import { LoginContext } from "../../Context/LoginContext";
 import IndereqLogo from "../../assets/img/indereq-logo.png";
 import "./MenuDropdown.css";
 
@@ -16,6 +17,7 @@ import "./MenuDropdown.css";
 const MenuDropdown = () => {
 
   const {screen, setScreen} = useContext(NavigationContext);
+  const {cerrarSesion} = useContext(LoginContext);
 
   return (
     <aside className="menu-dropdown">
@@ -49,7 +51,7 @@ const MenuDropdown = () => {
             textDecoration: screen === 3 ? "underline white" : "none",
           }}>Pase de lista</span>
         </div>
-        <div className = "block-section" onClick={()=>console.log("cerrar sesion")}>
+        <div className = "block-section" onClick={()=>cerrarSesion()}>
             <img src = {LogoutIcon} className = "logo-section margin-img"/>
           <span className = "title-option margin-lista hover-animation" style ={{
             textDecoration: screen === 4 ? "underline white" : "none",
