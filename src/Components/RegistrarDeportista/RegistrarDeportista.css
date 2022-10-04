@@ -80,6 +80,8 @@
     margin: 8px;
     padding: 15px;
     width: 300px;
-    left: calc(40%);
+    left: calc(50%);
     cursor: pointer;
+    position: absolute;
+    margin-top: calc(400px);
 }

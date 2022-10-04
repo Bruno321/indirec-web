@@ -171,7 +171,7 @@ const RegistrarDeportista = () => {
                             <option>xddd</option>
                         </select> */}
                     </div>
-            <input type="submit" className='CustomButton'  value="Guardar información"/>
+                    <input type="submit" className='CustomButton'  value="Guardar información"/>
                 </form>
             </div>
             </div>
