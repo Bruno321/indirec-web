@@ -13,6 +13,9 @@
     margin: 5px;
     font-size: 2.5rem;
 }
+.title-escanearQR{
+    font-weight: 500;
+}
 .qr{
     width: 50%;
 }

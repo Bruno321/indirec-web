@@ -78,13 +78,13 @@ const Table = (props) => {
                         ?   
                         datos.map( (element, index) => 
                         <tr key={index}>
-                            <td>{element.expediente}</td>
-                            <td>{element.nombres}</td>
-                            <td>{element.apellidos}</td>
-                            <td>{element.facultad}</td>
-                            <td>{element.correo}</td>
-                            <td>{element.telefono}</td>
-                            <td>{element.numJugador}</td>
+                            <td className = "td-font-weight">{element.expediente}</td>
+                            <td className = "td-font-weight">{element.nombres}</td>
+                            <td className = "td-font-weight">{element.apellidos}</td>
+                            <td className = "td-font-weight">{element.facultad}</td>
+                            <td className = "td-font-weight">{element.correo}</td>
+                            <td className = "td-font-weight">{element.telefono}</td>
+                            <td className = "td-font-weight">{element.numJugador}</td>
                             <td className="container-edits"> 
                                 <img src={iconEdit} className='icons'/>
                                 <img src={iconDelete} className='icons delete'/> 

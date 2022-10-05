@@ -31,7 +31,7 @@ const QRScanner = () => {
    
     return (
         <div className='qr-container'>
-            <h2>Por favor, escanea el QR</h2>
+            <h2 className = "title-escanearQR">Por favor, escanea el QR</h2>
             {allowRecord  ?  
             <QrReader
             onResult={(result, error) => {

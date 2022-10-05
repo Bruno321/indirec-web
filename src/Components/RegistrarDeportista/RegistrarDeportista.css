@@ -1,5 +1,4 @@
 .registrarDeportista-input, select{
-    border-color: #E3E2E2;
     border-width: 1px;
     border-radius: 5px;
     background-color: #FFFF;
@@ -10,16 +9,23 @@
     padding: 0px 20px;
 }
 
+.registrarDeportista-input[type=text], select, input[type=e-mail]{
+    border-color: #CCCCCC;
+    border-style: solid;
+    box-shadow: 0px 0px 2px rgba(66,66,66,.73);
+}
+
 .registrarDeportista-input[type=submit], select, input[type=file]::-webkit-file-upload-button{
     cursor: pointer;
 }
 
 .registrarDeportista-input[type=file]{
-    background-color: #F0F2F3;
+    background-color: transparent;
     padding: 0px;
 }
 
 .obtenerQr{
+    color: #000;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -27,6 +33,9 @@
     background-color: #F0F2F3;
     padding-top: 40px;
     padding-bottom: 40px;
+}
+.titleRegister{
+    font-weight: 500;
 }
 
 .form-izquierda{
@@ -83,5 +92,5 @@
     left: calc(50%);
     cursor: pointer;
     position: absolute;
-    margin-top: calc(400px);
+    margin-top: calc(385px);
 }
