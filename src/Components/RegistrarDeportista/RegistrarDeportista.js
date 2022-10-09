@@ -2,9 +2,14 @@ import React from 'react';
 import Header from '../Header/Header';
 //Cargamos los estilos
 import "./RegistrarDeportista.css";
-import { useState } from 'react';
+// Se importa el useState y el useRef
+import { useState} from 'react';
+// Se importa axios para subir la información a la BD
 import axios from 'axios';
+// Se importa Sweet Alert para las alertas de Javascript
 import Swal from 'sweetalert2';
+// Se implmentan imagenes
+import ImgDocumentFiles from '../../Assets/icons/document-files.png';
 const RegistrarDeportista = () => {
     const [radioButton,setRadioButton] = useState("0")
  
@@ -70,6 +75,45 @@ const RegistrarDeportista = () => {
               })
             console.log(e)
         })
+    }
+    const [kardex, setKardex] = useState(0);
+    const [INE, setINE] = useState(0);
+    const [photo, setPhoto] = useState(0);
+    const handleAnswerKardex = () => {
+        if(kardex === 0){
+            return(
+                <span className = "custom-text text-INE">No se ha seleccionado algún archivo.</span>
+            );
+        }
+        if(kardex === 1){
+            return(
+            <span className = "custom-text text-INE">¡Kardex listo para subirse!</span>
+            );
+        }
+    }
+    const handleAnswerINE = () => {
+        if(INE === 0){
+            return(
+                <span className = "custom-text text-INE">No se ha seleccionado algún archivo.</span>
+            );
+        }
+        if(INE === 1){
+            return(
+            <span className = "custom-text text-INE">ID lista para subirse!</span>
+            );
+        }
+    }
+    const handleAnswerPhoto = () => {
+        if(photo === 0){
+            return(
+                <span className = "custom-text text-INE">No se ha seleccionado algún archivo.</span>
+            );
+        }
+        if(photo === 1){
+            return(
+            <span className = "custom-text text-INE">¡Foto lista para subirse!</span>
+            );
+        }
     }
     return(
         <div>
@@ -140,13 +184,24 @@ const RegistrarDeportista = () => {
                         </select><p></p>
                         
                         <label>Kárdex*</label><br/>
-                        <input type="file" className="registrarDeportista-input" onChange={(e)=>setForm({...form,fotoCardex:e.target.files[0]})}/><p></p>
-                        
+                        <input type="file" accept = ".pdf, .jpg" name = "file" id = "file" className="registrarDeportista-input inputfile" onChange={(e)=>setForm({...form,fotoCardex:e.target.files[0]})}/><p></p>
+                        <label htmlFor="file" className = "label-input-file label-kardex" onClick={()=>setKardex(1)}><img src = {ImgDocumentFiles} className = "document-icon"/>&nbsp; Subir archivo</label>
+                            {handleAnswerKardex()}
+                        <br/>
+                            {/* Cosas que puedo hacer: un useState de True y False, donde True diga en el span que el archivo se subió y si no, que no. */}
                         <label>Identificación oficial*</label><br/>
-                        <input type="file" className="registrarDeportista-input" onChange={(e)=>setForm({...form,fotoIdentificacionOficial:e.target.files[0]})}/><p></p>
+                        <input type="file" accept = ".pdf, .jpg" name = "file" id = "file" className="registrarDeportista-input inputfile" onChange={(e)=>{
+                            setForm({...form,fotoIdentificacionOficial:e.target.files[0]});
+                             }}/><p></p>
+                        <label htmlFor="file" className = "label-input-file label-INE" onClick={()=>setINE(1)}><img src = {ImgDocumentFiles} className = "document-icon"/>&nbsp; Subir archivo</label>
+                            {handleAnswerINE()}
+                        <br/>
                         
                         <label>Foto del deportista*</label><br/>
-                        <input type="file" className="registrarDeportista-input" onChange={(e)=>setForm({...form,foto:e.target.files[0]})}/><p></p>
+                        <input type="file" accept = ".pdf, .jpg" name = "file" id = "file" className="registrarDeportista-input inputfile" onChange={(e)=>setForm({...form,foto:e.target.files[0]})}/><p></p>
+                        <label htmlFor="file" className = "label-input-file label-foto" onClick={()=>setPhoto(1)}><img src = {ImgDocumentFiles} className = "document-icon"/>&nbsp; Subir archivo</label>
+                        {handleAnswerPhoto()}
+                        <br/>
                     </div>
 
                     <div className='form-derecha'>

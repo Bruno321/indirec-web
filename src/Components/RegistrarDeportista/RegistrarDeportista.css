@@ -24,6 +24,26 @@
     padding: 0px;
 }
 
+.registrarDeportista-input[type="file"]{
+    display: none;
+}
+.label-input-file{
+    height: 30px;
+    width: 225px;
+    background-color: #FFFFFF;
+    /* position: absolute; */
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    color: #939191;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #C7C5C5;
+}
+.custom-text{
+    font-size: 13px;
+    font-weight: 300;
+}
 .obtenerQr{
     color: #000;
     display: flex;
