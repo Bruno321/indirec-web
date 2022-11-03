@@ -37,8 +37,16 @@ h3{
     cursor: pointer;
 }
 
+.edit:hover{
+    filter: drop-shadow(0 0 0 green); 
+}
+
 .delete:hover{
     filter: opacity(0.5) drop-shadow(0 0 0 red); 
+}
+
+.moreinfo:hover{
+    filter: drop-shadow(0 0 0 yellow); 
 }
 
 #data tr:nth-child(even){background-color: #f2f2f2;}
@@ -68,6 +76,11 @@ h3{
     width: 32px;
     height: 32px;
     margin-left: 10px;
+}
+
+.moreinfo{
+    width: 25px;
+    height: 25px;
 }
 
 .img:hover{

@@ -2,6 +2,7 @@ import React from "react";
 import "./Table.css";
 import iconDelete from "../../Assets/icons/delete.png";
 import iconEdit from "../../Assets/icons/edit.png";
+import iconMoreInfo from "../../Assets/icons/more-info.png";
 import moment from "moment/moment";
 moment.locale('es');
 /**
@@ -55,6 +56,7 @@ const Table = (props) => {
                                     <th>Facultad</th>
                                     <th>Correo</th>
                                     <th>Teléfono</th>
+                                    <th>Tel. Emergencias</th>
                                     <th>No. Jugador</th>
                                     <th>Opciones</th>
                                 </>
@@ -84,10 +86,12 @@ const Table = (props) => {
                             <td className = "td-font-weight">{element.facultad}</td>
                             <td className = "td-font-weight">{element.correo}</td>
                             <td className = "td-font-weight">{element.telefono}</td>
+                            <td className = "td-font-weight">{element.telefonoEmergencia}</td>
                             <td className = "td-font-weight">{element.numJugador}</td>
                             <td className="container-edits"> 
-                                <img src={iconEdit} className='icons'/>
-                                <img src={iconDelete} className='icons delete'/> 
+                                <img title="Editar" src={iconEdit} className='icons edit'/>
+                                <img title="Eliminar" src={iconDelete} className='icons delete'/>
+                                <img title="Más información" src={iconMoreInfo} className='icons moreinfo'/>
                             </td>
                         </tr>
                     )
