@@ -11,7 +11,10 @@ import Swal from 'sweetalert2';
 // Se implmentan imagenes
 import ImgDocumentFiles from '../../Assets/icons/document-files.png';
 const RegistrarDeportista = () => {
-    const [radioButton,setRadioButton] = useState("0")
+    const [radioButton,setRadioButton] = useState("0");
+    const [kardex, setKardex] = useState(0);
+    const [INE, setINE] = useState(0);
+    const [photo, setPhoto] = useState(0);
  
     const [form,setForm] = useState({
         expediente:"",
@@ -19,66 +22,98 @@ const RegistrarDeportista = () => {
         apellidos:"",
         sexo: "0",
         facultad:"Facultad de Derecho",
-        jugadorSeleccionado:radioButton,
-        numSeguroSocial:"",
-        numJugador:"",
         correo:"",
         telefono:"",
         telefonoEmergencia:"",
+        numSeguroSocial:"",
+        jugadorSeleccionado:radioButton,
+        numJugador:0,
         deporte:"Futbol",
-        fotoCardex:"",
         fotoIdentificacionOficial:"",
-        foto:""
+        foto:"",
+        fotoCardex:"",
     })
 
     const token = localStorage.getItem('token')
 
     const handleSubmit = (e) => {
-        console.log(form)
+        //Se valida si los campos del formulario estan completos
         e.preventDefault()
-        let bodyFormData = new FormData();
-        bodyFormData.append('expediente', form.expediente);
-        bodyFormData.append('nombres', form.nombres);
-        bodyFormData.append('apellidos', form.apellidos);
-        bodyFormData.append('sexo', parseInt(form.sexo));
-        bodyFormData.append('facultad', form.facultad);
-        bodyFormData.append('jugadorSeleccionado', form.jugadorSeleccionado);
-        bodyFormData.append('numSeguroSocial', form.numSeguroSocial);
-        bodyFormData.append('numJugador', form.numJugador);
-        bodyFormData.append('correo', form.correo);
-        bodyFormData.append('telefono', form.telefono);
-        bodyFormData.append('telefonoEmergencia', form.telefonoEmergencia);
-        bodyFormData.append('deporte', form.deporte);
-        bodyFormData.append('fotoCardex', form.fotoCardex);
-        bodyFormData.append('fotoIdentificacionOficial', form.fotoIdentificacionOficial);
-        bodyFormData.append('foto', form.foto);
-        
-        axios({
-            method: "POST",
-            url: "http://localhost:3000/api/deportistas",
-            data: bodyFormData,
-            headers: { "Content-Type": "multipart/form-data","Access-Control-Allow-Origin":null ,'Authorization': `Bearer ${token}`},
-            mode: 'cors',
-        })
-        .then((response)=>{
-            Swal.fire(
-                'Jugador agregado exitosamente',
-                'Este aparecera en la lista',
-                'success'
-              )
-        })
-        .catch((e)=>{
+        if(validarCampos()){
+            console.log(form)
+            let bodyFormData = new FormData();
+            bodyFormData.append('expediente', form.expediente);
+            bodyFormData.append('nombres', form.nombres);
+            bodyFormData.append('apellidos', form.apellidos);
+            bodyFormData.append('sexo', parseInt(form.sexo));
+            bodyFormData.append('facultad', form.facultad);
+            bodyFormData.append('jugadorSeleccionado', form.jugadorSeleccionado);
+            bodyFormData.append('numSeguroSocial', form.numSeguroSocial);
+            bodyFormData.append('numJugador', form.numJugador);
+            bodyFormData.append('correo', form.correo);
+            bodyFormData.append('telefono', form.telefono);
+            bodyFormData.append('telefonoEmergencia', form.telefonoEmergencia);
+            bodyFormData.append('deporte', form.deporte);
+            bodyFormData.append('fotoCardex', form.fotoCardex);
+            bodyFormData.append('fotoIdentificacionOficial', form.fotoIdentificacionOficial);
+            bodyFormData.append('foto', form.foto);
+            
+            axios({
+                method: "POST",
+                url: "http://localhost:3000/api/deportistas",
+                data: bodyFormData,
+                headers: { "Content-Type": "multipart/form-data","Access-Control-Allow-Origin":null ,'Authorization': `Bearer ${token}`},
+                mode: 'cors',
+            })
+            .then((response)=>{
+                Swal.fire(
+                    'Jugador agregado exitosamente',
+                    'Este aparecera en la lista',
+                    'success'
+                  )
+            })
+            .catch((e)=>{
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Algo salio mal, intenta mas tarde',
+                })
+                console.log(e)
+            })
+        }
+    }
+    
+    const validarCampos = () => {
+        let camposCorrectos = true;
+
+        //Validación del correo electrónico
+        let correoElectronico = document.getElementById('correoElectronico').value;
+        if (!(/^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i).test(correoElectronico)){
+            camposCorrectos = false;
             Swal.fire({
                 icon: 'error',
                 title: 'Oops...',
-                text: 'Algo salio mal, intenta mas tarde',
-              })
-            console.log(e)
-        })
+                text: 'El correo electrónico no es correcto',
+            })
+        }
+
+        //Validar que los campos de inputs file no esten vacios
+        let kardex = document.getElementById('kardex').value;
+        let identificacionOficial = document.getElementById('identificacionFile').value;
+        let fotoDeportista = document.getElementById('fotoDeportista').value;
+
+        if(!kardex || !identificacionOficial || !fotoDeportista){
+            camposCorrectos = false;
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'El kárdex, foto de deporitasta o la identificación ofical faltan por subir',
+            })
+        }
+
+        return camposCorrectos;
     }
-    const [kardex, setKardex] = useState(0);
-    const [INE, setINE] = useState(0);
-    const [photo, setPhoto] = useState(0);
+
     const handleAnswerKardex = () => {
         if(kardex === 0){
             return(
@@ -115,6 +150,7 @@ const RegistrarDeportista = () => {
             );
         }
     }
+
     return(
         <div>
             <div className='obtenerQr'>
@@ -128,32 +164,32 @@ const RegistrarDeportista = () => {
                         <div className='form-primero'>
                             <div>
                                 <label>Expediente*</label><br/>
-                                <input type="text" className="registrarDeportista-input" onChange={(e)=>setForm({...form,expediente:e.target.value})}/>
+                                <input type="text" id='expediente' name='expediente' className="registrarDeportista-input" maxLength="6" onChange={(e)=>setForm({...form,expediente:e.target.value})} required/>
                             </div>
                             <div>
                                 <label>No. Seguro Social*</label><br/>
-                                <input type="text"  className="registrarDeportista-input" onChange={(e)=>setForm({...form,numSeguroSocial:e.target.value})}/>
+                                <input type="text"  className="registrarDeportista-input" onChange={(e)=>setForm({...form,numSeguroSocial:e.target.value})} required/>
                             </div>
                         </div>
 
                         <div className='form-segundo'>
                             <label>Nombre(s)*</label><br/>
-                            <input type="text"  className="registrarDeportista-input" onChange={(e)=>setForm({...form,nombres:e.target.value})}/><p></p>
+                            <input type="text"  className="registrarDeportista-input" onChange={(e)=>setForm({...form,nombres:e.target.value})} required/><p></p>
                             <label>Apellidos* (Apellido Paterno, Apellido Materno)</label><br/>
-                            <input type="text" className="registrarDeportista-input" onChange={(e)=>setForm({...form,apellidos:e.target.value})}/><p></p>
+                            <input type="text" className="registrarDeportista-input" onChange={(e)=>setForm({...form,apellidos:e.target.value})} required/><p></p>
                             <label>Correo electrónico*</label><br/>
-                            <input type="e-mail" className="registrarDeportista-input" onChange={(e)=>setForm({...form,correo:e.target.value})}/><p></p>
+                            <input type="e-mail" className="registrarDeportista-input" id='correoElectronico' onChange={(e)=>setForm({...form,correo:e.target.value})} required/><p></p>
                         </div>
 
                         <div className='form-tercero'>
                             <div>
                                 <label>Teléfono celular*</label><br/>
-                                <input type="text" className="registrarDeportista-input" onChange={(e)=>setForm({...form,telefono:e.target.value})}/>
+                                <input type="text" className="registrarDeportista-input" onChange={(e)=>setForm({...form,telefono:e.target.value})} required/>
                             </div>
 
                             <div>
                                 <label>Teléfono de emergencia*</label><br/>
-                                <input type="text" className="registrarDeportista-input" onChange={(e)=>setForm({...form,telefonoEmergencia:e.target.value})}/>
+                                <input type="text" className="registrarDeportista-input" onChange={(e)=>setForm({...form,telefonoEmergencia:e.target.value})} required/>
                             </div>
                         </div>
                     </div>
@@ -183,25 +219,32 @@ const RegistrarDeportista = () => {
                             <option value="1">Femenino</option>
                         </select><p></p>
                         
+
+                        {/* Apartado de los file inputs */}
                         <label>Kárdex*</label><br/>
-                        <input type="file" accept = ".pdf, .jpg" name = "file" id = "file" className="registrarDeportista-input inputfile" onChange={(e)=>setForm({...form,fotoCardex:e.target.files[0]})}/><p></p>
-                        <label htmlFor="file" className = "label-input-file label-kardex" onClick={()=>setKardex(1)}><img src = {ImgDocumentFiles} className = "document-icon"/>&nbsp; Subir archivo</label>
+                        {/* <input type="file" accept = ".pdf, .png, .jpg, .jpeg" name = "file" id = "file" className="registrarDeportista-input inputfile" onChange={(e)=>setForm({...form,fotoCardex:e.target.files[0]})}/><p></p> */}
+                        <input type="file" accept = ".pdf, .png, .jpg, .jpeg" name="kardex" id="kardex" className="registrarDeportista-input inputfile" onChange={(e)=>{console.log(e.target.files[0]); setForm({...form, fotoCardex: e.target.files[0]})}}/><p></p>
+                        <label htmlFor="kardex" className = "label-input-file label-kardex" onClick={()=>setKardex(1)}><img src = {ImgDocumentFiles} className = "document-icon"/>&nbsp; Subir archivo</label>
                             {handleAnswerKardex()}
                         <br/>
                             {/* Cosas que puedo hacer: un useState de True y False, donde True diga en el span que el archivo se subió y si no, que no. */}
                         <label>Identificación oficial*</label><br/>
-                        <input type="file" accept = ".pdf, .jpg" name = "file" id = "file" className="registrarDeportista-input inputfile" onChange={(e)=>{
+                        {/* <input type="file" accept = ".pdf, .png, .jpg, .jpeg" name = "file" id = "file" className="registrarDeportista-input inputfile" onChange={(e)=>{
                             setForm({...form,fotoIdentificacionOficial:e.target.files[0]});
-                             }}/><p></p>
-                        <label htmlFor="file" className = "label-input-file label-INE" onClick={()=>setINE(1)}><img src = {ImgDocumentFiles} className = "document-icon"/>&nbsp; Subir archivo</label>
+                             }}/><p></p> */}
+                        <input type="file" accept=".pdf, .png, .jpg, .jpeg" name="identificacionFile" id="identificacionFile" className="registrarDeportista-input inputfile" onChange={(e)=>{console.log(e.target.files[0]); setForm({...form, fotoIdentificacionOficial: e.target.files[0]})}}/><p></p>
+                        <label htmlFor="identificacionFile" className = "label-input-file label-INE" onClick={()=>setINE(1)}><img src = {ImgDocumentFiles} className = "document-icon"/>&nbsp; Subir archivo</label>
                             {handleAnswerINE()}
                         <br/>
-                        
+                             
                         <label>Foto del deportista*</label><br/>
-                        <input type="file" accept = ".pdf, .jpg" name = "file" id = "file" className="registrarDeportista-input inputfile" onChange={(e)=>setForm({...form,foto:e.target.files[0]})}/><p></p>
-                        <label htmlFor="file" className = "label-input-file label-foto" onClick={()=>setPhoto(1)}><img src = {ImgDocumentFiles} className = "document-icon"/>&nbsp; Subir archivo</label>
-                        {handleAnswerPhoto()}
+                        {/* <input type="file" accept = ".pdf, .png, .jpg, .jpeg" name = "file" id = "file" className="registrarDeportista-input inputfile" onChange={(e)=>setForm({...form,foto:e.target.files[0]})}/><p></p> */}
+                        <input type="file" accept = ".pdf, .png, .jpg, .jpeg" name = "fotoDeportista" id = "fotoDeportista" className="registrarDeportista-input inputfile" onChange={(e)=> {console.log(e.target.files[0]); setForm({...form, foto: e.target.files[0]})}}/><p></p>
+                        <label htmlFor="fotoDeportista" className = "label-input-file label-foto" onClick={()=>setPhoto(1)}><img src = {ImgDocumentFiles} className = "document-icon"/>&nbsp; Subir archivo</label>
+                            {handleAnswerPhoto()}
                         <br/>
+                        {/* ####################### */}
+
                     </div>
 
                     <div className='form-derecha'>
@@ -219,7 +262,7 @@ const RegistrarDeportista = () => {
                             <label >No</label><p></p>
                         </div>
                         <label>Número de jugador*</label><br></br>
-                        <input type="text" className="registrarDeportista-input" onChange={(e)=>setForm({...form,numJugador:e.target.value})}/><p></p>
+                        <input type="text" className="registrarDeportista-input" onChange={(e)=>setForm({...form,numJugador:e.target.value})} required/><p></p>
 
                         {/* <label>Subdivisión de deporte*</label><br></br>
                         <select>
