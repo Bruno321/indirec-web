@@ -1,9 +1,14 @@
 import React from "react";
 import "./Table.css";
+
 import iconDelete from "../../Assets/icons/delete.png";
 import iconEdit from "../../Assets/icons/edit.png";
 import iconMoreInfo from "../../Assets/icons/more-info.png";
+
+import MoreInfo from "../MoreInfo/MoreInfo.js"
+
 import moment from "moment/moment";
+import { useState } from "react";
 moment.locale('es');
 /**
  * @param datos Se recibe como un arreglo de objetos.
@@ -33,6 +38,9 @@ moment.locale('es');
 
 const Table = (props) => {
     const {datos, tipo} = props;
+
+    //State para mostrar MAS INFORMACION de un deportista
+    const [buttonMoreInfo, setButtonMoreInfo] = useState(false);
 
     return (
         <div className="container">
@@ -91,7 +99,7 @@ const Table = (props) => {
                             <td className="container-edits"> 
                                 <img title="Editar" src={iconEdit} className='icons edit'/>
                                 <img title="Eliminar" src={iconDelete} className='icons delete'/>
-                                <img title="Más información" src={iconMoreInfo} className='icons moreinfo'/>
+                                <img title="Más información" src={iconMoreInfo} className='icons moreinfo' onClick={()=> setButtonMoreInfo(true)}/>
                             </td>
                         </tr>
                     )
@@ -125,6 +133,7 @@ const Table = (props) => {
                     
                 </tbody>
             </table>
+            <MoreInfo trigger={buttonMoreInfo} setTrigger={setButtonMoreInfo}></MoreInfo>
         </div>
     )
 }
