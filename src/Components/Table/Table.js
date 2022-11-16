@@ -38,9 +38,12 @@ moment.locale('es');
 
 const Table = (props) => {
     const {datos, tipo} = props;
+    // console.log(datos)
+
 
     //State para mostrar MAS INFORMACION de un deportista
     const [buttonMoreInfo, setButtonMoreInfo] = useState(false);
+    const [infoJugador, setInfoJudador] = useState();
 
     return (
         <div className="container">
@@ -99,7 +102,7 @@ const Table = (props) => {
                             <td className="container-edits"> 
                                 <img title="Editar" src={iconEdit} className='icons edit'/>
                                 <img title="Eliminar" src={iconDelete} className='icons delete'/>
-                                <img title="Más información" src={iconMoreInfo} className='icons moreinfo' onClick={()=> setButtonMoreInfo(true)}/>
+                                <img title="Más información" src={iconMoreInfo} className='icons moreinfo' onClick={()=> {setButtonMoreInfo(true); setInfoJudador(index)}}/>
                             </td>
                         </tr>
                     )
@@ -133,7 +136,7 @@ const Table = (props) => {
                     
                 </tbody>
             </table>
-            <MoreInfo trigger={buttonMoreInfo} setTrigger={setButtonMoreInfo}></MoreInfo>
+            <MoreInfo trigger={buttonMoreInfo} setTrigger={setButtonMoreInfo} datos={datos[infoJugador]}></MoreInfo>
         </div>
     )
 }
