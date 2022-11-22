@@ -196,7 +196,7 @@ const RegistrarDeportista = () => {
 
                     <div className='form-medio'>
                         <label>Facultad*</label><br/>
-                        <select value={form.facultad} onChange={(e)=>setForm({...form,facultad:e.target.value})}>
+                        <select value={form.facultad} onChange={(e)=>setForm({...form,facultad:e.target.value})} className="select">
                             <option value="Facultad de Derecho">Facultad de Derecho</option>
                             <option value="Facultad de Enfermería">Facultad de Enfermería</option>
                             <option value="Facultad de Contaduría y administración">Facultad de Contaduría y administración</option>
@@ -214,7 +214,7 @@ const RegistrarDeportista = () => {
                         </select><p></p>
                         
                         <label>Sexo*</label><br/>
-                        <select value={form.sexo} onChange={(e)=>setForm({...form,sexo:e.target.value})}>
+                        <select value={form.sexo} className="select" onChange={(e)=>setForm({...form,sexo:e.target.value})}>
                             <option value="0">Masculino</option>
                             <option value="1">Femenino</option>
                         </select><p></p>
@@ -249,7 +249,7 @@ const RegistrarDeportista = () => {
 
                     <div className='form-derecha'>
                         <label>Deporte*</label><br></br>
-                        <select value={form.deporte} onChange={(e)=>setForm({...form,deporte:e.target.value})}>
+                        <select value={form.deporte} className="select" onChange={(e)=>setForm({...form,deporte:e.target.value})}>
                             <option value="Futbol">Futbol</option>
                             <option value="Basquetball">Basquetball</option>
                         </select><p></p>

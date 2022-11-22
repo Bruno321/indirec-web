@@ -4,6 +4,8 @@ import Table from "../../Components/Table/Table";
 import { NavigationContext } from "../../Context/NavigationContext";
 import axios from "axios";
 import RegistrarDeportista from "../../Components/RegistrarDeportista/RegistrarDeportista";
+import RegistrarEquipo from "../../Components/RegistrarEquipo/RegistrarEquipo";
+
 // let datos = [
 //     {
 //         expediente: '290246',
@@ -52,6 +54,11 @@ const MainPageRenderManager = () => {
         if(screen===3){
             return (
                 <QRScanner />
+            )
+        }
+        if(screen===4){
+            return(
+                <RegistrarEquipo/>
             )
         }
     }

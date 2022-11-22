@@ -1,0 +1,77 @@
+.registroEquipo{
+    width: 100%;
+    /* background-color: rebeccapurple; */
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+    .form-registroEquipo{
+        width: 750px;
+        height: 500px;
+        /* background-color: aquamarine; */
+    }
+        .containerTop-registro{
+            width: 100%;
+            height: 250px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        .containers-input-registroEquipo{
+            width: 340px;
+            height: 60px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            margin: 10px 0px;
+        }
+            .inputs-registro{
+                height: 34px;
+                border-radius: 5px;
+                /* border-style: none; */
+                border: 1px solid black;
+                padding: 5px;
+                box-sizing: border-box;
+            }
+            .radioButtons-registroEquipo{
+                display: flex;
+                flex-direction: row;
+                margin-bottom: 12px;
+            }
+
+                .radioButtons-registroEquipo>input{
+                    margin-left: 10px;
+                    margin-right: 5px;
+                }
+        .containerButtom-registro{
+            width: 100%;
+            height: 250px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+            .container-datosEntrenador, .container-datosAsistente{
+                width: 340px;
+            }
+
+    .container-table-listaJugadores{
+        width: 420px;
+        height: 500px;
+    }
+
+    .containerButton-registroEquipo{
+        width: 100%;
+        height: 30px;
+        display: flex;
+        justify-content: center;
+    }
+        .button-registroEquipo{
+            width: 300px;
+            height: 50px;
+            background-color: #003070;
+            color: white;
+            border-radius: 10px;
+            font-size: medium;
+            border-style: none;
+        }
