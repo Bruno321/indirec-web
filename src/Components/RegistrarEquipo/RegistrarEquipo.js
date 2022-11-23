@@ -1,5 +1,7 @@
 import React from "react";
+import TableJugadoresEquipo from "../TableListaJugadoresEquipo/TableJugadoresEquipo";
 import './RegistrarEquipo.css';
+import PencilAlt from "../../Assets/icons/pencilAlt.png";
 
 const RegistrarEquipo = () => {
     return(
@@ -10,7 +12,7 @@ const RegistrarEquipo = () => {
                     <div className="containerTop-registro">
                         <div className="containers-input-registroEquipo">
                             <label for="nombreEquipo">Nombre del equipo:</label>
-                            <input type='text' id='nombreEquipo' className="inputs-registro" name="nombreEquipo" placeholder="Nombre del equipo"/>
+                            <input type='text' id='nombreEquipo' className="inputs-registro" name="nombreEquipo" placeholder="Nombre del equipo" required/>
                         </div>
                         <div className="containers-input-registroEquipo">
                             <label for="facultad">Facultad:</label>
@@ -82,6 +84,13 @@ const RegistrarEquipo = () => {
                 </form>
                 <div className="container-table-listaJugadores">
                     <p>Lista de jugadores:</p>
+                    <div className="containerTableJugadoresEquipo">
+                        <TableJugadoresEquipo/>
+                    </div>
+                    <div className="btnEditarEquipo">
+                        <img src={PencilAlt}/>
+                        Editar Equipo
+                    </div>
                 </div>
             </div>  
             <div className="containerButton-registroEquipo">

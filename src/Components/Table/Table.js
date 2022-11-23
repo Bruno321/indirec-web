@@ -61,23 +61,23 @@ const Table = (props) => {
                             tipo == 'deportistas'
                             ?   
                                 <>
-                                    <th>Expediente</th>
-                                    <th>Nombre(s)</th>
-                                    <th>Apellido(s)</th>
-                                    <th>Facultad</th>
-                                    <th>Correo</th>
-                                    <th>Teléfono</th>
-                                    <th>Tel. Emergencias</th>
-                                    <th>No. Jugador</th>
-                                    <th>Opciones</th>
+                                    <th className="th">Expediente</th>
+                                    <th className="th">Nombre(s)</th>
+                                    <th className="th">Apellido(s)</th>
+                                    <th className="th">Facultad</th>
+                                    <th className="th">Correo</th>
+                                    <th className="th">Teléfono</th>
+                                    <th className="th">Tel. Emergencias</th>
+                                    <th className="th">No. Jugador</th>
+                                    <th className="th">Opciones</th>
                                 </>
                             :
                                 <>
-                                    <th>Nombre(s)</th>
-                                    <th>Apellido(s)</th>
-                                    <th>Fecha</th>
-                                    <th>Hora de entrada</th>
-                                    <th>Hora de salida</th>
+                                    <th className="th">Nombre(s)</th>
+                                    <th className="th">Apellido(s)</th>
+                                    <th className="th">Fecha</th>
+                                    <th className="th">Hora de entrada</th>
+                                    <th className="th">Hora de salida</th>
                                 </>
                         }
                     </tr>
@@ -91,15 +91,15 @@ const Table = (props) => {
                         ?   
                         datos.map( (element, index) => 
                         <tr key={index}>
-                            <td className = "td-font-weight">{element.expediente}</td>
-                            <td className = "td-font-weight">{element.nombres}</td>
-                            <td className = "td-font-weight">{element.apellidos}</td>
-                            <td className = "td-font-weight">{element.facultad}</td>
-                            <td className = "td-font-weight">{element.correo}</td>
-                            <td className = "td-font-weight">{element.telefono}</td>
-                            <td className = "td-font-weight">{element.telefonoEmergencia}</td>
-                            <td className = "td-font-weight">{element.numJugador}</td>
-                            <td className="container-edits"> 
+                            <td className = "td-font-weight td">{element.expediente}</td>
+                            <td className = "td-font-weight td">{element.nombres}</td>
+                            <td className = "td-font-weight td">{element.apellidos}</td>
+                            <td className = "td-font-weight td">{element.facultad}</td>
+                            <td className = "td-font-weight td">{element.correo}</td>
+                            <td className = "td-font-weight td">{element.telefono}</td>
+                            <td className = "td-font-weight td">{element.telefonoEmergencia}</td>
+                            <td className = "td-font-weight td">{element.numJugador}</td>
+                            <td className="container-edits td"> 
                                 <img title="Editar" src={iconEdit} className='icons edit'/>
                                 <img title="Eliminar" src={iconDelete} className='icons delete'/>
                                 <img title="Más información" src={iconMoreInfo} className='icons moreinfo' onClick={()=> {setButtonMoreInfo(true); setInfoJudador(index)}}/>

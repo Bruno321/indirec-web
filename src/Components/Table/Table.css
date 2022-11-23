@@ -4,13 +4,19 @@
     box-sizing: border-box;
 }
 
-table{
+#data{
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
 }
 
-th, td{
+/* th, td{
+    text-align: center;
+    padding: 10px 20px;
+    font-weight: 500;
+} */
+
+.th, .td{
     text-align: center;
     padding: 10px 20px;
     font-weight: 500;
@@ -55,7 +61,7 @@ h3{
     background-color: rgb(239, 235, 235);
 }
 
-#data th {
+#data .th {
     background-color: #E5E5E5;
 }
 
