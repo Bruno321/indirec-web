@@ -1,14 +1,12 @@
-import React, { useState,useContext } from "react";
-
-import "./Login.css";
-
+import React, { useState, useContext } from "react";
+import { LoginContext } from "../../Context/LoginContext";
+import { login } from '../../Service/Api';
+import Swal from "sweetalert2";
 import logoIndereq from "../../Assets/icons/logo-Indereq.svg";
 import imageMain from "../../Assets/img/image-main.png";
 import eyeOff from "../../Assets/icons/eye-off.svg";
 import eye from "../../Assets/icons/eye.svg";
-import axios from "axios";
-import { LoginContext } from "../../Context/LoginContext";
-import Swal from "sweetalert2";
+import "./Login.css";
 
 const Login = () => {
     const {iniciarSesion} = useContext(LoginContext)
@@ -21,34 +19,27 @@ const Login = () => {
     const toggleEye = () => setEyeShown(!eyeShown);
 
     const [loginData,setLoginData] = useState({
+        email:"",
         password:"",
-        email:""
     })
     /* This is the function that is triggered when the user clicks the Submit button. */
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
-        // iniciarSesion('tokenfalso')
-        axios.post('http://localhost:3000/api/auth',{
-            email:loginData.email,
-            password:loginData.password
-        })
-        .then((response)=>{
-            //token
-            // console.log(response.data)
-            iniciarSesion(response.data.token)
-        })
-        .catch((e)=>{
-            // Alert datos incorrectos
+
+        const {email,password} = loginData;
+        const response = await login(email,password).catch(e => {
             Swal.fire({
                 icon: 'error',
                 title: 'Oops...',
                 text: 'Correo o contraseña incorrectos',
-              })
-            console.log(e)
-        })
-        
-    }
+            })
+            console.log(e);
+        });
 
+        if(response.data.ok){
+            iniciarSesion(response.data.token)
+        }
+    }
 
     return (
         <div className="login-container">
