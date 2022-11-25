@@ -27,7 +27,10 @@ const oInitialState = {
 };
 
 const RegistrarDeportista = () => {
-    const [radioButton,setRadioButton] = useState(0);
+    const [radioButton,setRadioButton] = useState({
+        si: false,
+        no: false
+    });
     const [kardex, setKardex] = useState(false);
     const [INE, setINE] = useState(false);
     const [photo, setPhoto] = useState(false);
@@ -289,10 +292,13 @@ const RegistrarDeportista = () => {
                                 type="radio"
                                 className="registrarDeportista-input"
                                 value={0}
-                                checked={radioButton}
+                                checked={radioButton.si}
                                 onChange={e => {
-                                    setRadioButton(!!e.target.value);
-                                    setForm({...form,jugadorSeleccionado:e.target.value});
+                                    setRadioButton({
+                                        si: true,
+                                        no: false
+                                    });
+                                    setForm({...form,jugadorSeleccionado: 1});
                                 }}
                             />
                             <label >Si</label>
@@ -300,10 +306,13 @@ const RegistrarDeportista = () => {
                                 type="radio"
                                 className="registrarDeportista-input"
                                 value={1}
-                                checked={radioButton}
+                                checked={radioButton.no}
                                 onChange={e => {
-                                    setRadioButton(!!e.target.value);
-                                    setForm({...form,jugadorSeleccionado:e.target.value});
+                                    setRadioButton({
+                                        si: false,
+                                        no: true,
+                                    });
+                                    setForm({...form,jugadorSeleccionado: 0});
                                 }}
                             />
                             <label >No</label><p></p>
