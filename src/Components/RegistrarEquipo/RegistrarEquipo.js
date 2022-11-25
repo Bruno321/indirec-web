@@ -1,9 +1,14 @@
-import React from "react";
+import React, {useState} from "react";
 import TableJugadoresEquipo from "../TableListaJugadoresEquipo/TableJugadoresEquipo";
 import './RegistrarEquipo.css';
 import PencilAlt from "../../Assets/icons/pencilAlt.png";
+import ListaJugadores from "../ListaJugadores/ListaJugadores";
 
 const RegistrarEquipo = () => {
+
+    const [mostrarListaJugadoresEquipo, setMostrarListaJugadoresEquipo] = useState(false);
+    const [listaJugadores, setListaJugadores] = useState([]);
+
     return(
         <div className="container">
             <h3>Registro de Equipo</h3>
@@ -11,11 +16,11 @@ const RegistrarEquipo = () => {
                 <form className="form-registroEquipo">
                     <div className="containerTop-registro">
                         <div className="containers-input-registroEquipo">
-                            <label for="nombreEquipo">Nombre del equipo:</label>
+                            <label htmlFor="nombreEquipo">Nombre del equipo:</label>
                             <input type='text' id='nombreEquipo' className="inputs-registro" name="nombreEquipo" placeholder="Nombre del equipo" required/>
                         </div>
                         <div className="containers-input-registroEquipo">
-                            <label for="facultad">Facultad:</label>
+                            <label htmlFor="facultad">Facultad:</label>
                             <select id="facultad" className="inputs-registro">
                                 <option value="Facultad de Derecho">Facultad de Derecho</option>
                                 <option value="Facultad de Enfermería">Facultad de Enfermería</option>
@@ -34,14 +39,14 @@ const RegistrarEquipo = () => {
                             </select>
                         </div>
                         <div className="containers-input-registroEquipo">
-                            <label for="deporte">Deporte:</label>
+                            <label htmlFor="deporte">Deporte:</label>
                             <select id="deporte" className="inputs-registro">
                                 <option value="Futbol">Futbol</option>
                                 <option value="Basquetball">Basquetball</option>
                             </select>
                         </div>
                         <div className="containers-input-registroEquipo">
-                            <label for="campus">Campus:</label>
+                            <label htmlFor="campus">Campus:</label>
                             <select id="campus" className="inputs-registro">
                                 <option value="Futbol">Juriquilla</option>
                                 <option value="Basquetball">Centro Historico</option>
@@ -51,9 +56,9 @@ const RegistrarEquipo = () => {
                             <label>Categoria:</label>
                             <div className="radioButtons-registroEquipo">
                                 <input type="radio" id="Femenil" name="categoria" value="Femenil"/>
-                                <label for="Femenil">Femenil</label>
+                                <label htmlFor="Femenil">Femenil</label>
                                 <input type="radio" id="Varonil" name="categoria" value="Varonil"/>
-                                <label for="Varonil">Varonil</label>
+                                <label htmlFor="Varonil">Varonil</label>
                             </div>
                         </div>
                     </div>
@@ -61,22 +66,22 @@ const RegistrarEquipo = () => {
                         <div className="container-datosEntrenador">
                             <p>Datos del entrenador:</p>
                             <div className="containers-input-registroEquipo">
-                                <label for="nombreEntrenador">Nombre(s):</label>
+                                <label htmlFor="nombreEntrenador">Nombre(s):</label>
                                 <input type="text" id="nombreEntrenador" className="inputs-registro" name="nombreEntrenador" placeholder="Nombre del entrenador"/>
                             </div>
                             <div className="containers-input-registroEquipo">
-                                <label for="apellidosEntrenador">Apellidos:</label>
+                                <label htmlFor="apellidosEntrenador">Apellidos:</label>
                                 <input type="text" id="apellidosEntrenador" className="inputs-registro" name="apellidosEntrenador" placeholder="Apellidos del entrendador"/>
                             </div>
                         </div>
                         <div className="container-datosAsistente">
                             <p>Datos del asistente:</p>
                             <div className="containers-input-registroEquipo">
-                                <label for="nombreAsistente">Nombre(s):</label>
+                                <label htmlFor="nombreAsistente">Nombre(s):</label>     
                                 <input type="text" id="nombreAsistente" className="inputs-registro" name="nombreAsistente" placeholder="Nombre del asistente"/>
                             </div>
                             <div className="containers-input-registroEquipo">
-                                <label for="apellidosAsistente">Apellidos:</label>
+                                <label htmlFor="apellidosAsistente">Apellidos:</label>
                                 <input type="text" id="apellidosAsistente" className="inputs-registro" name="apellidosAsistente" placeholder="Apellidos del asistente"/>
                             </div>
                         </div>
@@ -85,9 +90,9 @@ const RegistrarEquipo = () => {
                 <div className="container-table-listaJugadores">
                     <p>Lista de jugadores:</p>
                     <div className="containerTableJugadoresEquipo">
-                        <TableJugadoresEquipo/>
+                        <TableJugadoresEquipo listaJugadores={listaJugadores}/>
                     </div>
-                    <div className="btnEditarEquipo">
+                    <div className="btnEditarEquipo" onClick={() => setMostrarListaJugadoresEquipo(true)}>
                         <img src={PencilAlt}/>
                         Editar Equipo
                     </div>
@@ -96,6 +101,10 @@ const RegistrarEquipo = () => {
             <div className="containerButton-registroEquipo">
                 <button className="button-registroEquipo">Registrar Equipo</button>
             </div>
+            {
+                // console.log(listaJugadores)
+            }
+            <ListaJugadores trigger={mostrarListaJugadoresEquipo} setTrigger={setMostrarListaJugadoresEquipo} jugadores={listaJugadores} setJugadores={setListaJugadores}></ListaJugadores>
         </div>
     )
 }

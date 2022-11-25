@@ -1,30 +1,22 @@
 import React from "react";
 import "./TableJugadoresEquipo.css";
 
-const TableJugadoresEquipo = () => {
+const TableJugadoresEquipo = (props) => {
     return(
         <table className="tableEquiposJugadores">
             <tbody>
                 <tr id="headerTableEquipos">
-                    <th>#</th>
-                    <th>Nombre completo</th>
+                    <th className="headerTables">#</th>
+                    <th className="headerTables headerNombreCompleto">Nombre completo</th>
                 </tr>
-                <tr className="trEquiposJugadores">
-                    <td className="trNum">7</td>
-                    <td className="trNombre">Alan Ronaldo</td>
-                </tr>
-                <tr className="trEquiposJugadores">
-                    <td className="trNum">7</td>
-                    <td className="trNombre">Alan Ronaldo</td>
-                </tr>
-                <tr className="trEquiposJugadores">
-                    <td className="trNum">7</td>
-                    <td className="trNombre">Alan Ronaldo</td>
-                </tr>
-                <tr className="trEquiposJugadores">
-                    <td className="trNum">7</td>
-                    <td className="trNombre">Alan Ronaldo</td>
-                </tr>
+                {
+                    props.listaJugadores.map(element => (
+                        <tr key={element.num} className="trEquiposJugadores">
+                            <td className="trNum">{element.num}</td>
+                            <td className="trNombre">{element.nombre}</td>
+                        </tr>
+                    ))
+                }
             </tbody>
         </table>
     )

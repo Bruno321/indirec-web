@@ -1,0 +1,120 @@
+.containerListaJugadores{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, .5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 50px;
+    box-sizing: border-box;
+}
+    .listaJugadores{
+        width: 100%;
+        height: 100%;
+        background-color: white;
+        padding: 20px 40px;
+        box-sizing: border-box;
+    }
+        .containerTableListaJugadores{
+            width: 100%;
+            height: calc(100vh - 250px);
+            /* background-color: grey; */
+            border-radius: 10px 10px 0px 0px;
+            margin-bottom: 20px;
+            overflow: auto;
+        }
+
+            .tableListaJugadoresEquipo{
+                width: 100%;
+                text-align: center;
+                border-collapse: collapse;
+            }
+                .headerTables{
+                    font-weight: 400;
+                }
+
+                .headerNumJugador{
+                    font-weight: 400;
+                }
+
+                .headerNombreCompleto{
+                    text-align: left;
+                }
+
+                .headerAcciones{
+                    width: 200px;
+                    /* background-color: aqua  ; */
+                }
+                .rowJugadoresEquipoHeader{
+                    background-color: #003070;
+                    color: white;
+                    height: 40px;
+                   
+                }
+
+                .rowJugadorEquipo{
+                    /* background-color: aqua; */
+                    height: 34px;
+                    border-bottom: 1px solid rgba(0, 0, 0, 0.211);
+                    border-left: 1px solid rgba(0, 0, 0, 0.211);
+                    border-right: 1px solid rgba(0, 0, 0, 0.211);
+                }
+
+
+
+        .containerAccionAgregar{
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+
+            .colorearFila{
+                background-color: rgba(131,131,131,0.35);
+            }
+
+            .descolorearFila{
+                background-color: #fff;
+            }
+
+        .containerIconsAcciones{
+            width: 100%;
+            /* background-color: #003070; */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+            .iconsAcciones{
+                width: 24px;
+                height: 24px;
+                cursor: pointer;
+                margin: 0px 10px;
+            }
+
+        .habilitarBtn{
+            pointer-events: visible;
+        }
+        .deshabilitarBtn{
+            pointer-events: none;
+            /* color: gray; */
+            filter: opacity(0.5) drop-shadow(0 0 0 grey); 
+        }
+
+.containerBtnListaJugadores{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+    .btnListaJugadores{
+        width: 400px;
+        height: 40px;
+        background-color: #003070;
+        color: white;
+        padding: 6px;
+        box-sizing: border-box;
+        border-radius: 5px;
+        border-style: none;
+        margin: auto;
+    }
