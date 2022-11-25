@@ -11,9 +11,9 @@ const TableJugadoresEquipo = (props) => {
                 </tr>
                 {
                     props.listaJugadores.map(element => (
-                        <tr key={element.num} className="trEquiposJugadores">
-                            <td className="trNum">{element.num}</td>
-                            <td className="trNombre">{element.nombre}</td>
+                        <tr key={element.numJugador} className="trEquiposJugadores">
+                            <td className="trNum">{element.numJugador}</td>
+                            <td className="trNombre">{element.nombres} {element.apellidos}</td>
                         </tr>
                     ))
                 }

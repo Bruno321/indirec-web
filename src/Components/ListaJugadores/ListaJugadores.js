@@ -3,9 +3,12 @@ import "./ListaJugadores.css";
 import circleAdd from "../../Assets/icons/circleAdd.png";
 import trash from "../../Assets/icons/trash.png";
 import { useState, useEffect } from "react";
+import {useFetchData} from '../../Hooks/Fetch.hook';
 
 const ListaJugadores = ({ trigger, setTrigger, jugadores, setJugadores }) => {
     const [jugadoresEquipo, setJugadoresEquipo] = useState([]);
+    const [deportistas] = useFetchData('deportistas');
+    // console.log(deportistas)
 
     useEffect(() => {
         if (jugadores?.length) {
@@ -14,89 +17,99 @@ const ListaJugadores = ({ trigger, setTrigger, jugadores, setJugadores }) => {
     }, []);
 
     const agregarJugador = (index) =>{
-        setJugadoresEquipo(arr => [...arr, arrayDummy[index]]);
+        setJugadoresEquipo(arr => [...arr, deportistas[index]]);
     }
 
     const quitarJugador = (index) => {
-        setJugadoresEquipo(jugadoresEquipo.filter(jugador => jugador.num != arrayDummy[index].num)); //Cambiarlo por el expediente
+        setJugadoresEquipo(jugadoresEquipo.filter(jugador => jugador.deportistaId != deportistas[index].deportistaId)); //Cambiarlo por el expediente
     }
 
-    const arrayDummy = [
-        {
-            'num': '1',
-            'nombre': 'Daniel Aros Ramirez'
-        },
-        {
-            'num': '2',
-            'nombre': 'Alan Ronaldo'
-        },
-        {
-            'num': '3',
-            'nombre': 'Jorge Mbappe'
-        },
-        {
-            'num': '4',
-            'nombre': 'Sebastian Guttierez'
-        },
-        {
-            'num': '5',
-            'nombre': 'Jorge Bernal Gonzalitos'
-        },
-        {
-            'num': '6',
-            'nombre': 'Luis Vazquez'
-        },
-        {
-            'num': '7',
-            'nombre': 'Carlos Marcelo'
-        },
-        {
-            'num': '8',
-            'nombre': 'Cristiano Ronaldo'
-        },
-        {
-            'num': '9',
-            'nombre': 'Josue Ramirez'
-        },
-        {
-            'num': '10',
-            'nombre': 'Alan Alvarez'
-        },
-        {
-            'num': '11',
-            'nombre': 'Bruno Martinez'
-        },
-        {
-            'num': '12',
-            'nombre': 'Elias Gutierrez'
-        },
-        {
-            'num': '13',
-            'nombre': 'Marcos Hernandez'
-        },
-        {
-            'num': '14',
-            'nombre': 'Hernan Perez'
-        },
-        {
-            'num': '15',
-            'nombre': 'Diego Medina'
-        },
-        {
-            'num': '16',
-            'nombre': 'Jesus Eduardo'
-        },
-        {
-            'num': '17',
-            'nombre': 'Rafael Hernandez'
-        },
+    const limpiarFilas = () => {
+        setJugadoresEquipo([]);
+    }
+
+    // const deportistas = [
+    //     {
+    //         'num': '1',
+    //         'nombre': 'Daniel Aros Ramirez'
+    //     },
+    //     {
+    //         'num': '2',
+    //         'nombre': 'Alan Ronaldo'
+    //     },
+    //     {
+    //         'num': '3',
+    //         'nombre': 'Jorge Mbappe'
+    //     },
+    //     {
+    //         'num': '4',
+    //         'nombre': 'Sebastian Guttierez'
+    //     },
+    //     {
+    //         'num': '5',
+    //         'nombre': 'Jorge Bernal Gonzalitos'
+    //     },
+    //     {
+    //         'num': '6',
+    //         'nombre': 'Luis Vazquez'
+    //     },
+    //     {
+    //         'num': '7',
+    //         'nombre': 'Carlos Marcelo'
+    //     },
+    //     {
+    //         'num': '8',
+    //         'nombre': 'Cristiano Ronaldo'
+    //     },
+    //     {
+    //         'num': '9',
+    //         'nombre': 'Josue Ramirez'
+    //     },
+    //     {
+    //         'num': '10',
+    //         'nombre': 'Alan Alvarez'
+    //     },
+    //     {
+    //         'num': '11',
+    //         'nombre': 'Bruno Martinez'
+    //     },
+    //     {
+    //         'num': '12',
+    //         'nombre': 'Elias Gutierrez'
+    //     },
+    //     {
+    //         'num': '13',
+    //         'nombre': 'Marcos Hernandez'
+    //     },
+    //     {
+    //         'num': '14',
+    //         'nombre': 'Hernan Perez'
+    //     },
+    //     {
+    //         'num': '15',
+    //         'nombre': 'Diego Medina'
+    //     },
+    //     {
+    //         'num': '16',
+    //         'nombre': 'Jesus Eduardo'
+    //     },
+    //     {
+    //         'num': '17',
+    //         'nombre': 'Rafael Hernandez'
+    //     },
         
-    ]
+    // ]
 
     return trigger ? (
         <div className="containerListaJugadores">
             <div className="listaJugadores">
-                <h3>Lista de jugadores:</h3>
+                <div className="containerTituloTabla">
+                    <h3>Lista de jugadores:</h3>
+                    <div>
+                        <button className="bntLimpiarFilas" onClick={() => limpiarFilas()}>Limpiar Filas</button>
+                        <span className="btnCerrarModal" onClick={() => {setTrigger(false)}}>X</span>
+                    </div>
+                </div>
                 <div className="containerTableListaJugadores">
                     <table id="tableJugadoresEquipo" className="tableListaJugadoresEquipo">
                         <tbody>
@@ -106,20 +119,20 @@ const ListaJugadores = ({ trigger, setTrigger, jugadores, setJugadores }) => {
                                 <th className="headerAcciones"></th>
                             </tr>
                             {
-                                arrayDummy.map((element, index) => (
+                                deportistas.map((element, index) => (
                                     <tr
-                                        key={element.num}
+                                        key={element.deportistaId}
                                         className={`rowJugadorEquipo ${
-                                            jugadoresEquipo.findIndex(jugador => jugador.num === element.num) > -1 ? 'colorearFila' : ''}`
+                                            jugadoresEquipo.findIndex(jugador => jugador.deportistaId === element.deportistaId) > -1 ? 'colorearFila' : ''}`
                                         }
                                     >
-                                        <td>{element.num}</td>
-                                        <td className="headerNombreCompleto">{element.nombre}</td>
+                                        <td>{element.numJugador}</td>
+                                        <td className="headerNombreCompleto">{element.nombres} {element.apellidos}</td>
                                         <td>
                                             <div className="containerIconsAcciones">
                                                 <div
                                                     className={`containerAccionAgregar ${
-                                                        jugadoresEquipo.findIndex(jugador => jugador.num === element.num) > -1 ? 'deshabilitarBtn' : ''}`
+                                                        jugadoresEquipo.findIndex(jugador => jugador.deportistaId === element.deportistaId) > -1 ? 'deshabilitarBtn' : ''}`
                                                     }
                                                     onClick={() => agregarJugador(index)}>
                                                     <img className="iconsAcciones" src={circleAdd}/>
@@ -127,7 +140,7 @@ const ListaJugadores = ({ trigger, setTrigger, jugadores, setJugadores }) => {
                                                 </div>
                                             <img
                                                 className={`iconsAcciones ${
-                                                    jugadoresEquipo.findIndex(jugador => jugador.num === element.num) > -1 ? '' : 'deshabilitarBtn'}`
+                                                    jugadoresEquipo.findIndex(jugador => jugador.deportistaId === element.deportistaId) > -1 ? '' : 'deshabilitarBtn'}`
                                                 }
                                                 src={trash}
                                                 onClick={() => quitarJugador(index)}/>
