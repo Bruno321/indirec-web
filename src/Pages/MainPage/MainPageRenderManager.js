@@ -2,6 +2,7 @@ import React,{ useContext,useEffect,useState } from "react";
 import { NavigationContext } from "../../Context/NavigationContext";
 import { DeportistasScreen } from '../Deportistas';
 import { AsistenciasScreen } from '../Asistencias';
+import { EquiposScreen } from '../Equipos';
 import QRScanner from '../../Components/QRScanner/QRScanner'
 import RegistrarDeportista from "../../Components/RegistrarDeportista/RegistrarDeportista";
 import RegistrarEquipo from "../../Components/RegistrarEquipo/RegistrarEquipo";
@@ -15,6 +16,7 @@ const MainPageRenderManager = () => {
     <RegistrarDeportista />,
     <QRScanner />,
     <RegistrarEquipo />,
+    <EquiposScreen />
   ];
 
     return (

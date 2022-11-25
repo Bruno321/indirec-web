@@ -8,7 +8,7 @@ const handleRender = valueToRender => {
     const type = typeof valueToRender;
 
     if (type === 'string' || type === 'number') {
-        return <td className="td-font-weight td">{valueToRender}</td>;
+        return valueToRender;
     }
     return valueToRender;
 };
@@ -33,7 +33,7 @@ export const Table = ({ dataSource, columns, loading }) => {
                                 {columns.map(({ dataIndex, render }) => render === undefined ? (
                                     <td className="td-font-weight td">{oData[dataIndex]}</td>
                                 ) : (
-                                    <td className="container-edits td">
+                                    <td className={dataIndex?.toLowerCase()?.includes("id") ? "container-edits td" : "td-font-weight td"}>
                                         {handleRender(render(oData[dataIndex], oData, index))}
                                     </td>
                                 ))}

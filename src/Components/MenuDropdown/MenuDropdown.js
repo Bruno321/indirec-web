@@ -7,8 +7,9 @@ import RollCallIcon from "../../assets/icons/roll-call-icon.png";
 import FootballIcon from "../../assets/icons/football-icon.png";
 import LogoutIcon from "../../assets/icons/log-out.png";
 import RegisterIcon from "../../assets/icons/register.png";
+import TeamIcon from "../../Assets/icons//user-group.png";
 // Importar Contextos
-import {NavigationContext} from "../../Context/NavigationContext.js";
+import { NavigationContext } from "../../Context/NavigationContext.js";
 import { LoginContext } from "../../Context/LoginContext";
 import IndereqLogo from "../../assets/img/indereq-logo.png";
 import "./MenuDropdown.css";
@@ -32,7 +33,6 @@ const MenuDropdown = () => {
             
           }}>Deportistas</span>
         </div>
-        {/*onClick = {()=> setData(1)}*/}
         <div className = "block-section" onClick={()=>setScreen(1)}>
           <img src = {ClockIcon} className = "logo-section margin-img margin-img-asistencia"/>
           <span className = "title-option margin-asistencias" style ={{
@@ -57,10 +57,16 @@ const MenuDropdown = () => {
             textDecoration: screen === 4 ? "underline white" : "none",
           }}>Registrar equipo</span>
         </div>
+        <div className = "block-section" onClick={()=>setScreen(5)}>
+          <img src = {TeamIcon} className = "logo-section margin-img margin-img-asistencia"/>
+          <span className = "title-option margin-asistencias" style ={{
+            textDecoration: screen === 5 ? "underline white" : "none",
+          }}>Equipos</span>
+        </div>
         <div className = "block-section" onClick={()=>cerrarSesion()}>
             <img src = {LogoutIcon} className = "logo-section margin-img"/>
           <span className = "title-option margin-lista hover-animation" style ={{
-            textDecoration: screen === 5 ? "underline white" : "none",
+            textDecoration: screen === 6 ? "underline white" : "none",
           }}>Cerrar sesión</span>
         </div>
         </div>
