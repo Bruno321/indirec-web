@@ -4,32 +4,21 @@ import circleAdd from "../../Assets/icons/circleAdd.png";
 import trash from "../../Assets/icons/trash.png";
 import { useState, useEffect } from "react";
 
-const ListaJugadores = (props) => {
+const ListaJugadores = ({ trigger, setTrigger, jugadores, setJugadores }) => {
+    const [jugadoresEquipo, setJugadoresEquipo] = useState([]);
 
-    const [jugadoresEquipo, setJugadoresEquipo] = useState(props.jugadores);
+    useEffect(() => {
+        if (jugadores?.length) {
+            setJugadoresEquipo(jugadores);
+        }
+    }, []);
 
     const agregarJugador = (index) =>{
-        // console.log(index);
         setJugadoresEquipo(arr => [...arr, arrayDummy[index]]);
-        let row = document.getElementById('tableJugadoresEquipo').rows.item(index+1);
-        let btnAgregar = row.cells[2].firstElementChild.children[0];
-        let btnBorrar = row.cells[2].firstElementChild.children[1];
-        btnBorrar.classList.remove('deshabilitarBtn');
-        btnAgregar.classList.add('deshabilitarBtn');
-        row.classList.add("colorearFila");
-        // row.classList.remove("descolorearFila");
     }
 
     const quitarJugador = (index) => {
-        // console.log(index);
-        let row = document.getElementById('tableJugadoresEquipo').rows.item(index+1);
         setJugadoresEquipo(jugadoresEquipo.filter(jugador => jugador.num != arrayDummy[index].num)); //Cambiarlo por el expediente
-        let btnAgregar = row.cells[2].firstElementChild.children[0];
-        let btnBorrar = row.cells[2].firstElementChild.children[1];
-        btnAgregar.classList.remove('deshabilitarBtn');
-        btnBorrar.classList.add('deshabilitarBtn');
-        // row.classList.add("descolorearFila");
-        row.classList.remove("colorearFila");
     }
 
     const arrayDummy = [
@@ -104,11 +93,8 @@ const ListaJugadores = (props) => {
         
     ]
 
-    return (props.trigger) ? (
+    return trigger ? (
         <div className="containerListaJugadores">
-            {
-                console.log(jugadoresEquipo)
-            }
             <div className="listaJugadores">
                 <h3>Lista de jugadores:</h3>
                 <div className="containerTableListaJugadores">
@@ -121,34 +107,52 @@ const ListaJugadores = (props) => {
                             </tr>
                             {
                                 arrayDummy.map((element, index) => (
-                                    <tr key={element.num} className="rowJugadorEquipo">
+                                    <tr
+                                        key={element.num}
+                                        className={`rowJugadorEquipo ${
+                                            jugadoresEquipo.findIndex(jugador => jugador.num === element.num) > -1 ? 'colorearFila' : ''}`
+                                        }
+                                    >
                                         <td>{element.num}</td>
                                         <td className="headerNombreCompleto">{element.nombre}</td>
                                         <td>
                                             <div className="containerIconsAcciones">
-                                                <div className="containerAccionAgregar" onClick={() => agregarJugador(index)}>
+                                                <div
+                                                    className={`containerAccionAgregar ${
+                                                        jugadoresEquipo.findIndex(jugador => jugador.num === element.num) > -1 ? 'deshabilitarBtn' : ''}`
+                                                    }
+                                                    onClick={() => agregarJugador(index)}>
                                                     <img className="iconsAcciones" src={circleAdd}/>
                                                     <p>Añadir</p>
                                                 </div>
-                                            <img className="iconsAcciones deshabilitarBtn" src={trash} onClick={() => quitarJugador(index)}/>
+                                            <img
+                                                className={`iconsAcciones ${
+                                                    jugadoresEquipo.findIndex(jugador => jugador.num === element.num) > -1 ? '' : 'deshabilitarBtn'}`
+                                                }
+                                                src={trash}
+                                                onClick={() => quitarJugador(index)}/>
                                         </div>
                                     </td>
                                 </tr>))
-                            }
-                            {
-                                // console.log(arrayDummy.map((jugador, index) => arrayDummy.find(jug => jugadoresEquipo == jug)))
-                                // console.log(arrayDummy.map((jugador, index) => jugador.nombre == jugadoresEquipo[0].nombre))
                             }
                         </tbody>
                     </table>
                 </div>
                 <div className="containerBtnListaJugadores">
-                    <button className="btnListaJugadores" onClick={() => {props.setTrigger(false); props.setJugadores(jugadoresEquipo)}}>Guardar lista de jugadores</button>
+                    <button
+                        className="btnListaJugadores"
+                        onClick={() => {
+                            setTrigger(false);
+                            setJugadores(jugadoresEquipo);
+                        }}
+                    >
+                        Guardar lista de jugadores
+                    </button>
                 </div>
             </div>
         </div>
     ) :
-    ""
-}
+    null;
+};
 
 export default ListaJugadores;
