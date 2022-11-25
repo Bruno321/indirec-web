@@ -60,9 +60,6 @@ export async function process(operation, model, payload = {}, params = {}) {
           ...oAuth.headers,
           'Content-Type': 'multipart/form-data',
         },
-        transformRequest: data => {
-          return data;
-      },
       });
     case UPDATE:
       return await API.patch(`${BASEPATH}/${model}/${id}`, payload, oAuth);
