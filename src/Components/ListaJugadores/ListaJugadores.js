@@ -107,7 +107,7 @@ const ListaJugadores = (props) => {
     return (props.trigger) ? (
         <div className="containerListaJugadores">
             {
-                // console.log(jugadoresEquipo)
+                console.log(jugadoresEquipo)
             }
             <div className="listaJugadores">
                 <h3>Lista de jugadores:</h3>
@@ -120,72 +120,24 @@ const ListaJugadores = (props) => {
                                 <th className="headerAcciones"></th>
                             </tr>
                             {
-                                // arrayDummy.map((element, index) => (jugadoresEquipo.indexOf(element.nombre) =! -1) ? (
-                                //     <tr className="rowJugadorEquipo colorearFila">
-                                //         <td>{element.num}</td>
-                                //         <td className="headerNombreCompleto">{element.nombre}</td>
-                                //         <td>
-                                //             <div className="containerIconsAcciones">
-                                //                 <div className="containerAccionAgregar deshabilitarBtn" onClick={() => agregarJugador(index)}>
-                                //                     <img className="iconsAcciones" src={circleAdd}/>
-                                //                     <p>Añadir</p>
-                                //                 </div>
-                                //                 <img className="iconsAcciones" src={trash} onClick={() => quitarJugador(index)}/>
-                                //             </div>
-                                //         </td>
-                                //     </tr>
-                                //     )
-                                // :
-                                //     (
-                                //         <tr className="rowJugadorEquipo">
-                                //             <td>{element.num}</td>
-                                //             <td className="headerNombreCompleto">{element.nombre}</td>
-                                //             <td>
-                                //                 <div className="containerIconsAcciones">
-                                //                     <div className="containerAccionAgregar" onClick={() => agregarJugador(index)}>
-                                //                         <img className="iconsAcciones" src={circleAdd}/>
-                                //                         <p>Añadir</p>
-                                //                     </div>
-                                //                     <img className="iconsAcciones deshabilitarBtn" src={trash} onClick={() => quitarJugador(index)}/>
-                                //                 </div>
-                                //             </td>
-                                //         </tr>
-                                //     )
-                                // )
-                                arrayDummy.map((element, index) => {
-                                    // console.log(jugadoresEquipo.indexOf(arrayDummy[index]) != -1)
-                                    // if(jugadoresEquipo.length != 0){
-                                        if(jugadoresEquipo.indexOf(arrayDummy[index]) != -1){
-                                            return (<tr key={element} className="rowJugadorEquipo colorearFila">
-                                                    <td>{element.num}</td>
-                                                    <td className="headerNombreCompleto">{element.nombre}</td>
-                                                    <td>
-                                                        <div className="containerIconsAcciones">
-                                                            <div className="containerAccionAgregar deshabilitarBtn" onClick={() => agregarJugador(index)}>
-                                                                <img className="iconsAcciones" src={circleAdd}/>
-                                                                <p>Añadir</p>
-                                                            </div>
-                                                        <img className="iconsAcciones" src={trash} onClick={() => quitarJugador(index)}/>
-                                                    </div>
-                                                </td>
-                                            </tr>)
-                                        }else{
-                                            return (<tr key={element.num} className="rowJugadorEquipo">
-                                                 <td>{element.num}</td>
-                                                 <td className="headerNombreCompleto">{element.nombre}</td>
-                                                 <td>
-                                                     <div className="containerIconsAcciones">
-                                                         <div className="containerAccionAgregar" onClick={() => agregarJugador(index)}>
-                                                             <img className="iconsAcciones" src={circleAdd}/>
-                                                             <p>Añadir</p>
-                                                         </div>
-                                                        <img className="iconsAcciones deshabilitarBtn" src={trash} onClick={() => quitarJugador(index)}/>
-                                                    </div>
-                                                </td>
-                                            </tr>)
-                                        }
-                                    // }
-                                })
+                                arrayDummy.map((element, index) => (
+                                    <tr key={element.num} className="rowJugadorEquipo">
+                                        <td>{element.num}</td>
+                                        <td className="headerNombreCompleto">{element.nombre}</td>
+                                        <td>
+                                            <div className="containerIconsAcciones">
+                                                <div className="containerAccionAgregar" onClick={() => agregarJugador(index)}>
+                                                    <img className="iconsAcciones" src={circleAdd}/>
+                                                    <p>Añadir</p>
+                                                </div>
+                                            <img className="iconsAcciones deshabilitarBtn" src={trash} onClick={() => quitarJugador(index)}/>
+                                        </div>
+                                    </td>
+                                </tr>))
+                            }
+                            {
+                                // console.log(arrayDummy.map((jugador, index) => arrayDummy.find(jug => jugadoresEquipo == jug)))
+                                // console.log(arrayDummy.map((jugador, index) => jugador.nombre == jugadoresEquipo[0].nombre))
                             }
                         </tbody>
                     </table>
