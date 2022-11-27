@@ -1,0 +1,171 @@
+.modalBackgroundBlur {
+    width: 90vw;
+    height: 90vh;
+    margin-top: -7%;
+    margin-left: -13%;
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .modalContainer {
+    width: 90vw;
+    height: 95vh;
+    border-radius: 12px;
+    background-color: white;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    display: flex;
+    flex-direction: column;
+    padding: 25px;
+  }
+  
+  .modalContainer .modalTitle {
+    display: inline-block;
+    text-align: center;
+    margin-top: 10px;
+  }
+  .modalTitle{
+    width: 100%;
+  }
+  .title{
+    font-weight: 400;
+    font-size: 50px;
+    
+  }
+  
+  .titleCloseBtn {
+    display: flex;
+    justify-content: flex-end;
+  }
+  
+  .titleCloseBtn button {
+    background-color: transparent;
+    border: none;
+    font-size: 25px;
+    cursor: pointer;
+  }
+  
+  .modalContainer .body {
+    flex: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.7rem;
+    text-align: center;
+  }
+  
+  .modalContainer .teamTable {
+    flex: 20%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .modalContainer .formEditInformationTeam button {
+    width: 200px;
+    height: 50px;
+    margin: 10px;
+    border: none;
+    background-color: #003070;
+    color: white;
+    border-radius: 8px;
+    font-size: 20px;
+    cursor: pointer;
+  }
+  
+  .cancelBtn {
+    background-color: crimson !important;
+  }
+
+  .modalUpdateContainer{
+    /* background-color: aqua; */
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 100%;
+  }
+
+  .formEditInformationTeam{
+    /* background-color: red; */
+    height: 100%;
+    width: 65%;
+  }
+  
+  .formContainer{
+    width: 100%;
+    height: 80%;
+    /* background-color: brown; */
+    display: flex;
+    flex-direction: row;
+  }
+  .form{
+  }
+  .formContainerLeft{
+    margin-left: 10px;
+    width: 50%;
+    height: 100%;
+    /* background-color: blue; */
+  }
+  .formContainerRight{
+    width: 50%;
+    height: 100%;
+    /* background-color: blueviolet; */
+  }
+  .btnContainer{
+    margin-top: -5%;
+    width: 100%;
+    height: 9%;
+    /* background-color: bisque; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .centerBtnContainer{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .teamTable{
+    /* background-color: purple; */
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+  label{
+    width: 100%;
+ 
+  }
+
+.labels{
+  margin-top: 5%;
+  /* background-color: cadetblue; */
+  width: 100%;
+  font-size: 20px;
+  font-weight: 300;
+}
+
+  .input{
+    width: 90%;
+    height: 40px;
+    border-radius: 7px;
+    border-color: #CCCCCC;
+    border-style: solid;
+    box-shadow: 0px 0px 2px rgba(66,66,66,.73);
+  }
+
+.containerTableJugadoresEquipo{
+  margin-bottom: 25px;
+}
+
+  .addMemberBtn{
+    width: 210px;
+    height: 40px;
+    background-color: white;
+    color: #003070;
+    border-color: #003070;
+    border-radius: 10px;
+  }

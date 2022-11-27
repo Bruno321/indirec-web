@@ -1,12 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Table } from '../../Components/Table/Table';
 import { useFetchData } from '../../Hooks/Fetch.hook';
 import iconDelete from "../../Assets/icons/delete.png";
 import iconEdit from "../../Assets/icons/edit.png";
 import iconMoreInfo from "../../Assets/icons/more-info.png";
 
+// Modal
+import EditarEquipoModal from '../../Components/Modals/EditarEquipoModal/EditarEquipoModal';
+
 export const EquiposScreen = () => {
   const [equipos, loading] = useFetchData('equipos');
+  const [openModalEdit, setOpenModalEdit] = useState(false);
 
   const columns = [
     {
@@ -49,6 +53,7 @@ export const EquiposScreen = () => {
             title="Editar"
             src={iconEdit}
             className='icons edit'
+            onClick={() => {setOpenModalEdit(true)}}
             />
           <img
             title="Eliminar"
@@ -68,6 +73,7 @@ export const EquiposScreen = () => {
   return (
     <>
       <h3>Equipos</h3>
+      {openModalEdit && <EditarEquipoModal closeModal={setOpenModalEdit} />}
       <Table
         columns={columns}
         dataSource={equipos}
