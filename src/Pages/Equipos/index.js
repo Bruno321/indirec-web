@@ -11,6 +11,7 @@ import EditarEquipoModal from '../../Components/Modals/EditarEquipoModal/EditarE
 export const EquiposScreen = () => {
   const [equipos, loading] = useFetchData('equipos');
   const [openModalEdit, setOpenModalEdit] = useState(false);
+  const [equipo, setEquipo] = useState();
 
   const columns = [
     {
@@ -53,7 +54,7 @@ export const EquiposScreen = () => {
             title="Editar"
             src={iconEdit}
             className='icons edit'
-            onClick={() => {setOpenModalEdit(true)}}
+            onClick={() => {setOpenModalEdit(true); setEquipo(sId)}}
             />
           <img
             title="Eliminar"
@@ -73,7 +74,7 @@ export const EquiposScreen = () => {
   return (
     <>
       <h3>Equipos</h3>
-      {openModalEdit && <EditarEquipoModal closeModal={setOpenModalEdit} />}
+      {openModalEdit && <EditarEquipoModal closeModal={setOpenModalEdit} idEquipo={equipo}/>}
       <Table
         columns={columns}
         dataSource={equipos}

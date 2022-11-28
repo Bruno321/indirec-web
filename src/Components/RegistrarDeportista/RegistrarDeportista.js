@@ -121,7 +121,7 @@ const RegistrarDeportista = () => {
                     <div className='form-izquierda'>
                         <div className='form-primero'>
                             <div>
-                                <label>Expediente*</label><br/>
+                                <label htmlFor='expediente'>Expediente*</label><br/>
                                 <input
                                     type="text"
                                     id='expediente'
@@ -133,9 +133,10 @@ const RegistrarDeportista = () => {
                                 />
                             </div>
                             <div>
-                                <label>No. Seguro Social*</label><br/>
+                                <label htmlFor='noSeguroSocial'>No. Seguro Social*</label><br/>
                                 <input
                                     type="text"
+                                    id='noSeguroSocial'
                                     className="registrarDeportista-input"
                                     onChange={e => setForm({...form,numSeguroSocial:e.target.value})}
                                     required
@@ -144,23 +145,25 @@ const RegistrarDeportista = () => {
                         </div>
 
                         <div className='form-segundo'>
-                            <label>Nombre(s)*</label><br/>
+                            <label htmlFor='nombre'>Nombre(s)*</label><br/>
                             <input
                                 type="text"
+                                id='nombre'
                                 className="registrarDeportista-input"
                                 onChange={e => setForm({...form,nombres:e.target.value})}
                                 required
                             /><p></p>
 
-                            <label>Apellidos* (Apellido Paterno, Apellido Materno)</label><br/>
+                            <label htmlFor='apellidos'>Apellidos* (Apellido Paterno, Apellido Materno)</label><br/>
                             <input
                                 type="text"
+                                id='apellidos'
                                 className="registrarDeportista-input"
                                 onChange={e => setForm({...form,apellidos:e.target.value})}
                                 required
                             /><p></p>
 
-                            <label>Correo electrónico*</label><br/>
+                            <label htmlFor='correoElectronico'>Correo electrónico*</label><br/>
                             <input
                                 type="e-mail"
                                 className="registrarDeportista-input"
@@ -172,10 +175,11 @@ const RegistrarDeportista = () => {
 
                         <div className='form-tercero'>
                             <div>
-                                <label>Teléfono celular*</label><br/>
+                                <label id='telefonoCelular'>Teléfono celular*</label><br/>
                                 <input
                                     type="text"
                                     className="registrarDeportista-input"
+                                    
                                     onChange={e => setForm({...form,telefono:e.target.value})}
                                     required
                                 />

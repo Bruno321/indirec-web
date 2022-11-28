@@ -1,8 +1,24 @@
 import React from "react";
 import "./EditarEquipoModal.css";
 import { aFacultities } from "../../../Utils/constants";
+import TableJugadoresEquipo from "../../TableListaJugadoresEquipo/TableJugadoresEquipo";
+import {useFetchData} from '../../../Hooks/Fetch.hook'
 
-function EditarEquipoModal({ closeModal }) {
+function EditarEquipoModal(props) {
+
+  const {closeModal} = props;
+  const [equipo] = useFetchData(`equipos/${props.idEquipo}`)
+
+  console.log(equipo)
+  
+  const campus = ['Centro Universitario', 'Juriquilla', 'Aeropuerto', 'Ex-prepa Centro', 'Prepa Norte', 'Prepa Sur', 'Centro Historico'];
+  const categoria = [0, 1];
+  const facultades = ['Facultad de Bellas Artes','Facultad de Ciencias Naturales','Facultad de Ciencias Políticas y Sociales','Facultad de Derecho',
+    'Facultad de Filosofía','Facultad de Informática','Facultad de Ingeniería','Facultad de Lenguas y Letras','Facultad de Medicina','Facultad de Psicología',
+    'Facultad de Contaduría','Facultad de Química','Facultad de Enfermería','Escuela de Bachilleres'
+  ]
+
+
   return (
     <div className="modalBackgroundBlur modalBackground">
       <div className="modalContainer">
@@ -25,18 +41,20 @@ function EditarEquipoModal({ closeModal }) {
                   name="nombre"
                   id="nombre"
                   maxLength={80}
-                  placeholder="Real Mandril"
+                  value={equipo.nombre}
                   required
                 />
                 <br />
                 <p className="labels">Facultad:</p>
                 <select className="input inputSelect" id="facultad">
-                  {aFacultities.map((oFc) => (
-                    <option
-                      value={`Facultad de ${oFc}`}
-                    >{`Facultad de ${oFc}`}</option>
-                  ))}
-                  <option>Escuela de Bachilleres</option>
+                  {
+                    facultades.map(c => c != equipo.facultad 
+                      ? 
+                        <option value={`${c}`}>{c}</option> 
+                      : 
+                        <option selected value={`${c}`}>{c}</option>
+                    )
+                  }
                 </select>
                 <br />
                 <p className="labels">Nombre del Entrenador:</p>
@@ -46,7 +64,7 @@ function EditarEquipoModal({ closeModal }) {
                   name="nombreEntrenador"
                   id="nombreEntrenador"
                   maxLength={100}
-                  placeholder="Samantha"
+                  value={equipo.nombreEntrenador}
                   required
                 />
                 <br />
@@ -57,7 +75,7 @@ function EditarEquipoModal({ closeModal }) {
                   name="nombreAsistente"
                   id="nombreAsistente"
                   maxLength={100}
-                  placeholder="Hernández"
+                  value={equipo.nombreAsistente}
                   required
                 />
                 <br />
@@ -66,22 +84,31 @@ function EditarEquipoModal({ closeModal }) {
               <div className="formContainerRight">
                 <p className="labels">Campus:</p>
                 <select
-                className="inputSelect input"
+                  className="inputSelect input"
                   id="campus"
                   onChange={(e) => setForm({ ...form, campus: e.target.value })}
-                >
-                  <option value="Juriquilla">Centro Universitario</option>
-                  <option value="Centro Historico">Juriquilla</option>
-                  <option value="Centro Historico">Aeropuerto</option>
-                  <option value="Centro Historico">Ex-prepa Centro</option>
-                  <option value="Centro Historico">Prepa Norte</option>
-                  <option value="Centro Historico">Prepa Sur</option>
+                > 
+                  {
+                    campus.map(c => c != equipo.campus 
+                      ? 
+                        <option value={`${c}`}>{c}</option> 
+                      : <option selected value={`${c}`}>{c}</option>
+                    )
+                  }
                 </select>
                 <br />
                 <p className="labels">Categoría:</p>
                 <select id="categoria" className="input inputSelect">
-                  <option value={0}>Femenil</option>
-                  <option value={1}>Varonil</option>
+                  {/* <option value={0}>Femenil</option>
+                  <option value={1}>Varonil</option> */}
+                  {
+                    categoria.map(c => equipo.categoria == c 
+                      ? 
+                        <option selected value={equipo.categoria}>{equipo.categoria == 0 ? 'Varonil' : 'Femenil'}</option> 
+                      : 
+                        <option value={equipo.categoria != 0 ? 'Varonil' : 'Femenil'}>{equipo.categoria != 0 ? 'Varonil' : 'Femenil'}</option>
+                      )
+                  }
                 </select>
                 <br />
                 <p className="labels">Apellido del Entrenador:</p>
@@ -91,7 +118,7 @@ function EditarEquipoModal({ closeModal }) {
                   name="apellidoEntrenador"
                   id="apellidoEntrenador"
                   maxLength={100}
-                  placeholder="Hernández"
+                  value={equipo.apellidoEntrenador}
                   required
                 />
                 <br />
@@ -102,7 +129,7 @@ function EditarEquipoModal({ closeModal }) {
                   name="apellidoEntrenador"
                   id="apellidoEntrenador"
                   maxLength={100}
-                  placeholder="Vizcaya"
+                  value={equipo.apellidoAsistente}
                   required
                 />
                 <br />
@@ -119,8 +146,8 @@ function EditarEquipoModal({ closeModal }) {
           </div>
           <div className="teamTable">
           <div className="containerTableJugadoresEquipo">
-            
-            </div>  
+            <TableJugadoresEquipo listaJugadores={equipo.jugadores}/>
+          </div>  
             <button className="addMemberBtn">Añadir Miembro</button>
           </div>
         </div>
