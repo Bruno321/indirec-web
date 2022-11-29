@@ -6,13 +6,15 @@
     height: 30px;
     margin-top: 5px;
     margin-right: 10px;
-    padding: 0px 20px;
+    padding: 0px 10px;
 }
 
 .registrarDeportista-input[type=text], .select, input[type=e-mail]{
     border-color: #CCCCCC;
     border-style: solid;
     box-shadow: 0px 0px 2px rgba(66,66,66,.73);
+    /* padding: 5px;
+    box-sizing: border-box; */
 }
 
 .registrarDeportista-input[type=submit], .select, input[type=file]::-webkit-file-upload-button{
@@ -51,8 +53,9 @@
     align-items: center;
     flex-direction: column;
     background-color: #F0F2F3;
-    padding-top: 40px;
-    padding-bottom: 40px;
+    /* padding-top: 40px; */
+    padding-bottom: 50px;
+    height: 82vh;
 }
 .titleRegister{
     font-weight: 500;

@@ -175,21 +175,23 @@ const RegistrarDeportista = () => {
 
                         <div className='form-tercero'>
                             <div>
-                                <label id='telefonoCelular'>Teléfono celular*</label><br/>
+                                <label htmlFor='telCelular' id='telefonoCelular'>Teléfono celular*</label><br/>
                                 <input
                                     type="text"
                                     className="registrarDeportista-input"
-                                    
+                                    id='telCelular'
+                                    name='telCelular'
                                     onChange={e => setForm({...form,telefono:e.target.value})}
                                     required
                                 />
                             </div>
 
                             <div>
-                                <label>Teléfono de emergencia*</label><br/>
+                                <label htmlFor='telefonoEmergencia'>Teléfono de emergencia*</label><br/>
                                 <input
                                     type="text"
                                     className="registrarDeportista-input"
+                                    id='telefonoEmergencia'
                                     onChange={e =>setForm({...form,telefonoEmergencia:e.target.value})}
                                     required
                                 />
@@ -198,23 +200,23 @@ const RegistrarDeportista = () => {
                     </div>
 
                     <div className='form-medio'>
-                        <label>Facultad*</label><br/>
-                        <select value={form.facultad} onChange={e => setForm({...form,facultad:e.target.value})} className="select">
+                        <label htmlFor='facultad'>Facultad*</label><br/>
+                        <select id='facultad' value={form.facultad} onChange={e => setForm({...form,facultad:e.target.value})} className="select">
                             {aFacultities.map(oFc => (
                                 <option value={`Facultad de ${oFc}`}>{`Facultad de ${oFc}`}</option>
                             ))}
                             <option>Escuela de Bachilleres</option>
                         </select><p></p>
                         
-                        <label>Sexo*</label><br/>
-                        <select value={form.sexo} className="select" onChange={e => setForm({...form,sexo:e.target.value})}>
+                        <label htmlFor='sexo'>Sexo*</label><br/>
+                        <select id='sexo' value={form.sexo} className="select" onChange={e => setForm({...form,sexo:e.target.value})}>
                             <option value={0}>Masculino</option>
                             <option value={1}>Femenino</option>
                         </select><p></p>
                         
 
                         {/* Apartado de los file inputs */}
-                        <label>Kárdex*</label><br/>
+                        <label htmlFor='kardex'>Kárdex*</label><br/>
                         <input
                             type="file"
                             accept = ".pdf, .png, .jpg, .jpeg"
@@ -236,7 +238,7 @@ const RegistrarDeportista = () => {
                             {handleAnswerFile(kardex, 'Kardex')}
                         <br/>
 
-                        <label>Identificación oficial*</label><br/>
+                        <label htmlFor='identificacionFile'>Identificación oficial*</label><br/>
                         <input
                             type="file"
                             accept=".pdf, .png, .jpg, .jpeg"
@@ -258,7 +260,7 @@ const RegistrarDeportista = () => {
                             {handleAnswerFile(INE, 'INE')}
                         <br/>
 
-                        <label>Foto del deportista*</label><br/>
+                        <label htmlFor='fotoDeportista'>Foto del deportista*</label><br/>
                         <input
                             type="file"
                             accept = ".pdf, .png, .jpg, .jpeg"
@@ -284,19 +286,20 @@ const RegistrarDeportista = () => {
                     </div>
 
                     <div className='form-derecha'>
-                        <label>Deporte*</label><br></br>
-                        <select value={form.deporte} className="select" onChange={e => setForm({...form,deporte:e.target.value})}>
+                        <label htmlFor='deporte'>Deporte*</label><br></br>
+                        <select id='deporte' value={form.deporte} className="select" onChange={e => setForm({...form,deporte:e.target.value})}>
                             <option value="Futbol">Futbol</option>
                             <option value="Basquetball">Basquetball</option>
                         </select><p></p>
 
-                        <label>Deportista seleccionado*</label><br></br>
+                        <label htmlFor='deportistaSeleccionadoSi'>Deportista seleccionado*</label><br></br>
                         <div className='form-options'>
                             <input
                                 type="radio"
                                 className="registrarDeportista-input"
                                 value={0}
                                 checked={radioButton.si}
+                                id='deportistaSeleccionadoSi'
                                 onChange={e => {
                                     setRadioButton({
                                         si: true,
@@ -305,12 +308,13 @@ const RegistrarDeportista = () => {
                                     setForm({...form,jugadorSeleccionado: 1});
                                 }}
                             />
-                            <label >Si</label>
+                            <label htmlFor='deportistaSeleccionadoSi'>Si</label>
                             <input
                                 type="radio"
                                 className="registrarDeportista-input"
                                 value={1}
                                 checked={radioButton.no}
+                                id='deportistaSeleccionadoNo'
                                 onChange={e => {
                                     setRadioButton({
                                         si: false,
@@ -319,11 +323,12 @@ const RegistrarDeportista = () => {
                                     setForm({...form,jugadorSeleccionado: 0});
                                 }}
                             />
-                            <label >No</label><p></p>
+                            <label htmlFor='deportistaSeleccionadoNo'>No</label><p></p>
                         </div>
-                        <label>Número de jugador*</label><br></br>
+                        <label htmlFor='numeroJugador'>Número de jugador*</label><br></br>
                         <input
                             type="text"
+                            id='numeroJugador'
                             className="registrarDeportista-input"
                             onChange={e => setForm({...form,numJugador:e.target.value})}
                             required

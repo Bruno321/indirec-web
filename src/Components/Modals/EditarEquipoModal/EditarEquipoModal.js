@@ -3,6 +3,7 @@ import "./EditarEquipoModal.css";
 import { aFacultities } from "../../../Utils/constants";
 import TableJugadoresEquipo from "../../TableListaJugadoresEquipo/TableJugadoresEquipo";
 import {useFetchData} from '../../../Hooks/Fetch.hook'
+import ListaJugadores from "../../ListaJugadores/ListaJugadores";
 
 function EditarEquipoModal(props) {
 
@@ -35,9 +36,9 @@ function EditarEquipoModal(props) {
             </div>
             <div className="formContainer">
               <div className="formContainerLeft">
-                <p className="labels" htmlFor="">
+                <label className="labels" htmlFor="nombre">
                   Nombre del Equipo:
-                </p>
+                </label>
                 <input
                   className="input inputText"
                   type="text"
@@ -48,7 +49,7 @@ function EditarEquipoModal(props) {
                   required
                 />
                 <br />
-                <p className="labels">Facultad:</p>
+                <label className="labels" htmlFor="facultad">Facultad:</label>
                 <select className="input inputSelect" id="facultad">
                   {
                     facultades.map(c => c != equipo.facultad 
@@ -60,7 +61,7 @@ function EditarEquipoModal(props) {
                   }
                 </select>
                 <br />
-                <p className="labels">Nombre del Entrenador:</p>
+                <label className="labels" htmlFor="nombreEntrenador">Nombre del Entrenador:</label>
                 <input
                   className="input inputText"
                   type="text"
@@ -71,7 +72,7 @@ function EditarEquipoModal(props) {
                   required
                 />
                 <br />
-                <p className="labels">Nombre del Asistente:</p>
+                <label htmlFor="nombreAsistente" className="labels">Nombre del Asistente:</label>
                 <input
                   className="input inputText"
                   type="text"
@@ -85,7 +86,7 @@ function EditarEquipoModal(props) {
               </div>
 
               <div className="formContainerRight">
-                <p className="labels">Campus:</p>
+                <label htmlFor="campus" className="labels">Campus:</label>
                 <select
                   className="inputSelect input"
                   id="campus"
@@ -100,7 +101,7 @@ function EditarEquipoModal(props) {
                   }
                 </select>
                 <br />
-                <p className="labels">Categoría:</p>
+                <label htmlFor="categoria" className="labels">Categoría:</label>
                 <select id="categoria" className="input inputSelect">
                   {/* <option value={0}>Femenil</option>
                   <option value={1}>Varonil</option> */}
@@ -114,7 +115,7 @@ function EditarEquipoModal(props) {
                   }
                 </select>
                 <br />
-                <p className="labels">Apellido del Entrenador:</p>
+                <label htmlFor="apellidoEntrenador" className="labels">Apellido del Entrenador:</label>
                 <input
                   className="input inputText"
                   type="text"
@@ -125,12 +126,12 @@ function EditarEquipoModal(props) {
                   required
                 />
                 <br />
-                <p className="labels">Apellido del Asistente:</p>
+                <label htmlFor="apellidoAsistente" className="labels">Apellido del Asistente:</label>
                 <input
                   className="input inputText"
                   type="text"
-                  name="apellidoEntrenador"
-                  id="apellidoEntrenador"
+                  name="apellidoAsistente "
+                  id="apellidoAsistente"
                   maxLength={100}
                   value={equipo.apellidoAsistente}
                   required
@@ -150,11 +151,13 @@ function EditarEquipoModal(props) {
           <div className="teamTable">
           <div className="containerTableJugadoresEquipo">
             <TableJugadoresEquipo listaJugadores={equipo.jugadores}/>
+            {/* <ListaJugadores/> */}
           </div>  
             <button className="addMemberBtn">Añadir Miembro</button>
           </div>
         </div>
       </div>
+      <ListaJugadores/>
     </div>
   );
 }
