@@ -16,7 +16,6 @@ const oInitialState = {
     apellidoEntrenador: "",
     nombreAsistente: "",
     apellidoAsistente: "",
-    jugadores: [],
 }
 
 const RegistrarEquipo = () => {
@@ -29,13 +28,17 @@ const RegistrarEquipo = () => {
     const handleSubmit = async(e) => {
         e.preventDefault();
 
-        let idJugadores = listaJugadores.map(jugador => jugador.deportistaId);
-        setForm({...form, jugadores: idJugadores});
+        const idJugadores = listaJugadores.map(jugador => jugador.deportistaId);
+        console.log(idJugadores);
+
+        //setForm({...form, jugadores: idJugadores});
+        setForm(form.jugadores = idJugadores)
+        console.log(form)
+        //debbuger()
 
         if(listaJugadores.length != 0){
             // alert('Registro exitoso');
             
-
             const response = await process(SAVE, 'equipos', form).catch(e => {
                 Swal.fire({
                     icon: 'error',

@@ -54,7 +54,7 @@ export const EquiposScreen = () => {
             title="Editar"
             src={iconEdit}
             className='icons edit'
-            onClick={() => {setOpenModalEdit(true); setEquipo(sId)}}
+            onClick={() => {setOpenModalEdit(true); setEquipo(row)}}
             />
           <img
             title="Eliminar"
@@ -74,7 +74,7 @@ export const EquiposScreen = () => {
   return (
     <>
       <h3>Equipos</h3>
-      {openModalEdit && <EditarEquipoModal closeModal={setOpenModalEdit} idEquipo={equipo}/>}
+      {openModalEdit && <EditarEquipoModal closeModal={setOpenModalEdit} equipo={equipo}/>}
       <Table
         columns={columns}
         dataSource={equipos}

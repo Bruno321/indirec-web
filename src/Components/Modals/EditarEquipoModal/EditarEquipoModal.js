@@ -7,16 +7,19 @@ import {useFetchData} from '../../../Hooks/Fetch.hook'
 function EditarEquipoModal(props) {
 
   const {closeModal} = props;
-  const [equipo] = useFetchData(`equipos/${props.idEquipo}`)
+  const {equipo} = props;
 
-  console.log(equipo)
+  console.log()
+  //const [equipo] = useFetchData(`equipos/${props.idEquipo}`)
+
+  console.log(equipo);
   
   const campus = ['Centro Universitario', 'Juriquilla', 'Aeropuerto', 'Ex-prepa Centro', 'Prepa Norte', 'Prepa Sur', 'Centro Historico'];
   const categoria = [0, 1];
   const facultades = ['Facultad de Bellas Artes','Facultad de Ciencias Naturales','Facultad de Ciencias Políticas y Sociales','Facultad de Derecho',
     'Facultad de Filosofía','Facultad de Informática','Facultad de Ingeniería','Facultad de Lenguas y Letras','Facultad de Medicina','Facultad de Psicología',
     'Facultad de Contaduría','Facultad de Química','Facultad de Enfermería','Escuela de Bachilleres'
-  ]
+  ];
 
 
   return (
