@@ -1,18 +1,15 @@
-import React, { useState } from "react";
+import React from "react";
 import "./EditarEquipoModal.css";
 import { aFacultities } from "../../../Utils/constants";
 import TableJugadoresEquipo from "../../TableListaJugadoresEquipo/TableJugadoresEquipo";
 import {useFetchData} from '../../../Hooks/Fetch.hook'
 import ListaJugadores from "../../ListaJugadores/ListaJugadores";
-import TableListadoJugadores from "../../TableListadoJugadores/TableListadoJugadores";
+import axios from "axios";
 
 function EditarEquipoModal(props) {
 
   const {closeModal} = props;
   const {equipo} = props;
-
-  const [mostrarListaJugadores, setMostrarListaJugadores] = useState(false);
-  const [jugadoresEquipo, setJugadoresEquipo] = useState(equipo.jugadores);
 
   console.log()
   //const [equipo] = useFetchData(`equipos/${props.idEquipo}`)
@@ -27,6 +24,47 @@ function EditarEquipoModal(props) {
   ];
 
 
+
+function EditarEquipoModal({ closeModal }) {
+  // UPDATE INFO
+  function UpdateInfo(){
+    let equipoId = localStorage.getItem("equipoId");
+    localStorage.removeItem("equipoId");
+    let newName = document.getElementById("nombre");
+    let newFacultad = document.getElementById("facultad");
+    let newCampus = document.getElementById("campus");
+    let newCategoria = document.getElementById("categoria");
+    let newNombreEntrenador = document.getElementById("nombreEntrenador");
+    let newApellidoEntrenador = document.getElementById("apellidoEntrenador");
+    let newNombreAsistente = document.getElementById("nombreAsistente");
+    let newApellidoAsistente = document.getElementById("apellidoAsistente");
+    axios({
+      method: "put",
+      url: `http://localhost:3000/api/equipos/${equipoId}`,
+      data:{
+        name: newName,
+        facultad: newFacultad,
+        campus: newCampus,
+        categoria: newCategoria,
+        nombreEntrenador: newNombreEntrenador,
+        apellidoEntrenador: newApellidoEntrenador,
+        nombreAsistente: newNombreAsistente,
+        apellidoAsistente: newApellidoAsistente
+
+      }
+    }).then(function(res){
+      alert("Equipo actualizado :)")
+    }).catch(function(err){
+      console.log(err);
+    })
+  }
+  let data = localStorage.getItem("data");
+  localStorage.removeItem("data");
+  let dataTransform = JSON.parse(data);
+  let dataArray = [];
+  for(let i in dataTransform){
+    dataArray.push(dataTransform[i]);
+  }
   return (
     <div className="modalBackgroundBlur modalBackground">
       <div className="modalContainer">
@@ -50,6 +88,7 @@ function EditarEquipoModal(props) {
                   id="nombre"
                   maxLength={80}
                   value={equipo.nombre}
+                  placeholder= {`${dataArray[1]}`}
                   required
                 />
                 <br />
@@ -73,6 +112,7 @@ function EditarEquipoModal(props) {
                   id="nombreEntrenador"
                   maxLength={100}
                   value={equipo.nombreEntrenador}
+                  placeholder={`${dataArray[6]}`}
                   required
                 />
                 <br />
@@ -84,6 +124,7 @@ function EditarEquipoModal(props) {
                   id="nombreAsistente"
                   maxLength={100}
                   value={equipo.nombreAsistente}
+                  placeholder={`${dataArray[8]}`}
                   required
                 />
                 <br />
@@ -127,6 +168,7 @@ function EditarEquipoModal(props) {
                   id="apellidoEntrenador"
                   maxLength={100}
                   value={equipo.apellidoEntrenador}
+                  placeholder={`${dataArray[7]}`}
                   required
                 />
                 <br />
@@ -134,10 +176,11 @@ function EditarEquipoModal(props) {
                 <input
                   className="input inputText"
                   type="text"
-                  name="apellidoAsistente "
-                  id="apellidoAsistente"
                   maxLength={100}
+                  name="apellidoAsistente"
+                  id="apellidoAsistente"
                   value={equipo.apellidoAsistente}
+                  placeholder= {`${dataArray[1]}`}
                   required
                 />
                 <br />
@@ -145,39 +188,24 @@ function EditarEquipoModal(props) {
             </div>
             <div className="btnContainer">
               <div className="centerBtnContainer">
-                <button>Guardar</button>
                 <button className="cancelBtn" onClick={() => closeModal(false)}>
                   Cancelar
                 </button>
+                <button type="submit" className="saveInfoBtn" onClick={()=> UpdateInfo()}>Guardar</button>
               </div>
             </div>
           </div>
           <div className="teamTable">
-            <div className="containerTableJugadoresEquipo">
-              {
-                mostrarListaJugadores 
-                ?
-                  <TableListadoJugadores 
-                    jugadores={jugadoresEquipo} 
-                    setJugadoresEquipo={setJugadoresEquipo}
-                  />
-                :
-                  <TableJugadoresEquipo listaJugadores={jugadoresEquipo}/>
-              }
-
-            </div>  
-            {
-                mostrarListaJugadores 
-                ?
-                  <button className="addMemberBtn" onClick={() => setMostrarListaJugadores(false)}>Guardar</button>
-                :
-                  <button className="addMemberBtn" onClick={() => setMostrarListaJugadores(true)}>Añadir Miembro</button>
-            }
+          <div className="containerTableJugadoresEquipo">
+            <TableJugadoresEquipo listaJugadores={equipo.jugadores}/>
+            {/* <ListaJugadores/> */}
+          </div>  
+            <button className="addMemberBtn">Añadir Miembro</button>
           </div>
         </div>
-      </div>
-      {/* <ListaJugadores/> */}
+      </div>S
+      <ListaJugadores/>
     </div>
   );
-}
+}}
 export default EditarEquipoModal;
