@@ -54,7 +54,12 @@ export const EquiposScreen = () => {
             title="Editar"
             src={iconEdit}
             className='icons edit'
-            onClick={() => {setOpenModalEdit(true); setEquipo(row)}}
+            onClick={() => {
+              setOpenModalEdit(true);
+              setEquipo(row)
+              localStorage.setItem("equipoId", row.equipoId);
+              localStorage.setItem("data", JSON.stringify(row));
+            }}
             />
           <img
             title="Eliminar"
