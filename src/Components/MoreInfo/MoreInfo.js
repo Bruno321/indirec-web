@@ -1,31 +1,53 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './MoreInfo.css';
 
-function MoreInfo(props) {
-    const {datos} = props;
-    // console.log(datos)
-    let urlFotoDeportista;
-    let urlFotoCredencial;
-    let urlFotoKardex;
+const oInitState = {
+    fotoCardex: null,
+    fotoIdentificacionOficial: null,
+    foto: null
+};
 
-    if(datos){
-        // console.log(datos.fotoIdentificacionOficial);
-        urlFotoDeportista = datos.foto.split('/');
-        urlFotoDeportista = `http://localhost:3000/api/uploads/${urlFotoDeportista[1]}`;
-        urlFotoKardex = datos.fotoCardex.split('/');
-        urlFotoKardex = `http://localhost:3000/api/uploads/${urlFotoKardex[1]}`;
-        urlFotoCredencial = datos.fotoIdentificacionOficial.split('/');
-        urlFotoCredencial = `http://localhost:3000/api/uploads/${urlFotoCredencial[1]}`;
-    }else{
-        urlFotoDeportista = 'https://cdn-icons-png.flaticon.com/512/1946/1946429.png';
+function MoreInfo({ datos, trigger, setTrigger }) {
+    const [files, setFiles] = useState(oInitState);
+
+    useEffect(() => {
+        if (datos) {
+            let aTmp = {...files};
+            for (const fKey in oInitState) { 
+                if (datos[fKey]) {
+                    aTmp = {
+                        ...aTmp,
+                        [fKey]: `http://localhost:3000/api/uploads/${datos[fKey]?.split('/')[1]}` // TODO: Change this later for .env variable
+                    };
+                }
+            }
+            setFiles(aTmp);
+        } else {
+            setFiles({
+                ...files,
+                foto: 'https://cdn-icons-png.flaticon.com/512/1946/1946429.png'
+            });
+        }
+    }, [datos]);
+
+    const handleDownload = oUrl => {
+        const link = document.createElement('a');
+        link.href = oUrl;
+        link.setAttribute('download', '');
+        link.setAttribute('target', '_blank');
+        link.setAttribute('rel', 'noopener noreferrer');
+
+        document.body.appendChild(link);
+        link.click();
+        link.parentNode.removeChild(link);
     }
 
-    return (props.trigger) ? (
+    return trigger ? (
         <div className='MoreInfo'>
             <div className='MoreInfo-inner'>
                 <div className='inner-up'>
                     <div style={{height: "200px", width: "200px", backgroundColor:"black"}}>
-                        <img src={urlFotoDeportista} width='200px' height='200px'/>
+                        <img src={files.foto} width='200px' height='200px'/>
                     </div>
 
                     <div className='inner-up-left'>
@@ -83,24 +105,21 @@ function MoreInfo(props) {
                     </div>
 
                 </div>
-                
-                <form action={urlFotoKardex} method='GET' id='descargarKardex'></form>
-                <form action={urlFotoCredencial} method='GET' id='descargarCredencial'></form>
 
                 <div className='bottom'>
                     <div>
                         <b><p>Kárdex</p></b>
-                        <button type='submit' form='descargarKardex' value='Submit'>Descargar archivo</button>
+                        <button onClick={() => handleDownload(files.fotoCardex)}>Descargar archivo</button>
                     </div>
 
                     <div>
                         <b><p>Identificación oficial</p></b>
-                        <button type='submit' form='descargarCredencial' value='Submit'>Descargar archivo</button>
+                        <button onClick={() => handleDownload(files.fotoIdentificacionOficial)}>Descargar archivo</button>
                     </div>
                 </div>
                 
 
-                <button className='aceptar' onClick={()=> props.setTrigger(false)}>Aceptar</button>
+                <button className='aceptar' onClick={() => setTrigger(false)}>Aceptar</button>
             </div>
         </div>
     ) : "";
