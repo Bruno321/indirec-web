@@ -1,75 +1,69 @@
-import React from "react";
-import "./EditarEquipoModal.css";
-import { aFacultities } from "../../../Utils/constants";
+import React, { useState, useEffect } from "react";
+import { aFacultities, aCampus } from "../../../Utils/constants";
 import TableJugadoresEquipo from "../../TableListaJugadoresEquipo/TableJugadoresEquipo";
-import {useFetchData} from '../../../Hooks/Fetch.hook'
-import ListaJugadores from "../../ListaJugadores/ListaJugadores";
-import axios from "axios";
+import TableListadoJugadores from "../../TableListadoJugadores/TableListadoJugadores";
+import { UPDATE, process } from '../../../Service/Api';
+import Swal from 'sweetalert2';
+import "./EditarEquipoModal.css";
 
-function EditarEquipoModal(props) {
+const oInitialState ={ 
+  nombre: '',
+  facultad: '',
+  campus: '',
+  deporte: '',
+  categoria: null,
+  nombreEntrenador: '',
+  apellidoEntrenador: '',
+  nombreAsistente: '',
+  apellidoAsistente: '',
+  jugadores: []
+};
 
-  const {closeModal} = props;
-  const {equipo} = props;
-
-  console.log()
-  //const [equipo] = useFetchData(`equipos/${props.idEquipo}`)
-
-  console.log(equipo);
-  
-  const campus = ['Centro Universitario', 'Juriquilla', 'Aeropuerto', 'Ex-prepa Centro', 'Prepa Norte', 'Prepa Sur', 'Centro Historico'];
+function EditarEquipoModal({ equipo, visible, setVisible, updater }) {
+  const [mostrarListaJugadores, setMostrarListaJugadores] = useState(false);
+  const [jugadoresEquipo, setJugadoresEquipo] = useState([]);
+  const [form, setForm] = useState(oInitialState);
   const categoria = [0, 1];
-  const facultades = ['Facultad de Bellas Artes','Facultad de Ciencias Naturales','Facultad de Ciencias Políticas y Sociales','Facultad de Derecho',
-    'Facultad de Filosofía','Facultad de Informática','Facultad de Ingeniería','Facultad de Lenguas y Letras','Facultad de Medicina','Facultad de Psicología',
-    'Facultad de Contaduría','Facultad de Química','Facultad de Enfermería','Escuela de Bachilleres'
-  ];
 
+  useEffect(() => {
+    if (equipo) {
+      setForm(equipo);
+      setJugadoresEquipo(equipo.jugadores);
+    }
+  }, [equipo]);
 
+  const handleSubmit = async () => {
+    let oSend = {
+      ...form,
+      jugadores: jugadoresEquipo.map(j => j.deportistaId),
+    };
 
-function EditarEquipoModal({ closeModal }) {
-  // UPDATE INFO
-  function UpdateInfo(){
-    let equipoId = localStorage.getItem("equipoId");
-    localStorage.removeItem("equipoId");
-    let newName = document.getElementById("nombre");
-    let newFacultad = document.getElementById("facultad");
-    let newCampus = document.getElementById("campus");
-    let newCategoria = document.getElementById("categoria");
-    let newNombreEntrenador = document.getElementById("nombreEntrenador");
-    let newApellidoEntrenador = document.getElementById("apellidoEntrenador");
-    let newNombreAsistente = document.getElementById("nombreAsistente");
-    let newApellidoAsistente = document.getElementById("apellidoAsistente");
-    axios({
-      method: "put",
-      url: `http://localhost:3000/api/equipos/${equipoId}`,
-      data:{
-        name: newName,
-        facultad: newFacultad,
-        campus: newCampus,
-        categoria: newCategoria,
-        nombreEntrenador: newNombreEntrenador,
-        apellidoEntrenador: newApellidoEntrenador,
-        nombreAsistente: newNombreAsistente,
-        apellidoAsistente: newApellidoAsistente
+    const response = await process(UPDATE, 'equipos', oSend, { id: oSend.equipoId }).catch(e => {
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Algo salio mal, intenta mas tarde',
+      })
+      console.log(e);
+    });
 
-      }
-    }).then(function(res){
-      alert("Equipo actualizado :)")
-    }).catch(function(err){
-      console.log(err);
-    })
-  }
-  let data = localStorage.getItem("data");
-  localStorage.removeItem("data");
-  let dataTransform = JSON.parse(data);
-  let dataArray = [];
-  for(let i in dataTransform){
-    dataArray.push(dataTransform[i]);
-  }
-  return (
+    if (response?.data?.ok) {
+      setVisible(false);
+      Swal.fire({
+        icon: 'success',
+        title: 'Se actualizó el equipo correctamente',
+        confirmButtonText: 'Aceptar'
+      }).then(() => {
+        updater();
+      });
+    }
+  };  
+
+  return visible ? (
     <div className="modalBackgroundBlur modalBackground">
       <div className="modalContainer">
         <div className="titleCloseBtn">
-          <button onClick={() => closeModal(false)}>X</button>
+          <button onClick={() => setVisible(false)}>X</button>
         </div>
         <div className="modalUpdateContainer">
           <div className="formEditInformationTeam">
@@ -87,19 +81,22 @@ function EditarEquipoModal({ closeModal }) {
                   name="nombre"
                   id="nombre"
                   maxLength={80}
-                  value={equipo.nombre}
-                  placeholder= {`${dataArray[1]}`}
+                  value={form.nombre}
+                  onChange={e => setForm({ ...form, nombre: e.target.value })}
                   required
                 />
                 <br />
                 <label className="labels" htmlFor="facultad">Facultad:</label>
-                <select className="input inputSelect" id="facultad">
+                <select
+                  className="input inputSelect"
+                  id="facultad"
+                  value={form.facultad}
+                  onChange={e =>  setForm({ ...form, facultad: e.target.value })}
+                >
                   {
-                    facultades.map(c => c != equipo.facultad 
-                      ? 
-                        <option value={`${c}`}>{c}</option> 
-                      : 
-                        <option selected value={`${c}`}>{c}</option>
+                    aFacultities.map(c => (
+                      <option value={`Facultad de ${c}`}>Facultad de {c}</option>
+                    )
                     )
                   }
                 </select>
@@ -111,8 +108,8 @@ function EditarEquipoModal({ closeModal }) {
                   name="nombreEntrenador"
                   id="nombreEntrenador"
                   maxLength={100}
-                  value={equipo.nombreEntrenador}
-                  placeholder={`${dataArray[6]}`}
+                  value={form.nombreEntrenador}
+                  onChange={e => setForm({ ...form, nombreEntrenador: e.target.value })}
                   required
                 />
                 <br />
@@ -123,8 +120,8 @@ function EditarEquipoModal({ closeModal }) {
                   name="nombreAsistente"
                   id="nombreAsistente"
                   maxLength={100}
-                  value={equipo.nombreAsistente}
-                  placeholder={`${dataArray[8]}`}
+                  value={form.nombreAsistente}
+                  onChange={e => setForm({ ...form, nombreAsistente: e.target.value })}
                   required
                 />
                 <br />
@@ -135,28 +132,27 @@ function EditarEquipoModal({ closeModal }) {
                 <select
                   className="inputSelect input"
                   id="campus"
-                  onChange={(e) => setForm({ ...form, campus: e.target.value })}
+                  value={form.campus}
+                  onChange={e => setForm({ ...form, campus: e.target.value })}
                 > 
                   {
-                    campus.map(c => c != equipo.campus 
-                      ? 
+                    aCampus.map(c => (
                         <option value={`${c}`}>{c}</option> 
-                      : <option selected value={`${c}`}>{c}</option>
-                    )
+                    ))
                   }
                 </select>
                 <br />
                 <label htmlFor="categoria" className="labels">Categoría:</label>
-                <select id="categoria" className="input inputSelect">
-                  {/* <option value={0}>Femenil</option>
-                  <option value={1}>Varonil</option> */}
+                <select
+                  id="categoria"
+                  className="input inputSelect"
+                  value={form.categoria}
+                  onChange={e => setForm({ ...form, categoria: e.target.value })}
+                >
                   {
-                    categoria.map(c => equipo.categoria == c 
-                      ? 
-                        <option selected value={equipo.categoria}>{equipo.categoria == 0 ? 'Varonil' : 'Femenil'}</option> 
-                      : 
-                        <option value={equipo.categoria != 0 ? 'Varonil' : 'Femenil'}>{equipo.categoria != 0 ? 'Varonil' : 'Femenil'}</option>
-                      )
+                    categoria.map(c => (
+                      <option value={c}>{form.categoria ? 'Femenil' : 'Varonil'}</option>
+                    ))
                   }
                 </select>
                 <br />
@@ -167,8 +163,8 @@ function EditarEquipoModal({ closeModal }) {
                   name="apellidoEntrenador"
                   id="apellidoEntrenador"
                   maxLength={100}
-                  value={equipo.apellidoEntrenador}
-                  placeholder={`${dataArray[7]}`}
+                  value={form.apellidoEntrenador}
+                  onChange={e => setForm({ ...form, apellidoEntrenador: e.target.value })}
                   required
                 />
                 <br />
@@ -176,11 +172,11 @@ function EditarEquipoModal({ closeModal }) {
                 <input
                   className="input inputText"
                   type="text"
-                  maxLength={100}
-                  name="apellidoAsistente"
+                  name="apellidoAsistente "
                   id="apellidoAsistente"
-                  value={equipo.apellidoAsistente}
-                  placeholder= {`${dataArray[1]}`}
+                  maxLength={100}
+                  value={form.apellidoAsistente}
+                  onChange={e => setForm({ ...form, apellidoAsistente: e.target.value })}
                   required
                 />
                 <br />
@@ -188,24 +184,38 @@ function EditarEquipoModal({ closeModal }) {
             </div>
             <div className="btnContainer">
               <div className="centerBtnContainer">
-                <button className="cancelBtn" onClick={() => closeModal(false)}>
+                <button onClick={handleSubmit}>Guardar</button>
+                <button className="cancelBtn" onClick={() => setVisible(false)}>
                   Cancelar
                 </button>
-                <button type="submit" className="saveInfoBtn" onClick={()=> UpdateInfo()}>Guardar</button>
               </div>
             </div>
           </div>
           <div className="teamTable">
-          <div className="containerTableJugadoresEquipo">
-            <TableJugadoresEquipo listaJugadores={equipo.jugadores}/>
-            {/* <ListaJugadores/> */}
-          </div>  
-            <button className="addMemberBtn">Añadir Miembro</button>
+            <div className="containerTableJugadoresEquipo">
+              {
+                mostrarListaJugadores 
+                ?
+                  <TableListadoJugadores 
+                    jugadores={jugadoresEquipo} 
+                    setJugadoresEquipo={setJugadoresEquipo}
+                  />
+                :
+                  <TableJugadoresEquipo listaJugadores={jugadoresEquipo}/>
+              }
+
+            </div>  
+            {
+                mostrarListaJugadores 
+                ?
+                  <button className="addMemberBtn" onClick={() => setMostrarListaJugadores(false)}>Guardar</button>
+                :
+                  <button className="addMemberBtn" onClick={() => setMostrarListaJugadores(true)}>Añadir Miembro</button>
+            }
           </div>
         </div>
-      </div>S
-      <ListaJugadores/>
+      </div>
     </div>
-  );
-}}
+  ) : null;
+}
 export default EditarEquipoModal;

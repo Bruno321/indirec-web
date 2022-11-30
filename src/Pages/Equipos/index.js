@@ -9,8 +9,8 @@ import iconMoreInfo from "../../Assets/icons/more-info.png";
 import EditarEquipoModal from '../../Components/Modals/EditarEquipoModal/EditarEquipoModal';
 
 export const EquiposScreen = () => {
-  const [equipos, loading] = useFetchData('equipos');
-  const [openModalEdit, setOpenModalEdit] = useState(false);
+  const [equipos, loading, updater] = useFetchData('equipos');
+  const [visible, setVisible] = useState(false);
   const [equipo, setEquipo] = useState();
 
   const columns = [
@@ -54,7 +54,10 @@ export const EquiposScreen = () => {
             title="Editar"
             src={iconEdit}
             className='icons edit'
-            onClick={() => {setOpenModalEdit(true); setEquipo(row)}}
+            onClick={() => {
+              setVisible(!visible);
+              setEquipo(row);
+            }}
             />
           <img
             title="Eliminar"
@@ -74,7 +77,12 @@ export const EquiposScreen = () => {
   return (
     <>
       <h3>Equipos</h3>
-      {openModalEdit && <EditarEquipoModal closeModal={setOpenModalEdit} equipo={equipo}/>}
+      <EditarEquipoModal
+        equipo={equipo}
+        visible={visible}
+        setVisible={setVisible}
+        updater={updater}
+      />
       <Table
         columns={columns}
         dataSource={equipos}
