@@ -1,4 +1,5 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
+import { aFacultities, aCampus } from '../../Utils/constants';
 import TableJugadoresEquipo from "../TableListaJugadoresEquipo/TableJugadoresEquipo";
 import './RegistrarEquipo.css';
 import PencilAlt from "../../Assets/icons/pencilAlt.png";
@@ -79,19 +80,9 @@ const RegistrarEquipo = () => {
                         <div className="containers-input-registroEquipo">
                             <label htmlFor="facultad">Facultad:</label>
                             <select id="facultad" className="inputs-registro" value={form.facultad} onChange={e => setForm({...form,facultad:e.target.value})}>
-                                <option value="Facultad de Derecho">Facultad de Derecho</option>
-                                <option value="Facultad de Enfermería">Facultad de Enfermería</option>
-                                <option value="Facultad de Contaduría y administración">Facultad de Contaduría y administración</option>
-                                <option value="Facultad de Filosofía">Facultad de Filosofía</option>
-                                <option value="Facultad de Psicología">Facultad de Psicología</option>
-                                <option value="Facultad de Ciencias Naturales">Facultad de Ciencias Naturales</option>
-                                <option value="Facultad de Ingeniería">Facultad de Ingeniería</option>
-                                <option value="Facultad de Bellas Artes">Facultad de Bellas Artes</option>
-                                <option value="Facultad de Medicina">Facultad de Medicina</option>
-                                <option value="Facultad de Informática">Facultad de Informática</option>
-                                <option value="Facultad de Química">Facultad de Química</option>
-                                <option value="Facultad de Ciencias Políticas y Sociales">Facultad de Ciencias Políticas y Sociales</option>
-                                <option value="Facultad de Lenguas y letras">Facultad de Lenguas y letras</option>
+                                {aFacultities.map(oFc => (
+                                    <option value={`Facultad de ${oFc}`}>{`Facultad de ${oFc}`}</option>
+                                ))}
                                 <option>Escuela de Bachilleres</option>
                             </select>
                         </div>
@@ -105,12 +96,9 @@ const RegistrarEquipo = () => {
                         <div className="containers-input-registroEquipo">
                             <label htmlFor="campus">Campus:</label>
                             <select id="campus" className="inputs-registro" onChange={e => setForm({...form,campus:e.target.value})}>
-                                <option value="Centro Historico">Centro Universitario</option>
-                                <option value="Juriquilla">Juriquilla</option>
-                                <option value="Aeropuerto">Aeropuerto</option>
-                                <option value="Ex-prepa Centro">Ex-prepa Centro</option>
-                                <option value="Prepa Norte">Prepa Norte</option>
-                                <option value="Prepa Sur">Prepa Sur</option>
+                                {aCampus.map(c => (
+                                    <option value={c}>{c}</option>
+                                ))}
                             </select>
                         </div>
                         <div className="containers-input-registroEquipo">
@@ -175,9 +163,6 @@ const RegistrarEquipo = () => {
             <div className="containerButton-registroEquipo">
                 <button type="submit" form="registrarEquipoForm" className="button-registroEquipo">Registrar Equipo</button>
             </div>
-            {
-                // console.log(listaJugadores)
-            }
             <ListaJugadores trigger={mostrarListaJugadoresEquipo} setTrigger={setMostrarListaJugadoresEquipo} jugadores={listaJugadores} setJugadores={setListaJugadores}></ListaJugadores>
         </div>
     )

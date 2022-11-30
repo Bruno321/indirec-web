@@ -1,4 +1,4 @@
-export  const aFacultities = [
+export const aFacultities = [
   "Bellas Artes",
   "Ciencias Naturales",
   "Ciencias Políticas y Sociales",
@@ -12,3 +12,5 @@ export  const aFacultities = [
   "Contaduría",
   "Química",
 ];
+
+export const aCampus = ['Centro Universitario', 'Juriquilla', 'Aeropuerto', 'Ex-prepa Centro', 'Prepa Norte', 'Prepa Sur', 'Centro Historico'];
