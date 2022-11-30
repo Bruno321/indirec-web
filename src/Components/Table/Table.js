@@ -33,7 +33,7 @@ export const Table = ({ dataSource, columns, loading }) => {
                                 {columns.map(({ dataIndex, render }) => render === undefined ? (
                                     <td className="td-font-weight td">{oData[dataIndex]}</td>
                                 ) : (
-                                    <td className={dataIndex?.toLowerCase()?.includes("id") ? "container-edits td" : "td-font-weight td"}>
+                                    <td className={dataIndex?.includes("Id") ? "container-edits td" : "td-font-weight td"}>
                                         {handleRender(render(oData[dataIndex], oData, index))}
                                     </td>
                                 ))}

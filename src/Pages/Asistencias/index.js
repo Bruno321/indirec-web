@@ -1,6 +1,7 @@
 import React from 'react';
 import { Table } from '../../Components/Table/Table';
 import { useFetchData } from '../../Hooks/Fetch.hook';
+import moment from 'moment';
 
 export const AsistenciasScreen = () => {
   const [asistencias, loading] = useFetchData('deportistas/asistencias');
@@ -23,10 +24,12 @@ export const AsistenciasScreen = () => {
     {
       title: 'Hora de Entrada',
       dataIndex: 'horaEntrada',
+      render: hE => moment(hE).format('HH:mm:ss a'),
     },
     {
       title: 'Hora de Salida',
       dataIndex: 'horaSalida',
+      render: hS => moment(hS).format('HH:mm:ss a'),
     },
   ];
 
