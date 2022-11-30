@@ -102,8 +102,6 @@
     display: flex;
     flex-direction: row;
   }
-  .form{
-  }
   .formContainerLeft{
     margin-left: 10px;
     width: 50%;

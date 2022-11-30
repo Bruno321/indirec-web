@@ -31,13 +31,10 @@ const RegistrarEquipo = () => {
         const idJugadores = listaJugadores.map(jugador => jugador.deportistaId);
         console.log(idJugadores);
 
-        //setForm({...form, jugadores: idJugadores});
         setForm(form.jugadores = idJugadores)
         console.log(form)
-        //debbuger()
 
         if(listaJugadores.length != 0){
-            // alert('Registro exitoso');
             
             const response = await process(SAVE, 'equipos', form).catch(e => {
                 Swal.fire({
