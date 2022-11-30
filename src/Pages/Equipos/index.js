@@ -4,6 +4,7 @@ import { useFetchData } from '../../Hooks/Fetch.hook';
 import iconDelete from "../../Assets/icons/delete.png";
 import iconEdit from "../../Assets/icons/edit.png";
 import iconMoreInfo from "../../Assets/icons/more-info.png";
+import Swal from 'sweetalert2/dist/sweetalert2.js';
 
 // Modal
 import EditarEquipoModal from '../../Components/Modals/EditarEquipoModal/EditarEquipoModal';
@@ -63,12 +64,42 @@ export const EquiposScreen = () => {
             title="Eliminar"
             src={iconDelete}
             className='icons delete'
+            onClick={() => {
+              setEquipo(row);
+              Swal.fire({
+                title: 'ELIMINAR',
+                text: "¿Eliminar al equipo " + row.nombre + "?",
+                // text: JSON.stringify(row),
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                cancelButtonText: 'Cancelar',
+                confirmButtonText: 'Confirmar'
+              }).then((result) => {
+                if (result.isConfirmed) {
+                  Swal.fire({
+                    title: 'ATENCION',
+                    text: "¿Estas seguro de eliminar al equipo " + row.nombre + "?",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    cancelButtonText: 'Cancelar',
+                    confirmButtonText: 'Confirmar'
+                  }).then((result) => {
+                    if (result.isConfirmed) {
+                      Swal.fire(
+                        'Eliminado satisfactoriamente',
+                        "El equipo " + row.nombre + " ha sido eliminado.",
+                        'success'
+                      )
+                    }
+                  })
+                }
+              })
+            }}
             />
-          <img
-            title="Más información"
-            src={iconMoreInfo}
-            className='icons moreinfo'
-          />
         </>
       ),
     }
