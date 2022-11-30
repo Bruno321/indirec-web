@@ -9,12 +9,12 @@ export const AsistenciasScreen = () => {
     {
       title: 'Nombre(s)',
       dataIndex: '',
-      render: (_, row) => `${row?.deportistum?.nombre}`,
+      render: (_, row) => `${row?.deportistum?.nombres}`,
     },
     {
       title: 'Apellido(s)',
       dataIndex: '',
-      render: (_, row) => `${row?.deportistum?.apellido}`,
+      render: (_, row) => `${row?.deportistum?.apellidos}`,
     },
     {
       title: 'Fecha',
