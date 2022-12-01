@@ -7,6 +7,7 @@ import { SAVE_WITH_FILE, process } from '../../Service/Api';
 import "./RegistrarDeportista.css";
 // Se implmentan imagenes
 import ImgDocumentFiles from '../../Assets/icons/document-files.png';
+import ModalQR from '../Modals/ModalQR/ModalQR';
 
 const oInitialState = {
     expediente:"",
@@ -36,7 +37,9 @@ const RegistrarDeportista = () => {
     const [photo, setPhoto] = useState(false);
     const [loading, setLoading] = useState(false);
 
-    const [form,setForm] = useState(oInitialState)
+    const [form,setForm] = useState(oInitialState);
+    const [mostrarModalQr, setMostrarModalQr] = useState(false);
+    const [datos, setDatos] = useState({})
 
     const handleSubmit = async (e) => {
         //Se valida si los campos del formulario estan completos
@@ -64,7 +67,12 @@ const RegistrarDeportista = () => {
                     'Jugador agregado exitosamente',
                     'Este aparecera en la lista',
                     'success'
-                );
+                ).then(result => {
+                    if(result.isConfirmed){
+                        setMostrarModalQr(true);
+                        // datos({...datos,  'id': `${response.data.data.deportistaId}`,'nombre': `${response.data.data.nombres} ${response.data.data.apellidos}`})
+                    }
+                })
             }
             setLoading(false);
         }
@@ -112,7 +120,6 @@ const RegistrarDeportista = () => {
     return(
         <div>
             <div className='obtenerQr'>
-
             <h1 className = "titleRegister">Registro para obtención de QR</h1>
             <p>NOTA: Los campos con "*" son obligatorios</p><br></br>
 
@@ -343,6 +350,12 @@ const RegistrarDeportista = () => {
                 </form>
             </div>
             </div>
+            {
+                console.log(datos)
+            }
+            {
+                mostrarModalQr ?  <ModalQR datos={{id: '1', nombre: 'Daniel Aros Ramirez'}} setMostrarModalQr={setMostrarModalQr}/> : ''
+            }
         </div>
     )
     

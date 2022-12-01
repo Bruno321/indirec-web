@@ -13,24 +13,29 @@ import close from "../../../Assets/icons/close.png";
 */
 
 const ModalQR = (props) => {
+
+    const {setMostrarModalQr} = props;
+
     return (
-        <div className="container-modal">
-            <div className="container-header">
-                 <p className="title">Información guardada correctamente</p>
-                <img src={close} id="close"/>
-            </div>
-            <div className="container-info">
-                <div className="container-img-qr">
-                    <QRCode value={`${JSON.stringify(props.datos)}`} level='H' className="qr"/>
-                    <div className="container-indereq-icon">
-                        <img src={indereqIcon} className="indereq-icon"/>
-                    </div>
+        <div className="containerPrincipal-modal">
+            <div className="container-modal">
+                <div className="container-header">
+                    <p className="title">Información guardada correctamente</p>
+                    <img src={close} id="close" onClick={() => setMostrarModalQr(false)}/>
                 </div>
-                <p className="info">QR Generado.</p>
-                <p className="info">No olvides escanearlo en tu celular.</p>
-            </div>
-            <div className="container-button">
-                <button id="button-salir">Salir</button>
+                <div className="container-info">
+                    <div className="container-img-qr">
+                        <QRCode value={`${JSON.stringify(props.datos)}`} level='H' className="qr"/>
+                        <div className="container-indereq-icon">
+                            <img src={indereqIcon} className="indereq-icon"/>
+                        </div>
+                    </div>
+                    <p className="info">QR Generado.</p>
+                    <p className="info">No olvides escanearlo en tu celular.</p>
+                </div>
+                <div className="container-button">
+                    <button id="button-salir" onClick={() => setMostrarModalQr(false)}>Salir</button>
+                </div>
             </div>
         </div>
     )

@@ -4,6 +4,9 @@ import { useFetchData } from '../../Hooks/Fetch.hook';
 import iconDelete from "../../Assets/icons/delete.png";
 import iconEdit from "../../Assets/icons/edit.png";
 import iconMoreInfo from "../../Assets/icons/more-info.png";
+import Swal from 'sweetalert2/dist/sweetalert2.js';
+
+// import 'sweetalert2/src/sweetalert2.scss'
 
 import MoreInfo from '../../Components/MoreInfo/MoreInfo';
 
@@ -55,21 +58,50 @@ export const DeportistasScreen = () => {
             title="Editar"
             src={iconEdit}
             className='icons edit'
+            onClick={() => {
+              setButtonMoreInfo(true);
+              setSelected(row);
+            }}
             />
           <img
             title="Eliminar"
             src={iconDelete}
             className='icons delete'
-            />
-          <img
-            title="Más información"
-            src={iconMoreInfo}
-            className='icons moreinfo'
             onClick={() => {
-              setButtonMoreInfo(true);
               setSelected(row);
+              Swal.fire({
+                title: 'ELIMINAR',
+                text: "¿Eliminar a "+ row.nombres + " " + row.apellidos + "?",
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                cancelButtonText: 'Cancelar',
+                confirmButtonText: 'Confirmar'
+              }).then((result) => {
+                if (result.isConfirmed) {
+                  Swal.fire({
+                    title: 'ATENCION',
+                    text: "¿Estas seguro de eliminar a "+ row.nombres + " " + row.apellidos + "?",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    cancelButtonText: 'Cancelar',
+                    confirmButtonText: 'Confirmar'
+                  }).then((result) => {
+                    if (result.isConfirmed) {
+                      Swal.fire(
+                        'Eliminado satisfactoriamente',
+                        "El deportista "+ row.nombres + " " + row.apellidos + " ha sido eliminado.",
+                        'success'
+                      )
+                    }
+                  })
+                }
+              })
             }}
-          />
+            />
         </>
       ),
     }
