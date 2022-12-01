@@ -168,7 +168,7 @@ const RegistrarEquipo = () => {
                     </div>
                     <div className="btnEditarEquipo" onClick={() => setMostrarListaJugadoresEquipo(true)}>
                         <img src={PencilAlt}/>
-                        Editar Equipo
+                        Agregar jugador
                     </div>
                 </div>
             </div>  

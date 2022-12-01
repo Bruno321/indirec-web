@@ -10,7 +10,7 @@ import Ordenar from "../../Assets/icons/ordenar.png";
 import Filtro from "../../Assets/icons/filtro.png";
 
 // ? Modify when a new screen is added
-const validHeaderScreens = [0, 1, 5];
+const validHeaderScreens = [0, 1, 5,6];
 
 const Header = ({ onClick, screen }) => {
     const [visible, setVisible] = useState(true);

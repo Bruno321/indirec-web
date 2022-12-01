@@ -31,7 +31,7 @@ export async function login (email, password) {
  * @param {ENUM} operation - Consts FIND, GET, SAVE or UPDATE
  * @param {string} model - Model name in API
  * @param {object} payload - Data to send
- * @param {object} params - Object that can contain id of model or queries and skip for find calls.
+ * @param {object} params - Object that can contain id of a model or queries and skip for find calls.
  */
 export async function process(operation, model, payload = {}, params = {}) {
   const { id, queries, limit, skip } = params || {};

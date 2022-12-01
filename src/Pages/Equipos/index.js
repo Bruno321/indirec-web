@@ -1,14 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Table } from '../../Components/Table/Table';
 import { useFetchData } from '../../Hooks/Fetch.hook';
 import iconDelete from "../../Assets/icons/delete.png";
 import iconEdit from "../../Assets/icons/edit.png";
 import iconMoreInfo from "../../Assets/icons/more-info.png";
+import { NavigationContext } from "../../Context/NavigationContext";
 
 // Modal
 import EditarEquipoModal from '../../Components/Modals/EditarEquipoModal/EditarEquipoModal';
 
 export const EquiposScreen = () => {
+  const {setScreen,setItemId} = useContext(NavigationContext);
+
   const [equipos, loading] = useFetchData('equipos');
   const [openModalEdit, setOpenModalEdit] = useState(false);
   const [equipo, setEquipo] = useState();
@@ -54,7 +57,8 @@ export const EquiposScreen = () => {
             title="Editar"
             src={iconEdit}
             className='icons edit'
-            onClick={() => {setOpenModalEdit(true); setEquipo(row)}}
+            // onClick={() => {setOpenModalEdit(true); setEquipo(row)}}
+            onClick={() => {setScreen(6); setItemId(row.equipoId)}}
             />
           <img
             title="Eliminar"
@@ -74,7 +78,7 @@ export const EquiposScreen = () => {
   return (
     <>
       <h3>Equipos</h3>
-      {openModalEdit && <EditarEquipoModal closeModal={setOpenModalEdit} equipo={equipo}/>}
+      {/* {openModalEdit && <EditarEquipoModal closeModal={setOpenModalEdit} equipo={equipo}/>} */}
       <Table
         columns={columns}
         dataSource={equipos}

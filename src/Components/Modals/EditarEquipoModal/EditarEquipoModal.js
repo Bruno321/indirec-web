@@ -25,7 +25,6 @@ function EditarEquipoModal(props) {
 
 
 
-function EditarEquipoModal({ closeModal }) {
   // UPDATE INFO
   function UpdateInfo(){
     let equipoId = localStorage.getItem("equipoId");
@@ -203,9 +202,9 @@ function EditarEquipoModal({ closeModal }) {
             <button className="addMemberBtn">Añadir Miembro</button>
           </div>
         </div>
-      </div>S
+      </div>
       <ListaJugadores/>
     </div>
   );
-}}
+}
 export default EditarEquipoModal;

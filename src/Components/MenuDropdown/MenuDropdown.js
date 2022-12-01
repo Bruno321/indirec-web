@@ -60,14 +60,12 @@ const MenuDropdown = () => {
         <div className = "block-section" onClick={()=>setScreen(5)}>
           <img src = {TeamIcon} className = "logo-section margin-img margin-img-asistencia"/>
           <span className = "title-option margin-asistencias" style ={{
-            textDecoration: screen === 5 ? "underline white" : "none",
+            textDecoration: screen === 5 || screen==6 ? "underline white" : "none",
           }}>Equipos</span>
         </div>
         <div className = "block-section" onClick={()=>cerrarSesion()}>
             <img src = {LogoutIcon} className = "logo-section margin-img"/>
-          <span className = "title-option margin-lista hover-animation" style ={{
-            textDecoration: screen === 6 ? "underline white" : "none",
-          }}>Cerrar sesión</span>
+          <span className = "title-option margin-lista hover-animation" >Cerrar sesión</span>
         </div>
         </div>
     </aside>

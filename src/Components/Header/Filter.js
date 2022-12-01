@@ -1,5 +1,6 @@
 import React from 'react';
-import { aFacultities } from '../../../../indirec-mobile/Utils/Constants';
+// import { aFacultities } from '../../../../indirec-mobile/Utils/Constants';
+import { aFacultities } from "../../Utils/constants";
 import './Filters.css';
 
 // ! Change this later
