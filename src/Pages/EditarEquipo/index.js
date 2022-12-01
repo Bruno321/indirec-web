@@ -1,6 +1,9 @@
 import React, { useState, useContext } from 'react';
 import { NavigationContext } from "../../Context/NavigationContext.js";
 import { useFetchData } from '../../Hooks/Fetch.hook';
+import { Table } from '../../Components/Table/Table';
+import iconDelete from "../../Assets/icons/delete.png";
+import iconEdit from "../../Assets/icons/edit.png";
 
 export const EditarEquipo = () => {
     const {itemId} = useContext(NavigationContext)
@@ -15,67 +18,95 @@ export const EditarEquipo = () => {
     ];
   
     const columns = [
-        {
-          title: 'Expediente',
-          dataIndex: 'expediente',
-        },
-        {
-          title: 'Nombre(s)',
-          dataIndex: 'nombres',
-        },
-        {
-          title: 'Apellido(s)',
-          dataIndex: 'apellidos',
-        },
-        {
-          title: 'Facultad',
-          dataIndex: 'facultad',
-        },
-        {
-          title: 'Correo',
-          dataIndex: 'correo',
-        },
-        {
-          title: 'Teléfono',
-          dataIndex: 'telefono',
-        },
-        {
-          title: 'Tel. Emergencia',
-          dataIndex: 'telefonoEmergencia',
-        },
-        {
-          title: 'No. Jugador',
-          dataIndex: 'numJugador',
-        },
-        {
-          title: 'Acciones',
-          dataIndex: 'deportistaId',
-          render: (sId, row, index) => (
-            <>
-              <img
-                title="Editar"
-                src={iconEdit}
-                className='icons edit'
-                />
-              <img
-                title="Eliminar"
-                src={iconDelete}
-                className='icons delete'
-                />
-              <img
-                title="Más información"
-                src={iconMoreInfo}
-                className='icons moreinfo'
-                onClick={() => {
-                  setButtonMoreInfo(true);
-                  setSelected(row);
-                }}
+      {
+        title: 'Expediente',
+        dataIndex: 'expediente',
+      },
+      {
+        title: 'Nombre(s)',
+        dataIndex: 'nombres',
+      },
+      {
+        title: 'Apellido(s)',
+        dataIndex: 'apellidos',
+      },
+      {
+        title: 'Facultad',
+        dataIndex: 'facultad',
+      },
+      {
+        title: 'Correo',
+        dataIndex: 'correo',
+      },
+      {
+        title: 'Teléfono',
+        dataIndex: 'telefono',
+      },
+      {
+        title: 'Tel. Emergencia',
+        dataIndex: 'telefonoEmergencia',
+      },
+      {
+        title: 'No. Jugador',
+        dataIndex: 'numJugador',
+      },
+      {
+        title: 'Acciones',
+        dataIndex: 'deportistaId',
+        render: (sId, row, index) => (
+          <>
+            <img
+              title="Editar"
+              src={iconEdit}
+              className='icons edit'
+              onClick={() => {
+                setButtonMoreInfo(true);
+                setSelected(row);
+              }}
               />
-            </>
-          ),
-        }
-      ];
-    
+            <img
+              title="Eliminar"
+              src={iconDelete}
+              className='icons delete'
+              onClick={() => {
+                setSelected(row);
+                Swal.fire({
+                  title: 'ELIMINAR',
+                  text: "¿Eliminar a "+ row.nombres + " " + row.apellidos + " del equipo?",
+                  icon: 'question',
+                  showCancelButton: true,
+                  confirmButtonColor: '#3085d6',
+                  cancelButtonColor: '#d33',
+                  cancelButtonText: 'Cancelar',
+                  confirmButtonText: 'Confirmar'
+                }).then((result) => {
+                  if (result.isConfirmed) {
+                    Swal.fire({
+                      title: 'ATENCION',
+                      text: "¿Estas seguro de eliminar a "+ row.nombres + " " + row.apellidos + "?",
+                      icon: 'warning',
+                      showCancelButton: true,
+                      confirmButtonColor: '#3085d6',
+                      cancelButtonColor: '#d33',
+                      cancelButtonText: 'Cancelar',
+                      confirmButtonText: 'Confirmar'
+                    }).then((result) => {
+                      if (result.isConfirmed) {
+                        Swal.fire(
+                          'Eliminado satisfactoriamente',
+                          "El deportista "+ row.nombres + " " + row.apellidos + " ha sido eliminado.",
+                          'success'
+                        )
+                      }
+                    })
+                  }
+                })
+              }}
+              />
+          </>
+        ),
+      }
+    ];
 
     return (
         <div>
@@ -199,7 +230,11 @@ export const EditarEquipo = () => {
                 <h3>Deportistas</h3>
                 <button>Agregar deportistas</button>
             </div>
-
+            <Table
+              columns={columns}
+              dataSource={equipo.jugadores}
+              loading={loading}
+            />
         </div>
     )
 }

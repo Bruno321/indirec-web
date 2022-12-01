@@ -5,7 +5,7 @@ import iconDelete from "../../Assets/icons/delete.png";
 import iconEdit from "../../Assets/icons/edit.png";
 import iconMoreInfo from "../../Assets/icons/more-info.png";
 import Swal from 'sweetalert2/dist/sweetalert2.js';
-
+import { NavigationContext } from '../../Context/NavigationContext';
 // Modal
 import EditarEquipoModal from '../../Components/Modals/EditarEquipoModal/EditarEquipoModal';
 
@@ -13,7 +13,7 @@ export const EquiposScreen = () => {
   const [equipos, loading, updater] = useFetchData('equipos');
   const [visible, setVisible] = useState(false);
   const [equipo, setEquipo] = useState();
-
+  const {setItemId,setScreen} = useContext(NavigationContext)
   const columns = [
     {
       title: 'Nombre',
@@ -56,8 +56,10 @@ export const EquiposScreen = () => {
             src={iconEdit}
             className='icons edit'
             onClick={() => {
-              setVisible(!visible);
-              setEquipo(row);
+              // setVisible(!visible);
+              // setEquipo(row);
+              setItemId(row.equipoId);
+              setScreen(6);
             }}
             />
           <img
@@ -108,12 +110,12 @@ export const EquiposScreen = () => {
   return (
     <>
       <h3>Equipos</h3>
-      <EditarEquipoModal
+      {/* <EditarEquipoModal
         equipo={equipo}
         visible={visible}
         setVisible={setVisible}
         updater={updater}
-      />
+      /> */}
       <Table
         columns={columns}
         dataSource={equipos}
