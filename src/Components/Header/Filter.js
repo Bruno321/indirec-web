@@ -10,7 +10,7 @@ const aStatus = ['Todos', 'Activo', 'Inactivo'];
 export const Filters = () => {
   return (
     <div className='filters-container'>
-      <div style={{ width: '100%' }}>
+      <div className='filter-row'>
         <p>Facultad</p>
         <select className="input inputSelect filter-select" id="facultad">
           <option>Todas</option>
