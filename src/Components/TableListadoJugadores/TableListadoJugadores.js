@@ -33,7 +33,7 @@ const TableListadoJugadores = ({jugadores, setJugadoresEquipo}) => {
                     <th className="headerAcciones"></th>
                 </tr>
                 {
-                    deportistas.map((element, index) => (
+                    deportistas.map((element, index) => element.equipoId == null ? (
                         <tr
                             key={element.deportistaId}
                             className={`rowJugadorEquipo ${
@@ -60,7 +60,7 @@ const TableListadoJugadores = ({jugadores, setJugadoresEquipo}) => {
                                     onClick={() => quitarJugador(index)}/>
                             </div>
                         </td>
-                    </tr>))
+                    </tr>):'')
                 }
             </tbody>
         </table>
