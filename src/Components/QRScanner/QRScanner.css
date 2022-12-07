@@ -16,8 +16,15 @@
 .title-escanearQR{
     font-weight: 500;
 }
+.container-ScannQr{
+    width: 36vw;
+    /* height: 30vh; */
+    /* background-color: #003070; */
+    /* height: 500px; */
+}
 .qr{
-    width: 50%;
+    width: 100%;
+    height: 100%;
 }
 .qr>div{
     padding-top: 80% !important;

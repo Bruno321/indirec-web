@@ -238,7 +238,7 @@ const RegistrarDeportista = () => {
 
                         <label
                             htmlFor="kardex"
-                            className = "label-input-file label-kardex"
+                            className = "label-input-file label-kardex inputfile"
                         >
                             <img src = {ImgDocumentFiles} className = "document-icon"/>&nbsp; Subir archivo
                         </label>
@@ -260,7 +260,7 @@ const RegistrarDeportista = () => {
                         /><p></p>
                         <label
                             htmlFor="identificacionFile"
-                            className = "label-input-file label-INE"
+                            className = "label-input-file label-INE inputfile"
                         >
                             <img src = {ImgDocumentFiles} className = "document-icon"/>&nbsp; Subir archivo
                         </label>
@@ -282,7 +282,7 @@ const RegistrarDeportista = () => {
                         /><p></p>
                         <label 
                             htmlFor="fotoDeportista"
-                            className = "label-input-file label-foto"
+                            className = "label-input-file label-foto inputfile"
                         >
                             <img src = {ImgDocumentFiles} className = "document-icon"/>&nbsp; Subir archivo
                         </label>
@@ -303,7 +303,7 @@ const RegistrarDeportista = () => {
                         <div className='form-options'>
                             <input
                                 type="radio"
-                                className="registrarDeportista-input"
+                                className="registrarDeportista-input radioBtnSelector"
                                 value={0}
                                 checked={radioButton.si}
                                 id='deportistaSeleccionadoSi'
@@ -318,7 +318,7 @@ const RegistrarDeportista = () => {
                             <label htmlFor='deportistaSeleccionadoSi'>Si</label>
                             <input
                                 type="radio"
-                                className="registrarDeportista-input"
+                                className="registrarDeportista-input radioBtnSelector"
                                 value={1}
                                 checked={radioButton.no}
                                 id='deportistaSeleccionadoNo'
