@@ -64,7 +64,7 @@ export async function process(operation, model, payload = {}, params = {}) {
     // case UPDATE:
     //   return await API.patch(`${BASEPATH}/${model}/${id}`, payload, oAuth);
       case UPDATE:
-      return await API.put(`${BASEPATH}/${model}/${id}`, payload, oAuth);
+      return await API.patch(`${BASEPATH}/${model}`, payload, oAuth);
     case DELETE:
       return await API.delete(`${BASEPATH}/${model}/${id}`, oAuth);
     default:

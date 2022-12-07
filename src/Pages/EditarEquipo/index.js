@@ -4,12 +4,34 @@ import { useFetchData } from '../../Hooks/Fetch.hook';
 import { Table } from '../../Components/Table/Table';
 import iconDelete from "../../Assets/icons/delete.png";
 import iconEdit from "../../Assets/icons/edit.png";
+import PencilAlt from "../../Assets/icons/pencilAlt.png";
+import ListaJugadores from '../../Components/ListaJugadores/ListaJugadores.js';
+import { aFacultities, aCampus } from "../../Utils/constants";
+import { useEffect } from 'react';
+import { UPDATE, process } from "../../Service/Api";
+import Swal from 'sweetalert2';
+
+const oInitialState ={ 
+  nombre: '',
+  facultad: '',
+  campus: '',
+  deporte: '',
+  categoria: null,
+  nombreEntrenador: '',
+  apellidoEntrenador: '',
+  nombreAsistente: '',
+  apellidoAsistente: '',
+  jugadores: []
+};
 
 export const EditarEquipo = () => {
     const {itemId} = useContext(NavigationContext)
     const [equipo, loading] = useFetchData(`equipos/${itemId}`);
+    const [mostrarListaJugadoresEquipo, setMostrarListaJugadoresEquipo] = useState(false);
+    const [listaJugadores, setListaJugadores] = useState([]);
+    const [jugadoresToRender,setJugadoresToRender] = useState([])
+    const [form, setForm] = useState(oInitialState);
 
-    console.log(equipo)
     const campus = ['Centro Universitario', 'Juriquilla', 'Aeropuerto', 'Ex-prepa Centro', 'Prepa Norte', 'Prepa Sur', 'Centro Historico'];
     const categoria = [0, 1];
     const facultades = ['Facultad de Bellas Artes','Facultad de Ciencias Naturales','Facultad de Ciencias Políticas y Sociales','Facultad de Derecho',
@@ -107,7 +129,49 @@ export const EditarEquipo = () => {
         ),
       }
     ];
+    const handleSubmit = async () => {
+      let oSend = {
+        ...form,
+        jugadores: jugadoresToRender.map(j => j.deportistaId),
+      };
+  
+      const response = await process(UPDATE, 'equipos', oSend, { id: oSend.equipoId }).catch(e => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Algo salio mal, intenta mas tarde',
+        })
+        console.log(e);
+      });
+  
+      if (response?.data?.ok) {
+        Swal.fire({
+          icon: 'success',
+          title: 'Se actualizó el equipo correctamente',
+          confirmButtonText: 'Aceptar'
+        }).then(() => {
+          updater();
+        });
+      }
+    };  
 
+    useEffect(()=>{
+      setJugadoresToRender(equipo.jugadores)
+      if (equipo) {
+        setForm(equipo);
+      }
+    },[equipo])
+
+    useEffect(()=>{
+      console.log("JUGADOREES",jugadoresToRender)
+      console.log("LISTAAAAAA",listaJugadores)
+      let mergedArray = [
+        ...jugadoresToRender,
+        ...listaJugadores
+      ]
+      setJugadoresToRender(mergedArray)
+    },[listaJugadores])
+    
     return (
         <div>
             <h1>--------------</h1>
@@ -120,121 +184,129 @@ export const EditarEquipo = () => {
                         Nombre del Equipo:
                         </label>
                         <input
-                        className="input inputText"
-                        type="text"
-                        name="nombre"
-                        id="nombre"
-                        maxLength={80}
-                        value={'a'}
-                        placeholder= {``}
-                        required
-                        />
-                        <br />
-                        <label className="labels" htmlFor="facultad">Facultad:</label>
-                        <select className="input inputSelect" id="facultad">
-                        {
-                            facultades.map(c => c != equipo.facultad 
-                            ? 
-                                <option value={`${c}`}>{c}</option> 
-                            : 
-                                <option selected value={`${c}`}>{c}</option>
-                            )
-                        }
-                        </select>
-                        <br />
-                        <label className="labels" htmlFor="nombreEntrenador">Nombre del Entrenador:</label>
-                        <input
-                        className="input inputText"
-                        type="text"
-                        name="nombreEntrenador"
-                        id="nombreEntrenador"
-                        maxLength={100}
-                        value={'a'}
-                        placeholder={``}
-                        required
-                        />
-                        <br />
-                        <label htmlFor="nombreAsistente" className="labels">Nombre del Asistente:</label>
-                        <input
-                        className="input inputText"
-                        type="text"
-                        name="nombreAsistente"
-                        id="nombreAsistente"
-                        maxLength={100}
-                        value={'a'}
-                        placeholder={``}
-                        required
-                        />
-                        <br />
-                    </div>
+                  className="input inputText"
+                  type="text"
+                  name="nombre"
+                  id="nombre"
+                  maxLength={80}
+                  value={form.nombre}
+                  onChange={e => setForm({ ...form, nombre: e.target.value })}
+                  required
+                />
+                <br />
+                <label className="labels" htmlFor="facultad">Facultad:</label>
+                <select
+                  className="input inputSelect"
+                  id="facultad"
+                  value={form.facultad}
+                  onChange={e =>  setForm({ ...form, facultad: e.target.value })}
+                >
+                  {
+                    aFacultities.map(c => (
+                      <option value={`Facultad de ${c}`}>Facultad de {c}</option>
+                    )
+                    )
+                  }
+                </select>
+                <br />
+                <label className="labels" htmlFor="nombreEntrenador">Nombre del Entrenador:</label>
+                <input
+                  className="input inputText"
+                  type="text"
+                  name="nombreEntrenador"
+                  id="nombreEntrenador"
+                  maxLength={100}
+                  value={form.nombreEntrenador}
+                  onChange={e => setForm({ ...form, nombreEntrenador: e.target.value })}
+                  required
+                />
+                <br />
+                <label htmlFor="nombreAsistente" className="labels">Nombre del Asistente:</label>
+                <input
+                  className="input inputText"
+                  type="text"
+                  name="nombreAsistente"
+                  id="nombreAsistente"
+                  maxLength={100}
+                  value={form.nombreAsistente}
+                  onChange={e => setForm({ ...form, nombreAsistente: e.target.value })}
+                  required
+                />
+                <br />
+              </div>
 
-                    <div className="formContainerRight">
-                        <label htmlFor="campus" className="labels">Campus:</label>
-                        <select
-                        className="inputSelect input"
-                        id="campus"
-                        onChange={(e) => setForm({ ...form, campus: e.target.value })}
-                        > 
-                        {
-                            campus.map(c => c != equipo.campus 
-                            ? 
-                                <option value={`${c}`}>{c}</option> 
-                            : <option selected value={`${c}`}>{c}</option>
-                            )
-                        }
-                        </select>
-                        <br />
-                        <label htmlFor="categoria" className="labels">Categoría:</label>
-                        <select id="categoria" className="input inputSelect">
-                        {/* <option value={0}>Femenil</option>
-                        <option value={1}>Varonil</option> */}
-                        {
-                            categoria.map(c => equipo.categoria == c 
-                            ? 
-                                <option selected value={equipo.categoria}>{equipo.categoria == 0 ? 'Varonil' : 'Femenil'}</option> 
-                            : 
-                                <option value={equipo.categoria != 0 ? 'Varonil' : 'Femenil'}>{equipo.categoria != 0 ? 'Varonil' : 'Femenil'}</option>
-                            )
-                        }
-                        </select>
-                        <br />
-                        <label htmlFor="apellidoEntrenador" className="labels">Apellido del Entrenador:</label>
-                        <input
-                        className="input inputText"
-                        type="text"
-                        name="apellidoEntrenador"
-                        id="apellidoEntrenador"
-                        maxLength={100}
-                        value={'a'}
-                        placeholder={``}
-                        required
-                        />
-                        <br />
-                        <label htmlFor="apellidoAsistente" className="labels">Apellido del Asistente:</label>
-                        <input
-                        className="input inputText"
-                        type="text"
-                        maxLength={100}
-                        name="apellidoAsistente"
-                        id="apellidoAsistente"
-                        value={'a'}
-                        placeholder= {``}
-                        required
-                        />
-                        <br />
+              <div className="formContainerRight">
+                <label htmlFor="campus" className="labels">Campus:</label>
+                <select
+                  className="inputSelect input"
+                  id="campus"
+                  value={form.campus}
+                  onChange={e => setForm({ ...form, campus: e.target.value })}
+                > 
+                  {
+                    aCampus.map(c => (
+                        <option value={`${c}`}>{c}</option> 
+                    ))
+                  }
+                </select>
+                <br />
+                <label htmlFor="categoria" className="labels">Categoría:</label>
+                <select
+                  id="categoria"
+                  className="input inputSelect"
+                  value={form.categoria}
+                  onChange={e => setForm({ ...form, categoria: e.target.value })}
+                >
+                  {
+                    categoria.map(c => (
+                      <option value={c}>{form.categoria ? 'Femenil' : 'Varonil'}</option>
+                    ))
+                  }
+                </select>
+                <br />
+                <label htmlFor="apellidoEntrenador" className="labels">Apellido del Entrenador:</label>
+                <input
+                  className="input inputText"
+                  type="text"
+                  name="apellidoEntrenador"
+                  id="apellidoEntrenador"
+                  maxLength={100}
+                  value={form.apellidoEntrenador}
+                  onChange={e => setForm({ ...form, apellidoEntrenador: e.target.value })}
+                  required
+                />
+                <br />
+                <label htmlFor="apellidoAsistente" className="labels">Apellido del Asistente:</label>
+                <input
+                  className="input inputText"
+                  type="text"
+                  name="apellidoAsistente "
+                  id="apellidoAsistente"
+                  maxLength={100}
+                  value={form.apellidoAsistente}
+                  onChange={e => setForm({ ...form, apellidoAsistente: e.target.value })}
+                  required
+                />
+                <br />
                     </div>
                     </div>
                 </div>
             </div>
             <div>
                 <h3>Deportistas</h3>
-                <button>Agregar deportistas</button>
+                    <div className="btnEditarEquipo" onClick={() => setMostrarListaJugadoresEquipo(true)}>
+                        <img src={PencilAlt}/>
+                        Agregar jugador
+                    </div>
+                    
             </div>
+            <ListaJugadores trigger={mostrarListaJugadoresEquipo} setTrigger={setMostrarListaJugadoresEquipo} jugadores={listaJugadores} setJugadores={setListaJugadores}></ListaJugadores>
             <Table
               columns={columns}
-              dataSource={equipo.jugadores}
+              dataSource={jugadoresToRender}
               loading={loading}
             />
+            <button type="submit" form="registrarEquipoForm" className="button-registroEquipo" onClick={handleSubmit}>Guardar cambios</button>
         </div>
     )
 }
