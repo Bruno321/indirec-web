@@ -1,3 +1,7 @@
+.registrarDeportista-input{
+    cursor: text;
+}
+
 .registrarDeportista-input, .select{
     border-width: 1px;
     border-radius: 5px;
@@ -55,7 +59,7 @@
     background-color: #F0F2F3;
     /* padding-top: 40px; */
     padding-bottom: 50px;
-    height: 82vh;
+    height: 100vh;
 }
 .titleRegister{
     font-weight: 500;
@@ -116,4 +120,12 @@
     cursor: pointer;
     position: absolute;
     margin-top: calc(410px);
+}
+
+.radioBtnSelector{
+    cursor: pointer !important;
+}
+
+.inputfile{
+    cursor: pointer !important;
 }
