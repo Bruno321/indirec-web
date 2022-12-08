@@ -28,8 +28,9 @@ export const EditarEquipo = () => {
     const {itemId} = useContext(NavigationContext)
     const [equipo, loading] = useFetchData(`equipos/${itemId}`);
     const [mostrarListaJugadoresEquipo, setMostrarListaJugadoresEquipo] = useState(false);
-    const [listaJugadores, setListaJugadores] = useState([]);
-    const [jugadoresToRender,setJugadoresToRender] = useState([])
+    const [listaEquipo, setListaEquipo] = useState([]); //Arreglo para guardar los jugadores del equipo que devuelve al hacer la llamada a la api.
+    const [listaJugadores, setListaJugadores] = useState([]);//Arreglo que guarda los jugadores que se estan agregando mediante la tabla.
+    const [jugadoresToRender,setJugadoresToRender] = useState([]); //Arreglo para combinar listaEquipo y listaJugadores y renderizarlo en la tabla. 
     const [form, setForm] = useState(oInitialState);
 
     const campus = ['Centro Universitario', 'Juriquilla', 'Aeropuerto', 'Ex-prepa Centro', 'Prepa Norte', 'Prepa Sur', 'Centro Historico'];
@@ -141,9 +142,9 @@ export const EditarEquipo = () => {
           title: 'Oops...',
           text: 'Algo salio mal, intenta mas tarde',
         })
-        console.log(e);
+        // console.log(e);
       });
-  
+      
       if (response?.data?.ok) {
         Swal.fire({
           icon: 'success',
@@ -156,25 +157,25 @@ export const EditarEquipo = () => {
     };  
 
     useEffect(()=>{
-      setJugadoresToRender(equipo.jugadores)
+      setJugadoresToRender(equipo.jugadores);
+      setListaEquipo(equipo.jugadores);
       if (equipo) {
         setForm(equipo);
       }
     },[equipo])
 
     useEffect(()=>{
-      console.log("JUGADOREES",jugadoresToRender)
-      console.log("LISTAAAAAA",listaJugadores)
+      //Combina el arreglo de los jugadores equipo traidos desde la api con los jugadores que se seleccionan en la tabla.
       let mergedArray = [
-        ...jugadoresToRender,
+        ...listaEquipo,
         ...listaJugadores
       ]
-      setJugadoresToRender(mergedArray)
+      setJugadoresToRender(mergedArray);
     },[listaJugadores])
     
     return (
         <div>
-            <h1>--------------</h1>
+            {/* <h1>--------------</h1> */}
             <h3>Editar Equipo</h3>
             <div className="modalUpdateContainer">
                 <div className="formEditInformationTeam">
@@ -259,7 +260,7 @@ export const EditarEquipo = () => {
                 >
                   {
                     categoria.map(c => (
-                      <option value={c}>{form.categoria ? 'Femenil' : 'Varonil'}</option>
+                      <option value={c}>{equipo.categoria == c ? 'Varonil' : 'Femenil'}</option>
                     ))
                   }
                 </select>
@@ -294,11 +295,6 @@ export const EditarEquipo = () => {
             </div>
             <div>
                 <h3>Deportistas</h3>
-                    <div className="btnEditarEquipo" onClick={() => setMostrarListaJugadoresEquipo(true)}>
-                        <img src={PencilAlt}/>
-                        Agregar jugador
-                    </div>
-                    
             </div>
             <ListaJugadores trigger={mostrarListaJugadoresEquipo} setTrigger={setMostrarListaJugadoresEquipo} jugadores={listaJugadores} setJugadores={setListaJugadores}></ListaJugadores>
             <Table
@@ -306,6 +302,10 @@ export const EditarEquipo = () => {
               dataSource={jugadoresToRender}
               loading={loading}
             />
+            <div className="btnEditarEquipo" onClick={() => setMostrarListaJugadoresEquipo(true)}>
+                        <img src={PencilAlt}/>
+                        Agregar jugador
+            </div>
             <button type="submit" form="registrarEquipoForm" className="button-registroEquipo" onClick={handleSubmit}>Guardar cambios</button>
         </div>
     )

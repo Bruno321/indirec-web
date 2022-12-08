@@ -5,10 +5,12 @@ import {useFetchData} from '../../Hooks/Fetch.hook';
 import TableListadoJugadores from "../TableListadoJugadores/TableListadoJugadores";
 
 const ListaJugadores = ({ trigger, setTrigger, jugadores, setJugadores }) => {
-    const [jugadoresEquipo, setJugadoresEquipo] = useState([]);
+
+    const [jugadoresEquipo, setJugadoresEquipo] = useState([]);//Arreglo que guarda los jugadores que perteneceran al equipo. 
 
     useEffect(() => {
         if (jugadores?.length) {
+            //Si el equipo ya tiene jugadores previamente registrados, los guarda en el estado de jugadoresEquipo. 
             setJugadoresEquipo(jugadores);
         }
     }, []);

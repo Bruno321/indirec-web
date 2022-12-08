@@ -44,7 +44,7 @@ function EditarEquipoModal({ equipo, visible, setVisible, updater }) {
         title: 'Oops...',
         text: 'Algo salio mal, intenta mas tarde',
       })
-      console.log(e);
+      // console.log(e);
     });
 
     if (response?.data?.ok) {

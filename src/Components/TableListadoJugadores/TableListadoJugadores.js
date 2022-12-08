@@ -5,7 +5,7 @@ import trash from "../../Assets/icons/trash.png";
 
 const TableListadoJugadores = ({jugadores, setJugadoresEquipo}) => {
 
-    const [jugadoresEquipoArreglo, setJugadoresEquipoArreglo] = useState([]);
+    const [jugadoresEquipoArreglo, setJugadoresEquipoArreglo] = useState([]);//Arreglo que sirve para saber que jugadores estan siendo seleccionados y cambiar el color de la fila. 
     const [deportistas] = useFetchData('deportistas');
 
     useEffect(() => {
