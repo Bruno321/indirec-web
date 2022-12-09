@@ -129,3 +129,8 @@
 .inputfile{
     cursor: pointer !important;
 }
+
+.document-icon{
+    width: 24px;
+    height: 24px;
+}

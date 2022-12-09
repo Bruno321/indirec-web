@@ -6,7 +6,9 @@ import { SAVE_WITH_FILE, process } from '../../Service/Api';
 //Cargamos los estilos
 import "./RegistrarDeportista.css";
 // Se implmentan imagenes
-import ImgDocumentFiles from '../../Assets/icons/document-files.png';
+import ImgDocumentFiles from '../../Assets/icons/document-file.png';
+import ImgDocumentDeactivate from '../../Assets/icons/document-files-gray.png';
+import ImgDocumentActive from '../../Assets/icons/document-files-white.png';
 import ModalQR from '../Modals/ModalQR/ModalQR';
 
 const oInitialState = {
@@ -116,6 +118,31 @@ const RegistrarDeportista = () => {
             <span className = "custom-text text-INE">No se ha seleccionado algún archivo.</span>
         );
     };
+
+    const renderImageKardex = () =>{
+        return kardex ? (
+            <img src = {ImgDocumentActive} className = "document-icon"/>
+        ):(
+            <img src = {ImgDocumentDeactivate} className = "document-icon"/>
+
+        );
+    }
+    const renderImageINE = () =>{
+        return INE ? (
+            <img src = {ImgDocumentActive} className = "document-icon"/>
+        ):(
+            <img src = {ImgDocumentDeactivate} className = "document-icon"/>
+
+        );
+    }
+    const renderImagePhoto = () =>{
+        return photo ? (
+            <img src = {ImgDocumentActive} className = "document-icon"/>
+        ):(
+            <img src = {ImgDocumentDeactivate} className = "document-icon"/>
+
+        );
+    }
 
     return(
         <div>
@@ -239,8 +266,11 @@ const RegistrarDeportista = () => {
                         <label
                             htmlFor="kardex"
                             className = "label-input-file label-kardex inputfile"
+                            style={{backgroundColor: kardex ? "#01C109": "#fff",
+                            color: kardex ? "#fff" : "#939191"
+                            }}
                         >
-                            <img src = {ImgDocumentFiles} className = "document-icon"/>&nbsp; Subir archivo
+                            {renderImageKardex()}&nbsp; Subir archivo
                         </label>
                             {handleAnswerFile(kardex, 'Kardex')}
                         <br/>
@@ -261,8 +291,11 @@ const RegistrarDeportista = () => {
                         <label
                             htmlFor="identificacionFile"
                             className = "label-input-file label-INE inputfile"
+                            style={{backgroundColor: INE ? "#01C109": "#fff",
+                            color: INE ? "#fff" : "#939191"
+                            }}
                         >
-                            <img src = {ImgDocumentFiles} className = "document-icon"/>&nbsp; Subir archivo
+                            {renderImageINE()}&nbsp; Subir archivo
                         </label>
                             {handleAnswerFile(INE, 'INE')}
                         <br/>
@@ -283,8 +316,11 @@ const RegistrarDeportista = () => {
                         <label 
                             htmlFor="fotoDeportista"
                             className = "label-input-file label-foto inputfile"
+                            style={{backgroundColor: photo ? "#01C109": "#fff",
+                            color: photo ? "#fff" : "#939191"
+                        }}
                         >
-                            <img src = {ImgDocumentFiles} className = "document-icon"/>&nbsp; Subir archivo
+                            {renderImagePhoto()}&nbsp; Subir archivo
                         </label>
                             {handleAnswerFile(photo, 'Foto')}
                         <br/>
