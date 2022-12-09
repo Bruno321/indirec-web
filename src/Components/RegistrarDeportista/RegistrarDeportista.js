@@ -38,6 +38,12 @@ const RegistrarDeportista = () => {
     const [INE, setINE] = useState(false);
     const [photo, setPhoto] = useState(false);
     const [loading, setLoading] = useState(false);
+    const [deportistaData,setDeportistaData] = useState({
+        nombre:"",
+        apellidoM:"",
+        apellidoP:"",
+        idPropio:""
+    })
 
     const [form,setForm] = useState(oInitialState);
     const [mostrarModalQr, setMostrarModalQr] = useState(false);
@@ -65,6 +71,14 @@ const RegistrarDeportista = () => {
             });
 
             if (response?.data?.ok) {
+                const { nombres: nombre, apellidos, deportistaId: idPropio } = response.data?.data;
+                const [apellidoP, apellidoM] = apellidos.split(" ");
+                setDeportistaData({
+                    nombre,
+                    apellidoP,
+                    apellidoM,
+                    idPropio,
+                })
                 Swal.fire(
                     'Jugador agregado exitosamente',
                     'Este aparecera en la lista',
@@ -390,7 +404,7 @@ const RegistrarDeportista = () => {
                 console.log(datos)
             }
             {
-                mostrarModalQr ?  <ModalQR datos={{id: '1', nombre: 'Daniel Aros Ramirez'}} setMostrarModalQr={setMostrarModalQr}/> : ''
+                mostrarModalQr ?  <ModalQR datos={deportistaData} setMostrarModalQr={setMostrarModalQr}/> : ''
             }
         </div>
     )
