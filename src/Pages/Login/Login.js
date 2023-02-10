@@ -45,8 +45,8 @@ const Login = () => {
         <div className="login-container">
         <div className="left-side">
             <img 
-                src={logoIndereq} 
-                alt="Logo de INDEREQ" 
+                // src={logoIndereq} 
+                // alt="Logo de INDEREQ" 
                 className="logo" 
             />
             <img
@@ -58,7 +58,7 @@ const Login = () => {
 
         <div className="right-side">
             <form onSubmit={(e)=>handleSubmit(e)} className="form">
-                <h1>Bienvenido a INDEREQ</h1>
+                <h1>Bienvenido</h1>
                 <h2>Iniciar sesión</h2>
 
                 <label>Correo electrónico:</label>

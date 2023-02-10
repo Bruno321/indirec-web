@@ -120,8 +120,10 @@ const RegistrarDeportista = () => {
     return(
         <div>
             <div className='obtenerQr'>
-            <h1 className = "titleRegister">Registro para obtención de QR</h1>
-            <p>NOTA: Los campos con "*" son obligatorios</p><br></br>
+                <div className='titleRegisterContainer'>
+                    <h1 className = "titleRegister">Registrar un deportista</h1>
+                    <p>NOTA: Los campos con "*" son obligatorios</p><br></br>
+                </div>
 
             <div className='formulario' onSubmit={handleSubmit}>
                 <form>

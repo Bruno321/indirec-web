@@ -42,7 +42,7 @@ const QRScanner = () => {
 
                         let parsed = JSON.parse(result?.text)
                         // El codigo QR tiene datos correctos
-                        if(parsed.id && parsed.nombreC && parsed.fecha){
+                        if(parsed.id && parsed.fecha){
                           //Aqui va el post
                           console.log(parsed)
                           axios({

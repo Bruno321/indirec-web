@@ -23,7 +23,7 @@ const MenuDropdown = () => {
   return (
     <aside className="menu-dropdown">
       <div>
-        <img src={IndereqLogo} alt="Logotipo de la INDEREQ" className="indereq-logo"/>
+        {/* <img src={IndereqLogo} alt="Logotipo de la INDEREQ" className="indereq-logo"/> */}
       </div>
       <div className = "options">
         <div className = "block-section" onClick={()=>setScreen(0)}>

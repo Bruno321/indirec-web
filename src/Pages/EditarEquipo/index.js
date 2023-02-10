@@ -10,6 +10,7 @@ import { aFacultities, aCampus } from "../../Utils/constants";
 import { useEffect } from 'react';
 import { UPDATE, process } from "../../Service/Api";
 import Swal from 'sweetalert2';
+import leftArrow from "../../Assets/icons/left-arrow.png";
 
 const oInitialState ={ 
   nombre: '',
@@ -25,7 +26,7 @@ const oInitialState ={
 };
 
 export const EditarEquipo = () => {
-    const {itemId} = useContext(NavigationContext)
+    const {itemId,setScreen} = useContext(NavigationContext)
     const [equipo, loading] = useFetchData(`equipos/${itemId}`);
     const [mostrarListaJugadoresEquipo, setMostrarListaJugadoresEquipo] = useState(false);
     const [listaJugadores, setListaJugadores] = useState([]);
@@ -134,7 +135,6 @@ export const EditarEquipo = () => {
         ...form,
         jugadores: jugadoresToRender.map(j => j.deportistaId),
       };
-  
       const response = await process(UPDATE, 'equipos', oSend, { id: oSend.equipoId }).catch(e => {
         Swal.fire({
           icon: 'error',
@@ -143,14 +143,16 @@ export const EditarEquipo = () => {
         })
         console.log(e);
       });
-  
+      
+      console.log(response.data)
       if (response?.data?.ok) {
         Swal.fire({
           icon: 'success',
           title: 'Se actualizó el equipo correctamente',
           confirmButtonText: 'Aceptar'
         }).then(() => {
-          updater();
+          // updater();
+          location.reload()
         });
       }
     };  
@@ -163,8 +165,6 @@ export const EditarEquipo = () => {
     },[equipo])
 
     useEffect(()=>{
-      console.log("JUGADOREES",jugadoresToRender)
-      console.log("LISTAAAAAA",listaJugadores)
       let mergedArray = [
         ...jugadoresToRender,
         ...listaJugadores
@@ -174,7 +174,10 @@ export const EditarEquipo = () => {
     
     return (
         <div>
-            <h1>--------------</h1>
+          <div style={{display:"flex",alignItems:"center",justifyContent:"space-between"}}>
+            <h1>{form.nombre}</h1>
+            <img style={{cursor:"pointer"}} onClick={()=>setScreen(5)} src={leftArrow}/>
+          </div>
             <h3>Editar Equipo</h3>
             <div className="modalUpdateContainer">
                 <div className="formEditInformationTeam">
@@ -306,7 +309,7 @@ export const EditarEquipo = () => {
               dataSource={jugadoresToRender}
               loading={loading}
             />
-            <button type="submit" form="registrarEquipoForm" className="button-registroEquipo" onClick={handleSubmit}>Guardar cambios</button>
+            <button type="submit" form="registrarEquipoForm" className="button-registroEquipo" style={{marginTop:"20px",marginLeft:"10px"}} onClick={handleSubmit}>Guardar cambios</button>
         </div>
     )
 }

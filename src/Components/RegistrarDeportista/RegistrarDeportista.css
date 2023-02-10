@@ -58,13 +58,19 @@
     flex-direction: column;
     background-color: #F0F2F3;
     /* padding-top: 40px; */
+    /* background-color: red; */
     padding-bottom: 50px;
     height: 100vh;
 }
 .titleRegister{
     font-weight: 500;
+    /* margin-bottom: 10%; */
 }
-
+.titleRegisterContainer{
+    /* background-color: blue; */
+    width: 100%;
+    text-align: center;
+}
 .form-izquierda{
     float: left;
     padding-right: 30px;
