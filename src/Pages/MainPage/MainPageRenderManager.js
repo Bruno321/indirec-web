@@ -6,6 +6,7 @@ import { EditarEquipo } from '../EditarEquipo';
 import QRScanner from '../../Components/QRScanner/QRScanner'
 import RegistrarDeportista from "../../Components/RegistrarDeportista/RegistrarDeportista";
 import RegistrarEquipo from "../../Components/RegistrarEquipo/RegistrarEquipo";
+import { EventosScreen } from "../Eventos";
 
 const MainPageRenderManager = ({ screen }) => {
 
@@ -16,7 +17,8 @@ const MainPageRenderManager = ({ screen }) => {
     <QRScanner />,
     <RegistrarEquipo />,
     <EquiposScreen />,
-    <EditarEquipo/>
+    <EditarEquipo/>,
+    <EventosScreen/>
   ];
 
     return (

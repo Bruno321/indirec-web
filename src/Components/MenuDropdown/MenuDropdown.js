@@ -9,6 +9,7 @@ import LogoutIcon from "../../assets/icons/log-out.png";
 import RegisterIcon from "../../assets/icons/register.png";
 import TeamIcon from "../../Assets/icons//user-group.png";
 import RegisterTeam from "../../Assets/icons/register-team.png";
+import EventosIcon from "../../Assets/icons/eventos.png";
 // Importar Contextos
 import { NavigationContext } from "../../Context/NavigationContext.js";
 import { LoginContext } from "../../Context/LoginContext";
@@ -78,11 +79,21 @@ const MenuDropdown = () => {
                   style = {{
                     backgroundColor: screen === 5 || screen === 6  ? "#254D7A" : "transparent",
                   }}>
-          <img src = {TeamIcon} className = "logo-section margin-img margin-img-asistencia"/>
+          <img src = {TeamIcon} className = "logo-section margin-img"/>
           <span className = "title-option margin-asistencias" style ={{
             textDecoration: screen === 5 || screen==6 ? "underline white" : "none",
           }}>Equipos</span>
         </div>
+        <div className = "block-section" onClick={()=>setScreen(7)}
+                  style = {{
+                    backgroundColor: screen === 7  ? "#254D7A" : "transparent",
+                  }}>
+          <img src = {EventosIcon} className = "logo-section margin-img margin-img-asistencia"/>
+          <span className = "title-option margin-asistencias" style ={{
+            textDecoration: screen === 7 ? "underline white" : "none",
+          }}>Eventos</span>
+        </div>
+        {/* Boton de cerrar sesión */}
         <div className = "block-section" onClick={()=>cerrarSesion()}>
             <img src = {LogoutIcon} className = "logo-section margin-img"/>
           <span className = "title-option margin-lista hover-animation" >Cerrar sesión</span>
