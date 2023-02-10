@@ -24,12 +24,12 @@ export const AsistenciasScreen = () => {
     {
       title: 'Hora de Entrada',
       dataIndex: 'horaEntrada',
-      render: hE => moment(hE).format('HH:mm:ss a'),
+      render: hE => hE ? moment(hE).format('HH:mm:ss a') : 'Sin registrar',
     },
     {
       title: 'Hora de Salida',
       dataIndex: 'horaSalida',
-      render: hS => moment(hS).format('HH:mm:ss a'),
+      render: hS => hS ? moment(hS).format('HH:mm:ss a') : 'Sin registrar',
     },
   ];
 

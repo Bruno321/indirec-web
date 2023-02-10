@@ -60,7 +60,7 @@
     /* padding-top: 40px; */
     /* background-color: red; */
     padding-bottom: 50px;
-    height: 100vh;
+    height: 82vh;
 }
 .titleRegister{
     font-weight: 500;
@@ -134,4 +134,9 @@
 
 .inputfile{
     cursor: pointer !important;
+}
+
+.document-icon{
+    width: 24px;
+    height: 24px;
 }
