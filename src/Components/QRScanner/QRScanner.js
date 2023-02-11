@@ -40,7 +40,6 @@ const QRScanner = () => {
 
                         let parsed = JSON.parse(result?.text)
                         // El codigo QR tiene datos correctos
-<<<<<<< HEAD
                         if(parsed.id && parsed.fecha){
                           //Aqui va el post
                           console.log(parsed)
@@ -77,35 +76,6 @@ const QRScanner = () => {
                           console.log(e)
                           failedQRScan()
                         })
-=======
-                        if (parsed.id && parsed.nombreC && parsed.fecha){
-
-                          const response = await process(SAVE, 'deportistas/asistencias', {
-                            id: parsed.id,
-                            fecha: parsed.fecha
-                          }).catch(e => {
-                            console.log(e);
-                            failedQRScan();
-                          });
-
-                          if (response?.data?.ok) {
-                            Swal.fire({
-                              title: '<h1 class="modal-status">Escaneo exitoso</h1>',
-                              html:
-                                `<h1 class="modal-title">${response.data.message.includes('entrada') ? 'Bienvenido' : 'Hasta pronto'}!</h1>` +
-                                `<h1 class="modal-deportista">${response.data.deportista.nombres} ${response.data.deportista.apellidos}</h1>` + 
-                                `<img src="http://localhost:3000/api/${response.data.deportista.foto}" class="qr-image"/>`+ //aqui va lo del usuario
-                                `<h1 class="modal-text">${response.data.message}</h1>`
-                                ,
-                              focusConfirm: false,
-                              confirmButtonText:
-                                '<i class="fa fa-thumbs-up"></i> Aceptar!',
-                              
-                            }).then(() => {
-                              setAllowRecord(true)
-                            })
-                          }
->>>>>>> 3442ef2c8533c8495bd1ce59a89f0ba05dae484f
                         } else {
                           failedQRScan()
                         }
