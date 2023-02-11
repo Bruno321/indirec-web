@@ -1,0 +1,120 @@
+*{
+    margin: 0px;
+    padding: 0px;
+    left: 0px;
+}
+.title-form{
+    margin-top: 10px;
+    font-size: 1.3rem;
+    text-align: center;
+    font-weight: 600;
+}
+.input-title{
+    font-size: 1.2rem;
+    margin-bottom: -12px;
+}
+.first-part{
+    margin-top: 10px;
+    width: 100%;
+    height: 100px;
+    /* background-color: red; */
+    display: flex;
+    margin-left: 30px;
+}
+.column-flex{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+}
+.bg-purple{
+    /* background-color: purple; */
+}
+.input-text, .input-date, .input-time{
+width: 300px;
+height: 35px;
+border-radius: 5px;
+border: 2px solid rgba(0, 0, 0, .4);
+}
+.input-name{
+
+}
+.left-side{
+    background-color: transparent;
+}
+
+.label-title{
+    margin-bottom: -1px;
+}
+
+.margin-input{
+    margin-top: -10px;
+    margin-bottom: 5px;
+}
+.margin-input-right{
+    margin-top: 10px;
+    margin-bottom: -15px;
+}
+
+.second-part{
+ /* background-color: red; */
+ display: flex;
+ flex-direction: row;
+}
+.left-side{
+    height: 100%;
+    padding-left: 75px;
+/* background-color: purple; */
+}
+.middle-side{
+    /* background-color: green; */
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    padding: 120px 0;
+}
+.versus-title{
+    text-align: center;
+    font-size: 1.1rem;
+    font-weight: 500;
+    margin-left: -15px;
+
+}
+.right-side{
+    padding-left: 85px;
+    /* background-color: yellow; */
+    display: flex;
+    flex-direction: column;
+}
+
+.third-part{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.convert-to-textarea{
+    word-wrap: break-word;
+    word-break: break-all;
+    margin-left: 30px;
+    width: 75vw;
+    height: 20vh;
+}
+
+.btn-section{
+    width: 100%;
+    height: 100px;
+    /* background-color: violet; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.btn-registrar-equipo{
+    height: 50px;
+    border-radius: 5px;
+    width: 200px;
+    color: white;
+    background-color: #003070;
+    border-color: transparent;
+
+}
