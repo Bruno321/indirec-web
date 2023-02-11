@@ -84,7 +84,7 @@ export const RegistrarEvento = () => {
             <br />
             <textarea className="convert-to-textarea" required />
             <div className="btn-section">
-            <button type="submit" form="registrarEventoForm" className="btn-registrar-equipo">Registrar Equipo</button>
+            <button type="submit" form="registrarEventoForm" className="btn-registrar-evento">Registrar Evento</button>
             </div>
           </div>
         </form>
