@@ -48,6 +48,7 @@ export const RegistrarEvento = () => {
                 <option value="pumas">Pumas</option>
                 <option value="toluca">Toluca</option>
               </select>
+              <button className = "btn-add-players">Agregar Jugadores</button>
               <label className="label-title">Director Técnico Local:</label>
               <br />
               <input type="text" className="input-text margin-input" name = "directorTecnicoLocal" id = "directorTecnicoLocal"/>
@@ -68,6 +69,7 @@ export const RegistrarEvento = () => {
                 <option value="toluca">Toluca</option>
               </select>
               <br />
+              <button className = "btn-add-players">Agregar Jugadores</button>
               <label className="label-title">Director Técnico Visitante:</label>
               <input type="text" className="input-text margin-input-right" />
               <br />
