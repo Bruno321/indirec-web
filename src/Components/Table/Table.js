@@ -43,7 +43,7 @@ export const Table = ({ dataSource, columns, loading }) => {
                 </table>
             </div>
         ) : (
-            <div>No hay datos para mostrar</div>
+            <div><br></br><p>No hay datos a mostrar</p></div>
         )
     );
 };

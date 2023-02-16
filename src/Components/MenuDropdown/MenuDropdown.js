@@ -9,6 +9,7 @@ import LogoutIcon from "../../assets/icons/log-out.png";
 import RegisterIcon from "../../assets/icons/register.png";
 import TeamIcon from "../../Assets/icons//user-group.png";
 import RegisterTeam from "../../Assets/icons/register-team.png";
+import RegistrarEvento from "../../Assets/icons/registrar-eventos.png"
 import EventosIcon from "../../Assets/icons/eventos.png";
 // Importar Contextos
 import { NavigationContext } from "../../Context/NavigationContext.js";
@@ -88,7 +89,7 @@ const MenuDropdown = () => {
                   style = {{
                     backgroundColor: screen === 7  ? "#254D7A" : "transparent",
                   }}>
-          <img src = {EventosIcon} className = "logo-section margin-img margin-img-asistencia"/>
+          <img src = {RegistrarEvento} className = "logo-section margin-img margin-img-asistencia"/>
           <span className = "title-option margin-asistencias" style ={{
             textDecoration: screen === 7 ? "underline white" : "none",
           }}>Registrar Evento</span>
