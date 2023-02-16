@@ -14,7 +14,7 @@ export const DeportistasScreen = () => {
   //State para mostrar MAS INFORMACION de un deportista
   const [buttonMoreInfo, setButtonMoreInfo] = useState(false);
   const [selected, setSelected] = useState();  
-  const [deportistas, loading] = useFetchData('deportistas');
+  const [deportistas, loading] = useFetchData('deportistas?limit=10&page=1');
 
   const columns = [
     {

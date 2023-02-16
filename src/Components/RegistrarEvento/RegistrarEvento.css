@@ -123,3 +123,12 @@ border: 2px solid rgba(0, 0, 0, .4);
     border-color: transparent;
 
 }
+
+.left-side {
+    display: flex;
+    width: 50%;
+    height: 100%;
+    flex-direction: column;
+    justify-content: center;
+  }
+  

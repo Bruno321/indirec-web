@@ -43,7 +43,7 @@ const Login = () => {
 
     return (
         <div className="login-container">
-        <div className="left-side">
+        <div className="left-side-login">
             <img 
                 // src={logoIndereq} 
                 // alt="Logo de INDEREQ" 
