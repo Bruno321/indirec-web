@@ -402,6 +402,7 @@ const RegistrarDeportista = () => {
                     </form>
                 </div>
             </div>
+            
             {
                 mostrarModalQr ?  <ModalQR datos={deportistaData} setMostrarModalQr={setMostrarModalQr}/> : ''
             }
