@@ -16,6 +16,7 @@ const ModalQR = (props) => {
 
     const {setMostrarModalQr} = props;
 
+    console.log(props.datos)
     return (
         <div className="containerPrincipal-modal">
             <div className="container-modal">

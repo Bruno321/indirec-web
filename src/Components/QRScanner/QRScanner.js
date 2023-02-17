@@ -4,6 +4,7 @@ import {NavigationContext} from '../../Context/NavigationContext'
 import { SAVE, process } from '../../Service/Api';
 import Swal from 'sweetalert2';
 import './QRScanner.css'
+import axios from 'axios';
 
 const QRScanner = () => {
   const [allowRecord, setAllowRecord] = useState(true);
@@ -23,7 +24,6 @@ const QRScanner = () => {
       
     }).then((result)=>{
       setAllowRecord(true)
-      console.log(allowRecord)
     })
   }
 
@@ -34,15 +34,14 @@ const QRScanner = () => {
               {allowRecord ?
                 <QrReader
                   onResult={async (result, error) => {
+                    
                     if (!!result) {
                       setAllowRecord(false);
                       try {
-
                         let parsed = JSON.parse(result?.text)
                         // El codigo QR tiene datos correctos
                         if(parsed.id && parsed.fecha){
                           //Aqui va el post
-                          console.log(parsed)
                           axios({
                             method: "POST",
                             url: "http://localhost:3000/api/deportistas/asistencias",
@@ -54,7 +53,6 @@ const QRScanner = () => {
                             mode: 'cors',
                         })
                         .then((response)=>{
-                          console.log(response.data)
                           Swal.fire({
                             title: '<h1 class="modal-status">Escaneo exitoso</h1>',
                             html:
@@ -69,18 +67,18 @@ const QRScanner = () => {
                             
                           }).then((result)=>{
                             setAllowRecord(true)
-                            console.log(allowRecord)
                           })
                         })
                         .catch((e)=>{
-                          console.log(e)
                           failedQRScan()
+                          console.log(e)
                         })
                         } else {
-                          failedQRScan()
+                          failedQRScan() //aquino
                         }
                     } catch(e){
                       failedQRScan();
+                      console.log(e)
                     }
                 }}}
                 style={{ width: '100%'}}
