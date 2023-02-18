@@ -3,6 +3,9 @@
     padding: 0px;
     left: 0px;
 }
+input, textarea, select{
+    padding: 5px;
+}
 .title-form{
     margin-top: 10px;
     font-size: 1.3rem;
