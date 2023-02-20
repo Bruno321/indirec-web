@@ -6,10 +6,12 @@
 input, textarea, select{
     padding: 5px;
 }
+input{
+    border-color: #000;
+}
 .title-form{
-    margin-top: 10px;
-    font-size: 1.3rem;
-    text-align: center;
+    margin-top: 8px;
+    font-size: 1.1rem;
     font-weight: 600;
 }
 .input-title{
@@ -35,7 +37,7 @@ input, textarea, select{
 width: 300px;
 height: 35px;
 border-radius: 5px;
-border: 2px solid rgba(0, 0, 0, .4);
+border: 1px solid rgba(0, 0, 0);
 }
 
 .btn-add-players{
