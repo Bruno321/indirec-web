@@ -1,0 +1,55 @@
+.more-info-eventos{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, .5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container h2{
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+
+.more-info-eventos .container{
+    padding: 30px;
+    background-color: #FFF;
+    width: 1000px;
+}
+
+.up{
+    margin: 20px;
+    display: flex;
+}
+
+.ver-jugadores{
+    color: white;
+    background-color: #003070;
+    padding: 8px 15px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+}
+
+.botones-verjugadores{
+    display: flex;
+    justify-content: space-around;
+}
+
+.bottom-observaciones{
+    padding: 20px 30px;
+}
+
+.button-aceptar{
+    float: right;
+    color: white;
+    background-color: #003070;
+    padding: 12px 20px;
+    border-radius: 10px;
+    border: none;
+}

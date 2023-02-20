@@ -1,10 +1,13 @@
 import React, { useState } from "react";
 import Swal from 'sweetalert2/dist/sweetalert2.js';
+
+import iconInfo from "../../Assets/icons/more-info.png";
 import iconDelete from "../../Assets/icons/delete.png";
 
 import "./index.css"
 import { Table } from "../../Components/Table/Table";
 import { useFetchData } from "../../Hooks/Fetch.hook";
+import MoreInfoEventos from "../../Components/MoreInfoEventos/MoreInfoEventos";
 
 export const EventosScreen = () =>{
     //State para boton mas informacion
@@ -56,6 +59,15 @@ export const EventosScreen = () =>{
             dataIndex:'eventoId',
             render: (sId, row, index) => (
                 <>
+                    <img 
+                        title="Ver más"
+                        src={iconInfo}
+                        className="icons moreinfo"
+                        onClick={()=>{
+                            setButtonMoreInfo(true);
+                            setSelected(row);
+                        }}
+                    />
                     <img
                         title="Eliminar"
                         src={iconDelete}
@@ -111,11 +123,11 @@ export const EventosScreen = () =>{
                 dataSource={eventos}
                 loading={loading}
             />
-            {/* <MoreInfo
+            <MoreInfoEventos
                 trigger={buttonMoreInfo}
                 setTrigger={setButtonMoreInfo}
                 datos={selected}
-            /> */}
+            />
         </>
     )
 }
