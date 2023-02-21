@@ -4,9 +4,9 @@ import { useState, useEffect } from "react";
 import {useFetchData} from '../../Hooks/Fetch.hook';
 import TableListadoJugadores from "../TableListadoJugadores/TableListadoJugadores";
 
-const ListaJugadores = ({ trigger, setTrigger, jugadores, setJugadores }) => {
+const ListaJugadores = ({ trigger, setTrigger, jugadores, setJugadores, deportistas, mostrarListaCompleta}) => {
 
-    const [jugadoresEquipo, setJugadoresEquipo] = useState([]);//Arreglo que guarda los jugadores que perteneceran al equipo. 
+    const [jugadoresEquipo, setJugadoresEquipo] = useState([]);//Arreglo que guarda los jugadores que perteneceran al equipo.
 
     useEffect(() => {
         if (jugadores?.length) {
@@ -30,7 +30,7 @@ const ListaJugadores = ({ trigger, setTrigger, jugadores, setJugadores }) => {
                     </div>
                 </div>
                 <div className="containerTableListaJugadores">
-                    <TableListadoJugadores jugadoresEquipo={jugadoresEquipo} jugadores={jugadores} setJugadoresEquipo={setJugadoresEquipo}/>
+                    <TableListadoJugadores jugadoresEquipo={jugadoresEquipo} jugadores={jugadores} setJugadoresEquipo={setJugadoresEquipo} deportistas={deportistas} mostrarListaCompleta={mostrarListaCompleta}/>
                 </div>
                 <div className="containerBtnListaJugadores">
                     <button

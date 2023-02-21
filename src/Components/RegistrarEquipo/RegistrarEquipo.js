@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { aFacultities, aCampus } from '../../Utils/constants';
 import TableJugadoresEquipo from "../TableListaJugadoresEquipo/TableJugadoresEquipo";
 import './RegistrarEquipo.css';
 import PencilAlt from "../../Assets/icons/pencilAlt.png";
 import ListaJugadores from "../ListaJugadores/ListaJugadores";
 import Swal from 'sweetalert2';
-import { SAVE, process } from "../../Service/Api";
+import { SAVE, FIND, process } from "../../Service/Api";
 
 const oInitialState = {
     nombre: "",
@@ -23,8 +23,18 @@ const RegistrarEquipo = () => {
 
     const [mostrarListaJugadoresEquipo, setMostrarListaJugadoresEquipo] = useState(false);
     const [listaJugadores, setListaJugadores] = useState([]);
+    const [deportistas, setDeportistas] = useState();
 
     const [form, setForm] = useState(oInitialState);
+
+    useEffect(()=> {
+        const fetchDeportistas = async () => {
+            const response = await process(FIND, 'deportistas');
+            setDeportistas(response.data.data);
+        }
+
+        fetchDeportistas();
+    }, [])
 
     const handleSubmit = async(e) => {
         e.preventDefault();
@@ -66,6 +76,7 @@ const RegistrarEquipo = () => {
 
     return(
         <div className="container">
+            {console.log(deportistas)}
             <h3>Registro de Equipo</h3>
             <div className="registroEquipo">
                 <form className="form-registroEquipo" id="registrarEquipoForm" onSubmit={(e)=>handleSubmit(e)}>
@@ -163,7 +174,7 @@ const RegistrarEquipo = () => {
             <div className="containerButton-registroEquipo">
                 <button type="submit" form="registrarEquipoForm" className="button-registroEquipo">Registrar Equipo</button>
             </div>
-            <ListaJugadores trigger={mostrarListaJugadoresEquipo} setTrigger={setMostrarListaJugadoresEquipo} jugadores={listaJugadores} setJugadores={setListaJugadores}></ListaJugadores>
+            <ListaJugadores trigger={mostrarListaJugadoresEquipo} setTrigger={setMostrarListaJugadoresEquipo} jugadores={listaJugadores} setJugadores={setListaJugadores} deportistas={deportistas} mostrarListaCompleta={false}></ListaJugadores>
         </div>
     )
 }

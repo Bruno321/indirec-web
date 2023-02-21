@@ -4,13 +4,14 @@ import "./RegistrarEvento.css";
 import axios from "axios";
 import { SAVE, FIND, process } from "../../Service/Api";
 import Swal from "sweetalert2";
+import ListaJugadores from '../ListaJugadores/ListaJugadores';
 
 
 const oInitialState = {
   nombreEvento: "",
   fechaEvento: "",
   horaEvento: "",
-  equipoLocal: 1,
+  equipoLocal: "",
   directorTecnicoLocal : "",
   puntosLocal : "",
   canchaJugada : "",
@@ -19,53 +20,110 @@ const oInitialState = {
   puntosVisitante : "",
   jornada : "",
   incidentes : "",
-  jugadores: [1,2]
 }
 
 export const RegistrarEvento = () => {
   const [data, setData] = useState([]);
   const [form,setForm] = useState(oInitialState);
 
-  // useEffect(() => {
-    const handleSubmit = async (e) => {
-      e.preventDefault();
-      const responseUploadData = await process(SAVE, 'eventos', form).catch(e =>{
-        Swal.fire({
-          icon: 'error',
-          title: 'Oops...',
-          text: 'Algo salio mal, intenta mas tarde',
-
-
-      })
-      console.log(e);
-      });
-      if(responseUploadData?.data?.ok){
-        Swal.fire({
-          icon: 'success',
-          title: 'El registro fue exitoso',
-          confirmButtonText: 'Aceptar'
-      })
-      }
-    }
-  // },[]);
-
   // Para el Select Option
   const [selectedOption, setSelectedOption] = useState("");
   const token = localStorage.getItem("token");
 
+  //Estado para hacer visible la tabla para añadir jugadores del equipo correspondiente. 
+  const [mostrarTablaJugadoresLocal, setMostrarTablaJugadoresLocal] = useState(false);
+  const [mostrarTablaJugadoresVisitante, setMostrarTablaJugadoresVisitante] = useState(false);
 
+  //Se guarda en un estado el arreglo de los jugadores que corresponden a cada uno de los dos equipos. 
+  const [jugadoresLocales, setJugadoresLocales] = useState();
+  const [jugadoresVisitantes, setJugadoresVisitantes] = useState();
+
+  //Se guarda en un estado el id del equipo que será tanto local como visitante para posteriormente hacer la llamada de lo jugadores que corresponden a cada equipo seleccionado.
+  const [equipoLocal, setEquipoLocal] = useState();
+  const [equipoVisitante, setEquipoVisitante] = useState();
+
+
+  //Estados para guardar en arreglos los deportistas que participaran en el evento. 
+  const [listaJugadoresLocales, setListaJugadoresLocales] = useState([]);
+  const [listaJugadoresVisitantes, setListaJugadoresVisitantes] = useState([]);
 
   useEffect(()=>{
     const fetchApi = async() => {
       const response = await process(FIND, 'equipos');
       setData(response.data.data);
     } 
-
-    
-  fetchApi();
+    fetchApi();
   },[])
+
+
+  //UseEffect para el equipo local
+  useEffect(() => {
+    const fetchEquipoLocal = async() => {
+      if(equipoLocal){
+        const response = await process(FIND, `equipos/${equipoLocal}`);
+        setJugadoresLocales(response.data.data.jugadores);
+      }
+    }
+    fetchEquipoLocal();
+  }, [equipoLocal])
+
+  //UseEffect para el equipo visitante
+  useEffect(() => {
+    const fetchEquipoVisitante = async() => {
+      if(equipoVisitante){
+        const response = await process(FIND, `equipos/${equipoVisitante}`);
+        setJugadoresVisitantes(response.data.data.jugadores);
+      }
+    }
+    fetchEquipoVisitante();
+  }, [equipoVisitante])
+
+  
+
+  //Función para enviar los datos del formulario correspondientes a la api.
+  const handleSubmit = async (e) => {
+      e.preventDefault();
+
+      if(form.equipoLocal != form.equipoVisitante){
+        const idJugadoresLocales = listaJugadoresLocales.map(jugador => jugador.deportistaId);
+        const idJugadoresVisitantes = listaJugadoresVisitantes.map(jugador => jugador.deportistaId);
+  
+        const concatJugadores = idJugadoresLocales.concat(idJugadoresVisitantes);
+        setForm(form.jugadores = concatJugadores)
+        // console.log(form)
+      }else{
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Los equipos deben de ser diferentes',
+        })
+      }
+      // const responseUploadData = await process(SAVE, 'eventos', form).catch(e => {
+      //   Swal.fire({
+      //     icon: 'error',
+      //     title: 'Oops...',
+      //     text: 'Algo salio mal, intenta mas tarde',
+      //   })
+      //   console.log(e);
+      // });
+
+      // if(responseUploadData?.data?.ok){
+      //   Swal.fire({
+      //     icon: 'success',
+      //     title: 'El registro fue exitoso',
+      //     confirmButtonText: 'Aceptar'
+      // })
+      // }
+  }
+
   return (
     <>
+      {/* {
+        console.log('Jugadores Locales', listaJugadoresLocales)
+      }
+      {
+        console.log('Jugadores visitantes', listaJugadoresVisitantes)
+      } */}
       <h1 className="title-form">REGISTRAR EVENTOS</h1>
       <section className="form-section">
         <form id = "registrarEventoForm" onSubmit={(e)=> handleSubmit(e)}>
@@ -86,7 +144,7 @@ export const RegistrarEvento = () => {
                 className="input-date input-date-event"
                 placeholder="dd-mm-yyyy"
                 onChange = {e => setForm({...form, fechaEvento: e.target.value})}
-                required
+                // required
               />
             </div>
             <br />
@@ -99,23 +157,35 @@ export const RegistrarEvento = () => {
                 name = "horaEvento"
                 className="input-time input-timeEvent"
                 onChange ={e => setForm({...form, horaEvento: e.target.value})}
-                required
+                // required
               />
             </div>
           </div>
           <div className="second-part">
-            <div className="left-side">
+            <div className="left-side"> 
               <label className="label-title">Equipo Local:</label>
               <br />
-              <select className="input-text margin-input" name = "equipoLocal" id = "equipoLocal" value = {form.equipoLocal} onChange ={e => setForm({...form,equipoLocal:e.target.value})}>
-                <option value="">Selecciona una opción...</option>
-                {data.map(item => 
-                <option key={item.equipoId} value={item.equipoId}>
-                  {item.nombre}
-                </option>
-                  )}
+              <select className="input-text margin-input" name="equipoLocal" id="equipoLocal" value={form.equipoLocal} onChange={e => {setForm({...form,equipoLocal:e.target.value}, setEquipoLocal(e.target.value)), console.log('idEquipo', e.target.value)}}>
+                {
+                  !equipoLocal 
+                  ? 
+                    <option value="">Selecciona una opción...</option>
+                  :
+                    ''
+                }
+                {data.map(item =>
+                  <option key={item.equipoId} value={item.equipoId}>
+                    {item.nombre}
+                  </option>
+                )}
               </select>
-              <button className = "btn-add-players">Agregar Jugadores</button>
+              {
+                equipoLocal 
+                ? 
+                  <button className = "btn-add-players" onClick={() => setMostrarTablaJugadoresLocal(true)}>Agregar Jugadores</button>
+                :
+                  ""
+              }
               <label className="label-title">Director Técnico Local:</label>
               <br />
               <input type="text" className="input-text margin-input" name = "directorTecnicoLocal" id = "directorTecnicoLocal" onChange = {e => setForm({...form, directorTecnicoLocal:e.target.value})}/>
@@ -131,16 +201,28 @@ export const RegistrarEvento = () => {
             </div>
             <div className="right-side">
               <label className="label-title">Equipo Visitante:</label>
-              <select className="input-text margin-input-right" name = "equipoVisitante" id = "equipoVisitante" value = {form.equipoVisitante} onChange = {e => setForm({...form, equipoVisitante:e.target.value})}>
-                <option value="">Selecciona una opción...</option>
+              <select className="input-text margin-input-right" name="equipoVisitante" id="equipoVisitante" value={form.equipoVisitante} onChange={e => {setForm({...form, equipoVisitante:e.target.value}), setEquipoVisitante(e.target.value)}}>
+                {
+                  !equipoVisitante
+                  ? 
+                    <option value="">Selecciona una opción...</option>
+                  :
+                    ""
+                }
                 {data.map(item => 
-                <option key={item.equipoId} value={item.equipoId}>
-                  {item.nombre}
-                </option>
-                  )}
+                  <option key={item.equipoId} value={item.equipoId}>
+                    {item.nombre}
+                  </option>
+                )}
               </select>
               <br />
-              <button className = "btn-add-players">Agregar Jugadores</button>
+              {
+                equipoVisitante
+                ? 
+                  <button className = "btn-add-players" onClick={() => setMostrarTablaJugadoresVisitante(true)}>Agregar Jugadores</button>
+                :
+                  ""
+              }
               <label className="label-title">Director Técnico Visitante:</label>
               <input type="text" className="input-text margin-input-right" name = "directorTecnicoVisitante" id = "directorTecnicoVisitante" onChange = {e => setForm({...form, directorTecnicoVisitante:e.target.value})}/>
               <br />
@@ -155,11 +237,31 @@ export const RegistrarEvento = () => {
           <div className="third-part">
             <label className="input-title">¿Sucedieron incidentes?</label>
             <br />
-            <textarea className="convert-to-textarea" name = "incidentes" id = "incidentes" onChange = {e=>setForm({...form, incidentes: e.target.value })} required />
+            <textarea className="convert-to-textarea" name = "incidentes" id = "incidentes" onChange = {e=>setForm({...form, incidentes: e.target.value })}/>
             <div className="btn-section">
             <button type="submit" form="registrarEventoForm" className="btn-registrar-evento">Registrar Evento</button>
             </div>
           </div>
+          {
+            <ListaJugadores 
+              trigger={mostrarTablaJugadoresLocal} 
+              setTrigger={setMostrarTablaJugadoresLocal} 
+              jugadores={listaJugadoresLocales}
+              setJugadores={setListaJugadoresLocales}
+              deportistas={jugadoresLocales} 
+              mostrarListaCompleta={true}
+            />
+          }
+          {
+            <ListaJugadores 
+              trigger={mostrarTablaJugadoresVisitante} 
+              setTrigger={setMostrarTablaJugadoresVisitante} 
+              jugadores={listaJugadoresVisitantes}
+              setJugadores={setListaJugadoresVisitantes}
+              deportistas={jugadoresVisitantes} 
+              mostrarListaCompleta={true}
+            />
+          }
         </form>
       </section>
     </>

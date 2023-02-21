@@ -3,10 +3,10 @@ import { useFetchData } from "../../Hooks/Fetch.hook";
 import circleAdd from "../../Assets/icons/circleAdd.png";
 import trash from "../../Assets/icons/trash.png";
 
-const TableListadoJugadores = ({jugadores, setJugadoresEquipo}) => {
+const TableListadoJugadores = ({jugadores, setJugadoresEquipo, deportistas, mostrarListaCompleta}) => {
 
     const [jugadoresEquipoArreglo, setJugadoresEquipoArreglo] = useState([]);//Arreglo que sirve para saber que jugadores estan siendo seleccionados y cambiar el color de la fila. 
-    const [deportistas] = useFetchData('deportistas');
+    // const [deportistas] = useFetchData('deportistas');
 
     useEffect(() => {
         if (jugadores?.length) {
@@ -33,7 +33,7 @@ const TableListadoJugadores = ({jugadores, setJugadoresEquipo}) => {
                     <th className="headerAcciones"></th>
                 </tr>
                 {
-                    deportistas.map((element, index) => element.equipoId == null ? (
+                    deportistas.map((element, index) => (element.equipoId == null || mostrarListaCompleta) ? (
                         <tr
                             key={element.deportistaId}
                             className={`rowJugadorEquipo ${
