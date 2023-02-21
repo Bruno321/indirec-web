@@ -27,6 +27,11 @@
     display: flex;
 }
 
+.middle{
+    display: flex;
+    justify-content: space-around;
+}
+
 .ver-jugadores{
     color: white;
     background-color: #003070;
