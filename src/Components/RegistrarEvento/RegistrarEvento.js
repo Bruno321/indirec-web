@@ -85,65 +85,60 @@ export const RegistrarEvento = () => {
 
   
   //Función para enviar los datos del formulario correspondientes a la api.
-  const handleSubmit = async (e) => {
+  const handleSubmit = async(e) => {
       e.preventDefault();
 
-      const idJugadoresLocales = listaJugadoresLocales.map(jugador => jugador.deportistaId);
-      const idJugadoresVisitantes = listaJugadoresVisitantes.map(jugador => jugador.deportistaId);
-  
-      const concatJugadores = idJugadoresLocales.concat(idJugadoresVisitantes);
-      setForm(form.jugadores = concatJugadores)
+      if(esMismoEquipo(equipoLocal, equipoVisitante)){
+        console.log(equipoLocal, equipoVisitante)
 
-      console.log('SUBMIT LOCALES', listaJugadoresLocales);
-      console.log('SUBMIT VISITANTES', listaJugadoresVisitantes);
-      // if(form.equipoLocal != form.equipoVisitante){
-      //   const idJugadoresLocales = listaJugadoresLocales.map(jugador => jugador.deportistaId);
-      //   const idJugadoresVisitantes = listaJugadoresVisitantes.map(jugador => jugador.deportistaId);
-  
-      //   const concatJugadores = idJugadoresLocales.concat(idJugadoresVisitantes);
-      //   setForm(form.jugadores = concatJugadores)
-      //   // console.log(form)
-      // }else{
-      //   Swal.fire({
-      //     icon: 'error',
-      //     title: 'Oops...',
-      //     text: 'Los equipos deben de ser diferentes',
-      //   })
-      // }
-      // const responseUploadData = await process(SAVE, 'eventos', form).catch(e => {
-      //   Swal.fire({
-      //     icon: 'error',
-      //     title: 'Oops...',
-      //     text: 'Algo salio mal, intenta mas tarde',
-      //   })
-      //   console.log(e);
-      // });
+        const idJugadoresLocales = listaJugadoresLocales.map(jugador => jugador.deportistaId);
+        const idJugadoresVisitantes = listaJugadoresVisitantes.map(jugador => jugador.deportistaId);
+        const concatJugadores = idJugadoresLocales.concat(idJugadoresVisitantes);
+        setForm(form.jugadores = concatJugadores)
 
-      // if(responseUploadData?.data?.ok){
-      //   Swal.fire({
-      //     icon: 'success',
-      //     title: 'El registro fue exitoso',
-      //     confirmButtonText: 'Aceptar'
-      // })
-      // }
+        console.log(form)
+
+        const responseUploadData = await process(SAVE, 'eventos', form).catch(e => {
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Algo salio mal, intenta mas tarde',
+          })
+          console.log(e);
+        });
+
+        if(responseUploadData?.data?.ok){
+          Swal.fire({
+            icon: 'success',
+            title: 'El registro fue exitoso',
+            confirmButtonText: 'Aceptar'
+          })
+        }
+      }else{
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Los equipos deben de ser diferentes',
+        })
+      }
+
+      
+  }
+
+  const esMismoEquipo = (equipoL, equipoV) => {
+    return equipoL != equipoV
   }
 
   return (
     <>
-      {/* {
-        console.log('Jugadores Locales', listaJugadoresLocales)
-      }
-      {
-        console.log('Jugadores visitantes', listaJugadoresVisitantes)
-      } */}
       <h1 className="title-form">REGISTRAR EVENTOS</h1>
       <section className="form-section">
-        <form id = "registrarEventoForm" onSubmit={(e)=> handleSubmit(e)}>
+        <form id="registrarEventoForm" onSubmit={handleSubmit}>
           <div className="first-part">
             <div className="column-flex">
               <label className="input-title">Nombre del evento: </label>
               <br />
-              <input type="text" className="input-text input-name"  id = "nombreEvento" name = "nombreEvento" placeholder="Troyanos vs Damansus" onChange={e => setForm({...form, nombreEvento:e.target.value})}/>
+              <input type="text" className="input-text input-name"  id="nombreEvento" name="nombreEvento" placeholder="Troyanos vs Damansus" onChange={e => setForm({...form, nombreEvento:e.target.value})} required/>
               <br />
             </div>
             <div className="column-flex">
@@ -156,7 +151,7 @@ export const RegistrarEvento = () => {
                 className="input-date input-date-event"
                 placeholder="dd-mm-yyyy"
                 onChange = {e => setForm({...form, fechaEvento: e.target.value})}
-                // required
+                required
               />
             </div>
             <br />
@@ -169,7 +164,7 @@ export const RegistrarEvento = () => {
                 name = "horaEvento"
                 className="input-time input-timeEvent"
                 onChange ={e => setForm({...form, horaEvento: e.target.value})}
-                // required
+                required
               />
             </div>
           </div>
@@ -204,19 +199,19 @@ export const RegistrarEvento = () => {
               {
                 equipoLocal 
                 ? 
-                  <button className = "btn-add-players" onClick={() => setMostrarTablaJugadoresLocal(true)}>Agregar Jugadores</button>
+                  <div className="btn-add-players" onClick={() => setMostrarTablaJugadoresLocal(true)}>Agregar Jugadores</div>
                 :
                   ""
               }
               <label className="label-title">Director Técnico Local:</label>
               <br />
-              <input type="text" className="input-text margin-input" name = "directorTecnicoLocal" id = "directorTecnicoLocal" onChange = {e => setForm({...form, directorTecnicoLocal:e.target.value})}/>
+              <input type="text" className="input-text margin-input" name="directorTecnicoLocal" id="directorTecnicoLocal" onChange={e => setForm({...form, directorTecnicoLocal:e.target.value})} required/>
               <label className="label-title">Puntos del Local:</label>
               <br />
               <input type="text" className="input-text margin-input" name = "puntosLocal" id = "puntosLocal" onChange = {e => setForm({...form, puntosLocal:e.target.value})}/>
               <label className="label-title">Cancha donde jugaron:</label>
               <br />
-              <input type="text" className="input-text margin-input" name = "canchaDeJuego" id = "canchaDeJuego" onChange = {e =>setForm({...form, canchaJugada:e.target.value})}/>
+              <input type="text" className="input-text margin-input" name = "canchaDeJuego" id = "canchaDeJuego" onChange = {e =>setForm({...form, canchaJugada:e.target.value})} required/>
             </div>
             <div className="middle-side versus-title">
               <h2 className="versus-title">VS</h2>
@@ -252,18 +247,18 @@ export const RegistrarEvento = () => {
               {
                 equipoVisitante
                 ? 
-                  <button className = "btn-add-players" onClick={() => setMostrarTablaJugadoresVisitante(true)}>Agregar Jugadores</button>
+                  <div className = "btn-add-players" onClick={() => setMostrarTablaJugadoresVisitante(true)}>Agregar Jugadores</div>
                 :
                   ""
               }
               <label className="label-title">Director Técnico Visitante:</label>
-              <input type="text" className="input-text margin-input-right" name = "directorTecnicoVisitante" id = "directorTecnicoVisitante" onChange = {e => setForm({...form, directorTecnicoVisitante:e.target.value})}/>
+              <input type="text" className="input-text margin-input-right" name="directorTecnicoVisitante" id="directorTecnicoVisitante" onChange={e => setForm({...form, directorTecnicoVisitante:e.target.value})} required/>
               <br />
               <label className="label-title">Puntos del Visitante:</label>
               <input type="text" className="input-text margin-input-right" name = "puntosVisitante" id = "puntosVisitante" onChange = {e=>setForm({...form, puntosVisitante: e.target.value})}/>
               <br />
               <label className="label-title">Jornada:</label>
-              <input type="text" className="input-text margin-input-right" name = "jornada" id = "jornada" onChange = {e => setForm({...form, jornada: e.target.value})}/>
+              <input type="text" className="input-text margin-input-right" name="jornada" id="jornada" onChange={e => setForm({...form, jornada: e.target.value})} required/>
               <br />
             </div>
           </div>

@@ -4,6 +4,15 @@ import { useState, useEffect } from "react";
 import {useFetchData} from '../../Hooks/Fetch.hook';
 import TableListadoJugadores from "../TableListadoJugadores/TableListadoJugadores";
 
+/**
+ * 
+ * @params trigger y setTrigger -> parametros que reciben un booleano para saber si se muestra o no el modal con la tabla de jugadores.
+ * @params jugadores y setJugadores -> arreglo que contiene los jugadores que han sido añadidos a la lista.
+ * @params deportistas -> parametro que contiene un arreglo de todos los deportistas que se renderizaran y mostraran en la tabla.
+ * @params mostrarListaCompleta -> booleano que permite saber si se mostraran todos los deportistas, en caso de ser false, solo renderizara los deportistas que no estan asociados con un equipoId
+ * @params limpiar -> parametro que permite restablecer el arreglo de jugadores a un arreglo vacio. (aplica solo para registrar eventos)
+ */
+
 const ListaJugadores = ({ trigger, setTrigger, jugadores, setJugadores, deportistas, mostrarListaCompleta, limpiar}) => {
 
     const [jugadoresEquipo, setJugadoresEquipo] = useState([]);//Arreglo que guarda los jugadores que perteneceran al equipo.
@@ -21,9 +30,6 @@ const ListaJugadores = ({ trigger, setTrigger, jugadores, setJugadores, deportis
 
     return trigger ? (
         <div className="containerListaJugadores">
-            {
-                console.log('Jugadores', jugadoresEquipo)
-            }
             <div className="listaJugadores">
                 <div className="containerTituloTabla">
                     <h3>Lista de jugadores:</h3>

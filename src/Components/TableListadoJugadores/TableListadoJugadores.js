@@ -3,6 +3,16 @@ import { useFetchData } from "../../Hooks/Fetch.hook";
 import circleAdd from "../../Assets/icons/circleAdd.png";
 import trash from "../../Assets/icons/trash.png";
 
+/**
+ * 
+ * @params jugadores-> arreglo que contiene los jugadores que han sido añadidos a la lista y asi poder saber si se cambiara el color de la fila a gris.
+ * @params setJugadoresEquipo -> permite agregar los jugadores que perteneceran al equipo o al evento.
+ * @params deportistas -> parametro que contiene un arreglo de todos los deportistas que se renderizaran y mostraran en la tabla.
+ * @params mostrarListaCompleta -> booleano que permite saber si se mostraran todos los deportistas, en caso de ser false, solo renderizara los deportistas que no estan asociados con un equipoId
+ * @params limpiar -> parametro que permite restablecer el arreglo de jugadores a un arreglo vacio. (aplica solo para registrar eventos)
+ * 
+ */
+
 const TableListadoJugadores = ({jugadores, setJugadoresEquipo, deportistas, mostrarListaCompleta, limpiar}) => {
 
     const [jugadoresEquipoArreglo, setJugadoresEquipoArreglo] = useState([]);//Arreglo que sirve para saber que jugadores estan siendo seleccionados y cambiar el color de la fila. 
@@ -30,9 +40,6 @@ const TableListadoJugadores = ({jugadores, setJugadoresEquipo, deportistas, most
 
     return(
         <table id="tableJugadoresEquipo" className="tableListaJugadoresEquipo">
-            {
-                console.log('TABLA LISTADO JUGADORES',jugadoresEquipoArreglo)
-            }
             <tbody>
                 <tr className="rowJugadoresEquipoHeader">
                     <th className="headerTables">#</th>
