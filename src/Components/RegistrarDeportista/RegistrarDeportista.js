@@ -162,7 +162,7 @@ const RegistrarDeportista = () => {
         <div>
             <div className='obtenerQr'>
                 <div className='titleRegisterContainer'>
-                    <h1 className = "titleRegister">Registrar un deportista</h1>
+                    <h3 className = "titleRegister">Registrar deportista</h3>
                     <p className = "paragraphTitle">NOTA: Los campos con "*" son obligatorios</p><br></br>
                 </div>
 

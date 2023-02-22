@@ -1,7 +1,23 @@
-import React from "react";
+import React, { useState } from "react";
 import './MoreInfoEventos.css';
+import { useFetchData } from "../../Hooks/Fetch.hook";
 
 function MoreInfoEventos({trigger, setTrigger, datos}){
+    const [equipos] = useFetchData('equipos');
+    let equipoLocalObtenido
+    let equipoVisitObtenido
+
+    if(trigger){
+        for(let i = 0; i < equipos.length; i++){
+            if(datos.equipoLocal == equipos[i].equipoId){
+                equipoLocalObtenido=equipos[i].nombre;
+            }
+            if(datos.equipoVisitante == equipos[i].equipoId){
+                equipoVisitObtenido=equipos[i].nombre;
+            }
+        }
+    }
+
     return trigger ? (
         <div className="more-info-eventos">
             <div className="container">
@@ -13,10 +29,10 @@ function MoreInfoEventos({trigger, setTrigger, datos}){
                     <label>Cancha: {datos.canchaJugada}</label>
                 </div>
                 <div className="middle">
-                    <div className="info-local">
-                        <p><b>Información del equipo local</b></p>
+                    <div className="info">
+                        <p><b>Equipo local</b></p>
                         <p>Equipo:</p>
-                        <p>NOMBRE DE EQUIPO</p>
+                        <p>{equipoLocalObtenido}</p>
                         <br></br>
                         <p>Director técnico:</p>
                         <p>{datos.directorTecnicoLocal}</p>
@@ -24,10 +40,10 @@ function MoreInfoEventos({trigger, setTrigger, datos}){
                         <p>Puntaje:</p>
                         <p>{datos.puntosLocal != "" ? `${datos.puntosLocal}` : "--"}</p>
                     </div>
-                    <div className="info-visitante">
-                        <p><b>Información del equipo visitante</b></p>
+                    <div className="info">
+                        <p><b>Equipo visitante</b></p>
                         <p>Equipo:</p>
-                        <p>NOMBRE DE EQUIPO</p>
+                        <p>{equipoVisitObtenido}</p>
                         <br></br>
                         <p>Director técnico:</p>
                         <p>{datos.directorTecnicoVisitante}</p>
@@ -37,8 +53,8 @@ function MoreInfoEventos({trigger, setTrigger, datos}){
                     </div>
                 </div>
                 <div className="botones-verjugadores">
-                    <buton className="ver-jugadores">Ver jugadores</buton>
-                    <buton className="ver-jugadores">Ver jugadores</buton>
+                    <button className="ver-jugadores">Ver jugadores</button>
+                    <button className="ver-jugadores">Ver jugadores</button>
                 </div>
 
                 <div className="bottom-observaciones">
