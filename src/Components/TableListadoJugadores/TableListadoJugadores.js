@@ -3,16 +3,20 @@ import { useFetchData } from "../../Hooks/Fetch.hook";
 import circleAdd from "../../Assets/icons/circleAdd.png";
 import trash from "../../Assets/icons/trash.png";
 
-const TableListadoJugadores = ({jugadores, setJugadoresEquipo, deportistas, mostrarListaCompleta}) => {
+const TableListadoJugadores = ({jugadores, setJugadoresEquipo, deportistas, mostrarListaCompleta, limpiar}) => {
 
     const [jugadoresEquipoArreglo, setJugadoresEquipoArreglo] = useState([]);//Arreglo que sirve para saber que jugadores estan siendo seleccionados y cambiar el color de la fila. 
-    // const [deportistas] = useFetchData('deportistas');
-
+    
     useEffect(() => {
         if (jugadores?.length) {
             setJugadoresEquipoArreglo(jugadores);
         }
     }, []);
+
+    useEffect(() => {
+        setJugadoresEquipo(jugadores)
+        
+    }, [limpiar]);
 
     const agregarJugador = (index) =>{
         setJugadoresEquipoArreglo(arr => [...arr, deportistas[index]]);
@@ -26,6 +30,9 @@ const TableListadoJugadores = ({jugadores, setJugadoresEquipo, deportistas, most
 
     return(
         <table id="tableJugadoresEquipo" className="tableListaJugadoresEquipo">
+            {
+                console.log('TABLA LISTADO JUGADORES',jugadoresEquipoArreglo)
+            }
             <tbody>
                 <tr className="rowJugadoresEquipoHeader">
                     <th className="headerTables">#</th>

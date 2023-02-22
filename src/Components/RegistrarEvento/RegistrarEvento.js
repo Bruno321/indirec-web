@@ -42,11 +42,14 @@ export const RegistrarEvento = () => {
   const [equipoLocal, setEquipoLocal] = useState();
   const [equipoVisitante, setEquipoVisitante] = useState();
 
-
   //Estados para guardar en arreglos los deportistas que participaran en el evento. 
   const [listaJugadoresLocales, setListaJugadoresLocales] = useState([]);
   const [listaJugadoresVisitantes, setListaJugadoresVisitantes] = useState([]);
 
+  //Estado que sirve para que el arreglo vuelva a estar vacio si el usuario cambia el equipo en la etiqueta select
+  const [limpiarJugadoresLocales, setLimpiarJugadoresLocales] = useState(false);
+  const [limpiarJugadoresVisitantes, setLimpiarJugadoresVisitantes] = useState(false);
+ 
   useEffect(()=>{
     const fetchApi = async() => {
       const response = await process(FIND, 'equipos');
@@ -61,6 +64,7 @@ export const RegistrarEvento = () => {
     const fetchEquipoLocal = async() => {
       if(equipoLocal){
         const response = await process(FIND, `equipos/${equipoLocal}`);
+        setListaJugadoresLocales([]);
         setJugadoresLocales(response.data.data.jugadores);
       }
     }
@@ -72,6 +76,7 @@ export const RegistrarEvento = () => {
     const fetchEquipoVisitante = async() => {
       if(equipoVisitante){
         const response = await process(FIND, `equipos/${equipoVisitante}`);
+        setListaJugadoresVisitantes([]);
         setJugadoresVisitantes(response.data.data.jugadores);
       }
     }
@@ -79,25 +84,32 @@ export const RegistrarEvento = () => {
   }, [equipoVisitante])
 
   
-
   //Función para enviar los datos del formulario correspondientes a la api.
   const handleSubmit = async (e) => {
       e.preventDefault();
 
-      if(form.equipoLocal != form.equipoVisitante){
-        const idJugadoresLocales = listaJugadoresLocales.map(jugador => jugador.deportistaId);
-        const idJugadoresVisitantes = listaJugadoresVisitantes.map(jugador => jugador.deportistaId);
+      const idJugadoresLocales = listaJugadoresLocales.map(jugador => jugador.deportistaId);
+      const idJugadoresVisitantes = listaJugadoresVisitantes.map(jugador => jugador.deportistaId);
   
-        const concatJugadores = idJugadoresLocales.concat(idJugadoresVisitantes);
-        setForm(form.jugadores = concatJugadores)
-        // console.log(form)
-      }else{
-        Swal.fire({
-          icon: 'error',
-          title: 'Oops...',
-          text: 'Los equipos deben de ser diferentes',
-        })
-      }
+      const concatJugadores = idJugadoresLocales.concat(idJugadoresVisitantes);
+      setForm(form.jugadores = concatJugadores)
+
+      console.log('SUBMIT LOCALES', listaJugadoresLocales);
+      console.log('SUBMIT VISITANTES', listaJugadoresVisitantes);
+      // if(form.equipoLocal != form.equipoVisitante){
+      //   const idJugadoresLocales = listaJugadoresLocales.map(jugador => jugador.deportistaId);
+      //   const idJugadoresVisitantes = listaJugadoresVisitantes.map(jugador => jugador.deportistaId);
+  
+      //   const concatJugadores = idJugadoresLocales.concat(idJugadoresVisitantes);
+      //   setForm(form.jugadores = concatJugadores)
+      //   // console.log(form)
+      // }else{
+      //   Swal.fire({
+      //     icon: 'error',
+      //     title: 'Oops...',
+      //     text: 'Los equipos deben de ser diferentes',
+      //   })
+      // }
       // const responseUploadData = await process(SAVE, 'eventos', form).catch(e => {
       //   Swal.fire({
       //     icon: 'error',
@@ -165,7 +177,17 @@ export const RegistrarEvento = () => {
             <div className="left-side"> 
               <label className="label-title">Equipo Local:</label>
               <br />
-              <select className="input-text margin-input" name="equipoLocal" id="equipoLocal" value={form.equipoLocal} onChange={e => {setForm({...form,equipoLocal:e.target.value}, setEquipoLocal(e.target.value)), console.log('idEquipo', e.target.value)}}>
+              <select 
+                className="input-text margin-input" 
+                name="equipoLocal" id="equipoLocal" 
+                value={form.equipoLocal} 
+                onChange={e => {
+                  setForm({...form,equipoLocal:e.target.value}, 
+                  setEquipoLocal(e.target.value)), 
+                  console.log('idEquipo', e.target.value)
+                  setLimpiarJugadoresLocales(!limpiarJugadoresLocales)
+                }}
+              >
                 {
                   !equipoLocal 
                   ? 
@@ -201,7 +223,18 @@ export const RegistrarEvento = () => {
             </div>
             <div className="right-side">
               <label className="label-title">Equipo Visitante:</label>
-              <select className="input-text margin-input-right" name="equipoVisitante" id="equipoVisitante" value={form.equipoVisitante} onChange={e => {setForm({...form, equipoVisitante:e.target.value}), setEquipoVisitante(e.target.value)}}>
+              <select 
+                className="input-text margin-input-right" 
+                name="equipoVisitante" 
+                id="equipoVisitante" 
+                value={form.equipoVisitante} 
+                onChange={e => {
+                  setForm({...form, equipoVisitante:e.target.value}), 
+                  setEquipoVisitante(e.target.value)
+                  console.log('idEquipo', e.target.value)
+                  setLimpiarJugadoresVisitantes(!limpiarJugadoresVisitantes)
+                }}
+              >
                 {
                   !equipoVisitante
                   ? 
@@ -250,6 +283,7 @@ export const RegistrarEvento = () => {
               setJugadores={setListaJugadoresLocales}
               deportistas={jugadoresLocales} 
               mostrarListaCompleta={true}
+              limpiar={limpiarJugadoresLocales}
             />
           }
           {
@@ -260,6 +294,7 @@ export const RegistrarEvento = () => {
               setJugadores={setListaJugadoresVisitantes}
               deportistas={jugadoresVisitantes} 
               mostrarListaCompleta={true}
+              limpiar={limpiarJugadoresVisitantes}
             />
           }
         </form>

@@ -76,7 +76,7 @@ const RegistrarEquipo = () => {
 
     return(
         <div className="container">
-            {console.log(deportistas)}
+            {/* {console.log(deportistas)} */}
             <h3>Registro de Equipo</h3>
             <div className="registroEquipo">
                 <form className="form-registroEquipo" id="registrarEquipoForm" onSubmit={(e)=>handleSubmit(e)}>
