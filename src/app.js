@@ -4,6 +4,7 @@ import Login from "./Pages/Login/Login";
 import {Router, Redirect} from '@reach/router'
 // Pages
 import MainPage from './Pages/MainPage/MainPage';
+import NotFound from "./Components/notFound/notFound";
 
 export const App = () => {
     const {isAuth} = useContext(LoginContext)
@@ -15,7 +16,7 @@ export const App = () => {
                 { isAuth != null? 
                 // Hay sesion iniciada
                     <>
-                        {/* <NotFound default/> */}
+                        <NotFound default/>
                         <MainPage path='/' />
                         <Redirect from='/login' to='/' noThrow />
 
@@ -23,6 +24,7 @@ export const App = () => {
                 : 
                 // No hay sesion iniciada
                 <>
+                    <NotFound default/> 
                     <Login path='/login' />
                     <Redirect from='/' to='/login' noThrow />
                 </>

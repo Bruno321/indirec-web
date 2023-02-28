@@ -1,7 +1,8 @@
 import React from "react";
 import Error404 from "../../assets/img/error404.svg";
 import "./notFound.css";
-function notFound() {
+
+function NotFound() {
   return (
     <React.Fragment>
       <section className="container-notFound">
@@ -19,7 +20,7 @@ function notFound() {
               <br />
               al inicio.
             </p>
-            <button className = "btn-regresar">Regresar</button>
+            <button className="btn-regresar" onClick={() => location.href='/'}>Regresar</button>
           </div>
         </section>
       </section>
@@ -27,4 +28,4 @@ function notFound() {
   );
 }
 
-export default notFound;
+export default NotFound;
