@@ -5,16 +5,38 @@ import iconDelete from "../../Assets/icons/delete.png";
 import iconEdit from "../../Assets/icons/edit.png";
 import iconMoreInfo from "../../Assets/icons/more-info.png";
 import Swal from 'sweetalert2/dist/sweetalert2.js';
+import './Deportistas.css';
+import Arrow from '../../Assets/icons/left-arrow.png';
+import iconInfo from "../../Assets/icons/more-info.png";
+import ButtonsPages from '../../Components/ButtonsPages/ButtonsPages';
 
 // import 'sweetalert2/src/sweetalert2.scss'
 
 import MoreInfo from '../../Components/MoreInfo/MoreInfo';
+import { useEffect } from 'react';
+import { FIND, process } from '../../Service/Api';
 
 export const DeportistasScreen = () => {
   //State para mostrar MAS INFORMACION de un deportista
   const [buttonMoreInfo, setButtonMoreInfo] = useState(false);
   const [selected, setSelected] = useState();  
-  const [deportistas, loading] = useFetchData('deportistas?limit=10&page=1');
+  // const [deportistas, loading] = useFetchData('deportistas?limit=10&page=1');
+  const [deportistas, setDeportistas] = useState([]);
+
+  const [pagina, setPagina] = useState(1);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    const consultarDeportistas = async() => {
+      setLoading(true);
+      const response = await process(FIND, `deportistas?limit=10&page=${pagina}`);
+      console.log(response.data.data);
+      setDeportistas(response.data.data);
+
+      setLoading(false);
+    }
+    consultarDeportistas();
+  }, [pagina])
 
   const columns = [
     {
@@ -55,9 +77,9 @@ export const DeportistasScreen = () => {
       render: (sId, row, index) => (
         <>
           <img
-            title="Editar"
-            src={iconEdit}
-            className='icons edit'
+            title="Ver más"
+            src={iconInfo}
+            className='icons moreinfo'
             onClick={() => {
               setButtonMoreInfo(true);
               setSelected(row);
@@ -110,16 +132,27 @@ export const DeportistasScreen = () => {
   return (
     <>
       <h3>Deportistas</h3>
-      <Table
-        columns={columns}
-        dataSource={deportistas}
-        loading={loading}
-      />
-      <MoreInfo
-        trigger={buttonMoreInfo}
-        setTrigger={setButtonMoreInfo}
-        datos={selected}
-      />
+      <div className='prueba'>
+        <Table
+          columns={columns}
+          dataSource={deportistas}
+          loading={loading}
+        />
+        <MoreInfo
+          trigger={buttonMoreInfo}
+          setTrigger={setButtonMoreInfo}
+          datos={selected}
+        />
+      </div>
+      {
+        !loading
+        ?
+          <div className='container-pages'>
+            <ButtonsPages numberPage={pagina} setPagina={setPagina}/>
+          </div>
+        :
+        ''
+      }
     </>
   );
 };

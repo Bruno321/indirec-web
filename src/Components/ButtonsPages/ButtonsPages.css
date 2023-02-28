@@ -1,0 +1,41 @@
+.container-pages{
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.containerButtonsPages{
+    width: 14rem;
+    border: 1px solid #9d9d9d;
+    background-color: #EEEEEE;
+    padding: 10px;
+    box-sizing: border-box;
+    border-radius: 35px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.buttonsPages {
+    width: 30px;
+    height: 30px;
+    /* background-color: rebeccapurple; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.buttonsPages img{
+    width: 16px;
+    height: 16px;
+    margin: 0px 2px;
+}
+
+.buttonsPages:hover{
+    cursor: pointer;
+}
+
+.rotation{
+    transform: rotate(180deg);
+}
