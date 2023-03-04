@@ -159,13 +159,10 @@ const RegistrarDeportista = () => {
     }
 
     return(
-        <div>
+        <>
+            <h3 className = "titleRegister">Registrar deportista</h3>
+            <p className = "paragraphTitle">NOTA: Los campos con "*" son obligatorios</p><br></br>
             <div className='obtenerQr'>
-                <div className='titleRegisterContainer'>
-                    <h3 className = "titleRegister">Registrar deportista</h3>
-                    <p className = "paragraphTitle">NOTA: Los campos con "*" son obligatorios</p><br></br>
-                </div>
-
                 <div className='formulario' onSubmit={handleSubmit}>
                     <form>
                         <div className='form-izquierda'>
@@ -406,7 +403,7 @@ const RegistrarDeportista = () => {
             {
                 mostrarModalQr ?  <ModalQR datos={deportistaData} setMostrarModalQr={setMostrarModalQr}/> : ''
             }
-        </div>
+        </>
     )
     
 }

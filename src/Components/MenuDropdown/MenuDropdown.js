@@ -96,11 +96,11 @@ const MenuDropdown = () => {
         </div>
         <div className = "block-section" onClick={()=>setScreen(8)}
                   style = {{
-                    backgroundColor: screen === 8 || screen === 9  ? "#254D7A" : "transparent",
+                    backgroundColor: screen === 8 || screen === 9 || screen === 10  ? "#254D7A" : "transparent",
                   }}>
           <img src = {EventosIcon} className = "logo-section margin-img margin-img-asistencia"/>
           <span className = "title-option margin-asistencias" style ={{
-            textDecoration: screen === 8 || screen === 9 ? "underline white" : "none",
+            textDecoration: screen === 8 || screen === 9 || screen === 10 ? "underline white" : "none",
           }}>Eventos</span>
         </div>
         {/* Boton de cerrar sesión */}

@@ -65,6 +65,15 @@ export const EventosScreen = () =>{
             render: (sId, row, index) => (
                 <>
                     <img 
+                        title="Ver más..."
+                        src={iconInfo}
+                        className="icons moreinfo"
+                        onClick={()=>{
+                            setItemId(row.eventoId);
+                            setScreen(10);
+                        }}
+                    />
+                    <img 
                         title="Registrar resultados"
                         src={iconEdit}
                         className="icons edit"
@@ -120,9 +129,9 @@ export const EventosScreen = () =>{
     return(
         <>
             <h3>Eventos</h3>
-            <p>Buscar por nombre de evento</p>
+            {/* <p>Buscar por nombre de evento</p>
             <input type="text" className="inputEventos"></input>
-            <div className="SearchImg"></div>
+            <div className="SearchImg"></div> */}
             <Table
                 columns={columns}
                 dataSource={eventos}

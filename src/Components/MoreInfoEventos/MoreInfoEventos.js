@@ -1,32 +1,34 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { NavigationContext } from "../../Context/NavigationContext.js";
 import './MoreInfoEventos.css';
 import { useFetchData } from "../../Hooks/Fetch.hook";
 
-function MoreInfoEventos({trigger, setTrigger, datos}){
+function MoreInfoEventos(){
+    const {itemId, setScreen} = useContext(NavigationContext)
     const [equipos] = useFetchData('equipos');
+    const [eventos] = useFetchData(`eventos/${itemId}`);
     let equipoLocalObtenido
     let equipoVisitObtenido
 
-    if(trigger){
-        for(let i = 0; i < equipos.length; i++){
-            if(datos.equipoLocal == equipos[i].equipoId){
-                equipoLocalObtenido=equipos[i].nombre;
-            }
-            if(datos.equipoVisitante == equipos[i].equipoId){
-                equipoVisitObtenido=equipos[i].nombre;
-            }
+    for(let i = 0; i < equipos.length; i++){
+        if(eventos.equipoLocal == equipos[i].equipoId){
+            equipoLocalObtenido=equipos[i].nombre;
+        }
+        if(eventos.equipoVisitante == equipos[i].equipoId){
+            equipoVisitObtenido=equipos[i].nombre;
         }
     }
 
-    return trigger ? (
-        <div className="more-info-eventos">
-            <div className="container">
-                <h2>{datos.nombreEvento}</h2>
+    return (
+        // <div className="more-info-eventos">
+        //     <div className="container">
+        <>
+            <h3>Evento: {eventos.nombreEvento}</h3>
                 <div className="up">
-                    <label>Fecha: {datos.fechaEvento}</label>
-                    <label>Hora: {datos.horaEvento}</label>
-                    <label>Jornadas: {datos.jornada}</label>
-                    <label>Cancha: {datos.canchaJugada}</label>
+                    <label>Fecha: {eventos.fechaEvento}</label>
+                    <label>Hora: {eventos.horaEvento}</label>
+                    <label>Jornadas: {eventos.jornada}</label>
+                    <label>Cancha: {eventos.canchaJugada}</label>
                 </div>
                 <div className="middle">
                     <div className="info">
@@ -35,10 +37,10 @@ function MoreInfoEventos({trigger, setTrigger, datos}){
                         <p>{equipoLocalObtenido}</p>
                         <br></br>
                         <p>Director técnico:</p>
-                        <p>{datos.directorTecnicoLocal}</p>
+                        <p>{eventos.directorTecnicoLocal}</p>
                         <br></br>
                         <p>Puntaje:</p>
-                        <p>{datos.puntosLocal != "" ? `${datos.puntosLocal}` : "--"}</p>
+                        <p>{eventos.puntosLocal != "" ? `${eventos.puntosLocal}` : "--"}</p>
                     </div>
                     <div className="info">
                         <p><b>Equipo visitante</b></p>
@@ -46,10 +48,10 @@ function MoreInfoEventos({trigger, setTrigger, datos}){
                         <p>{equipoVisitObtenido}</p>
                         <br></br>
                         <p>Director técnico:</p>
-                        <p>{datos.directorTecnicoVisitante}</p>
+                        <p>{eventos.directorTecnicoVisitante}</p>
                         <br></br>
                         <p>Puntaje:</p>
-                        <p>{datos.puntosVisitante != "" ? `${datos.puntosVisitante}` : "--"}</p>  
+                        <p>{eventos.puntosVisitante != "" ? `${eventos.puntosVisitante}` : "--"}</p>  
                     </div>
                 </div>
                 <div className="botones-verjugadores">
@@ -59,15 +61,15 @@ function MoreInfoEventos({trigger, setTrigger, datos}){
 
                 <div className="bottom-observaciones">
                     <p>Observaciones:</p>
-                    <p>{datos.incidentes != "" ? `${datos.incidentes}` : "--"}</p>
+                    <p>{eventos.incidentes != "" ? `${eventos.incidentes}` : "--"}</p>
                 </div>
 
-                <button className='button-aceptar' onClick={()=> setTrigger(false)}>Aceptar</button>
-            </div>
-        </div>
-    ) 
-    :
-    "";
+                <button className='button-aceptar' onClick={()=>setScreen(8)}>Aceptar</button>
+        </>
+                
+        //     </div>
+        // </div>
+    )
 }
 
 export default MoreInfoEventos;
