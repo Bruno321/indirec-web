@@ -1,0 +1,47 @@
+.registrar-resultados-container input[type=text], textarea{
+    height: 34px;
+    border-radius: 5px;
+    margin-top: 10px;
+    border: 1px solid black;
+    padding: 5px;
+    box-sizing: border-box;
+}
+.upper-registrar-resultados{
+    padding: 15px;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.incidents{
+    padding: 15px;
+    margin-left: 14vw;
+}
+
+.incidents-textarea{
+    word-wrap: break-word;
+    word-break: break-all;
+    width: 50vw;
+    height: 15vh;
+}
+
+.buttons-registrar-resultados{
+    padding: 15px;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.buttons-registrar-resultados .cancelar{
+    color: white;
+    background-color: #9C010A;
+    padding: 12px 35px;
+    border-radius: 10px;
+    border: none;
+}
+
+.buttons-registrar-resultados .guardar{
+    color: white;
+    background-color: #003070;
+    padding: 12px 35px;
+    border-radius: 10px;
+    border: none;
+}

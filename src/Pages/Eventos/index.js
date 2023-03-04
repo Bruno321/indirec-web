@@ -1,8 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 
 import iconInfo from "../../Assets/icons/more-info.png";
 import iconDelete from "../../Assets/icons/delete.png";
+import iconEdit from "../../Assets/icons/edit.png";
+
+
+import { NavigationContext } from "../../Context/NavigationContext.js";
 
 import "./index.css"
 import { Table } from "../../Components/Table/Table";
@@ -10,6 +14,7 @@ import { useFetchData } from "../../Hooks/Fetch.hook";
 import MoreInfoEventos from "../../Components/MoreInfoEventos/MoreInfoEventos";
 
 export const EventosScreen = () =>{
+    const {setItemId,setScreen} = useContext(NavigationContext)
     //State para boton mas informacion
     const [buttonMoreInfo, setButtonMoreInfo] = useState(false);
     const [selected, setSelected] = useState();
@@ -60,12 +65,12 @@ export const EventosScreen = () =>{
             render: (sId, row, index) => (
                 <>
                     <img 
-                        title="Ver más"
-                        src={iconInfo}
-                        className="icons moreinfo"
+                        title="Registrar resultados"
+                        src={iconEdit}
+                        className="icons edit"
                         onClick={()=>{
-                            setButtonMoreInfo(true);
-                            setSelected(row);
+                            setItemId(row.eventoId);
+                            setScreen(9);
                         }}
                     />
                     <img
@@ -122,11 +127,6 @@ export const EventosScreen = () =>{
                 columns={columns}
                 dataSource={eventos}
                 loading={loading}
-            />
-            <MoreInfoEventos
-                trigger={buttonMoreInfo}
-                setTrigger={setButtonMoreInfo}
-                datos={selected}
             />
         </>
     )

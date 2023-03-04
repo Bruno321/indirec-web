@@ -8,6 +8,8 @@ import RegistrarDeportista from "../../Components/RegistrarDeportista/RegistrarD
 import RegistrarEquipo from "../../Components/RegistrarEquipo/RegistrarEquipo";
 import { EventosScreen } from "../Eventos";
 import { RegistrarEvento } from "../../Components/RegistrarEvento/RegistrarEvento";
+import MoreInfoEventos from "../../Components/MoreInfoEventos/MoreInfoEventos";
+import RegistrarResultados from "../../Components/RegistrarResultados/RegistrarResultados";
 
 const MainPageRenderManager = ({ screen }) => {
 
@@ -21,6 +23,8 @@ const MainPageRenderManager = ({ screen }) => {
     <EditarEquipo/>,
     <RegistrarEvento/>,
     <EventosScreen/>,
+    <RegistrarResultados/>,
+    <MoreInfoEventos/>,
   ];
 
     return (
