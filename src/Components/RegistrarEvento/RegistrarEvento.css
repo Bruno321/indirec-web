@@ -64,6 +64,19 @@ border: 1px solid rgba(0, 0, 0);
 .label-title{
     margin-bottom: -1px;
 }
+.middle-part{
+    width: 100%;
+    height: 70px;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+    margin-bottom: 25px;
+
+}
+.sport-title{
+    margin-bottom: 15px;
+}
 
 .margin-input{
     margin-top: -10px;

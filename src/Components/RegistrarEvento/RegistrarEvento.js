@@ -11,15 +11,16 @@ const oInitialState = {
   nombreEvento: "",
   fechaEvento: "",
   horaEvento: "",
+  deporte: "",
   equipoLocal: "",
   directorTecnicoLocal : "",
-  puntosLocal : "",
+  // puntosLocal : "",
   canchaJugada : "",
   equipoVisitante : "",
   directorTecnicoVisitante : "",
-  puntosVisitante : "",
+  // puntosVisitante : "",
   jornada : "",
-  incidentes : "",
+  // incidentes : "",
 }
 
 export const RegistrarEvento = () => {
@@ -168,6 +169,15 @@ export const RegistrarEvento = () => {
               />
             </div>
           </div>
+            <section class = "middle-part">
+              <label className = "sport-title">Deporte</label>
+              <select name="deporte" id="deporte" className="chose-sport input-text margin-input" value = {form.deporte} onChange = {e=>{
+                  setForm({...form, deporte: e.target.value})
+                }}>
+                <option value = "futbol">Futbol</option>
+                <option value = "basquetbol">Basquetbol</option>
+              </select>
+          </section>
           <div className="second-part">
             <div className="left-side"> 
               <label className="label-title">Equipo Local:</label>
@@ -206,9 +216,9 @@ export const RegistrarEvento = () => {
               <label className="label-title">Director Técnico Local:</label>
               <br />
               <input type="text" className="input-text margin-input" name="directorTecnicoLocal" id="directorTecnicoLocal" onChange={e => setForm({...form, directorTecnicoLocal:e.target.value})} required/>
-              <label className="label-title">Puntos del Local:</label>
+              {/* <label className="label-title">Puntos del Local:</label>
               <br />
-              <input type="text" className="input-text margin-input" name = "puntosLocal" id = "puntosLocal" onChange = {e => setForm({...form, puntosLocal:e.target.value})}/>
+              <input type="text" className="input-text margin-input" name = "puntosLocal" id = "puntosLocal" onChange = {e => setForm({...form, puntosLocal:e.target.value})}/> */}
               <label className="label-title">Cancha donde jugaron:</label>
               <br />
               <input type="text" className="input-text margin-input" name = "canchaDeJuego" id = "canchaDeJuego" onChange = {e =>setForm({...form, canchaJugada:e.target.value})} required/>
@@ -254,18 +264,18 @@ export const RegistrarEvento = () => {
               <label className="label-title">Director Técnico Visitante:</label>
               <input type="text" className="input-text margin-input-right" name="directorTecnicoVisitante" id="directorTecnicoVisitante" onChange={e => setForm({...form, directorTecnicoVisitante:e.target.value})} required/>
               <br />
-              <label className="label-title">Puntos del Visitante:</label>
+              {/* <label className="label-title">Puntos del Visitante:</label>
               <input type="text" className="input-text margin-input-right" name = "puntosVisitante" id = "puntosVisitante" onChange = {e=>setForm({...form, puntosVisitante: e.target.value})}/>
-              <br />
+              <br /> */}
               <label className="label-title">Jornada:</label>
               <input type="text" className="input-text margin-input-right" name="jornada" id="jornada" onChange={e => setForm({...form, jornada: e.target.value})} required/>
               <br />
             </div>
           </div>
           <div className="third-part">
-            <label className="input-title">¿Sucedieron incidentes?</label>
+            {/* <label className="input-title">¿Sucedieron incidentes?</label>
             <br />
-            <textarea className="convert-to-textarea" name = "incidentes" id = "incidentes" onChange = {e=>setForm({...form, incidentes: e.target.value })}/>
+            <textarea className="convert-to-textarea" name = "incidentes" id = "incidentes" onChange = {e=>setForm({...form, incidentes: e.target.value })}/> */}
             <div className="btn-section">
             <button type="submit" form="registrarEventoForm" className="btn-registrar-evento">Registrar Evento</button>
             </div>
