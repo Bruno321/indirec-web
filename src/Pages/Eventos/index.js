@@ -14,7 +14,7 @@ import { useFetchData } from "../../Hooks/Fetch.hook";
 import MoreInfoEventos from "../../Components/MoreInfoEventos/MoreInfoEventos";
 
 export const EventosScreen = () =>{
-    const {setItemId,setScreen} = useContext(NavigationContext)
+    const {setItemId, setScreen} = useContext(NavigationContext)
     //State para boton mas informacion
     const [buttonMoreInfo, setButtonMoreInfo] = useState(false);
     const [selected, setSelected] = useState();

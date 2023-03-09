@@ -9,11 +9,11 @@ input, textarea, select{
 input{
     border-color: #000;
 }
-.title-form{
+/* .title-form{
     margin-top: 8px;
     font-size: 1.1rem;
     font-weight: 600;
-}
+} */
 .input-title{
     font-size: 1.2rem;
     margin-bottom: -12px;

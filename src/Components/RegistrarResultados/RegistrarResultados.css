@@ -1,11 +1,25 @@
-.registrar-resultados-container input[type=text], textarea{
+.registrar-resultados-container input[type=number], textarea{
     height: 34px;
     border-radius: 5px;
     margin-top: 10px;
     border: 1px solid black;
     padding: 5px;
     box-sizing: border-box;
+    cursor: text;
 }
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
 .upper-registrar-resultados{
     padding: 15px;
     display: flex;

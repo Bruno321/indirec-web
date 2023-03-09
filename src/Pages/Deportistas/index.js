@@ -30,7 +30,7 @@ export const DeportistasScreen = () => {
     const consultarDeportistas = async() => {
       setLoading(true);
       const response = await process(FIND, `deportistas?limit=10&page=${pagina}`);
-      console.log(response.data.data);
+      // console.log(response.data.data);
       setDeportistas(response.data.data);
 
       setLoading(false);

@@ -1,0 +1,39 @@
+.ver-jugadores-container{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, .5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.ver-jugadores-container-inner{
+    padding: 30px;
+    background-color: #FFF;
+    border-radius: 10px;
+}
+
+.ver-jugadores-upper{
+    margin-bottom: 30px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+
+.ver-jugadores-bottom{
+    margin-top: 30px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+
+.button-ver-jugadores{
+    color: white;
+    background-color: #003070;
+    padding: 12px 20px;
+    border-radius: 10px;
+    border: none;
+}

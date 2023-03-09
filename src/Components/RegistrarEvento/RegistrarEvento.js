@@ -132,7 +132,7 @@ export const RegistrarEvento = () => {
 
   return (
     <>
-      <h1 className="title-form">REGISTRAR EVENTOS</h1>
+      <h3 className="title-form">Registrar evento</h3>
       <section className="form-section">
         <form id="registrarEventoForm" onSubmit={handleSubmit}>
           <div className="first-part">
@@ -169,7 +169,7 @@ export const RegistrarEvento = () => {
               />
             </div>
           </div>
-            <section class = "middle-part">
+            <section className = "middle-part">
               <label className = "sport-title">Deporte</label>
               <select name="deporte" id="deporte" className="chose-sport input-text margin-input" value = {form.deporte} onChange = {e=>{
                   setForm({...form, deporte: e.target.value})

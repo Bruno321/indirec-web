@@ -2,11 +2,21 @@ import React, { useState, useContext } from "react";
 import { NavigationContext } from "../../Context/NavigationContext.js";
 import './MoreInfoEventos.css';
 import { useFetchData } from "../../Hooks/Fetch.hook";
+import VerJugadoresEvento from "../VerJugadoresEvento/VerJugadoresEvento.js";
 
 function MoreInfoEventos(){
     const {itemId, setScreen} = useContext(NavigationContext)
     const [equipos] = useFetchData('equipos');
+    const [deportistas] = useFetchData('deportistas');
     const [eventos] = useFetchData(`eventos/${itemId}`);
+
+    const [equipoIdTable, setEquipoIdTable] = useState();
+    const [nombreEquipo, setNombreEquipo]=useState();
+
+    const [trigger, setTrigger] = useState(false);
+
+    // Obtenemos los nombres de los equipos para el front
+
     let equipoLocalObtenido
     let equipoVisitObtenido
 
@@ -18,6 +28,10 @@ function MoreInfoEventos(){
             equipoVisitObtenido=equipos[i].nombre;
         }
     }
+
+    //Obtenemos los jugadores de los equipos
+    for(let i =0; i < deportistas.length; i++){
+        if(eventos.equipoLocal == deportistas[i].equipoId){}}
 
     return (
         // <div className="more-info-eventos">
@@ -55,8 +69,8 @@ function MoreInfoEventos(){
                     </div>
                 </div>
                 <div className="botones-verjugadores">
-                    <button className="ver-jugadores">Ver jugadores</button>
-                    <button className="ver-jugadores">Ver jugadores</button>
+                    <button className="ver-jugadores" onClick={() => {setEquipoIdTable(eventos.equipoLocal); setTrigger(true), setNombreEquipo(equipoLocalObtenido) }}>Ver jugadores</button>
+                    <button className="ver-jugadores" onClick={()=>{setEquipoIdTable(eventos.equipoVisitante); setTrigger(true), setNombreEquipo(equipoVisitObtenido) } }>Ver jugadores</button>
                 </div>
 
                 <div className="bottom-observaciones">
@@ -65,7 +79,16 @@ function MoreInfoEventos(){
                 </div>
 
                 <button className='button-aceptar' onClick={()=>setScreen(8)}>Aceptar</button>
-        </>
+
+                {/* Modals para ver a los jugadores */}
+                <VerJugadoresEvento
+                    trigger={trigger}
+                    setTrigger={setTrigger}
+                    equipoID={equipoIdTable}
+                    listaJugadores={deportistas}
+                    equipo={nombreEquipo}
+                />
+            </>
                 
         //     </div>
         // </div>
