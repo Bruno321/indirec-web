@@ -1,22 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import './VerJugadoresEvento.css';
 
-function VerJugadoresEvento({trigger, setTrigger, equipoID, listaJugadores, equipo}){
-
-    let listaJugadoresFinal =[];
-
-    if(trigger){
-        for (let i = 0; i < listaJugadores.length; i++ ){
-            if(listaJugadores[i].equipoId == equipoID){
-                listaJugadoresFinal.push(listaJugadores[i])
-            }
-        }
-
-    }
-
-    function vaciarArray(){
-        listaJugadoresFinal = [];
-    }
+function VerJugadoresEvento({trigger, setTrigger, listaJugadores, setJugadores, equipo}){
 
     return trigger ? (
         <div className='ver-jugadores-container'>
@@ -30,11 +15,11 @@ function VerJugadoresEvento({trigger, setTrigger, equipoID, listaJugadores, equi
                                 <th className="headerTables headerNombreCompleto">Nombre completo</th>
                             </tr>
                             {
-                                listaJugadoresFinal ? (
-                                listaJugadoresFinal.map(element => (
-                                    <tr key={element.numJugador} className="trEquiposJugadores">
-                                        <td className="trNum">{element.numJugador}</td>
-                                        <td className="trNombre">{element.nombres} {element.apellidos}</td>
+                                listaJugadores ? (
+                                listaJugadores.map(({ deportista }) => (
+                                    <tr key={deportista.numJugador} className="trEquiposJugadores">
+                                        <td className="trNum">{deportista.numJugador}</td>
+                                        <td className="trNombre">{deportista.nombres} {deportista.apellidos}</td>
                                     </tr>
                                 )))
                                 :
@@ -44,7 +29,12 @@ function VerJugadoresEvento({trigger, setTrigger, equipoID, listaJugadores, equi
                     </table>
                 </div>
                 <div className='ver-jugadores-bottom'>
-                    <button className='button-ver-jugadores' onClick={()=> {setTrigger(false); vaciarArray}}>Aceptar</button>
+                    <button className='button-ver-jugadores' onClick={()=> {
+                        setTrigger(false); 
+                        setJugadores([]);
+                    }}>
+                        Aceptar
+                    </button>
                 </div>
             </div>
         </div>

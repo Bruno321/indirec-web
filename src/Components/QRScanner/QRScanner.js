@@ -41,10 +41,11 @@ const QRScanner = () => {
                         let parsed = JSON.parse(result?.text)
                         // El codigo QR tiene datos correctos
                         if(parsed.id && parsed.fecha){
+                          debugger;
                           //Aqui va el post
                           axios({
                             method: "POST",
-                            url: "http://localhost:3000/api/deportistas/asistencias",
+                            url: "http://localhost:3030/asistencias",
                             data: {
                               id: parsed.id,
                               fecha: parsed.fecha

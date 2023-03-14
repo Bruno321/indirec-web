@@ -4,13 +4,13 @@ import { useFetchData } from '../../Hooks/Fetch.hook';
 import { Table } from '../../Components/Table/Table';
 import iconDelete from "../../Assets/icons/delete.png";
 import iconEdit from "../../Assets/icons/edit.png";
-import PencilAlt from "../../Assets/icons/pencilAlt.png";
 import ListaJugadores from '../../Components/ListaJugadores/ListaJugadores.js';
 import { aFacultities, aCampus } from "../../Utils/constants";
 import { useEffect } from 'react';
 import { UPDATE, process } from "../../Service/Api";
 import Swal from 'sweetalert2';
 import leftArrow from "../../Assets/icons/left-arrow.png";
+import "../../Components/Modals/EditarEquipoModal/EditarEquipoModal.css";
 
 const oInitialState ={ 
   nombre: '',
@@ -29,9 +29,7 @@ export const EditarEquipo = () => {
     const {itemId,setScreen} = useContext(NavigationContext)
     const [equipo, loading] = useFetchData(`equipos/${itemId}`);
     const [mostrarListaJugadoresEquipo, setMostrarListaJugadoresEquipo] = useState(false);
-    const [listaEquipo, setListaEquipo] = useState([]); //Arreglo para guardar los jugadores del equipo que devuelve al hacer la llamada a la api.
     const [listaJugadores, setListaJugadores] = useState([]);//Arreglo que guarda los jugadores que se estan agregando mediante la tabla.
-    const [jugadoresToRender,setJugadoresToRender] = useState([]); //Arreglo para combinar listaEquipo y listaJugadores y renderizarlo en la tabla. 
     const [form, setForm] = useState(oInitialState);
 
     const campus = ['Centro Universitario', 'Juriquilla', 'Aeropuerto', 'Ex-prepa Centro', 'Prepa Norte', 'Prepa Sur', 'Centro Historico'];
@@ -40,7 +38,7 @@ export const EditarEquipo = () => {
       'Facultad de Filosofía','Facultad de Informática','Facultad de Ingeniería','Facultad de Lenguas y Letras','Facultad de Medicina','Facultad de Psicología',
       'Facultad de Contaduría','Facultad de Química','Facultad de Enfermería','Escuela de Bachilleres'
     ];
-  
+
     const columns = [
       {
         title: 'Expediente',
@@ -134,9 +132,9 @@ export const EditarEquipo = () => {
     const handleSubmit = async () => {
       let oSend = {
         ...form,
-        jugadores: jugadoresToRender.map(j => j.deportistaId),
+        // jugadores: jugadoresToRender.map(j => j.deportistaId),
       };
-      const response = await process(UPDATE, 'equipos', oSend, { id: oSend.equipoId }).catch(e => {
+      const response = await process(UPDATE, 'equipos', oSend, { id: oSend.id }).catch(e => {
         Swal.fire({
           icon: 'error',
           title: 'Oops...',
@@ -145,7 +143,7 @@ export const EditarEquipo = () => {
         // console.log(e);
       });
       
-      if (response?.data?.ok) {
+      if (response.status === 200) {
         Swal.fire({
           icon: 'success',
           title: 'Se actualizó el equipo correctamente',
@@ -158,20 +156,10 @@ export const EditarEquipo = () => {
     };  
 
     useEffect(()=>{
-      setJugadoresToRender(equipo.jugadores);
-      setListaEquipo(equipo.jugadores);
-      if (equipo) {
+      if (equipo?.id) {
         setForm(equipo);
       }
-    },[equipo])
-
-    useEffect(()=>{
-      let mergedArray = [
-        ...listaEquipo,
-        ...listaJugadores
-      ]
-      setJugadoresToRender(mergedArray);
-    },[listaJugadores])
+    },[equipo]);
     
     return (
         <div>
@@ -302,7 +290,7 @@ export const EditarEquipo = () => {
             <ListaJugadores trigger={mostrarListaJugadoresEquipo} setTrigger={setMostrarListaJugadoresEquipo} jugadores={listaJugadores} setJugadores={setListaJugadores}></ListaJugadores>
             <Table
               columns={columns}
-              dataSource={jugadoresToRender}
+              dataSource={equipo?.deportistas}
               loading={loading}
             />
             <button type="submit" form="registrarEquipoForm" className="button-registroEquipo" style={{marginTop:"20px",marginLeft:"10px"}} onClick={handleSubmit}>Guardar cambios</button>

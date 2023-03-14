@@ -6,76 +6,72 @@ import VerJugadoresEvento from "../VerJugadoresEvento/VerJugadoresEvento.js";
 
 function MoreInfoEventos(){
     const {itemId, setScreen} = useContext(NavigationContext)
-    const [equipos] = useFetchData('equipos');
-    const [deportistas] = useFetchData('deportistas');
-    const [eventos] = useFetchData(`eventos/${itemId}`);
+    const [evento] = useFetchData(`eventos/${itemId}`);
 
     const [equipoIdTable, setEquipoIdTable] = useState();
     const [nombreEquipo, setNombreEquipo]=useState();
 
+    const [jugadores, setJugadores] = useState([]);
+
     const [trigger, setTrigger] = useState(false);
 
-    // Obtenemos los nombres de los equipos para el front
-
-    let equipoLocalObtenido
-    let equipoVisitObtenido
-
-    for(let i = 0; i < equipos.length; i++){
-        if(eventos.equipoLocal == equipos[i].equipoId){
-            equipoLocalObtenido=equipos[i].nombre;
-        }
-        if(eventos.equipoVisitante == equipos[i].equipoId){
-            equipoVisitObtenido=equipos[i].nombre;
-        }
-    }
-
-    //Obtenemos los jugadores de los equipos
-    for(let i =0; i < deportistas.length; i++){
-        if(eventos.equipoLocal == deportistas[i].equipoId){}}
-
     return (
-        // <div className="more-info-eventos">
+        // <div className="more-info-evento">
         //     <div className="container">
         <>
-            <h3>Evento: {eventos.nombreEvento}</h3>
+            <h3>Evento: {evento?.nombre}</h3>
                 <div className="up">
-                    <label>Fecha: {eventos.fechaEvento}</label>
-                    <label>Hora: {eventos.horaEvento}</label>
-                    <label>Jornadas: {eventos.jornada}</label>
-                    <label>Cancha: {eventos.canchaJugada}</label>
+                    <label>Fecha: {evento.fecha}</label>
+                    <label>Hora: {evento.hora}</label>
+                    <label>Jornadas: {evento.jornada}</label>
+                    <label>Cancha: {evento.canchaJugada}</label>
                 </div>
                 <div className="middle">
                     <div className="info">
                         <p><b>Equipo local</b></p>
                         <p>Equipo:</p>
-                        <p>{equipoLocalObtenido}</p>
+                        <p>{evento.EquipoLocal?.nombre}</p>
                         <br></br>
                         <p>Director técnico:</p>
-                        <p>{eventos.directorTecnicoLocal}</p>
+                        <p>{evento.directorTecnicoLocal}</p>
                         <br></br>
                         <p>Puntaje:</p>
-                        <p>{eventos.puntosLocal != "" ? `${eventos.puntosLocal}` : "--"}</p>
+                        <p>{evento.puntosLocal != "" ? `${evento.puntosLocal}` : "--"}</p>
                     </div>
                     <div className="info">
                         <p><b>Equipo visitante</b></p>
                         <p>Equipo:</p>
-                        <p>{equipoVisitObtenido}</p>
+                        <p>{evento.EquipoVisitante?.nombre}</p>
                         <br></br>
                         <p>Director técnico:</p>
-                        <p>{eventos.directorTecnicoVisitante}</p>
+                        <p>{evento.directorTecnicoVisitante}</p>
                         <br></br>
                         <p>Puntaje:</p>
-                        <p>{eventos.puntosVisitante != "" ? `${eventos.puntosVisitante}` : "--"}</p>  
+                        <p>{evento.puntosVisitante != "" ? `${evento.puntosVisitante}` : "--"}</p>  
                     </div>
                 </div>
                 <div className="botones-verjugadores">
-                    <button className="ver-jugadores" onClick={() => {setEquipoIdTable(eventos.equipoLocal); setTrigger(true), setNombreEquipo(equipoLocalObtenido) }}>Ver jugadores</button>
-                    <button className="ver-jugadores" onClick={()=>{setEquipoIdTable(eventos.equipoVisitante); setTrigger(true), setNombreEquipo(equipoVisitObtenido) } }>Ver jugadores</button>
+                    <button className="ver-jugadores" onClick={() => {
+                        setEquipoIdTable(evento.EquipoLocal.id); 
+                        setJugadores(evento.eventos_details.filter(({ deportista }) => deportista.equipo.id === evento.equipo_local_id));
+                        setTrigger(true);
+                        setNombreEquipo(evento.EquipoLocal?.nombre);
+                    }}>
+                        Ver jugadores
+                    </button>
+                    <button className="ver-jugadores" onClick={() => {
+                        setEquipoIdTable(evento.EquipoVisitante.id);
+                        setJugadores(evento.eventos_details.filter(({ deportista }) => deportista.equipo.id === evento.equipo_visitante_id));
+                        setTrigger(true);
+                        setNombreEquipo(evento.EquipoVisitante?.nombre);
+                    }}>
+                        Ver jugadores
+                    </button>
                 </div>
 
                 <div className="bottom-observaciones">
                     <p>Observaciones:</p>
-                    <p>{eventos.incidentes != "" ? `${eventos.incidentes}` : "--"}</p>
+                    <p>{evento.incidentes != "" ? `${evento.incidentes}` : "--"}</p>
                 </div>
 
                 <button className='button-aceptar' onClick={()=>setScreen(8)}>Aceptar</button>
@@ -84,12 +80,12 @@ function MoreInfoEventos(){
                 <VerJugadoresEvento
                     trigger={trigger}
                     setTrigger={setTrigger}
+                    setJugadores={setJugadores}
                     equipoID={equipoIdTable}
-                    listaJugadores={deportistas}
+                    listaJugadores={jugadores}
                     equipo={nombreEquipo}
                 />
             </>
-                
         //     </div>
         // </div>
     )

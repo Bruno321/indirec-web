@@ -2,41 +2,20 @@ import React, { useState } from 'react';
 import { Table } from '../../Components/Table/Table';
 import { useFetchData } from '../../Hooks/Fetch.hook';
 import iconDelete from "../../Assets/icons/delete.png";
-import iconEdit from "../../Assets/icons/edit.png";
-import iconMoreInfo from "../../Assets/icons/more-info.png";
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 import './Deportistas.css';
-import Arrow from '../../Assets/icons/left-arrow.png';
 import iconInfo from "../../Assets/icons/more-info.png";
 import ButtonsPages from '../../Components/ButtonsPages/ButtonsPages';
 
-// import 'sweetalert2/src/sweetalert2.scss'
-
 import MoreInfo from '../../Components/MoreInfo/MoreInfo';
-import { useEffect } from 'react';
-import { FIND, process } from '../../Service/Api';
 
 export const DeportistasScreen = () => {
   //State para mostrar MAS INFORMACION de un deportista
   const [buttonMoreInfo, setButtonMoreInfo] = useState(false);
   const [selected, setSelected] = useState();  
-  // const [deportistas, loading] = useFetchData('deportistas?limit=10&page=1');
-  const [deportistas, setDeportistas] = useState([]);
+  const [deportistas, loading] = useFetchData('deportistas');
 
   const [pagina, setPagina] = useState(1);
-  const [loading, setLoading] = useState(false);
-
-  useEffect(() => {
-    const consultarDeportistas = async() => {
-      setLoading(true);
-      const response = await process(FIND, `deportistas?limit=10&page=${pagina}`);
-      // console.log(response.data.data);
-      setDeportistas(response.data.data);
-
-      setLoading(false);
-    }
-    consultarDeportistas();
-  }, [pagina])
 
   const columns = [
     {
@@ -135,7 +114,7 @@ export const DeportistasScreen = () => {
       <div className='prueba'>
         <Table
           columns={columns}
-          dataSource={deportistas}
+          dataSource={deportistas.data}
           loading={loading}
         />
         <MoreInfo

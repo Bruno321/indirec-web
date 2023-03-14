@@ -7,7 +7,6 @@ import iconMoreInfo from "../../Assets/icons/more-info.png";
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 import { NavigationContext } from '../../Context/NavigationContext';
 // Modal
-import EditarEquipoModal from '../../Components/Modals/EditarEquipoModal/EditarEquipoModal';
 
 export const EquiposScreen = () => {
   const [equipos, loading, updater] = useFetchData('equipos');
@@ -58,7 +57,7 @@ export const EquiposScreen = () => {
             onClick={() => {
               // setVisible(!visible);
               // setEquipo(row);
-              setItemId(row.equipoId);
+              setItemId(row.id);
               setScreen(6);
             }}
             />
@@ -110,15 +109,9 @@ export const EquiposScreen = () => {
   return (
     <>
       <h3>Equipos</h3>
-      {/* <EditarEquipoModal
-        equipo={equipo}
-        visible={visible}
-        setVisible={setVisible}
-        updater={updater}
-      /> */}
       <Table
         columns={columns}
-        dataSource={equipos}
+        dataSource={equipos.data}
         loading={loading}/>
     </>
   );

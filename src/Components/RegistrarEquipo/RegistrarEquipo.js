@@ -5,7 +5,8 @@ import './RegistrarEquipo.css';
 import PencilAlt from "../../Assets/icons/pencilAlt.png";
 import ListaJugadores from "../ListaJugadores/ListaJugadores";
 import Swal from 'sweetalert2';
-import { SAVE, FIND, process } from "../../Service/Api";
+import { useFetchData } from '../../Hooks/Fetch.hook';
+import { process, SAVE } from '../../Service/Api';
 
 const oInitialState = {
     nombre: "",
@@ -23,23 +24,13 @@ const RegistrarEquipo = () => {
 
     const [mostrarListaJugadoresEquipo, setMostrarListaJugadoresEquipo] = useState(false);
     const [listaJugadores, setListaJugadores] = useState([]);
-    const [deportistas, setDeportistas] = useState();
-
+    const [deportistas, loading] = useFetchData('deportistas', 'status=1');
     const [form, setForm] = useState(oInitialState);
-
-    useEffect(()=> {
-        const fetchDeportistas = async () => {
-            const response = await process(FIND, 'deportistas');
-            setDeportistas(response.data.data);
-        }
-
-        fetchDeportistas();
-    }, [])
 
     const handleSubmit = async(e) => {
         e.preventDefault();
 
-        const idJugadores = listaJugadores.map(jugador => jugador.deportistaId);
+        const idJugadores = listaJugadores.map(jugador => jugador.id);
         console.log(idJugadores);
 
         setForm(form.jugadores = idJugadores)
@@ -56,7 +47,7 @@ const RegistrarEquipo = () => {
                 console.log(e);
             });
 
-            if (response?.data?.ok) {
+            if (response?.status === 201) {
                 Swal.fire({
                     icon: 'success',
                     title: 'El registro fue exitoso',

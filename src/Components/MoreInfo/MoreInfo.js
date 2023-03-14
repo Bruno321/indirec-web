@@ -17,7 +17,7 @@ function MoreInfo({ datos, trigger, setTrigger }) {
                 if (datos[fKey]) {
                     aTmp = {
                         ...aTmp,
-                        [fKey]: `http://localhost:3000/api/uploads/${datos[fKey]?.split('/')[1]}` // TODO: Change this later for .env variable
+                        [fKey]: `http://localhost:3030/${datos[fKey]}` // TODO: Change this later for .env variable
                     };
                 }
             }
