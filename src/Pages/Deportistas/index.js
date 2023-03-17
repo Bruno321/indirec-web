@@ -7,14 +7,16 @@ import './Deportistas.css';
 import qr from '../../Assets/icons/qr.png';
 import iconInfo from "../../Assets/icons/more-info.png";
 import ButtonsPages from '../../Components/ButtonsPages/ButtonsPages';
-
+import ModalQR from '../../Components/Modals/ModalQR/ModalQR';
 import MoreInfo from '../../Components/MoreInfo/MoreInfo';
 
 export const DeportistasScreen = () => {
   //State para mostrar MAS INFORMACION de un deportista
   const [buttonMoreInfo, setButtonMoreInfo] = useState(false);
   const [selected, setSelected] = useState();  
+  const [showQR, setShowQR] = useState(false);
   const [deportistas, loading] = useFetchData('deportistas');
+  const [deportista, setDeportista] = useState({});
 
   const [pagina, setPagina] = useState(1);
 
@@ -53,16 +55,23 @@ export const DeportistasScreen = () => {
     },
     {
       title: 'Acciones',
-      dataIndex: 'deportistaId',
+      dataIndex: 'id',
       render: (sId, row, index) => (
-        <>
+        <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-around' }}>
           <img
-            title="Ver más"
+            title="Mostrar QR"
             src={qr}
             className='icons moreinfo'
             onClick={() => {
-              setButtonMoreInfo(true);
               setSelected(row);
+              const [apellidoP, apellidoM] = row.apellidos.split(' ');
+              setDeportista({
+                nombre: row.nombres,
+                apellidoP,
+                apellidoM,
+                idPropio: sId,
+              })
+              setShowQR(true);
             }}
           />
           <img
@@ -113,7 +122,7 @@ export const DeportistasScreen = () => {
               })
             }}
             />
-        </>
+        </div>
       ),
     }
   ];
@@ -141,6 +150,9 @@ export const DeportistasScreen = () => {
           </div>
         :
         ''
+      }
+      {
+        showQR ?  <ModalQR datos={deportista} setMostrarModalQr={setShowQR}/> : ''
       }
     </>
   );

@@ -31,8 +31,8 @@
 }
 
 .title{
-    font-weight: 500;
-    font-size: 20px;
+    font-weight: 500 !important;
+    font-size: 20px !important;
 }
 
 #close{
@@ -54,7 +54,6 @@
 .container-img-qr{
     width: 100%;
     height: 100%;
-    /* background-color: aqua; */
     margin-bottom: 10px;
     display: flex;
     justify-content: center;
@@ -64,8 +63,8 @@
 }
 
 .qr{
-    width: 256px;
-    height: 256px;
+    width: 256px !important;
+    height: 256px !important;
 }
 
 .container-indereq-icon{
