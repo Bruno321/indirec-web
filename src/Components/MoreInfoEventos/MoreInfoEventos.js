@@ -38,6 +38,7 @@ function MoreInfoEventos(){
         //     <div className="container">
         <>
             <h3>Evento: {eventos.nombreEvento}</h3>
+            <div className="more-info-eventos-container">
                 <div className="up">
                     <label>Fecha: {eventos.fechaEvento}</label>
                     <label>Hora: {eventos.horaEvento}</label>
@@ -54,7 +55,7 @@ function MoreInfoEventos(){
                         <p>{eventos.directorTecnicoLocal}</p>
                         <br></br>
                         <p>Puntaje:</p>
-                        <p>{eventos.puntosLocal != "" ? `${eventos.puntosLocal}` : "--"}</p>
+                        <p>{eventos.puntosLocal === null ? "--" : `${eventos.puntosLocal}` }</p>
                     </div>
                     <div className="info">
                         <p><b>Equipo visitante</b></p>
@@ -65,7 +66,7 @@ function MoreInfoEventos(){
                         <p>{eventos.directorTecnicoVisitante}</p>
                         <br></br>
                         <p>Puntaje:</p>
-                        <p>{eventos.puntosVisitante != "" ? `${eventos.puntosVisitante}` : "--"}</p>  
+                        <p>{eventos.puntosVisitante === null ? "--" : `${eventos.puntosVisitante}` }</p>  
                     </div>
                 </div>
                 <div className="botones-verjugadores">
@@ -75,10 +76,12 @@ function MoreInfoEventos(){
 
                 <div className="bottom-observaciones">
                     <p>Observaciones:</p>
-                    <p>{eventos.incidentes != "" ? `${eventos.incidentes}` : "--"}</p>
+                    <p>{eventos.incidentes === null ? "--" : `${eventos.incidentes}` }</p>
                 </div>
 
                 <button className='button-aceptar' onClick={()=>setScreen(8)}>Aceptar</button>
+                
+            </div>
 
                 {/* Modals para ver a los jugadores */}
                 <VerJugadoresEvento
