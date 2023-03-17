@@ -4,6 +4,7 @@ import { useFetchData } from '../../Hooks/Fetch.hook';
 import iconDelete from "../../Assets/icons/delete.png";
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 import './Deportistas.css';
+import qr from '../../Assets/icons/qr.png';
 import iconInfo from "../../Assets/icons/more-info.png";
 import ButtonsPages from '../../Components/ButtonsPages/ButtonsPages';
 
@@ -55,6 +56,15 @@ export const DeportistasScreen = () => {
       dataIndex: 'deportistaId',
       render: (sId, row, index) => (
         <>
+          <img
+            title="Ver más"
+            src={qr}
+            className='icons moreinfo'
+            onClick={() => {
+              setButtonMoreInfo(true);
+              setSelected(row);
+            }}
+          />
           <img
             title="Ver más"
             src={iconInfo}

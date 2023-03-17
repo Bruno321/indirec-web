@@ -3,9 +3,10 @@ import { Table } from '../../Components/Table/Table';
 import { useFetchData } from '../../Hooks/Fetch.hook';
 import iconDelete from "../../Assets/icons/delete.png";
 import iconEdit from "../../Assets/icons/edit.png";
-import iconMoreInfo from "../../Assets/icons/more-info.png";
+import pdf from "../../Assets/icons/pdf.png";
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 import { NavigationContext } from '../../Context/NavigationContext';
+import { URL, process, SAVE } from '../../Service/Api';
 // Modal
 
 export const EquiposScreen = () => {
@@ -47,9 +48,35 @@ export const EquiposScreen = () => {
     },
     {
       title: 'Acciones',
-      dataIndex: 'equipoId',
+      dataIndex: 'id',
       render: (sId, row, index) => (
         <>
+          <img
+            title="PDF"
+            src={pdf}
+            className='icons edit'
+            onClick={async () => {
+              const response = await process(SAVE, 'equipo-pdf', {
+                id: sId,
+              });
+
+              if (response.status === 201) {
+                  const link = document.createElement('a');
+                  link.href = `${URL}/pdf/${response.data.pdf}`;
+                  link.setAttribute('download', '');
+                  link.setAttribute('target', '_blank');
+                  link.setAttribute('rel', 'noopener noreferrer');
+
+                  setTimeout(() => {
+                    document.body.appendChild(link);
+                    link.click();
+                    link.parentNode.removeChild(link);
+                  }, [2000])
+              } else {
+                console.log(response);
+              }
+            }}
+          />
           <img
             title="Editar"
             src={iconEdit}
@@ -60,7 +87,7 @@ export const EquiposScreen = () => {
               setItemId(row.id);
               setScreen(6);
             }}
-            />
+          />
           <img
             title="Eliminar"
             src={iconDelete}

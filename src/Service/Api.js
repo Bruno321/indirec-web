@@ -1,5 +1,4 @@
 import axios from 'axios';
-// import { getServer } from '../Utils/url';
 
 export const GET = 'GET';
 export const FIND = 'FIND';
@@ -8,14 +7,14 @@ export const UPDATE = 'PATCH';
 export const DELETE = 'DELETE';
 export const SAVE_WITH_FILE = 'SAVE_WITH_FILE';
 
-// export const BASEPATH = '/api';
+const dev = true;
 
-// const LOGINPATH = `${BASEPATH}/auth`;
+export const URL = dev ? "http://localhost:3030" : "ADD HERE LATER THE URL";
 
 export const token = localStorage.getItem('token');
 
 const API = axios.create({
-  baseURL: 'http://localhost:3030', // TODO: Change this later for .env variable
+  baseURL: URL,
   headers: { 
     "Access-Control-Allow-Origin": null ,
     "Accept":"*/*"
