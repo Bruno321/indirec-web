@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { aFacultities, aCampus } from '../../Utils/constants';
 import TableJugadoresEquipo from "../TableListaJugadoresEquipo/TableJugadoresEquipo";
 import './RegistrarEquipo.css';
@@ -13,7 +13,7 @@ const oInitialState = {
     facultad: "Facultad de Derecho",
     campus: "Centro Universitario",
     deporte: "Futbol",
-    categoria: "0",
+    categoria: 0,
     nombreEntrenador: "",
     apellidoEntrenador: "",
     nombreAsistente: "",
@@ -21,7 +21,6 @@ const oInitialState = {
 }
 
 const RegistrarEquipo = () => {
-
     const [mostrarListaJugadoresEquipo, setMostrarListaJugadoresEquipo] = useState(false);
     const [listaJugadores, setListaJugadores] = useState([]);
     const [deportistas, loading] = useFetchData('deportistas', 'status=1');
@@ -81,7 +80,8 @@ const RegistrarEquipo = () => {
                         </div>
                         <div className="containers-input-registroEquipo">
                             <label htmlFor="facultad">Facultad:</label>
-                            <select id="facultad" className="inputs-registro" value={form.facultad} onChange={e => setForm({...form,facultad:e.target.value})}>
+                            <select id="facultad" className="inputs-registro" value={form.facultad} onChange={e => setForm({...form,facultad:e.target.value})
+                        }>
                                 {aFacultities.map(oFc => (
                                     <option value={`Facultad de ${oFc}`}>{`Facultad de ${oFc}`}</option>
                                 ))}
@@ -106,9 +106,9 @@ const RegistrarEquipo = () => {
                         <div className="containers-input-registroEquipo">
                             <label>Categoria:</label>
                             <div className="radioButtons-registroEquipo">
-                                <input type="radio" id="Varonil" name="categoria" value="Varonil" checked onChange={e => setForm({...form,categoria:0})}/>
+                                <input type="radio" id="Varonil" name="categoria" value="Varonil" checked={!form.categoria} onChange={e => setForm({...form,categoria:0})}/>
                                 <label htmlFor="Varonil">Varonil</label>
-                                <input type="radio" id="Femenil" name="categoria" value="Femenil" onChange={e => setForm({...form,categoria:1})}/>
+                                <input type="radio" id="Femenil" name="categoria" value="Femenil" checked={form.categoria} onChange={e => setForm({...form,categoria:1})}/>
                                 <label htmlFor="Femenil">Femenil</label>
                             </div>
                         </div>
