@@ -16,8 +16,6 @@ function MoreInfoEventos(){
     const [trigger, setTrigger] = useState(false);
 
     return (
-        // <div className="more-info-evento">
-        //     <div className="container">
         <>
             <h3>Evento: {evento?.nombre}</h3>
                 <div className="up">
@@ -36,7 +34,7 @@ function MoreInfoEventos(){
                         <p>{evento.directorTecnicoLocal}</p>
                         <br></br>
                         <p>Puntaje:</p>
-                        <p>{evento.puntosLocal != "" ? `${evento.puntosLocal}` : "--"}</p>
+                        <p>{evento.puntosLocal === null ? "--" : `${evento.puntosLocal}` }</p>
                     </div>
                     <div className="info">
                         <p><b>Equipo visitante</b></p>
@@ -47,7 +45,7 @@ function MoreInfoEventos(){
                         <p>{evento.directorTecnicoVisitante}</p>
                         <br></br>
                         <p>Puntaje:</p>
-                        <p>{evento.puntosVisitante != "" ? `${evento.puntosVisitante}` : "--"}</p>  
+                        <p>{evento.puntosVisitante === null ? "--" : `${evento.puntosVisitante}` }</p>  
                     </div>
                 </div>
                 <div className="botones-verjugadores">
@@ -71,7 +69,7 @@ function MoreInfoEventos(){
 
                 <div className="bottom-observaciones">
                     <p>Observaciones:</p>
-                    <p>{evento.incidentes != "" ? `${evento.incidentes}` : "--"}</p>
+                    <p>{evento.incidentes === null ? "--" : `${evento.incidentes}` }</p>
                 </div>
 
                 <button className='button-aceptar' onClick={()=>setScreen(8)}>Aceptar</button>
@@ -86,9 +84,7 @@ function MoreInfoEventos(){
                     equipo={nombreEquipo}
                 />
             </>
-        //     </div>
-        // </div>
-    )
-}
+    );
+};
 
 export default MoreInfoEventos;

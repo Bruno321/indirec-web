@@ -15,11 +15,11 @@ input{
     font-weight: 600;
 } */
 .input-title{
+
     font-size: 1.2rem;
     margin-bottom: -12px;
 }
 .first-part{
-    margin-top: 10px;
     width: 100%;
     height: 100px;
     /* background-color: red; */
@@ -59,23 +59,21 @@ border: 1px solid rgba(0, 0, 0);
 
 .left-side{
     background-color: transparent;
-}
-
-.label-title{
-    margin-bottom: -1px;
-}
-.middle-part{
-    width: 100%;
-    height: 70px;
-    display: flex;
-    flex-direction: column;
-    text-align: center;
-    align-items: center;
-    margin-bottom: 25px;
+    margin-top: 10px;
 
 }
-.sport-title{
+
+/* .left-title{
+    text-align: left;
+    margin-left: 25px;
+} */
+
+
+.sport-title, .categoria-title{
     margin-bottom: 15px;
+    /* margin-right: ; */
+    text-align: left;
+    /* margin-left: 35px; */
 }
 
 .margin-input{
@@ -116,9 +114,13 @@ border: 1px solid rgba(0, 0, 0);
     /* background-color: yellow; */
     display: flex;
     flex-direction: column;
+    /* background-color: blue; */
+    margin-top: 10px;
+
 }
 
 .third-part{
+    /* background-color: pink; */
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -134,7 +136,7 @@ border: 1px solid rgba(0, 0, 0);
 
 .btn-section{
     width: 100%;
-    height: 100px;
+    height: 20vh;
     /* background-color: violet; */
     display: flex;
     align-items: center;
@@ -157,4 +159,3 @@ border: 1px solid rgba(0, 0, 0);
     flex-direction: column;
     justify-content: center;
   }
-  
