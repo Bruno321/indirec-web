@@ -1,0 +1,64 @@
+/* TEXTOS */
+.infoAsistencia{
+width: 100%;
+/* background-color: pink; */
+text-align: center;
+align-items: center;
+height: 200px;
+padding: 30px;
+}
+.margin-between-paragraphs{
+margin-bottom: 15px;
+}
+.titleDatosAsitencias{
+    font-size: 30px;
+    font-weight: 500;
+}
+.nombreDeportista{
+    font-size: 25px;
+    font-weight: 500;
+}
+.txtInfo{
+    font-size: 20px;
+
+}
+.txtDiasEntrenados{
+
+}
+.txtHorasEntrenadas{
+
+}
+/* INPUTS DE FECHAS / FORM */
+.inputsFechasAsistencias{
+/* background-color: greenyellow; */
+display: flex;
+flex-direction: column;
+height: 100px;
+padding: 20px 0px 0px 20px;
+}
+.labelInput{
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+.inputAsistenciasSection{
+width: 100%;
+}
+.inputDates{
+width: 175px;
+height: 35px;
+color: #003070;
+border-radius: 10px;
+background-color: #eee;
+border: 1px solid #003070;
+}
+.fechaInicio{
+
+}
+.fechaTermino{
+margin-left: 25px;
+}
+
+/* Table */
+.sectionTable{
+
+}

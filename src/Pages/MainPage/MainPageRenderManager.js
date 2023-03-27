@@ -10,6 +10,7 @@ import { EventosScreen } from "../Eventos";
 import { RegistrarEvento } from "../../Components/RegistrarEvento/RegistrarEvento";
 import MoreInfoEventos from "../../Components/MoreInfoEventos/MoreInfoEventos";
 import RegistrarResultados from "../../Components/RegistrarResultados/RegistrarResultados";
+import { DatosDeLaAsistencia } from "../../Components/DatosDeLaAsistencia/DatosDeLaAsistencia";
 
 const MainPageRenderManager = ({ screen }) => {
 
@@ -25,6 +26,7 @@ const MainPageRenderManager = ({ screen }) => {
     <EventosScreen/>,
     <RegistrarResultados/>,
     <MoreInfoEventos/>,
+    <DatosDeLaAsistencia />
   ];
 
     return (
