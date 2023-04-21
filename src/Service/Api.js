@@ -7,9 +7,9 @@ export const UPDATE = 'PATCH';
 export const DELETE = 'DELETE';
 export const SAVE_WITH_FILE = 'SAVE_WITH_FILE';
 
-const dev = true;
+export const DEV = false;
 
-export const URL = dev ? "http://localhost:3030" : "ADD HERE LATER THE URL";
+export const URL = DEV ? "http://localhost:3030" : "http://20.106.129.226:3030";
 
 export const token = localStorage.getItem('token');
 
