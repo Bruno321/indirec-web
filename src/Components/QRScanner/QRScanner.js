@@ -44,18 +44,21 @@ const QRScanner = () => {
                         const response = await process(SAVE, 'asistencias',{id: parsed.id, fecha: parsed.fecha});
 
                         if(response.status === 201) {
-                          debugger;
                           Swal.fire({
                             title: '<h1 class="modal-status">Escaneo exitoso</h1>',
                             html:
                               '<h1 class="modal-title">Bienvenido</h1>' +
                               `<h1 class="modal-deportista">${response.data.deportista.nombres} ${response.data.deportista.apellidos}</h1>` + 
-                              `<img src="http://localhost:3030/${response.data.deportista.foto}" class="qr-image"/>`+ //aqui va lo del usuario
+                              `<img src="${response.data.deportista.foto}" class="qr-image"/>`+ //aqui va lo del usuario
                               `<h1 class="modal-text">Se registró la ${response.data.horaSalida ? "salida" : "entrada"} exitosamente</h1>`
                               ,
                             focusConfirm: false,
                             confirmButtonText:
-                              '<i class="fa fa-thumbs-up"></i> Aceptar!',
+                              '<i class="fa fa-thumbs-up"></i> Aceptar',
+                          }).then((result) => {
+                            if (result.isConfirmed) {
+                              setAllowRecord(true);
+                            }
                           })
                         } else {
                           failedQRScan();
