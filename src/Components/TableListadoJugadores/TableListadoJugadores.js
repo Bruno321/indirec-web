@@ -29,13 +29,13 @@ const TableListadoJugadores = ({jugadores, setJugadoresEquipo, deportistas, most
     }, [limpiar]);
 
     const agregarJugador = (index) =>{
-        setJugadoresEquipoArreglo(arr => [...arr, deportistas[index]]);
-        setJugadoresEquipo(arr => [...arr, deportistas[index]]);
+        setJugadoresEquipoArreglo(arr => [...arr, (deportistas.data ? deportistas.data : deportistas)[index]]);
+        setJugadoresEquipo(arr => [...arr, (deportistas.data ? deportistas.data : deportistas)[index]]);
     }
 
     const quitarJugador = (index) => {
-        setJugadoresEquipoArreglo(jugadoresEquipoArreglo.filter(jugador => jugador.deportistaId != deportistas[index].deportistaId)); //Cambiarlo por el expediente
-        setJugadoresEquipo(jugadoresEquipoArreglo.filter(jugador => jugador.deportistaId != deportistas[index].deportistaId));
+        setJugadoresEquipoArreglo(jugadoresEquipoArreglo.filter(jugador => jugador.id != (deportistas.data ? deportistas.data : deportistas)[index].id)); //Cambiarlo por el expediente
+        setJugadoresEquipo(jugadoresEquipoArreglo.filter(jugador => jugador.id != (deportistas.data ? deportistas.data : deportistas)[index].id));
     }
 
     return(
@@ -47,11 +47,11 @@ const TableListadoJugadores = ({jugadores, setJugadoresEquipo, deportistas, most
                     <th className="headerAcciones"></th>
                 </tr>
                 {
-                    deportistas.map((element, index) => (element.equipoId == null || mostrarListaCompleta) ? (
+                    (deportistas.data ? deportistas.data : deportistas).map((element, index) => (element.equipo_id === null || mostrarListaCompleta) ? (
                         <tr
-                            key={element.deportistaId}
+                            key={element.id}
                             className={`rowJugadorEquipo ${
-                                jugadoresEquipoArreglo.findIndex(jugador => jugador.deportistaId === element.deportistaId) > -1 ? 'colorearFila' : ''}`
+                                jugadoresEquipoArreglo.findIndex(jugador => jugador.id === element.id) > -1 ? 'colorearFila' : ''}`
                             }
                         >
                             <td>{element.numJugador}</td>
@@ -60,7 +60,7 @@ const TableListadoJugadores = ({jugadores, setJugadoresEquipo, deportistas, most
                                 <div className="containerIconsAcciones">
                                     <div
                                         className={`containerAccionAgregar ${
-                                            jugadoresEquipoArreglo.findIndex(jugador => jugador.deportistaId === element.deportistaId) > -1 ? 'deshabilitarBtn' : ''}`
+                                            jugadoresEquipoArreglo.findIndex(jugador => jugador.id === element.id) > -1 ? 'deshabilitarBtn' : ''}`
                                         }
                                         onClick={() => agregarJugador(index)}>
                                         <img className="iconsAcciones" src={circleAdd}/>
@@ -68,7 +68,7 @@ const TableListadoJugadores = ({jugadores, setJugadoresEquipo, deportistas, most
                                     </div>
                                 <img
                                     className={`iconsAcciones ${
-                                        jugadoresEquipoArreglo.findIndex(jugador => jugador.deportistaId === element.deportistaId) > -1 ? '' : 'deshabilitarBtn'}`
+                                        jugadoresEquipoArreglo.findIndex(jugador => jugador.id === element.id) > -1 ? '' : 'deshabilitarBtn'}`
                                     }
                                     src={trash}
                                     onClick={() => quitarJugador(index)}/>

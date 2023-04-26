@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { DEV, URL } from '../../Service/Api';
 import './MoreInfo.css';
 
 const oInitState = {
@@ -17,7 +18,7 @@ function MoreInfo({ datos, trigger, setTrigger }) {
                 if (datos[fKey]) {
                     aTmp = {
                         ...aTmp,
-                        [fKey]: `http://localhost:3000/api/uploads/${datos[fKey]?.split('/')[1]}` // TODO: Change this later for .env variable
+                        [fKey]: DEV ? `${URl}/${datos[fKey]}` : datos[fKey]
                     };
                 }
             }

@@ -2,41 +2,23 @@ import React, { useState } from 'react';
 import { Table } from '../../Components/Table/Table';
 import { useFetchData } from '../../Hooks/Fetch.hook';
 import iconDelete from "../../Assets/icons/delete.png";
-import iconEdit from "../../Assets/icons/edit.png";
-import iconMoreInfo from "../../Assets/icons/more-info.png";
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 import './Deportistas.css';
-import Arrow from '../../Assets/icons/left-arrow.png';
+import qr from '../../Assets/icons/qr.png';
 import iconInfo from "../../Assets/icons/more-info.png";
 import ButtonsPages from '../../Components/ButtonsPages/ButtonsPages';
-
-// import 'sweetalert2/src/sweetalert2.scss'
-
+import ModalQR from '../../Components/Modals/ModalQR/ModalQR';
 import MoreInfo from '../../Components/MoreInfo/MoreInfo';
-import { useEffect } from 'react';
-import { FIND, process } from '../../Service/Api';
 
 export const DeportistasScreen = () => {
   //State para mostrar MAS INFORMACION de un deportista
   const [buttonMoreInfo, setButtonMoreInfo] = useState(false);
   const [selected, setSelected] = useState();  
-  // const [deportistas, loading] = useFetchData('deportistas?limit=10&page=1');
-  const [deportistas, setDeportistas] = useState([]);
+  const [showQR, setShowQR] = useState(false);
+  const [deportistas, loading] = useFetchData('deportistas');
+  const [deportista, setDeportista] = useState({});
 
   const [pagina, setPagina] = useState(1);
-  const [loading, setLoading] = useState(false);
-
-  useEffect(() => {
-    const consultarDeportistas = async() => {
-      setLoading(true);
-      const response = await process(FIND, `deportistas?limit=10&page=${pagina}`);
-      // console.log(response.data.data);
-      setDeportistas(response.data.data);
-
-      setLoading(false);
-    }
-    consultarDeportistas();
-  }, [pagina])
 
   const columns = [
     {
@@ -73,9 +55,25 @@ export const DeportistasScreen = () => {
     },
     {
       title: 'Acciones',
-      dataIndex: 'deportistaId',
+      dataIndex: 'id',
       render: (sId, row, index) => (
-        <>
+        <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-around' }}>
+          <img
+            title="Mostrar QR"
+            src={qr}
+            className='icons moreinfo'
+            onClick={() => {
+              setSelected(row);
+              const [apellidoP, apellidoM] = row.apellidos.split(' ');
+              setDeportista({
+                nombre: row.nombres,
+                apellidoP,
+                apellidoM,
+                idPropio: sId,
+              })
+              setShowQR(true);
+            }}
+          />
           <img
             title="Ver más"
             src={iconInfo}
@@ -124,7 +122,7 @@ export const DeportistasScreen = () => {
               })
             }}
             />
-        </>
+        </div>
       ),
     }
   ];
@@ -135,7 +133,7 @@ export const DeportistasScreen = () => {
       <div className='prueba'>
         <Table
           columns={columns}
-          dataSource={deportistas}
+          dataSource={deportistas.data}
           loading={loading}
         />
         <MoreInfo
@@ -152,6 +150,9 @@ export const DeportistasScreen = () => {
           </div>
         :
         ''
+      }
+      {
+        showQR ?  <ModalQR datos={deportista} setMostrarModalQr={setShowQR}/> : ''
       }
     </>
   );

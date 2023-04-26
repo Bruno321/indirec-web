@@ -36,8 +36,8 @@ const Login = () => {
             console.log(e);
         });
 
-        if(response.data.ok){
-            iniciarSesion(response.data.token)
+        if(response.status === 201){
+            iniciarSesion(response.data.accessToken);
         }
     }
 

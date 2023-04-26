@@ -33,53 +33,37 @@ const QRScanner = () => {
             <div className='container-ScannQr'>
               {allowRecord ?
                 <QrReader
-                  onResult={async (result, error) => {
+                  onResult={ async result => {
                     
                     if (!!result) {
                       setAllowRecord(false);
-                      try {
-                        let parsed = JSON.parse(result?.text)
-                        // El codigo QR tiene datos correctos
-                        if(parsed.id && parsed.fecha){
-                          //Aqui va el post
-                          axios({
-                            method: "POST",
-                            url: "http://localhost:3000/api/deportistas/asistencias",
-                            data: {
-                              id: parsed.id,
-                              fecha: parsed.fecha
-                            },
-                            headers: {"Access-Control-Allow-Origin":null ,'Authorization': `Bearer ${token}`},
-                            mode: 'cors',
-                        })
-                        .then((response)=>{
+
+                      let parsed = JSON.parse(result?.text)
+
+                      if(parsed.id && parsed.fecha){
+                        const response = await process(SAVE, 'asistencias',{id: parsed.id, fecha: parsed.fecha});
+
+                        if(response.status === 201) {
                           Swal.fire({
                             title: '<h1 class="modal-status">Escaneo exitoso</h1>',
                             html:
                               '<h1 class="modal-title">Bienvenido</h1>' +
                               `<h1 class="modal-deportista">${response.data.deportista.nombres} ${response.data.deportista.apellidos}</h1>` + 
-                              `<img src="http://localhost:3000/api/${response.data.deportista.foto}" class="qr-image"/>`+ //aqui va lo del usuario
-                              `<h1 class="modal-text">${response.data.message}</h1>`
+                              `<img src="${response.data.deportista.foto}" class="qr-image"/>`+ //aqui va lo del usuario
+                              `<h1 class="modal-text">Se registró la ${response.data.horaSalida ? "salida" : "entrada"} exitosamente</h1>`
                               ,
                             focusConfirm: false,
                             confirmButtonText:
-                              '<i class="fa fa-thumbs-up"></i> Aceptar!',
-                            
-                          }).then((result)=>{
-                            setAllowRecord(true)
+                              '<i class="fa fa-thumbs-up"></i> Aceptar',
+                          }).then((result) => {
+                            if (result.isConfirmed) {
+                              setAllowRecord(true);
+                            }
                           })
-                        })
-                        .catch((e)=>{
-                          failedQRScan()
-                          console.log(e)
-                        })
                         } else {
-                          failedQRScan() //aquino
+                          failedQRScan();
                         }
-                    } catch(e){
-                      failedQRScan();
-                      console.log(e)
-                    }
+                      }
                 }}}
                 style={{ width: '100%'}}
               /> 

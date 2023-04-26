@@ -13,7 +13,7 @@ import { NavigationContext } from "../../Context/NavigationContext.js";
 import "./index.css";
 
 export const AsistenciasScreen = () => {
-  const [asistencias, loading] = useFetchData('deportistas/asistencias');
+  const [asistencias, loading] = useFetchData('asistencias');
 
     const {setItemId, setScreen} = useContext(NavigationContext)
   console.log(asistencias);
@@ -22,12 +22,12 @@ export const AsistenciasScreen = () => {
     {
       title: 'Nombre(s)',
       dataIndex: '',
-      render: (_, row) => `${row?.deportistum?.nombres}`,
+      render: (_, row) => `${row?.deportista?.nombres}`,
     },
     {
       title: 'Apellido(s)',
       dataIndex: '',
-      render: (_, row) => `${row?.deportistum?.apellidos}`,
+      render: (_, row) => `${row?.deportista?.apellidos}`,
     },
     {
       title: 'Fecha',
@@ -67,7 +67,7 @@ export const AsistenciasScreen = () => {
       <h3>Asistencias</h3>
       <Table
         columns={columns}
-        dataSource={asistencias}
+        dataSource={asistencias.data}
         loading={loading}/>
     </>
   );

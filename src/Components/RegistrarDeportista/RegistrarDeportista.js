@@ -70,8 +70,8 @@ const RegistrarDeportista = () => {
                 console.log(e);
             });
 
-            if (response?.data?.ok) {
-                const { nombres: nombre, apellidos, deportistaId: idPropio } = response.data?.data;
+            if (response?.status === 201) {
+                const { nombres: nombre, apellidos, id: idPropio } = response.data;
                 const [apellidoP, apellidoM] = apellidos.split(" ");
                 setDeportistaData({
                     nombre,

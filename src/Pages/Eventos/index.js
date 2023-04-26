@@ -25,7 +25,7 @@ export const EventosScreen = () =>{
     const columns =[
         {
             title: 'Partido',
-            dataIndex:'nombreEvento',
+            dataIndex:'nombre',
         },
         {
             title: 'D. T. Local',
@@ -37,11 +37,11 @@ export const EventosScreen = () =>{
         },
         {
             title: 'Fecha',
-            dataIndex:'fechaEvento',
+            dataIndex:'fecha',
         },
         {
             title: 'Hora',
-            dataIndex:'horaEvento',
+            dataIndex:'hora',
         },
         {
             title: 'Cancha',
@@ -69,7 +69,7 @@ export const EventosScreen = () =>{
                         src={iconInfo}
                         className="icons moreinfo"
                         onClick={()=>{
-                            setItemId(row.eventoId);
+                            setItemId(row.id);
                             setScreen(10);
                         }}
                     />
@@ -78,7 +78,7 @@ export const EventosScreen = () =>{
                         src={iconEdit}
                         className="icons edit"
                         onClick={()=>{
-                            setItemId(row.eventoId);
+                            setItemId(row.id);
                             setScreen(9);
                         }}
                     />
@@ -134,7 +134,7 @@ export const EventosScreen = () =>{
             <div className="SearchImg"></div> */}
             <Table
                 columns={columns}
-                dataSource={eventos}
+                dataSource={eventos.data}
                 loading={loading}
             />
         </>
