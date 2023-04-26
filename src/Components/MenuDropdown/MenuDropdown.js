@@ -18,7 +18,7 @@ import { LoginContext } from "../../Context/LoginContext";
 import "./MenuDropdown.css";
 
 
-const MenuDropdown = () => {
+export const MenuDropdown = () => {
 
   const {screen, setScreen} = useContext(NavigationContext);
   const {cerrarSesion} = useContext(LoginContext);
@@ -112,4 +112,3 @@ const MenuDropdown = () => {
     </aside>
   );
 };
-export default MenuDropdown;

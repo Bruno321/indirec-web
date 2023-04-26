@@ -1,9 +1,9 @@
 import React, { useState, useContext } from "react";
 import { NavigationContext } from "../../Context/NavigationContext";
 import Header from '../../Components/Header/Header'
-import MenuDropDown from '../../Components/MenuDropDown/MenuDropDown'
+import {MenuDropDown} from '../../Components/MenuDropdown/MenuDropdown'
 import MainPageRenderManager from "./MainPageRenderManager";
-import './MainPage.css'
+import './MainPage.css' 
 
 const MainPage = () => {
   const { screen } = useContext(NavigationContext);
