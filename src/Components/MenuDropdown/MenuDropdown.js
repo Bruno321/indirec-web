@@ -1,12 +1,12 @@
 import React, {useContext, useState} from "react";
 // Cargar logo de la INDEREQ
-import IndereqLogo from "../../assets/img/indereq-logo.png";
+// import IndereqLogo from "../../assets/img/indereq-logo.png";
 // Cargar iconos
-import ClockIcon from "../../assets/icons/clock-icon.png";
-import RollCallIcon from "../../assets/icons/roll-call-icon.png";
-import FootballIcon from "../../assets/icons/football-icon.png";
-import LogoutIcon from "../../assets/icons/log-out.png";
-import RegisterIcon from "../../assets/icons/register.png";
+import ClockIcon from "../../Assets/icons/clock-icon.png";
+import RollCallIcon from "../../Assets/icons/roll-call-icon.png";
+import FootballIcon from "../../Assets/icons/football-icon.png";
+import LogoutIcon from "../../Assets/icons/log-out.png";
+import RegisterIcon from "../../Assets/icons/register.png";
 import TeamIcon from "../../Assets/icons//user-group.png";
 import RegisterTeam from "../../Assets/icons/register-team.png";
 import RegistrarEvento from "../../Assets/icons/registrar-eventos.png"

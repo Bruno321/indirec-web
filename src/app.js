@@ -4,7 +4,7 @@ import Login from "./Pages/Login/Login";
 import {Router, Redirect} from '@reach/router'
 // Pages
 import MainPage from './Pages/MainPage/MainPage';
-import NotFound from "./Components/NotFound/NotFound";
+import { NotFound } from "./Components/notFound/notFound";
 
 export const App = () => {
     const {isAuth} = useContext(LoginContext)

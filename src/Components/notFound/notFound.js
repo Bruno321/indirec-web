@@ -2,7 +2,7 @@ import React from "react";
 import Error404 from "../../Assets/img/error404.svg";
 import "./notFound.css";
 
-function NotFound() {
+export const NotFound = () =>  {
   return (
     <React.Fragment>
       <section className="container-notFound">
@@ -28,4 +28,3 @@ function NotFound() {
   );
 }
 
-export default NotFound;
