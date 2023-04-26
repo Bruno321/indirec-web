@@ -1,5 +1,5 @@
 import React from "react";
-import Error404 from "../../assets/img/error404.svg";
+import Error404 from "../../Assets/img/error404.svg";
 import "./notFound.css";
 
 function NotFound() {
