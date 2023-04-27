@@ -1,10 +1,22 @@
-import React from 'react';
+import React, {useState, useContext} from 'react';
 import { Table } from '../../Components/Table/Table';
 import { useFetchData } from '../../Hooks/Fetch.hook';
 import moment from 'moment';
 
+// iconos
+import iconInfo from "../../Assets/icons/more-info.png";
+
+// Contexto
+import { NavigationContext } from "../../Context/NavigationContext.js";
+
+// Estilos
+import "./index.css";
+
 export const AsistenciasScreen = () => {
   const [asistencias, loading] = useFetchData('asistencias');
+
+    const {setItemId, setScreen} = useContext(NavigationContext)
+  console.log(asistencias);
 
   const columns = [
     {
@@ -31,6 +43,23 @@ export const AsistenciasScreen = () => {
       dataIndex: 'horaSalida',
       render: hS => hS ? moment(hS).format('HH:mm:ss a') : 'Sin registrar',
     },
+    {
+      title: "Acciones",
+      dataIndex: "deportistaId",
+      render: (sId, row, index) =>{
+        return(<>
+          <img
+            title = "Ver más..."
+            src = {iconInfo}
+            className = "masInfo"
+            onClick={()=>{
+              setItemId(row.asistenciaId);
+              setScreen(11);
+            }}
+          />
+        </>)
+      }
+    }
   ];
 
   return (

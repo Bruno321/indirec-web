@@ -56,9 +56,12 @@ export const EquiposScreen = () => {
             src={pdf}
             className='icons edit'
             onClick={async () => {
+              console.log(sId)
               const response = await process(SAVE, 'equipo-pdf', {
                 id: sId,
-              });
+              }).catch(e=>{
+                console.log(e.response.data)
+              })
 
               if (response.status === 201) {
                   const link = document.createElement('a');

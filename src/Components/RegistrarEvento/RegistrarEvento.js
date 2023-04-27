@@ -124,7 +124,7 @@ const [mostrarTablaJugadoresVisitante, setMostrarTablaJugadoresVisitante] = useS
         <form id="registrarEventoForm" onSubmit={handleSubmit}>
           <div className="first-part">
             <div className="column-flex">
-              <label className="input-title">Nombre del evento: </label>
+              <label className="input-title" style={{marginBottom:"0px"}}>Nombre del evento: </label>
               <br />
               <input
                 type="text"
@@ -138,7 +138,7 @@ const [mostrarTablaJugadoresVisitante, setMostrarTablaJugadoresVisitante] = useS
               <br />
             </div>
             <div className="column-flex">
-              <label className="input-title">Fecha del evento: </label>
+              <label className="input-title" style={{marginBottom:"0px"}}>Fecha del evento: </label>
               <br />
               <input
                 type="date"
@@ -152,7 +152,7 @@ const [mostrarTablaJugadoresVisitante, setMostrarTablaJugadoresVisitante] = useS
             </div>
             <br />
             <div className="column-flex">
-              <label className="input-title">Hora del evento: </label>
+              <label className="input-title" style={{marginBottom:"0px"}}>Hora del evento: </label>
               <br />
               <input
                 type="time"
