@@ -1,7 +1,7 @@
-import React, {useState, useContext} from 'react';
-import { Table } from '../../Components/Table/Table';
-import { useFetchData } from '../../Hooks/Fetch.hook';
-import moment from 'moment';
+import React, { useState, useContext } from "react";
+import { Table } from "../../Components/Table/Table";
+import { useFetchData } from "../../Hooks/Fetch.hook";
+import moment from "moment";
 
 // iconos
 import iconInfo from "../../Assets/icons/more-info.png";
@@ -13,53 +13,56 @@ import { NavigationContext } from "../../Context/NavigationContext.js";
 import "./index.css";
 
 export const AsistenciasScreen = () => {
-  const [asistencias, loading] = useFetchData('asistencias');
+  const [asistencias, loading] = useFetchData("asistencias");
 
-    const {setItemId, setScreen} = useContext(NavigationContext)
+  const { setItemId, setScreen } = useContext(NavigationContext);
   console.log(asistencias);
 
   const columns = [
     {
-      title: 'Nombre(s)',
-      dataIndex: '',
+      title: "Nombre(s)",
+      dataIndex: "",
       render: (_, row) => `${row?.deportista?.nombres}`,
     },
     {
-      title: 'Apellido(s)',
-      dataIndex: '',
+      title: "Apellido(s)",
+      dataIndex: "",
       render: (_, row) => `${row?.deportista?.apellidos}`,
     },
     {
-      title: 'Fecha',
-      dataIndex: 'fecha',
+      title: "Fecha",
+      dataIndex: "fecha",
     },
     {
-      title: 'Hora de Entrada',
-      dataIndex: 'horaEntrada',
-      render: hE => hE ? moment(hE).format('HH:mm:ss a') : 'Sin registrar',
+      title: "Hora de Entrada",
+      dataIndex: "horaEntrada",
+      render: (hE) => (hE ? moment(hE).format("HH:mm:ss a") : "Sin registrar"),
     },
     {
-      title: 'Hora de Salida',
-      dataIndex: 'horaSalida',
-      render: hS => hS ? moment(hS).format('HH:mm:ss a') : 'Sin registrar',
+      title: "Hora de Salida",
+      dataIndex: "horaSalida",
+      render: (hS) => (hS ? moment(hS).format("HH:mm:ss a") : "Sin registrar"),
     },
     {
       title: "Acciones",
       dataIndex: "deportistaId",
-      render: (sId, row, index) =>{
-        return(<>
-          <img
-            title = "Ver más..."
-            src = {iconInfo}
-            className = "masInfo"
-            onClick={()=>{
-              setItemId(row.asistenciaId);
-              setScreen(11);
-            }}
-          />
-        </>)
-      }
-    }
+      render: (sId, row, index) => {
+        return (
+          <>
+            <img
+              title="Ver más..."
+              src={iconInfo}
+              className="masInfo"
+              onClick={() => {
+                setItemId(row.id);
+                setScreen(11);
+                console.log("row de Ver más: ", row.id);
+              }}
+            />
+          </>
+        );
+      },
+    },
   ];
 
   return (
@@ -68,7 +71,8 @@ export const AsistenciasScreen = () => {
       <Table
         columns={columns}
         dataSource={asistencias.data}
-        loading={loading}/>
+        loading={loading}
+      />
     </>
   );
 };
