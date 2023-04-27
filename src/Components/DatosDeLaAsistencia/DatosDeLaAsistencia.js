@@ -16,7 +16,6 @@ const month = today.getMonth() + 1; // El método getMonth() devuelve un número
 const day = today.getDate();
 
 const todayDate = `${year}-${month}-${day}`;
-// console.log("La fecha de hoy es: ",formattedDate); // Salida: "2023-3-26"
 //Fechas inicializadas
 
 // Inicializar las fechas de inicio y termino en la fecha de hoy
@@ -29,12 +28,9 @@ export const DatosDeLaAsistencia = () => {
   // Manipular fechas dentro del mini form de rangos de fechas:
   const [form, setForm] = useState(oInitialState);
   const { itemId, setScreen } = useContext(NavigationContext);
+  const [deportista, setDeportista] = useState({});
   const [asistencias, loading] = useFetchData(`asistencias/${itemId}`);
-  console.log("deportista id", asistencias.deportista_id);
   let deportistaId = asistencias.deportista_id;
-  console.log("variable de deportista id", deportistaId);
-
-  //   const deportistaId = asistencias.
 
   useEffect(() => {
     if (deportistaId) {
@@ -45,8 +41,9 @@ export const DatosDeLaAsistencia = () => {
         { queries: `id=${deportistaId}`, skip: 0 }
       )
         .then((response) => {
-          console.log(response.data.data);
-          return response.data.data;
+          const deportistaData = response.data.data[0];
+          // console.log(deportistaData.nombres + " " + deportistaData.apellidos);
+          setDeportista(deportistaData);
           // Aquí puedes hacer algo con la información que recibiste en response
         })
         .catch((e) => {
@@ -57,6 +54,7 @@ export const DatosDeLaAsistencia = () => {
 
   // Hacer que los inputs tengan por defecto la fecha de hoy
   const [selectedDate, setSelectedDate] = useState(todayDate);
+
   return (
     <div>
       <section className="infoAsistencia">
@@ -64,14 +62,13 @@ export const DatosDeLaAsistencia = () => {
           DATOS DE LA ASISTENCIA
         </h1>
         <h2 className="margin-between-paragraphs nombreDeportista">
-          [NOMBRE DE LA ASISTENCIA]
+          {`${deportista.nombres} ` + `${deportista.apellidos}`}
         </h2>
         <p className="margin-between-paragraphs txtInfo txtDiasEntenados">
           Días entrenados en el rango de días:
         </p>
         <p className="margin-between-paragraphs txtInfo txtHorasEntenadas">
-          Total de horas a la rango de días
-          {itemId}
+          Total de horas:
         </p>
       </section>
       <section className="inputsFechasAsistencias">
@@ -96,6 +93,7 @@ export const DatosDeLaAsistencia = () => {
         </section>
       </section>
       <section className="sectionTable"></section>
+      <button className="button-aceptar" onClick={()=>setScreen(1)}>Aceptar</button>
     </div>
   );
 };

@@ -52,9 +52,9 @@ export const EquiposScreen = () => {
       render: (sId, row, index) => (
         <>
           <img
-            title="PDF"
+            title="Generar PDF"
             src={pdf}
-            className='icons edit'
+            className='icons pdf'
             onClick={async () => {
               console.log(sId)
               const response = await process(SAVE, 'equipo-pdf', {

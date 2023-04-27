@@ -175,6 +175,7 @@ const RegistrarDeportista = () => {
                                         name='expediente'
                                         className="registrarDeportista-input"
                                         maxLength="6"
+                                        placeholder='123456'
                                         onChange={e => setForm({...form,expediente:e.target.value})}
                                         required
                                     />
@@ -185,6 +186,7 @@ const RegistrarDeportista = () => {
                                         type="text"
                                         id='noSeguroSocial'
                                         className="registrarDeportista-input"
+                                        placeholder='12345678900'
                                         onChange={e => setForm({...form,numSeguroSocial:e.target.value})}
                                         required
                                     />
@@ -197,6 +199,7 @@ const RegistrarDeportista = () => {
                                     type="text"
                                     id='nombre'
                                     className="registrarDeportista-input"
+                                    placeholder='Nombre(s)'
                                     onChange={e => setForm({...form,nombres:e.target.value})}
                                     required
                                 /><p></p>
@@ -206,6 +209,7 @@ const RegistrarDeportista = () => {
                                     type="text"
                                     id='apellidos'
                                     className="registrarDeportista-input"
+                                    placeholder='Apellido paterno Apellido materno'
                                     onChange={e => setForm({...form,apellidos:e.target.value})}
                                     required
                                 /><p></p>
@@ -215,6 +219,7 @@ const RegistrarDeportista = () => {
                                     type="e-mail"
                                     className="registrarDeportista-input"
                                     id='correoElectronico'
+                                    placeholder='correo@ejemplo.com'
                                     onChange={e => setForm({...form,correo:e.target.value})}
                                     required
                                 /><p></p>
@@ -386,6 +391,7 @@ const RegistrarDeportista = () => {
                                 type="text"
                                 id='numeroJugador'
                                 className="registrarDeportista-input"
+                                placeholder='00'
                                 onChange={e => setForm({...form,numJugador:e.target.value})}
                                 required
                             /><p></p>

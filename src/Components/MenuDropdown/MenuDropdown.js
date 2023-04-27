@@ -42,11 +42,11 @@ const MenuDropdown = () => {
         </div>
         <div className = "block-section" onClick={()=>setScreen(1)}
                   style = {{
-                    backgroundColor: screen === 1 ? "#254D7A" : "transparent",
+                    backgroundColor: screen === 1 || screen === 11 ? "#254D7A" : "transparent",
                   }}>
           <img src = {ClockIcon} className = "logo-section margin-img margin-img-asistencia"/>
           <span className = "title-option margin-asistencias" style ={{
-            textDecoration: screen === 1 ? "underline white" : "none",
+            textDecoration: screen === 1 || screen === 11 ? "underline white" : "none",
           }}>Asistencias</span>
         </div>
         <div className = "block-section" onClick={()=>setScreen(2)}

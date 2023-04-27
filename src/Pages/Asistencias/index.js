@@ -16,7 +16,7 @@ export const AsistenciasScreen = () => {
   const [asistencias, loading] = useFetchData("asistencias");
 
   const { setItemId, setScreen } = useContext(NavigationContext);
-  console.log(asistencias);
+  // console.log(asistencias);
 
   const columns = [
     {
@@ -56,7 +56,7 @@ export const AsistenciasScreen = () => {
               onClick={() => {
                 setItemId(row.id);
                 setScreen(11);
-                console.log("row de Ver más: ", row.id);
+                // console.log("row de Ver más: ", row.id);
               }}
             />
           </>
