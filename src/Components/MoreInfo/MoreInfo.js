@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { DEV, URL } from '../../Service/Api';
 import './MoreInfo.css';
 
 const oInitState = {
@@ -18,7 +17,7 @@ function MoreInfo({ datos, trigger, setTrigger }) {
                 if (datos[fKey]) {
                     aTmp = {
                         ...aTmp,
-                        [fKey]: DEV ? `${URl}/${datos[fKey]}` : datos[fKey]
+                        [fKey]: datos[fKey]
                     };
                 }
             }
