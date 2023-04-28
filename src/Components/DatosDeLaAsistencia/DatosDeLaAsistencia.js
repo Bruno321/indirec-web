@@ -100,23 +100,15 @@ export const DatosDeLaAsistencia = () => {
       const inicio = moment(fechaInicio);
       const fin = moment(fechaFin);
       const diffDuration = moment.duration(fin.diff(inicio));
-      console.log("diffDuration: ", diffDuration);
       const diffHours = Math.floor(diffDuration.asHours());
       const diffMinutes = diffDuration.minutes();
       const diffSeconds = diffDuration.seconds();
-      // console.log("minutos totales: " + diffMinutes)
       return `${diffHours} horas, ${diffMinutes} minutos, ${diffSeconds} segundos`;
     };
 
     const horasTrabajadas = horasIniciales.map((horaInicio, index) => {
-      // console.log("el index es: ", index);
       const horaFin = horasFinales[index];
-      // console.log("las horas finales en index es: ", horasFinales[index]);
-
-      console.log("Antes: ", horaInicio);
       const horasTrabajadasDia = calcularDiferenciaHoras(horaInicio, horaFin);
-      console.log("Final: ", horaInicio);
-      console.log("horas chambeadas: ", horasTrabajadasDia);
       return horasTrabajadasDia;
     });
 
@@ -176,10 +168,10 @@ export const DatosDeLaAsistencia = () => {
   ];
   return (
     <>
+      <h3 className="margin-between-paragraphs titleDatosAsitencias">
+        Datos de la Asistencia
+      </h3>
       <section className="infoAsistencia">
-        <h1 className="margin-between-paragraphs titleDatosAsitencias">
-          DATOS DE LA ASISTENCIA
-        </h1>
         <h2 className="margin-between-paragraphs nombreDeportista">
           {`${deportista.nombres} ` + `${deportista.apellidos}`}
         </h2>
