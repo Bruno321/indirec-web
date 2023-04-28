@@ -100,23 +100,45 @@ export const DatosDeLaAsistencia = () => {
       const inicio = moment(fechaInicio);
       const fin = moment(fechaFin);
       const diffDuration = moment.duration(fin.diff(inicio));
+      console.log("diffDuration: ", diffDuration);
       const diffHours = Math.floor(diffDuration.asHours());
       const diffMinutes = diffDuration.minutes();
-      console.log("minutos totales: " + diffMinutes)
-      return `${diffHours} horas, ${diffMinutes} minutos`;
+      const diffSeconds = diffDuration.seconds();
+      // console.log("minutos totales: " + diffMinutes)
+      return `${diffHours} horas, ${diffMinutes} minutos, ${diffSeconds} segundos`;
     };
 
     const horasTrabajadas = horasIniciales.map((horaInicio, index) => {
+      // console.log("el index es: ", index);
       const horaFin = horasFinales[index];
+      // console.log("las horas finales en index es: ", horasFinales[index]);
+
+      console.log("Antes: ", horaInicio);
       const horasTrabajadasDia = calcularDiferenciaHoras(horaInicio, horaFin);
+      console.log("Final: ", horaInicio);
+      console.log("horas chambeadas: ", horasTrabajadasDia);
       return horasTrabajadasDia;
     });
 
     const horasTotalesTrabajadas = horasTrabajadas.reduce((total, horas) => {
-      return horas;
-    }, 0);
+      const diffHours = Number(horas.split(" ")[0]);
+      const diffMinutes = Number(horas.split(" ")[2]);
+      const diffSeconds = Number(horas.split(" ")[4]);
+      total.add(
+        moment.duration({
+          hours: diffHours,
+          minutes: diffMinutes,
+          seconds: diffSeconds,
+        })
+      );
+      return total;
+    }, moment.duration(0));
+    const diffHours = Math.floor(horasTotalesTrabajadas.asHours());
+    const diffMinutes = horasTotalesTrabajadas.minutes();
+    const diffSeconds = horasTotalesTrabajadas.seconds();
+    const horasTotales = `${diffHours} horas, ${diffMinutes} minutos`;
 
-    setHorasTotales(horasTotalesTrabajadas);
+    setHorasTotales(horasTotales);
   }, [asistenciaData]);
 
   // Hacer que los inputs tengan por defecto la fecha de hoy
@@ -146,7 +168,9 @@ export const DatosDeLaAsistencia = () => {
             moment(record.horaEntrada, "HH:mm")
           )
         );
-        return duracion.hours() + " hora(s) ," + duracion.minutes() + " minuto(s)";
+        return (
+          duracion.hours() + " hora(s) ," + duracion.minutes() + " minuto(s)"
+        );
       },
     },
   ];
@@ -193,7 +217,9 @@ export const DatosDeLaAsistencia = () => {
         dataSource={asistenciaData}
         // loading={setAsistenciaData}
       />
-      <button className="button-aceptar" onClick={() => setScreen(1)}>Aceptar</button>
+      <button className="button-aceptar" onClick={() => setScreen(1)}>
+        Aceptar
+      </button>
     </>
   );
 };
