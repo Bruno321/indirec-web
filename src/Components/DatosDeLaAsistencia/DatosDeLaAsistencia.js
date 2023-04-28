@@ -29,7 +29,7 @@ const oInitialState = {
 export const DatosDeLaAsistencia = () => {
   // Manipular fechas dentro del mini form de rangos de fechas:
   const [form, setForm] = useState(oInitialState);
-  console.log("fecha de inicio y de salida", form);
+  // console.log("fecha de inicio y de salida", form);
   const { itemId, setScreen } = useContext(NavigationContext);
   const [asistencias, loading] = useFetchData(`asistencias/${itemId}`);
 
@@ -41,7 +41,7 @@ export const DatosDeLaAsistencia = () => {
   const [horasTotales, setHorasTotales] = useState({});
 
   let deportistaId = asistencias.deportista_id;
-  console.log(asistencias);
+  // console.log(asistencias);
 
   // Sacar los datos de la tabla de Deportista
   useEffect(() => {
@@ -55,7 +55,7 @@ export const DatosDeLaAsistencia = () => {
         .then((response) => {
           const deportistaData = response.data.data[0];
           // console.log(deportistaData.nombres + " " + deportistaData.apellidos);
-          console.log("Información del deportista actual: ", deportistaData);
+          // console.log("Información del deportista actual: ", deportistaData);
           setDeportista(deportistaData);
           // Aquí puedes hacer algo con la información que recibiste en response
         })
@@ -71,10 +71,10 @@ export const DatosDeLaAsistencia = () => {
       )
         .then((response) => {
           const asistenciaDataDelDeportista = response.data.data;
-          console.log(
-            "Información de la Asistencia del Deportista Actual: ",
-            asistenciaDataDelDeportista
-          );
+          // console.log(
+          //   "Información de la Asistencia del Deportista Actual: ",
+          //   asistenciaDataDelDeportista
+          // );
           setAsistenciaData(asistenciaDataDelDeportista);
         })
         .catch((e) => {
@@ -94,15 +94,16 @@ export const DatosDeLaAsistencia = () => {
     const horasFinales = asistenciaData.map(
       (asistencia) => asistencia.horaSalida
     );
-    console.log("Arreglo de Horas Iniciales: ", horasIniciales);
-    console.log("Arreglo de Horas Salidas: ", horasFinales);
+    // console.log("Arreglo de Horas Iniciales: ", horasIniciales);
+    // console.log("Arreglo de Horas Salidas: ", horasFinales);
     const calcularDiferenciaHoras = (fechaInicio, fechaFin) => {
       const inicio = moment(fechaInicio);
       const fin = moment(fechaFin);
       const diffDuration = moment.duration(fin.diff(inicio));
       const diffHours = Math.floor(diffDuration.asHours());
       const diffMinutes = diffDuration.minutes();
-      return `${diffHours} horas y ${diffMinutes} minutos`;
+      console.log("minutos totales: " + diffMinutes)
+      return `${diffHours} horas, ${diffMinutes} minutos`;
     };
 
     const horasTrabajadas = horasIniciales.map((horaInicio, index) => {
@@ -112,10 +113,10 @@ export const DatosDeLaAsistencia = () => {
     });
 
     const horasTotalesTrabajadas = horasTrabajadas.reduce((total, horas) => {
-      return total + parseFloat(horas);
+      return horas;
     }, 0);
 
-    setHorasTotales(horasTotalesTrabajadas.toFixed(2));
+    setHorasTotales(horasTotalesTrabajadas);
   }, [asistenciaData]);
 
   // Hacer que los inputs tengan por defecto la fecha de hoy
@@ -145,7 +146,7 @@ export const DatosDeLaAsistencia = () => {
             moment(record.horaEntrada, "HH:mm")
           )
         );
-        return duracion.hours() + ":" + duracion.minutes();
+        return duracion.hours() + " hora(s) ," + duracion.minutes() + " minuto(s)";
       },
     },
   ];
@@ -159,13 +160,13 @@ export const DatosDeLaAsistencia = () => {
           {`${deportista.nombres} ` + `${deportista.apellidos}`}
         </h2>
         <p className="margin-between-paragraphs txtInfo txtDiasEntenados">
-          Días entrenados en el rango de días: {asistenciaData.length}
+          Días entrenados: {asistenciaData.length}
         </p>
         <p className="margin-between-paragraphs txtInfo txtHorasEntenadas">
-          Total de horas: {`${horasTotales}`}
+          Tiempo total de entrenamiento: {`${horasTotales}`}
         </p>
       </section>
-      <section className="inputsFechasAsistencias">
+      {/* <section className="inputsFechasAsistencias">
         <label htmlFor="RangoDeFechas" className="labelInput">
           Seleccionar rango de fechas de Asistencia:
         </label>
@@ -184,17 +185,15 @@ export const DatosDeLaAsistencia = () => {
             onChange={(e) => setForm({ ...form, fechaTermino: e.target.value })}
             required
           />
-        </section>
-      </section>
+        </section> 
+      </section> */}
       <section className="sectionTable"></section>
-      <button className="button-aceptar" onClick={() => setScreen(1)}>
-        Aceptar
-      </button>
       <Table
         columns={columns}
         dataSource={asistenciaData}
         // loading={setAsistenciaData}
       />
+      <button className="button-aceptar" onClick={() => setScreen(1)}>Aceptar</button>
     </>
   );
 };
