@@ -8,16 +8,31 @@
     width: 20vw;
     min-height: 100vh;
 }
-
-.indereq-logo{
-    margin-top: 25px;
-    width: 225px;
+.logo-uaq-section{
+    height: 100px;
+    width: 250px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.uaq-fif-logo{
+    width: 235px;
     height: 60px;
 }
 .options{
-    margin-top: 40px;
     width: 100%;
     height: 340px;
+}
+.separation-container{
+ width: 100%;
+ height: 20px;   
+ background-color: #00204B;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+}
+.separation-text{
+    color: #ffffff;
 }
 .block-section{
     justify-content: flex-start ;
@@ -60,4 +75,8 @@ margin-right: 20px;
 
 .margin-asistencias{
     margin-right: 20px;
+}
+
+.logout-btn-section{
+    margin-top: 40%;
 }
