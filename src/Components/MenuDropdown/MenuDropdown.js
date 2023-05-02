@@ -6,10 +6,7 @@ import ClockIcon from "../../assets/icons/clock-icon.png";
 import RollCallIcon from "../../assets/icons/roll-call-icon.png";
 import FootballIcon from "../../assets/icons/football-icon.png";
 import LogoutIcon from "../../assets/icons/log-out.png";
-// import RegisterIcon from "../../assets/icons/register.png";
 import TeamIcon from "../../Assets/icons//user-group.png";
-import RegisterTeam from "../../Assets/icons/register-team.png";
-import RegistrarEvento from "../../Assets/icons/registrar-eventos.png";
 import EventosIcon from "../../Assets/icons/eventos.png";
 import RegisterIcon from "../../Assets/icons/edit_icon.png";
 // Importar Contextos
