@@ -65,9 +65,9 @@ const RegistrarDeportista = () => {
                 Swal.fire({
                     icon: 'error',
                     title: 'Oops...',
-                    text: 'Algo salio mal, intenta mas tarde',
+                    text: `${e.response.data.message}`,
                 })
-                console.log(e);
+                console.log(e.response.data);
             });
 
             if (response?.status === 201) {
