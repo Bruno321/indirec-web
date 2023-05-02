@@ -401,9 +401,10 @@ const RegistrarDeportista = () => {
                                 <option>xddd</option>
                             </select> */}
                         </div>
-                        <input type="submit" className='CustomButton'  value="Guardar información"/>
+                        {/* <input type="submit" className='CustomButton'  value="Guardar información"/> */}
                     </form>
                 </div>
+                <button type='submit' className='custom-button' value="Guardar información">Registrar</button>
             </div>
             
             {

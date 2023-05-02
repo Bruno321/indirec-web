@@ -45,18 +45,17 @@ export const AsistenciasScreen = () => {
     },
     {
       title: "Acciones",
-      dataIndex: "deportistaId",
+      dataIndex: "id",
       render: (sId, row, index) => {
         return (
           <>
             <img
               title="Ver más..."
               src={iconInfo}
-              className="masInfo"
+              className="icons moreinfo"
               onClick={() => {
                 setItemId(row.id);
                 setScreen(11);
-                // console.log("row de Ver más: ", row.id);
               }}
             />
           </>

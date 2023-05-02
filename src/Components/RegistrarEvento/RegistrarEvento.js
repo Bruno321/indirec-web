@@ -324,9 +324,9 @@ const [mostrarTablaJugadoresVisitante, setMostrarTablaJugadoresVisitante] = useS
               <button
                 type="submit"
                 form="registrarEventoForm"
-                className="btn-registrar-evento"
+                className="custom-button"
               >
-                Registrar Evento
+                Registrar
               </button>
             </div>
           </div>

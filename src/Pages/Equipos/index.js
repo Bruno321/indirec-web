@@ -50,7 +50,12 @@ export const EquiposScreen = () => {
       title: 'Acciones',
       dataIndex: 'id',
       render: (sId, row, index) => (
-        <>
+        <div
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "space-around",
+        }}>
           <img
             title="Generar PDF"
             src={pdf}
@@ -131,7 +136,7 @@ export const EquiposScreen = () => {
               })
             }}
             />
-        </>
+        </div>
       ),
     }
   ];
