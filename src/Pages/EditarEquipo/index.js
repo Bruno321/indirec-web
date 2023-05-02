@@ -188,7 +188,7 @@ export const EditarEquipo = () => {
         confirmButtonText: "Aceptar",
       }).then(() => {
         // updater();
-        location.reload();
+        setScreen(5);
       });
     }
   };
@@ -201,30 +201,17 @@ export const EditarEquipo = () => {
 
   return (
     <div>
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-        }}
-      >
-        <h1>{form.nombre}</h1>
-        <img
-          style={{ cursor: "pointer" }}
-          onClick={() => setScreen(5)}
-          src={leftArrow}
-        />
-      </div>
-      <h3>Editar Equipo</h3>
+      <h3>Editar equipo</h3>
+      
       <div className="modalUpdateContainer">
         <div className="formEditInformationTeam">
           <div className="formContainer">
             <div className="formContainerLeft">
-              <label className="labels" htmlFor="nombre">
-                Nombre del Equipo:
-              </label>
+              <label  htmlFor="nombre">
+                Nombre del equipo:
+              </label><br/>
               <input
-                className="input inputText"
+                className="editarEquipo-input"
                 type="text"
                 name="nombre"
                 id="nombre"
@@ -234,11 +221,11 @@ export const EditarEquipo = () => {
                 required
               />
               <br />
-              <label className="labels" htmlFor="facultad">
+              <label  htmlFor="facultad">
                 Facultad:
-              </label>
+              </label><br/>
               <select
-                className="input inputSelect"
+                className="custom-select"
                 id="facultad"
                 value={form.facultad}
                 onChange={(e) => setForm({ ...form, facultad: e.target.value })}
@@ -248,11 +235,11 @@ export const EditarEquipo = () => {
                 ))}
               </select>
               <br />
-              <label className="labels" htmlFor="nombreEntrenador">
-                Nombre del Entrenador:
-              </label>
+              <label  htmlFor="nombreEntrenador">
+                Nombre del entrenador:
+              </label><br/>
               <input
-                className="input inputText"
+                className="editarEquipo-input"
                 type="text"
                 name="nombreEntrenador"
                 id="nombreEntrenador"
@@ -264,11 +251,11 @@ export const EditarEquipo = () => {
                 required
               />
               <br />
-              <label htmlFor="nombreAsistente" className="labels">
-                Nombre del Asistente:
-              </label>
+              <label htmlFor="nombreAsistente" >
+                Nombre del asistente:
+              </label><br/>
               <input
-                className="input inputText"
+                className="editarEquipo-input"
                 type="text"
                 name="nombreAsistente"
                 id="nombreAsistente"
@@ -283,11 +270,11 @@ export const EditarEquipo = () => {
             </div>
 
             <div className="formContainerRight">
-              <label htmlFor="campus" className="labels">
+              <label htmlFor="campus" >
                 Campus:
-              </label>
+              </label><br/>
               <select
-                className="inputSelect input"
+                className="custom-select"
                 id="campus"
                 value={form.campus}
                 onChange={(e) => setForm({ ...form, campus: e.target.value })}
@@ -297,12 +284,12 @@ export const EditarEquipo = () => {
                 ))}
               </select>
               <br />
-              <label htmlFor="categoria" className="labels">
+              <label htmlFor="categoria" >
                 Categoría:
-              </label>
+              </label><br/>
               <select
                 id="categoria"
-                className="input inputSelect"
+                className="custom-select"
                 value={form.categoria}
                 onChange={(e) =>
                   setForm({ ...form, categoria: e.target.value })
@@ -315,11 +302,11 @@ export const EditarEquipo = () => {
                 ))}
               </select>
               <br />
-              <label htmlFor="apellidoEntrenador" className="labels">
-                Apellido del Entrenador:
-              </label>
+              <label htmlFor="apellidoEntrenador" >
+                Apellido del entrenador:
+              </label><br/>
               <input
-                className="input inputText"
+                className="editarEquipo-input"
                 type="text"
                 name="apellidoEntrenador"
                 id="apellidoEntrenador"
@@ -331,11 +318,11 @@ export const EditarEquipo = () => {
                 required
               />
               <br />
-              <label htmlFor="apellidoAsistente" className="labels">
-                Apellido del Asistente:
-              </label>
+              <label htmlFor="apellidoAsistente" >
+                Apellido del asistente:
+              </label><br/>
               <input
-                className="input inputText"
+                className="editarEquipo-input"
                 type="text"
                 name="apellidoAsistente "
                 id="apellidoAsistente"
@@ -365,15 +352,17 @@ export const EditarEquipo = () => {
         dataSource={equipo?.deportistas}
         loading={loading}
       />
-      <button
-        type="submit"
-        form="registrarEquipoForm"
-        className="button-registroEquipo"
-        style={{ marginTop: "20px", marginLeft: "10px" }}
-        onClick={handleSubmit}
-      >
-        Guardar cambios
-      </button>
+      <div className="buttons-registrar-resultados">
+        <button className="cancelar" onClick={()=>{setScreen(5)}}>Cancelar</button>
+        <button
+          type="submit"
+          form="registrarEquipoForm"
+          className="guardar"
+          onClick={handleSubmit}
+        >Guardar cambios</button>
+
+      </div>
+      
     </div>
   );
 };

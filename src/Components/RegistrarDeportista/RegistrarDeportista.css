@@ -13,9 +13,12 @@
     padding: 0px 10px;
 }
 
-.registrarDeportista-input[type=text], .select, input[type=e-mail]{
+.registrarDeportista-input[type=text], .select, .custom-select, input[type=e-mail]{
     border-color: #000;
     border-style: solid;
+    /* box-shadow: 0px 0px 2px rgba(66,66,66,.73); */
+    /* padding: 5px;
+    box-sizing: border-box; */
 }
 
 .registrarDeportista-input[type=submit], .select, input[type=file]::-webkit-file-upload-button{
@@ -34,6 +37,7 @@
     height: 30px;
     width: 225px;
     background-color: #FFFFFF;
+    /* position: absolute; */
     display:flex;
     justify-content: center;
     align-items: center;
@@ -47,12 +51,26 @@
     font-weight: 300;
 }
 .obtenerQr{
+    color: #000;
     display: flex;
+    /* justify-content: center; */
     align-items: center;
     flex-direction: column;
+    /* background-color: #F0F2F3; */
+    /* padding-top: 40px; */
+    /* background-color: red; */
+    /* padding-bottom: 50px;
+    height: 82vh; */
+}
+.titleRegister{
+    /* font-weight: 500; */
+    /* margin-top: 30px; */
+    /* font-size: 1.5rem; */
+    /* margin-bottom: 10%; */
 }
 .titleRegisterContainer{
     margin-left: 20px;
+    /* background-color: blue; */
     width: 100%;
 }
 .paragraphTitle{
@@ -102,6 +120,23 @@
 .form-tercero{
     display: flex;
     flex-direction: row;
+}
+
+
+.CustomButton{
+    background-color: #003070;
+    /* background-color: #01C109; */
+    color: white;
+    border: none;
+    border-radius: 6px;
+    margin: 10px;
+    padding: 15px;
+    width: 300px;
+    left: calc(50%);
+    cursor: pointer;
+    position: absolute;
+    margin-right: 150px;
+    margin-top: calc(400px);
 }
 
 .radioBtnSelector{
