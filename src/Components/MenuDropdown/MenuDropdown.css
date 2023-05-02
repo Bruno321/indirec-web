@@ -39,8 +39,8 @@
     padding-left: 5%;
     align-items: center;
     display: flex;
-    margin-top: 10px;
-    height: 40px;
+    /* margin-top: 10px; */
+    height: 50px;
     cursor: pointer;
 
 }
