@@ -3,6 +3,8 @@ import { NavigationContext } from "../../Context/NavigationContext.js";
 import './MoreInfoEventos.css';
 import { useFetchData } from "../../Hooks/Fetch.hook";
 import VerJugadoresEvento from "../VerJugadoresEvento/VerJugadoresEvento.js";
+import moment from "moment";
+
 
 function MoreInfoEventos(){
     const {itemId, setScreen} = useContext(NavigationContext)
@@ -19,7 +21,7 @@ function MoreInfoEventos(){
         <>
             <h3>Evento: {evento?.nombre}</h3>
                 <div className="up">
-                    <label>Fecha: {evento.fecha}</label>
+                    <label>Fecha: {evento.fecha ? moment(evento.fecha).format("DD/MM/YYYY") : "Sin registrar"}</label>
                     <label>Hora: {evento.hora}</label>
                     <label>Jornadas: {evento.jornada}</label>
                     <label>Cancha: {evento.canchaJugada}</label>

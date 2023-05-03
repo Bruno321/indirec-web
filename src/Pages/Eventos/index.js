@@ -1,5 +1,7 @@
 import React, { useState, useContext } from "react";
 import Swal from 'sweetalert2/dist/sweetalert2.js';
+import moment from "moment";
+
 
 import iconInfo from "../../Assets/icons/more-info.png";
 import iconDelete from "../../Assets/icons/delete.png";
@@ -38,6 +40,7 @@ export const EventosScreen = () =>{
         {
             title: 'Fecha',
             dataIndex:'fecha',
+            render: (fE) => (fE ? moment(fE).format("DD/MM/YYYY") : "Sin registrar"),
         },
         {
             title: 'Hora',
