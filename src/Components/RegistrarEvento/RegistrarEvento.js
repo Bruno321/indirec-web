@@ -119,26 +119,27 @@ const [mostrarTablaJugadoresVisitante, setMostrarTablaJugadoresVisitante] = useS
 
   return (
     <>
-      <h3 className="title-form">Registrar evento</h3>
+      <h3 className="title-form">Registrar evento</h3><br/>
       <section className="form-section">
         <form id="registrarEventoForm" onSubmit={handleSubmit}>
           <div className="first-part">
             <div className="column-flex">
-              <label className="input-title" style={{marginBottom:"0px"}}>Nombre del evento: </label>
+              <label style={{marginBottom:"0px"}}>Nombre del evento: </label>
               <br />
               <input
                 type="text"
                 className="input-text input-name" 
                 id="nombre"
                 name="nombre"
-                placeholder="Troyanos vs Damansus"
+                placeholder="Nombre del evento"
                 onChange={e => setForm({...form, nombre:e.target.value})} 
                 required
               />
               <br />
             </div>
+            
             <div className="column-flex">
-              <label className="input-title" style={{marginBottom:"0px"}}>Fecha del evento: </label>
+              <label style={{marginBottom:"0px"}}>Fecha del evento: </label>
               <br />
               <input
                 type="date"
@@ -150,9 +151,9 @@ const [mostrarTablaJugadoresVisitante, setMostrarTablaJugadoresVisitante] = useS
                 required
               />
             </div>
-            <br />
+
             <div className="column-flex">
-              <label className="input-title" style={{marginBottom:"0px"}}>Hora del evento: </label>
+              <label style={{marginBottom:"0px"}}>Hora del evento: </label>
               <br />
               <input
                 type="time"
@@ -163,39 +164,74 @@ const [mostrarTablaJugadoresVisitante, setMostrarTablaJugadoresVisitante] = useS
                 required
               />
             </div>
+
+            <div className="column-flex">
+              <label>Jornada:</label><br/>
+                <input
+                  type="text"
+                  className="input-text margin-input jornada"
+                  name="jornada"
+                  id="jornada"
+                  placeholder="00"
+                  onChange={(e) => setForm({ ...form, jornada: e.target.value })}
+                  required
+                />
+            </div>
+          </div>
+
+          <div className="first-part">
+            <div className="column-flex">
+              <label>Categoría:</label><br/>
+              <select
+                name="categoria"
+                id="categoria"
+                className="chose-categoria input-select margin-input"
+                value={form.categoria}
+                onChange={(e) => {
+                  setForm({ ...form, categoria: e.target.value });
+                }}
+              >
+                <option value="Varonil">Varonil</option>
+                <option value="Femenil">Femenil</option>
+              </select>
+            </div>
+            <div className="column-flex">
+              <label>Deporte:</label><br/>
+                <select
+                  name="deporte"
+                  id="deporte"
+                  className="chose-sport input-select margin-input"
+                  value={form.deporte}
+                  onChange={(e) => {
+                    setForm({ ...form, deporte: e.target.value });
+                  }}
+                >
+                  <option value="futbol">Futbol</option>
+                  <option value="basquetbol">Basquetbol</option>
+                </select>
+            </div>
+
+            <div className="column-flex">
+              <label>Cancha:</label><br/>
+                <input
+                  type="text"
+                  className="input-text margin-input"
+                  name="canchaDeJuego"
+                  id="canchaDeJuego"
+                  placeholder="Cancha de juego"
+                  onChange={(e) =>
+                    setForm({ ...form, canchaJugada: e.target.value })
+                  }
+                  required
+                />
+            </div>
           </div>
         
           <div className="second-part">
-            <div className="left-side">
-            <label className="sport-title">Deporte</label>
-            <select
-              name="deporte"
-              id="deporte"
-              className="chose-sport input-text margin-input"
-              value={form.deporte}
-              onChange={(e) => {
-                setForm({ ...form, deporte: e.target.value });
-              }}
-            >
-              <option value="futbol">Futbol</option>
-              <option value="basquetbol">Basquetbol</option>
-            </select>
-            <label className="label-title">Cancha:</label>
-              <br />
-              <input
-                type="text"
-                className="input-text margin-input"
-                name="canchaDeJuego"
-                id="canchaDeJuego"
-                onChange={(e) =>
-                  setForm({ ...form, canchaJugada: e.target.value })
-                }
-                required
-              />
+          <div className="left-side">
               <label className="label-title">Equipo Local:</label>
-              <br />
               <select 
-                className="input-text margin-input" 
+                className="input-text margin-input-right" 
                 name="equipoLocal" id="equipoLocal" 
                 value={form.equipo_local_id} 
                 onChange={e => {
@@ -228,11 +264,10 @@ const [mostrarTablaJugadoresVisitante, setMostrarTablaJugadoresVisitante] = useS
               ) : (
                 ""
               )}
-              <label className="label-title">Director Técnico Local:</label>
-              <br />
+              <br/><label className="label-title">Director Técnico Local:</label>
               <input
                 type="text"
-                className="input-text margin-input"
+                className="input-text margin-input-right"
                 name="directorTecnicoLocal"
                 id="directorTecnicoLocal"
                 onChange={(e) =>
@@ -245,29 +280,6 @@ const [mostrarTablaJugadoresVisitante, setMostrarTablaJugadoresVisitante] = useS
               <h2 className="versus-title">VS</h2>
             </div>
             <div className="right-side">
-            <label className="categoria-title">Categoría</label>
-            <select
-              name="categoria"
-              id="categoria"
-              className="chose-categoria input-text margin-input"
-              value={form.categoria}
-              onChange={(e) => {
-                setForm({ ...form, categoria: e.target.value });
-              }}
-            >
-              <option value="Varonil">Varonil</option>
-              <option value="Femenil">Femenil</option>
-            </select>
-            <label className="label-title left-title">Jornada:</label>
-              <input
-                type="text"
-                className="input-text margin-input-right"
-                name="jornada"
-                id="jornada"
-                onChange={(e) => setForm({ ...form, jornada: e.target.value })}
-                required
-              />
-              <br/>
               <label className="label-title">Equipo Visitante:</label>
               <select 
                 className="input-text margin-input-right" 
@@ -294,7 +306,6 @@ const [mostrarTablaJugadoresVisitante, setMostrarTablaJugadoresVisitante] = useS
                   </option>
                 )}
               </select>
-              <br />
               {equipoVisitante ? (
                 <div
                   className="btn-add-players"
@@ -305,7 +316,7 @@ const [mostrarTablaJugadoresVisitante, setMostrarTablaJugadoresVisitante] = useS
               ) : (
                 ""
               )}
-              <label className="label-title">Director Técnico Visitante:</label>
+              <br/><label className="label-title">Director Técnico Visitante:</label>
               <input
                 type="text"
                 className="input-text margin-input-right"

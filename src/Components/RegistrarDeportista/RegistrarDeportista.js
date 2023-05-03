@@ -161,14 +161,15 @@ const RegistrarDeportista = () => {
     return(
         <>
             <h3 className = "titleRegister">Registrar deportista</h3>
-            <p className = "paragraphTitle">NOTA: Los campos con "*" son obligatorios</p><br></br>
+            {/* <p className = "paragraphTitle">NOTA: Los campos con "*" son obligatorios</p> */}
+            <br/>
             <div className='obtenerQr'>
                 <div className='formulario' onSubmit={handleSubmit}>
                     <form>
                         <div className='form-izquierda'>
                             <div className='form-primero'>
                                 <div>
-                                    <label htmlFor='expediente'>Expediente*</label><br/>
+                                    <label htmlFor='expediente'>Expediente:</label><br/>
                                     <input
                                         type="text"
                                         id='expediente'
@@ -181,7 +182,7 @@ const RegistrarDeportista = () => {
                                     />
                                 </div>
                                 <div>
-                                    <label htmlFor='noSeguroSocial'>No. Seguro Social*</label><br/>
+                                    <label htmlFor='noSeguroSocial'>No. Seguro Social:</label><br/>
                                     <input
                                         type="text"
                                         id='noSeguroSocial'
@@ -194,7 +195,7 @@ const RegistrarDeportista = () => {
                             </div>
 
                             <div className='form-segundo'>
-                                <label htmlFor='nombre'>Nombre(s)*</label><br/>
+                                <label htmlFor='nombre'>Nombre(s):</label><br/>
                                 <input
                                     type="text"
                                     id='nombre'
@@ -204,7 +205,7 @@ const RegistrarDeportista = () => {
                                     required
                                 /><p></p>
 
-                                <label htmlFor='apellidos'>Apellidos* (Apellido Paterno, Apellido Materno)</label><br/>
+                                <label htmlFor='apellidos'>Apellidos: (Apellido Paterno, Apellido Materno)</label><br/>
                                 <input
                                     type="text"
                                     id='apellidos'
@@ -214,7 +215,7 @@ const RegistrarDeportista = () => {
                                     required
                                 /><p></p>
 
-                                <label htmlFor='correoElectronico'>Correo electrónico*</label><br/>
+                                <label htmlFor='correoElectronico'>Correo electrónico:</label><br/>
                                 <input
                                     type="e-mail"
                                     className="registrarDeportista-input"
@@ -227,7 +228,7 @@ const RegistrarDeportista = () => {
 
                             <div className='form-tercero'>
                                 <div>
-                                    <label htmlFor='telCelular' id='telefonoCelular'>Teléfono celular*</label><br/>
+                                    <label htmlFor='telCelular' id='telefonoCelular'>Teléfono celular:</label><br/>
                                     <input
                                         type="text"
                                         className="registrarDeportista-input"
@@ -239,7 +240,7 @@ const RegistrarDeportista = () => {
                                 </div>
 
                                 <div>
-                                    <label htmlFor='telefonoEmergencia'>Teléfono de emergencia*</label><br/>
+                                    <label htmlFor='telefonoEmergencia'>Teléfono de emergencia:</label><br/>
                                     <input
                                         type="text"
                                         className="registrarDeportista-input"
@@ -252,7 +253,7 @@ const RegistrarDeportista = () => {
                         </div>
 
                         <div className='form-medio'>
-                            <label htmlFor='facultad'>Facultad*</label><br/>
+                            <label htmlFor='facultad'>Facultad:</label><br/>
                             <select id='facultad' value={form.facultad} onChange={e => setForm({...form,facultad:e.target.value})} className="select">
                                 {aFacultities.map(oFc => (
                                     <option value={`Facultad de ${oFc}`}>{`Facultad de ${oFc}`}</option>
@@ -260,7 +261,7 @@ const RegistrarDeportista = () => {
                                 <option>Escuela de Bachilleres</option>
                             </select><p></p>
                             
-                            <label htmlFor='sexo'>Sexo*</label><br/>
+                            <label htmlFor='sexo'>Sexo:</label><br/>
                             <select id='sexo' value={form.sexo} className="select" onChange={e => setForm({...form,sexo:e.target.value})}>
                                 <option value={0}>Masculino</option>
                                 <option value={1}>Femenino</option>
@@ -268,7 +269,7 @@ const RegistrarDeportista = () => {
                             
 
                             {/* Apartado de los file inputs */}
-                            <label htmlFor='kardex'>Kárdex*</label><br/>
+                            <label htmlFor='kardex'>Kárdex:</label><br/>
                             <input
                                 type="file"
                                 accept = ".pdf, .png, .jpg, .jpeg"
@@ -293,7 +294,7 @@ const RegistrarDeportista = () => {
                                 {handleAnswerFile(kardex, 'Kardex')}
                             <br/>
 
-                            <label htmlFor='identificacionFile'>Identificación oficial*</label><br/>
+                            <label htmlFor='identificacionFile'>Identificación oficial:</label><br/>
                             <input
                                 type="file"
                                 accept=".pdf, .png, .jpg, .jpeg"
@@ -318,7 +319,7 @@ const RegistrarDeportista = () => {
                                 {handleAnswerFile(INE, 'INE')}
                             <br/>
 
-                            <label htmlFor='fotoDeportista'>Foto del deportista*</label><br/>
+                            <label htmlFor='fotoDeportista'>Foto del deportista:</label><br/>
                             <input
                                 type="file"
                                 accept = ".pdf, .png, .jpg, .jpeg"
@@ -347,13 +348,13 @@ const RegistrarDeportista = () => {
                         </div>
 
                         <div className='form-derecha'>
-                            <label htmlFor='deporte'>Deporte*</label><br></br>
+                            <label htmlFor='deporte'>Deporte:</label><br></br>
                             <select id='deporte' value={form.deporte} className="select" onChange={e => setForm({...form,deporte:e.target.value})}>
                                 <option value="Futbol">Futbol</option>
                                 <option value="Basquetball">Basquetball</option>
                             </select><p></p>
 
-                            <label htmlFor='deportistaSeleccionadoSi'>Deportista seleccionado*</label><br></br>
+                            <label htmlFor='deportistaSeleccionadoSi'>Deportista seleccionado:</label><br></br>
                             <div className='form-options'>
                                 <input
                                     type="radio"
@@ -386,7 +387,7 @@ const RegistrarDeportista = () => {
                                 />
                                 <label htmlFor='deportistaSeleccionadoNo'>No</label><p></p>
                             </div>
-                            <label htmlFor='numeroJugador'>Número de jugador*</label><br></br>
+                            <label htmlFor='numeroJugador'>Número de jugador:</label><br></br>
                             <input
                                 type="text"
                                 id='numeroJugador'
@@ -396,7 +397,7 @@ const RegistrarDeportista = () => {
                                 required
                             /><p></p>
 
-                            {/* <label>Subdivisión de deporte*</label><br></br>
+                            {/* <label>Subdivisión de deporte:</label><br></br>
                             <select>
                                 <option>xddd</option>
                             </select> */}
