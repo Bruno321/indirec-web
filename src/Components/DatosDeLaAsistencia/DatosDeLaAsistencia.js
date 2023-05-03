@@ -140,16 +140,17 @@ export const DatosDeLaAsistencia = () => {
     {
       title: "Fecha",
       dataIndex: "fecha",
+      render: (fE) => (fE ? moment(fE).format("DD/MM/YYYY") : "Sin registrar"),
     },
     {
       title: "Hora de Entrada",
       dataIndex: "horaEntrada",
-      render: (hE) => (hE ? moment(hE).format("HH:mm:ss a") : "Sin registrar"),
+      render: (hE) => (hE ? moment(hE).format("HH:mm") : "Sin registrar"),
     },
     {
       title: "Hora de Salida",
       dataIndex: "horaSalida",
-      render: (hS) => (hS ? moment(hS).format("HH:mm:ss a") : "Sin registrar"),
+      render: (hS) => (hS ? moment(hS).format("HH:mm") : "Sin registrar"),
     },
     {
       title: "Horas totales",
