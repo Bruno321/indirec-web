@@ -78,7 +78,7 @@ export const DatosDeLaAsistencia = () => {
     }
   }, [deportistaId, fechaInicio]);
 
-  // Sacando las horas inicio con mapeo
+  // Obetemos las diferencias con moment
   useEffect(() => {
     const horasTotalesTrabajadas = asistenciaData.reduce((total, record) => {
       const duracion = moment.duration(
@@ -157,12 +157,11 @@ export const DatosDeLaAsistencia = () => {
           <input
             type="date"
             className="input-range-date input-final"
-            onChange={(e) => {setFechaTermino(fechaTermino)}}
+            onChange={(e) => {setFechaTermino(e.target.value)}}
             required
           />
         </section> 
       </section>
-      <section className="sectionTable"></section>
       <Table
         columns={columns}
         dataSource={asistenciaData}
