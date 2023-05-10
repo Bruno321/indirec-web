@@ -4,32 +4,11 @@ import { useFetchData } from "../../Hooks/Fetch.hook";
 import { NavigationContext } from "../../Context/NavigationContext";
 import { process, FIND } from "../../Service/Api";
 import { Table } from "../Table/Table";
-
-// Estilos de CSS
-import "./DatosDeLaAsistencia.css";
 import moment from "moment";
 
-// Iconos
-
-// Fecha de hoy
-const today = new Date();
-const year = today.getFullYear();
-const month = today.getMonth() + 1; // El método getMonth() devuelve un número del 0 al 11, por lo que debemos sumar 1 para obtener el mes actual.
-const day = today.getDate();
-
-const todayDate = `${year}-${month}-${day}`;
-//Fechas inicializadas
-
-// Inicializar las fechas de inicio y termino en la fecha de hoy
-const oInitialState = {
-  fechaInicio: todayDate,
-  fechaTermino: todayDate,
-};
+import "./DatosDeLaAsistencia.css";
 
 export const DatosDeLaAsistencia = () => {
-  // Manipular fechas dentro del mini form de rangos de fechas:
-  const [form, setForm] = useState(oInitialState);
-  // console.log("fecha de inicio y de salida", form);
   const { itemId, setScreen } = useContext(NavigationContext);
   const [asistencias, loading] = useFetchData(`asistencias/${itemId}`);
 
@@ -40,8 +19,12 @@ export const DatosDeLaAsistencia = () => {
   // useState para sacar las rolas totales
   const [horasTotales, setHorasTotales] = useState({});
 
+  //UseState para el rango de fechas
+  // Hacer que los inputs tengan por defecto la fecha de hoy
+  const [fechaInicio, setFechaInicio] = useState();
+  const [fechaTermino, setFechaTermino] = useState();
+
   let deportistaId = asistencias.deportista_id;
-  // console.log(asistencias);
 
   // Sacar los datos de la tabla de Deportista
   useEffect(() => {
@@ -54,87 +37,61 @@ export const DatosDeLaAsistencia = () => {
       )
         .then((response) => {
           const deportistaData = response.data.data[0];
-          // console.log(deportistaData.nombres + " " + deportistaData.apellidos);
-          // console.log("Información del deportista actual: ", deportistaData);
           setDeportista(deportistaData);
-          // Aquí puedes hacer algo con la información que recibiste en response
         })
         .catch((e) => {
           console.log(e);
         });
-      // LISTA DE LAS ASISTENCIAS DEL DEPORTISTA
-      process(
-        FIND,
-        "asistencias",
-        {},
-        { queries: `deportista_id=${deportistaId}`, skip: 0 }
-      )
-        .then((response) => {
-          const asistenciaDataDelDeportista = response.data.data;
-          // console.log(
-          //   "Información de la Asistencia del Deportista Actual: ",
-          //   asistenciaDataDelDeportista
-          // );
-          setAsistenciaData(asistenciaDataDelDeportista);
-        })
-        .catch((e) => {
-          console.warn(e);
-        });
-
-      // LISTA DE LAS ASISTENCIAS DEL DEPORTISTA ENTRE LOS RANGOS DE FECHAS
-      // Aún no se implementa ese sistema en el API
+      // ASISTENCIAS POR RANGO
+      //Agregar && fecha Fin ------------------------------------------
+      if(fechaInicio){
+        process(
+          FIND,
+          "asistencias",
+          {},
+          { queries: `deportista_id=${deportistaId}&fecha=${fechaInicio}`, skip: 0 }
+          // { queries: `deportista_id=${deportistaId}&fechaInicio=${fechaInicio}&fechaFin=${fechaTermino}`, skip: 0 }
+        )
+          .then((response) => {
+            const asistenciaDataDelDeportista = response.data.data;
+            setAsistenciaData(asistenciaDataDelDeportista);
+          })
+          .catch((e) => {
+            console.warn(e);
+          });
+      }else{
+        // TODAS LAS ASISTENCIAS
+        process(
+          FIND,
+          "asistencias",
+          {},
+          { queries: `deportista_id=${deportistaId}`, skip: 0 }
+        )
+          .then((response) => {
+            const asistenciaDataDelDeportista = response.data.data;
+            setAsistenciaData(asistenciaDataDelDeportista);
+          })
+          .catch((e) => {
+            console.warn(e);
+          });
+      }
     }
-  }, [deportistaId]);
+  }, [deportistaId, fechaInicio]);
 
   // Sacando las horas inicio con mapeo
   useEffect(() => {
-    const horasIniciales = asistenciaData.map(
-      (asistencia) => asistencia.horaEntrada
-    );
-    const horasFinales = asistenciaData.map(
-      (asistencia) => asistencia.horaSalida
-    );
-    // console.log("Arreglo de Horas Iniciales: ", horasIniciales);
-    // console.log("Arreglo de Horas Salidas: ", horasFinales);
-    const calcularDiferenciaHoras = (fechaInicio, fechaFin) => {
-      const inicio = moment(fechaInicio);
-      const fin = moment(fechaFin);
-      const diffDuration = moment.duration(fin.diff(inicio));
-      const diffHours = Math.floor(diffDuration.asHours());
-      const diffMinutes = diffDuration.minutes();
-      const diffSeconds = diffDuration.seconds();
-      return `${diffHours} horas, ${diffMinutes} minutos, ${diffSeconds} segundos`;
-    };
-
-    const horasTrabajadas = horasIniciales.map((horaInicio, index) => {
-      const horaFin = horasFinales[index];
-      const horasTrabajadasDia = calcularDiferenciaHoras(horaInicio, horaFin);
-      return horasTrabajadasDia;
-    });
-
-    const horasTotalesTrabajadas = horasTrabajadas.reduce((total, horas) => {
-      const diffHours = Number(horas.split(" ")[0]);
-      const diffMinutes = Number(horas.split(" ")[2]);
-      const diffSeconds = Number(horas.split(" ")[4]);
-      total.add(
-        moment.duration({
-          hours: diffHours,
-          minutes: diffMinutes,
-          seconds: diffSeconds,
-        })
+    const horasTotalesTrabajadas = asistenciaData.reduce((total, record) => {
+      const duracion = moment.duration(
+        moment(record.horaSalida, "HH:mm").diff(moment(record.horaEntrada, "HH:mm"))
       );
+      total.add(duracion);
       return total;
     }, moment.duration(0));
-    const diffHours = Math.floor(horasTotalesTrabajadas.asHours());
-    const diffMinutes = horasTotalesTrabajadas.minutes();
-    const diffSeconds = horasTotalesTrabajadas.seconds();
-    const horasTotales = `${diffHours} horas, ${diffMinutes} minutos`;
+    
+    const horasTotales = `${horasTotalesTrabajadas.hours()} horas, ${horasTotalesTrabajadas.minutes()} minutos`;
 
     setHorasTotales(horasTotales);
   }, [asistenciaData]);
-
-  // Hacer que los inputs tengan por defecto la fecha de hoy
-  const [selectedDate, setSelectedDate] = useState(todayDate);
 
   const columns = [
     {
@@ -153,7 +110,7 @@ export const DatosDeLaAsistencia = () => {
       render: (hS) => (hS ? moment(hS).format("HH:mm") : "Sin registrar"),
     },
     {
-      title: "Horas totales",
+      title: "Tiempo total",
       dataIndex: "horasTotales",
       render: (text, record) => {
         const duracion = moment.duration(
@@ -167,6 +124,7 @@ export const DatosDeLaAsistencia = () => {
       },
     },
   ];
+  
   return (
     <>
       <h3 className="margin-between-paragraphs titleDatosAsitencias">
@@ -177,40 +135,39 @@ export const DatosDeLaAsistencia = () => {
           {`${deportista.nombres} ` + `${deportista.apellidos}`}
         </h2>
         <p className="margin-between-paragraphs txtInfo txtDiasEntenados">
-          Días entrenados: {asistenciaData.length}
+          Sesiones de entrenamiento totales: {asistenciaData.length}
         </p>
         <p className="margin-between-paragraphs txtInfo txtHorasEntenadas">
           Tiempo total de entrenamiento: {`${horasTotales}`}
         </p>
       </section>
-      {/* <section className="inputsFechasAsistencias">
+      <section className="inputsFechasAsistencias">
         <label htmlFor="RangoDeFechas" className="labelInput">
-          Seleccionar rango de fechas de Asistencia:
+          Selecciona un rango de fechas de asistencia:
         </label>
         <section className="inputAsistenciasSection">
+          <label>Inicio:</label>
           <input
             type="date"
-            className="inputDates fechaInicio"
-            defaultValue={selectedDate}
-            onChange={(e) => setForm({ ...form, fechaInicio: e.target.value })}
+            className="input-range-date input-inicio"
+            onChange={(e) => {setFechaInicio(e.target.value)}}
             required
           />
+          <label>Fin:</label>
           <input
             type="date"
-            className="inputDates fechaTermino"
-            defaultValue={selectedDate}
-            onChange={(e) => setForm({ ...form, fechaTermino: e.target.value })}
+            className="input-range-date input-final"
+            onChange={(e) => {setFechaTermino(fechaTermino)}}
             required
           />
         </section> 
-      </section> */}
+      </section>
       <section className="sectionTable"></section>
       <Table
         columns={columns}
         dataSource={asistenciaData}
-        // loading={setAsistenciaData}
       />
-      <button className="button-aceptar" onClick={() => setScreen(1)}>
+      <br/><button className="button-aceptar" onClick={() => setScreen(1)}>
         Aceptar
       </button>
     </>

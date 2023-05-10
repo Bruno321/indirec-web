@@ -1,10 +1,6 @@
 /* TEXTOS */
 .infoAsistencia{
-width: 100%;
-/* background-color: pink; */
 text-align: center;
-align-items: center;
-height: 200px;
 padding: 30px;
 }
 .margin-between-paragraphs{
@@ -21,43 +17,35 @@ margin-bottom: 5px;
     font-size: 20px;
 
 }
-.txtDiasEntrenados{
 
-}
-.txtHorasEntrenadas{
-
-}
 /* INPUTS DE FECHAS / FORM */
 .inputsFechasAsistencias{
-/* background-color: greenyellow; */
 display: flex;
 flex-direction: column;
-height: 100px;
-padding: 20px 0px 0px 20px;
+padding-left: 20px;
 }
 .labelInput{
     font-weight: 500;
     margin-bottom: 10px;
 }
-.inputAsistenciasSection{
-width: 100%;
+input[type="date"]  {
+    position: relative;
 }
-.inputDates{
-width: 175px;
-height: 35px;
-color: #003070;
-border-radius: 10px;
-background-color: #eee;
-border: 1px solid #003070;
+input[type="date"]::-webkit-calendar-picker-indicator {
+    display: block;
+    cursor: pointer;
+    top: 0;
+    right: 0;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    background: transparent;
 }
-.fechaInicio{
-
-}
-.fechaTermino{
-margin-left: 25px;
-}
-
-/* Table */
-.sectionTable{
-
+.input-range-date{
+    margin: 0px 15px;
+    width: 150px;
+    height: 35px;
+    border-radius: 5px;
+    border: 1px solid rgba(0, 0, 0);
+    text-align: center;
 }
