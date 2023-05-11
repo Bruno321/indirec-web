@@ -9,17 +9,19 @@ import iconInfo from "../../Assets/icons/more-info.png";
 import ButtonsPages from "../../Components/ButtonsPages/ButtonsPages";
 import ModalQR from "../../Components/Modals/ModalQR/ModalQR";
 import MoreInfo from "../../Components/MoreInfo/MoreInfo";
+import LoadingSpinner from "../../Components/LoadingSpinner/LoadingSpinner";
 
 export const DeportistasScreen = () => {
   //State para mostrar MAS INFORMACION de un deportista
   const [buttonMoreInfo, setButtonMoreInfo] = useState(false);
   const [selected, setSelected] = useState();
   const [showQR, setShowQR] = useState(false);
-  const [deportistas, loading] = useFetchData("deportistas");
-  console.log("Los datos de los deportistas: ", deportistas.data);
+  
   const [deportista, setDeportista] = useState({});
 
   const [pagina, setPagina] = useState(1);
+  const [deportistas, loading, onChangeParams, update] = useFetchData("deportistas", '', pagina, 10);
+  debugger;
 
   const columns = [
     {
@@ -163,7 +165,7 @@ export const DeportistasScreen = () => {
           <ButtonsPages numberPage={pagina} setPagina={setPagina} />
         </div>
       ) : (
-        ""
+        <LoadingSpinner/>
       )}
       {showQR ? (
         <ModalQR datos={deportista} setMostrarModalQr={setShowQR} />

@@ -10,6 +10,7 @@ import ImgDocumentFiles from '../../Assets/icons/document-file.png';
 import ImgDocumentDeactivate from '../../Assets/icons/document-files-gray.png';
 import ImgDocumentActive from '../../Assets/icons/document-files-white.png';
 import ModalQR from '../Modals/ModalQR/ModalQR';
+import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
 
 const oInitialState = {
     expediente:"",
@@ -47,11 +48,14 @@ const RegistrarDeportista = () => {
 
     const [form,setForm] = useState(oInitialState);
     const [mostrarModalQr, setMostrarModalQr] = useState(false);
-    const [datos, setDatos] = useState({})
+    const [datos, setDatos] = useState({});
+    const [isLoading, setIsLoading] = useState(false);
 
     const handleSubmit = async (e) => {
         //Se valida si los campos del formulario estan completos
-        e.preventDefault()
+        e.preventDefault();
+        setIsLoading(true);
+        debugger;
         if (validarCampos()) {
             setLoading(true);
             // console.log(form);
@@ -90,6 +94,7 @@ const RegistrarDeportista = () => {
                     }
                 })
             }
+            setIsLoading(false);
             setLoading(false);
         }
     }
@@ -403,9 +408,19 @@ const RegistrarDeportista = () => {
                             </select> */}
                         </div>
                         {/* <input type="submit" className='CustomButton'  value="Guardar información"/> */}
+                        <input type="submit" className='CustomButton'  value="Guardar información"/>
                     </form>
                 </div>
-                <button type='submit' className='custom-button' value="Guardar información">Registrar</button>
+                {/* <button type='submit' className='custom-button' value="Guardar información">Registrar</button> */}
+                {
+                    isLoading
+                    ? 
+                        <div style={{position: 'fixed', top: '0', left: '0', width: '100%', height: '100%', backgroundColor: 'rgba(0, 0, 0, .5)'}}>
+                            <LoadingSpinner/>
+                        </div>
+                    :
+                        ''
+                }
             </div>
             
             {

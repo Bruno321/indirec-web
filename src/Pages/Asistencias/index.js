@@ -2,6 +2,7 @@ import React, { useState, useContext } from "react";
 import { Table } from "../../Components/Table/Table";
 import { useFetchData } from "../../Hooks/Fetch.hook";
 import moment from "moment";
+import LoadingSpinner from "../../Components/LoadingSpinner/LoadingSpinner";
 
 // iconos
 import iconInfo from "../../Assets/icons/more-info.png";
@@ -73,6 +74,13 @@ export const AsistenciasScreen = () => {
         dataSource={asistencias.data}
         loading={loading}
       />
+      {
+        !loading ? (
+          ''
+        ) : (
+          <LoadingSpinner/>
+        )
+      }
     </>
   );
 };

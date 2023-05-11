@@ -7,6 +7,7 @@ import pdf from "../../Assets/icons/pdf.png";
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 import { NavigationContext } from '../../Context/NavigationContext';
 import { URL, process, SAVE } from '../../Service/Api';
+import LoadingSpinner from '../../Components/LoadingSpinner/LoadingSpinner';
 // Modal
 
 export const EquiposScreen = () => {
@@ -148,6 +149,13 @@ export const EquiposScreen = () => {
         columns={columns}
         dataSource={equipos.data}
         loading={loading}/>
+      {
+        !loading ? (
+          ''
+        ) : (
+          <LoadingSpinner/>
+        )
+      }
     </>
   );
 };

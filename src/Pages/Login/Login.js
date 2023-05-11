@@ -7,6 +7,7 @@ import imageMain from "../../Assets/img/image-main.png";
 import eyeOff from "../../Assets/icons/eye-off.svg";
 import eye from "../../Assets/icons/eye.svg";
 import "./Login.css";
+import LoadingSpinner from "../../Components/LoadingSpinner/LoadingSpinner";
 
 const Login = () => {
     const {iniciarSesion} = useContext(LoginContext)
@@ -18,6 +19,8 @@ const Login = () => {
     const [eyeShown, setEyeShown] = useState(true);
     const toggleEye = () => setEyeShown(!eyeShown);
 
+    const [isLoading, setIsLoading] = useState(false);
+
     const [loginData,setLoginData] = useState({
         email:"",
         password:"",
@@ -25,9 +28,10 @@ const Login = () => {
     /* This is the function that is triggered when the user clicks the Submit button. */
     const handleSubmit = async (event) => {
         event.preventDefault();
-
+        setIsLoading(true);
         const {email,password} = loginData;
         const response = await login(email,password).catch(e => {
+            setIsLoading(false);
             Swal.fire({
                 icon: 'error',
                 title: 'Oops...',
@@ -39,6 +43,7 @@ const Login = () => {
         if(response.status === 201){
             iniciarSesion(response.data.accessToken);
         }
+        setIsLoading(false);
     }
 
     return (
@@ -97,7 +102,16 @@ const Login = () => {
                 />
             </form>
         </div>
-    </div>
+        {
+            isLoading
+            ?
+                <div style={{position: 'fixed', backgroundColor: 'rgba(255,255,255,.4)', width: '100%', height: '100%'}}>
+                    <LoadingSpinner/>
+                </div>
+            :
+                ''
+        }
+        </div>
     );
 };
 

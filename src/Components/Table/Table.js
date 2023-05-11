@@ -17,7 +17,7 @@ export const Table = ({ dataSource, columns, loading }) => {
 
     return loading ? (
     // TODO: Add spinner
-    <p>Cargando</p>
+    <p></p>
     ) : (
         dataSource?.length ? (
             <div className="container">

@@ -14,6 +14,7 @@ import "./index.css"
 import { Table } from "../../Components/Table/Table";
 import { useFetchData } from "../../Hooks/Fetch.hook";
 import MoreInfoEventos from "../../Components/MoreInfoEventos/MoreInfoEventos";
+import LoadingSpinner from "../../Components/LoadingSpinner/LoadingSpinner";
 
 export const EventosScreen = () =>{
     const {setItemId, setScreen} = useContext(NavigationContext)
@@ -140,6 +141,13 @@ export const EventosScreen = () =>{
                 dataSource={eventos.data}
                 loading={loading}
             />
+            {
+                !loading ? (
+                ''
+                ) : (
+                <LoadingSpinner/>
+                )
+            }
         </>
     )
 }
