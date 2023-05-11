@@ -6,6 +6,7 @@ import { SAVE, FIND, process } from "../../Service/Api";
 import Swal from "sweetalert2";
 import ListaJugadores from '../ListaJugadores/ListaJugadores';
 import { useFetchData } from '../../Hooks/Fetch.hook';
+import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
 
 const oInitialState = {
   nombre: "",
@@ -50,6 +51,8 @@ const [mostrarTablaJugadoresVisitante, setMostrarTablaJugadoresVisitante] = useS
   const [limpiarJugadoresLocales, setLimpiarJugadoresLocales] = useState(false);
   const [limpiarJugadoresVisitantes, setLimpiarJugadoresVisitantes] = useState(false);
 
+  const [isLoading, setIsLoading] = useState(false);
+
   //UseEffect para el equipo local
   useEffect(() => {
     const fetchEquipoLocal = async () => {
@@ -77,7 +80,7 @@ const [mostrarTablaJugadoresVisitante, setMostrarTablaJugadoresVisitante] = useS
   //Función para enviar los datos del formulario correspondientes a la api.
   const handleSubmit = async(e) => {
     e.preventDefault();
-
+    setIsLoading(true);
     if(esMismoEquipo(equipoLocal, equipoVisitante)){
       // console.log(equipoLocal, equipoVisitante)
 
@@ -111,6 +114,7 @@ const [mostrarTablaJugadoresVisitante, setMostrarTablaJugadoresVisitante] = useS
         text: 'Los equipos deben de ser diferentes',
       })
     }
+    setIsLoading(false);
   };
 
   const esMismoEquipo = (equipoL, equipoV) => {
@@ -365,6 +369,15 @@ const [mostrarTablaJugadoresVisitante, setMostrarTablaJugadoresVisitante] = useS
           }
         </form>
       </section>
+      {
+          isLoading
+          ? 
+              <div style={{position: 'fixed', top: '0', left: '0', width: '100%', height: '100%', backgroundColor: 'rgba(0, 0, 0, .5)'}}>
+                  <LoadingSpinner/>
+              </div>
+          :
+              ''
+      }
     </>
   );
 };

@@ -7,6 +7,7 @@ import ListaJugadores from "../ListaJugadores/ListaJugadores";
 import Swal from 'sweetalert2';
 import { useFetchData } from '../../Hooks/Fetch.hook';
 import { process, SAVE } from '../../Service/Api';
+import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
 
 const oInitialState = {
     nombre: "",
@@ -25,10 +26,11 @@ const RegistrarEquipo = () => {
     const [listaJugadores, setListaJugadores] = useState([]);
     const [deportistas, loading] = useFetchData('deportistas', 'status=1');
     const [form, setForm] = useState(oInitialState);
+    const [isLoading, setIsLoading] = useState(false);
 
     const handleSubmit = async(e) => {
         e.preventDefault();
-
+        setIsLoading(true);
         const idJugadores = listaJugadores.map(jugador => jugador.id);
         console.log(idJugadores);
 
@@ -41,7 +43,7 @@ const RegistrarEquipo = () => {
                 Swal.fire({
                     icon: 'error',
                     title: 'Oops...',
-                    text: 'Algo salio mal, intenta mas tarde',
+                    text: `${e.response.data.message}`,
                 })
                 console.log(e);
             });
@@ -62,6 +64,7 @@ const RegistrarEquipo = () => {
                 confirmButtonText: 'Aceptar'
             })
         }
+        setIsLoading(false);
     }
 
     return(
@@ -167,6 +170,15 @@ const RegistrarEquipo = () => {
                 </div>
                 <ListaJugadores trigger={mostrarListaJugadoresEquipo} setTrigger={setMostrarListaJugadoresEquipo} jugadores={listaJugadores} setJugadores={setListaJugadores} deportistas={deportistas} mostrarListaCompleta={false}></ListaJugadores>
             </div>
+            {
+                isLoading
+                ? 
+                    <div style={{position: 'fixed', top: '0', left: '0', width: '100%', height: '100%', backgroundColor: 'rgba(0, 0, 0, .5)'}}>
+                        <LoadingSpinner/>
+                    </div>
+                :
+                    ''
+            }
         </>
     )
 }
