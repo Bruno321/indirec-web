@@ -16,17 +16,16 @@ export const DeportistasScreen = () => {
   const [buttonMoreInfo, setButtonMoreInfo] = useState(false);
   const [selected, setSelected] = useState();
   const [showQR, setShowQR] = useState(false);
-  
+
   const [deportista, setDeportista] = useState({});
 
   const [pagina, setPagina] = useState(0);
   const [deportistas, loading, change] = useFetchData("deportistas");
 
-
   useEffect(() => {
-    change('', pagina*10, 10);
+    change("", pagina * 10, 10);
   }, [pagina]);
-  
+
   const columns = [
     {
       title: "Expediente",
@@ -152,9 +151,7 @@ export const DeportistasScreen = () => {
   return (
     <>
       <h3>Deportistas</h3>
-      {
-        console.log(deportistas)
-      }
+      {console.log(deportistas)}
       <div className="prueba">
         <Table
           columns={columns}
@@ -169,10 +166,14 @@ export const DeportistasScreen = () => {
       </div>
       {!loading ? (
         <div className="container-pages">
-          <ButtonsPages numberPage={pagina} setPagina={setPagina} total={deportistas.total}/>
+          <ButtonsPages
+            numberPage={pagina}
+            setPagina={setPagina}
+            total={deportistas.total}
+          />
         </div>
       ) : (
-        <LoadingSpinner/>
+        <LoadingSpinner />
       )}
       {showQR ? (
         <ModalQR datos={deportista} setMostrarModalQr={setShowQR} />
