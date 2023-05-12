@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Table } from "../../Components/Table/Table";
 import { useFetchData } from "../../Hooks/Fetch.hook";
 import moment from "moment";
@@ -12,12 +12,18 @@ import { NavigationContext } from "../../Context/NavigationContext.js";
 
 // Estilos
 import "./index.css";
+import ButtonsPages from "../../Components/ButtonsPages/ButtonsPages";
 
 export const AsistenciasScreen = () => {
-  const [asistencias, loading] = useFetchData("asistencias");
+  const [asistencias, loading, change] = useFetchData("asistencias");
 
   const { setItemId, setScreen } = useContext(NavigationContext);
+  const [pagina, setPagina] = useState(0);
   // console.log(asistencias);
+
+  useEffect(() => {
+    change('', pagina*10, 10);
+  }, [pagina]);
 
   const columns = [
     {
@@ -76,7 +82,9 @@ export const AsistenciasScreen = () => {
       />
       {
         !loading ? (
-          ''
+          <div className="container-pages">
+            <ButtonsPages numberPage={pagina} setPagina={setPagina} total={asistencias.total}/>
+          </div>
         ) : (
           <LoadingSpinner/>
         )

@@ -3,7 +3,7 @@ import React from "react";
 import './ButtonsPages.css';
 import flecha from "../../Assets/icons/vector.png";
 
-const ButtonsPages = ({numberPage, setPagina}) => {
+const ButtonsPages = ({numberPage, setPagina, total}) => {
 
     const nextPage = () => {
         setPagina(numberPage + 1);
@@ -15,11 +15,11 @@ const ButtonsPages = ({numberPage, setPagina}) => {
 
     return(
         <div className="containerButtonsPages">
-            <div className={`buttonsPages ${numberPage <= 1 ? 'deshabilitarBtn' : ''}`} onClick={() => previousPage()}>
+            <div className={`buttonsPages ${numberPage <= 0 ? 'deshabilitarBtn' : ''}`} onClick={() => previousPage()}>
                 <img src={flecha}/>
             </div>
-            <span>Página {numberPage}</span>
-            <div className="buttonsPages rotation" onClick={() => nextPage()}>
+            <span>Página {numberPage + 1}</span>
+            <div className={`buttonsPages rotation ${(numberPage+1)*10 >= total ? 'deshabilitarBtn' : ''}`} onClick={() => nextPage()}>
                 <img src={flecha}/>
             </div>
         </div>

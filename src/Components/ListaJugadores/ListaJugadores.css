@@ -117,7 +117,7 @@
         .deshabilitarBtn{
             pointer-events: none;
             /* color: gray; */
-            filter: opacity(0.5) drop-shadow(0 0 0 grey); 
+            filter: opacity(0.2) drop-shadow(0 0 0 grey); 
         }
 
 .containerBtnListaJugadores{

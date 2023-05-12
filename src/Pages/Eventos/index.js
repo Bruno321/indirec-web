@@ -15,6 +15,8 @@ import { Table } from "../../Components/Table/Table";
 import { useFetchData } from "../../Hooks/Fetch.hook";
 import MoreInfoEventos from "../../Components/MoreInfoEventos/MoreInfoEventos";
 import LoadingSpinner from "../../Components/LoadingSpinner/LoadingSpinner";
+import ButtonsPages from "../../Components/ButtonsPages/ButtonsPages";
+import { useEffect } from "react";
 
 export const EventosScreen = () =>{
     const {setItemId, setScreen} = useContext(NavigationContext)
@@ -22,8 +24,13 @@ export const EventosScreen = () =>{
     const [buttonMoreInfo, setButtonMoreInfo] = useState(false);
     const [selected, setSelected] = useState();
 
+    const [pagina, setPagina] = useState(0);
     //State para los datos de Eventos
-    const [eventos, loading] = useFetchData('eventos');
+    const [eventos, loading, change] = useFetchData('eventos');
+
+    useEffect(() => {
+        change('', pagina*10, 10);
+      }, [pagina]);
 
     const columns =[
         {
@@ -143,7 +150,9 @@ export const EventosScreen = () =>{
             />
             {
                 !loading ? (
-                ''
+                    <div className="container-pages">
+                        <ButtonsPages numberPage={pagina} setPagina={setPagina} total={eventos.total}/>
+                    </div>
                 ) : (
                 <LoadingSpinner/>
                 )

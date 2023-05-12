@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Table } from "../../Components/Table/Table";
 import { useFetchData } from "../../Hooks/Fetch.hook";
 import iconDelete from "../../Assets/icons/delete.png";
@@ -19,10 +19,14 @@ export const DeportistasScreen = () => {
   
   const [deportista, setDeportista] = useState({});
 
-  const [pagina, setPagina] = useState(1);
-  const [deportistas, loading, onChangeParams, update] = useFetchData("deportistas", '', pagina, 10);
-  debugger;
+  const [pagina, setPagina] = useState(0);
+  const [deportistas, loading, change] = useFetchData("deportistas");
 
+
+  useEffect(() => {
+    change('', pagina*10, 10);
+  }, [pagina]);
+  
   const columns = [
     {
       title: "Expediente",
@@ -148,6 +152,9 @@ export const DeportistasScreen = () => {
   return (
     <>
       <h3>Deportistas</h3>
+      {
+        console.log(deportistas)
+      }
       <div className="prueba">
         <Table
           columns={columns}
@@ -162,7 +169,7 @@ export const DeportistasScreen = () => {
       </div>
       {!loading ? (
         <div className="container-pages">
-          <ButtonsPages numberPage={pagina} setPagina={setPagina} />
+          <ButtonsPages numberPage={pagina} setPagina={setPagina} total={deportistas.total}/>
         </div>
       ) : (
         <LoadingSpinner/>

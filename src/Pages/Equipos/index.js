@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { Table } from '../../Components/Table/Table';
 import { useFetchData } from '../../Hooks/Fetch.hook';
 import iconDelete from "../../Assets/icons/delete.png";
@@ -8,13 +8,20 @@ import Swal from 'sweetalert2/dist/sweetalert2.js';
 import { NavigationContext } from '../../Context/NavigationContext';
 import { URL, process, SAVE } from '../../Service/Api';
 import LoadingSpinner from '../../Components/LoadingSpinner/LoadingSpinner';
+import ButtonsPages from '../../Components/ButtonsPages/ButtonsPages';
 // Modal
 
 export const EquiposScreen = () => {
-  const [equipos, loading, updater] = useFetchData('equipos');
+  const [equipos, loading, change] = useFetchData('equipos');
   const [visible, setVisible] = useState(false);
   const [equipo, setEquipo] = useState();
-  const {setItemId,setScreen} = useContext(NavigationContext)
+  const {setItemId,setScreen} = useContext(NavigationContext);
+  const [pagina, setPagina] = useState(0);
+
+  useEffect (() => {
+    change('', pagina*10, 10);
+  }, [pagina]);
+
   const columns = [
     {
       title: 'Nombre',
@@ -151,7 +158,9 @@ export const EquiposScreen = () => {
         loading={loading}/>
       {
         !loading ? (
-          ''
+          <div className="container-pages">
+            <ButtonsPages numberPage={pagina} setPagina={setPagina} total={equipos.total}/>
+          </div>
         ) : (
           <LoadingSpinner/>
         )
