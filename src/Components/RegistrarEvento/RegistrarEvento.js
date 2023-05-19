@@ -1,7 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import "./RegistrarEvento.css";
-import axios from "axios";
 import { SAVE, FIND, process } from "../../Service/Api";
 import Swal from "sweetalert2";
 import ListaJugadores from '../ListaJugadores/ListaJugadores';
@@ -16,28 +15,23 @@ const oInitialState = {
   equipo_local_id: "",
   directorTecnicoLocal : "",
   categoria: "",
-  // puntosLocal : "",
   canchaJugada: "",
   equipoVisitante: "",
   directorTecnicoVisitante: "",
-  // puntosVisitante : "",
   jornada: "",
-  // incidentes : "",
 };
 
 export const RegistrarEvento = () => {
   const [equipos] = useFetchData("equipos");
   const [form,setForm] = useState(oInitialState);
 
-  // Para el Select Option
-  const [selectedOption, setSelectedOption] = useState("");
   //Se guarda en un estado el arreglo de los jugadores que corresponden a cada uno de los dos equipos.
   const [jugadoresLocales, setJugadoresLocales] = useState();
   const [jugadoresVisitantes, setJugadoresVisitantes] = useState();
 
-//Estado para hacer visible la tabla para añadir jugadores del equipo correspondiente. 
-const [mostrarTablaJugadoresLocal, setMostrarTablaJugadoresLocal] = useState(false);
-const [mostrarTablaJugadoresVisitante, setMostrarTablaJugadoresVisitante] = useState(false);
+  //Estado para hacer visible la tabla para añadir jugadores del equipo correspondiente. 
+  const [mostrarTablaJugadoresLocal, setMostrarTablaJugadoresLocal] = useState(false);
+  const [mostrarTablaJugadoresVisitante, setMostrarTablaJugadoresVisitante] = useState(false);
 
   //Se guarda en un estado el id del equipo que será tanto local como visitante para posteriormente hacer la llamada de lo jugadores que corresponden a cada equipo seleccionado.
   const [equipoLocal, setEquipoLocal] = useState();
@@ -82,14 +76,11 @@ const [mostrarTablaJugadoresVisitante, setMostrarTablaJugadoresVisitante] = useS
     e.preventDefault();
     setIsLoading(true);
     if(esMismoEquipo(equipoLocal, equipoVisitante)){
-      // console.log(equipoLocal, equipoVisitante)
 
       const idJugadoresLocales = listaJugadoresLocales.map(jugador => jugador.id);
       const idJugadoresVisitantes = listaJugadoresVisitantes.map(jugador => jugador.id);
       const concatJugadores = idJugadoresLocales.concat(idJugadoresVisitantes);
       setForm(form.jugadores = concatJugadores)
-
-      // console.log(form)
 
       const response = await process(SAVE, 'eventos', form).catch(e => {
         Swal.fire({

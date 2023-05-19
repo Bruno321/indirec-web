@@ -4,13 +4,11 @@ import {NavigationContext} from '../../Context/NavigationContext'
 import { SAVE, process } from '../../Service/Api';
 import Swal from 'sweetalert2';
 import './QRScanner.css'
-import axios from 'axios';
 
 const QRScanner = () => {
   const [allowRecord, setAllowRecord] = useState(true);
   const {setScreen} = useContext(NavigationContext);
 
-  const token = localStorage.getItem('token')
   const failedQRScan = () => {
     Swal.fire({
       title: '<h1 class="modal-status-fail">Escaneo fallido, algo ha ocurrido</h1>',
@@ -22,8 +20,8 @@ const QRScanner = () => {
       confirmButtonText:
         '<i class="fa fa-thumbs-up"></i> Aceptar!',
       
-    }).then((result)=>{
-      setAllowRecord(true)
+    }).then(result => {
+      setAllowRecord(true);
     })
   }
 

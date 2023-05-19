@@ -6,7 +6,6 @@ import { SAVE_WITH_FILE, process } from '../../Service/Api';
 //Cargamos los estilos
 import "./RegistrarDeportista.css";
 // Se implmentan imagenes
-import ImgDocumentFiles from '../../Assets/icons/document-file.png';
 import ImgDocumentDeactivate from '../../Assets/icons/document-files-gray.png';
 import ImgDocumentActive from '../../Assets/icons/document-files-white.png';
 import ModalQR from '../Modals/ModalQR/ModalQR';

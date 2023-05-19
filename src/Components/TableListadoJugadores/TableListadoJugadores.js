@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from "react";
-import { useFetchData } from "../../Hooks/Fetch.hook";
 import circleAdd from "../../Assets/icons/circleAdd.png";
 import trash from "../../Assets/icons/trash.png";
 

@@ -2,7 +2,6 @@ import React, { useState, useContext } from "react";
 import { LoginContext } from "../../Context/LoginContext";
 import { login } from '../../Service/Api';
 import Swal from "sweetalert2";
-import logoIndereq from "../../Assets/icons/logo-Indereq.svg";
 import imageMain from "../../Assets/img/image-main.png";
 import eyeOff from "../../Assets/icons/eye-off.svg";
 import eye from "../../Assets/icons/eye.svg";

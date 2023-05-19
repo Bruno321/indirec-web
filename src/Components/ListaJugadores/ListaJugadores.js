@@ -1,7 +1,6 @@
 import React from "react";
 import "./ListaJugadores.css";
 import { useState, useEffect } from "react";
-import {useFetchData} from '../../Hooks/Fetch.hook';
 import TableListadoJugadores from "../TableListadoJugadores/TableListadoJugadores";
 
 /**
