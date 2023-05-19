@@ -4,7 +4,7 @@ import { useFetchData } from "../../Hooks/Fetch.hook";
 import moment from "moment";
 import LoadingSpinner from "../../Components/LoadingSpinner/LoadingSpinner";
 
-// iconos
+// Icons
 import iconInfo from "../../Assets/icons/more-info.png";
 
 // Contexto
@@ -19,10 +19,9 @@ export const AsistenciasScreen = () => {
 
   const { setItemId, setScreen } = useContext(NavigationContext);
   const [pagina, setPagina] = useState(0);
-  // console.log(asistencias);
 
   useEffect(() => {
-    change('', pagina*10, 10);
+    change('', pagina *10, 10);
   }, [pagina]);
 
   const columns = [
@@ -39,22 +38,22 @@ export const AsistenciasScreen = () => {
     {
       title: "Fecha",
       dataIndex: "fecha",
-      render: (fE) => (fE ? moment(fE).format("DD/MM/YYYY") : "Sin registrar"),
+      render: date => date ? moment(date).format("DD/MM/YYYY") : "Sin registrar",
     },
     {
       title: "Hora de Entrada",
       dataIndex: "horaEntrada",
-      render: (hE) => (hE ? moment(hE).format("HH:mm") : "Sin registrar"),
+      render: hE => hE ? moment(hE).format("HH:mm") : "Sin registrar",
     },
     {
       title: "Hora de Salida",
       dataIndex: "horaSalida",
-      render: (hS) => (hS ? moment(hS).format("HH:mm") : "Sin registrar"),
+      render: hS => hS ? moment(hS).format("HH:mm") : "Sin registrar",
     },
     {
       title: "Acciones",
       dataIndex: "id",
-      render: (sId, row, index) => {
+      render: (_, row) => {
         return (
           <>
             <img
@@ -62,7 +61,7 @@ export const AsistenciasScreen = () => {
               src={iconInfo}
               className="icons moreinfo"
               onClick={() => {
-                setItemId(row.id);
+                setItemId(row);
                 setScreen(11);
               }}
             />

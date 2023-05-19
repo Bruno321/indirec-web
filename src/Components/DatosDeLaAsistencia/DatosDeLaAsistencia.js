@@ -1,144 +1,97 @@
-import React, { useState, useContext, useEffect } from "react";
-import Swal from "sweetalert2/dist/sweetalert2.js";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import { useFetchData } from "../../Hooks/Fetch.hook";
 import { NavigationContext } from "../../Context/NavigationContext";
-import { process, FIND } from "../../Service/Api";
+import { process, SAVE } from "../../Service/Api";
 import { Table } from "../Table/Table";
+import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
 import moment from "moment";
 
 import "./DatosDeLaAsistencia.css";
 
 export const DatosDeLaAsistencia = () => {
   const { itemId, setScreen } = useContext(NavigationContext);
-  const [asistencias, loading] = useFetchData(`asistencias/${itemId}`);
+  const [asistencia, loading] = useFetchData(`asistencias/${itemId.id}`);
+  const [asistencias] = useFetchData('asistencias', `deportista_id=${itemId.deportista_id}`);
+  // ? UseState para el rango de fechas
+  // ? El rango de fechas es null por defecto (el endpoint devuelve el total de tiempo entrenado de forma semanal si no se le pasa un rango de fechas inicialmente)
+  const [dateParams, setDateParams] = useState({
+    fechaInicio: null,
+    fechaFin: null,
+  });
 
-  // Información de las asistencias / deportistas
-  const [deportista, setDeportista] = useState({});
-  const [asistenciaData, setAsistenciaData] = useState([]);
+  const [tiempoEntrenado, setTiempoEntrenado] = useState(null);
 
-  // useState para sacar las rolas totales
-  const [horasTotales, setHorasTotales] = useState({});
+  const getTiempoEntrenado = useCallback(async () => {
+    let oSend = { deportistaId: itemId.deportista_id };
 
-  //UseState para el rango de fechas
-  // Hacer que los inputs tengan por defecto la fecha de hoy
-  const [fechaInicio, setFechaInicio] = useState();
-  const [fechaTermino, setFechaTermino] = useState();
-
-  let deportistaId = asistencias.deportista_id;
-
-  // Sacar los datos de la tabla de Deportista
-  useEffect(() => {
-    if (deportistaId) {
-      process(
-        FIND,
-        "deportistas",
-        {},
-        { queries: `id=${deportistaId}`, skip: 0 }
-      )
-        .then((response) => {
-          const deportistaData = response.data.data[0];
-          setDeportista(deportistaData);
-        })
-        .catch((e) => {
-          console.log(e);
-        });
-      // ASISTENCIAS POR RANGO
-      //Agregar && fecha Fin ------------------------------------------
-      if(fechaInicio){
-        process(
-          FIND,
-          "asistencias",
-          {},
-          { queries: `deportista_id=${deportistaId}&fecha=${fechaInicio}`, skip: 0 }
-          // { queries: `deportista_id=${deportistaId}&fechaInicio=${fechaInicio}&fechaFin=${fechaTermino}`, skip: 0 }
-        )
-          .then((response) => {
-            const asistenciaDataDelDeportista = response.data.data;
-            setAsistenciaData(asistenciaDataDelDeportista);
-          })
-          .catch((e) => {
-            console.warn(e);
-          });
-      }else{
-        // TODAS LAS ASISTENCIAS
-        process(
-          FIND,
-          "asistencias",
-          {},
-          { queries: `deportista_id=${deportistaId}`, skip: 0 }
-        )
-          .then((response) => {
-            const asistenciaDataDelDeportista = response.data.data;
-            setAsistenciaData(asistenciaDataDelDeportista);
-          })
-          .catch((e) => {
-            console.warn(e);
-          });
-      }
+    if (dateParams.fechaInicio && dateParams.fechaFin) {
+      oSend.fechaInicio = dateParams.fechaInicio;
+      oSend.fechaFin = dateParams.fechaFin;
     }
-  }, [deportistaId, fechaInicio]);
 
-  // Obetemos las diferencias con moment
+    const response = await process(SAVE, 'tiempo-entrenamiento', oSend);
+    if (response?.status === 201) {
+      setTiempoEntrenado(response.data.total_trained);
+    }
+  }, [itemId, dateParams]);
+  
   useEffect(() => {
-    const horasTotalesTrabajadas = asistenciaData.reduce((total, record) => {
-      const duracion = moment.duration(
-        moment(record.horaSalida, "HH:mm").diff(moment(record.horaEntrada, "HH:mm"))
-      );
-      total.add(duracion);
-      return total;
-    }, moment.duration(0));
-    
-    const horasTotales = `${horasTotalesTrabajadas.hours()} horas, ${horasTotalesTrabajadas.minutes()} minutos`;
-
-    setHorasTotales(horasTotales);
-  }, [asistenciaData]);
+    getTiempoEntrenado();
+  }, [getTiempoEntrenado]);
 
   const columns = [
     {
       title: "Fecha",
       dataIndex: "fecha",
-      render: (fE) => (fE ? moment(fE).format("DD/MM/YYYY") : "Sin registrar"),
+      render: date => date ? moment(date).format("DD/MM/YYYY") : "Sin registrar",
     },
     {
       title: "Hora de Entrada",
       dataIndex: "horaEntrada",
-      render: (hE) => (hE ? moment(hE).format("HH:mm") : "Sin registrar"),
+      render: hE => hE ? moment(hE).format("HH:mm") : "Sin registrar",
     },
     {
       title: "Hora de Salida",
       dataIndex: "horaSalida",
-      render: (hS) => (hS ? moment(hS).format("HH:mm") : "Sin registrar"),
+      render: hS => hS ? moment(hS).format("HH:mm") : "Sin registrar",
     },
     {
       title: "Tiempo total",
-      dataIndex: "horasTotales",
-      render: (text, record) => {
-        const duracion = moment.duration(
-          moment(record.horaSalida, "HH:mm").diff(
-            moment(record.horaEntrada, "HH:mm")
-          )
-        );
-        return (
-          duracion.hours() + " hora(s) ," + duracion.minutes() + " minuto(s)"
-        );
+      dataIndex: "id",
+      render: (_, record) => {
+        if (!!(record.horaEntrada) && !!(record.horaSalida)) {
+          const duracion = moment.duration(
+            moment(record.horaSalida, "HH:mm").diff(
+              moment(record.horaEntrada, "HH:mm")
+            )
+          );
+          return (
+            duracion.hours() + " hora(s) ," + duracion.minutes() + " minuto(s)"
+          );
+        }
+
+        return "Asistencia incompleta";
+
       },
     },
   ];
   
-  return (
+  return loading ? (
+    <LoadingSpinner/>
+  ) : (
     <>
       <h3 className="margin-between-paragraphs titleDatosAsitencias">
         Datos de la Asistencia
       </h3>
       <section className="infoAsistencia">
         <h2 className="margin-between-paragraphs nombreDeportista">
-          {`${deportista.nombres} ` + `${deportista.apellidos}`}
+          {`${asistencia.deportista?.nombres} ` + `${asistencia.deportista?.apellidos}`}
         </h2>
         <p className="margin-between-paragraphs txtInfo txtDiasEntenados">
-          Sesiones de entrenamiento totales: {asistenciaData.length}
+          Sesiones de entrenamiento totales: {asistencias.total}
         </p>
         <p className="margin-between-paragraphs txtInfo txtHorasEntenadas">
-          Tiempo total de entrenamiento: {`${horasTotales}`}
+          Tiempo total de entrenamiento: {`${tiempoEntrenado || `No hay entrenamientos registrados para ${dateParams.fechaInicio && dateParams.fechaFin ? `el rango de fechas seleccionado` : "esta semana"}`}`}
         </p>
       </section>
       <section className="inputsFechasAsistencias">
@@ -150,21 +103,27 @@ export const DatosDeLaAsistencia = () => {
           <input
             type="date"
             className="input-range-date input-inicio"
-            onChange={(e) => {setFechaInicio(e.target.value)}}
+            onChange={e => setDateParams({
+              ...dateParams,
+              fechaInicio: e.target.value,
+            })}
             required
           />
           <label>Fin:</label>
           <input
             type="date"
             className="input-range-date input-final"
-            onChange={(e) => {setFechaTermino(e.target.value)}}
+            onChange={e => setDateParams({
+              ...dateParams,
+              fechaFin: e.target.value,
+            })}
             required
           />
         </section> 
       </section>
       <Table
         columns={columns}
-        dataSource={asistenciaData}
+        dataSource={asistencias.data}
       />
       <br/><button className="button-aceptar" onClick={() => setScreen(1)}>
         Aceptar
