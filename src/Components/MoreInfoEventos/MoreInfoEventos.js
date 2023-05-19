@@ -1,14 +1,14 @@
 import React, { useState, useContext } from "react";
 import { NavigationContext } from "../../Context/NavigationContext.js";
-import './MoreInfoEventos.css';
 import { useFetchData } from "../../Hooks/Fetch.hook";
 import VerJugadoresEvento from "../VerJugadoresEvento/VerJugadoresEvento.js";
+import LoadingSpinner from '../LoadingSpinner/LoadingSpinner.js';
 import moment from "moment";
-
+import './MoreInfoEventos.css';
 
 function MoreInfoEventos(){
     const {itemId, setScreen} = useContext(NavigationContext)
-    const [evento] = useFetchData(`eventos/${itemId}`);
+    const [evento, loading] = useFetchData(`eventos/${itemId}`);
 
     const [equipoIdTable, setEquipoIdTable] = useState();
     const [nombreEquipo, setNombreEquipo]=useState();
@@ -17,7 +17,9 @@ function MoreInfoEventos(){
 
     const [trigger, setTrigger] = useState(false);
 
-    return (
+    return loading ? (
+        <LoadingSpinner />
+    ) : (
         <>
             <h3>Evento: {evento?.nombre}</h3>
                 <div className="up">

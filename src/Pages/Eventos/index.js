@@ -1,36 +1,27 @@
-import React, { useState, useContext } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 import moment from "moment";
-
 
 import iconInfo from "../../Assets/icons/more-info.png";
 import iconDelete from "../../Assets/icons/delete.png";
 import iconEdit from "../../Assets/icons/edit.png";
-
+import "./index.css"
 
 import { NavigationContext } from "../../Context/NavigationContext.js";
 
-import "./index.css"
 import { Table } from "../../Components/Table/Table";
 import { useFetchData } from "../../Hooks/Fetch.hook";
-import MoreInfoEventos from "../../Components/MoreInfoEventos/MoreInfoEventos";
 import LoadingSpinner from "../../Components/LoadingSpinner/LoadingSpinner";
 import ButtonsPages from "../../Components/ButtonsPages/ButtonsPages";
-import { useEffect } from "react";
 
 export const EventosScreen = () =>{
     const {setItemId, setScreen} = useContext(NavigationContext)
-    //State para boton mas informacion
-    const [buttonMoreInfo, setButtonMoreInfo] = useState(false);
-    const [selected, setSelected] = useState();
-
-    const [pagina, setPagina] = useState(0);
-    //State para los datos de Eventos
     const [eventos, loading, change] = useFetchData('eventos');
+    const [pagina, setPagina] = useState(0);
 
     useEffect(() => {
-        change('', pagina*10, 10);
-      }, [pagina]);
+        change('', pagina * 10, 10);
+    }, [pagina]);
 
     const columns =[
         {
@@ -65,22 +56,24 @@ export const EventosScreen = () =>{
         {
             title: 'Puntaje local',
             dataIndex:'puntosLocal',
+            render: points => points || "Sin Registrar Resultados"
         },
         {
             title: 'Puntaje visitante',
             dataIndex:'puntosVisitante',
+            render: points => points || "Sin Registrar Resultados"
         },
         {
             title: 'Acciones',
-            dataIndex:'eventoId',
-            render: (sId, row, index) => (
+            dataIndex:'id',
+            render: (sId) => (
                 <>
                     <img 
                         title="Ver más..."
                         src={iconInfo}
                         className="icons moreinfo"
                         onClick={()=>{
-                            setItemId(row.id);
+                            setItemId(sId);
                             setScreen(10);
                         }}
                     />
@@ -89,7 +82,7 @@ export const EventosScreen = () =>{
                         src={iconEdit}
                         className="icons edit"
                         onClick={()=>{
-                            setItemId(row.id);
+                            setItemId(sId);
                             setScreen(9);
                         }}
                     />
@@ -140,9 +133,6 @@ export const EventosScreen = () =>{
     return(
         <>
             <h3>Eventos</h3>
-            {/* <p>Buscar por nombre de evento</p>
-            <input type="text" className="inputEventos"></input>
-            <div className="SearchImg"></div> */}
             <Table
                 columns={columns}
                 dataSource={eventos.data}

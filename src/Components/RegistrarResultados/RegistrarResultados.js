@@ -1,8 +1,9 @@
 import React, {useState, useContext, useEffect} from "react";
 import { NavigationContext } from "../../Context/NavigationContext";
 import { useFetchData } from "../../Hooks/Fetch.hook";
-import Swal from 'sweetalert2/dist/sweetalert2.js';
 import { UPDATE, process } from "../../Service/Api";
+import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
+import Swal from 'sweetalert2/dist/sweetalert2.js';
 
 import './RegistrarResultados.css';
 
@@ -25,7 +26,7 @@ function RegistrarResultados(){
     //Context de navigation
     const {itemId, setScreen} = useContext(NavigationContext)
     //fetches
-    const [evento] = useFetchData(`eventos/${itemId}`);
+    const [evento, loading] = useFetchData(`eventos/${itemId}`);
     //state para el update
     const [form, setForm] = useState(oInitialState);
 
@@ -63,7 +64,9 @@ function RegistrarResultados(){
         }
     }
     
-    return(
+    return loading ? (
+        <LoadingSpinner />
+    ) : (
         <>
         <div className="registrar-resultados-container">
             <h3>Registrar resultados</h3>
