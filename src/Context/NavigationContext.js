@@ -7,7 +7,7 @@ const initialScreen = 3;
 
 const Provider = ({children})=>{
     const [screen, setScreen] = useState(initialScreen);
-    const [itemId,setItemId] = useState()
+    const [itemId,setItemId] = useState();
     return(
       <NavigationContext.Provider value ={{
         screen,

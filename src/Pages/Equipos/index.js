@@ -9,17 +9,14 @@ import { NavigationContext } from '../../Context/NavigationContext';
 import { URL, process, SAVE } from '../../Service/Api';
 import LoadingSpinner from '../../Components/LoadingSpinner/LoadingSpinner';
 import ButtonsPages from '../../Components/ButtonsPages/ButtonsPages';
-// Modal
 
 export const EquiposScreen = () => {
   const [equipos, loading, change] = useFetchData('equipos');
-  const [visible, setVisible] = useState(false);
-  const [equipo, setEquipo] = useState();
-  const {setItemId,setScreen} = useContext(NavigationContext);
+  const { setItemId, setScreen } = useContext(NavigationContext);
   const [pagina, setPagina] = useState(0);
 
   useEffect (() => {
-    change('', pagina*10, 10);
+    change('', pagina * 10, 10);
   }, [pagina]);
 
   const columns = [
@@ -57,7 +54,7 @@ export const EquiposScreen = () => {
     {
       title: 'Acciones',
       dataIndex: 'id',
-      render: (sId, row, index) => (
+      render: (sId, row) => (
         <div
         style={{
           display: "flex",
@@ -98,8 +95,6 @@ export const EquiposScreen = () => {
             src={iconEdit}
             className='icons edit'
             onClick={() => {
-              // setVisible(!visible);
-              // setEquipo(row);
               setItemId(row.id);
               setScreen(6);
             }}
@@ -109,11 +104,9 @@ export const EquiposScreen = () => {
             src={iconDelete}
             className='icons delete'
             onClick={() => {
-              setEquipo(row);
               Swal.fire({
                 title: 'ELIMINAR',
                 text: "¿Eliminar al equipo " + row.nombre + "?",
-                // text: JSON.stringify(row),
                 icon: 'question',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',

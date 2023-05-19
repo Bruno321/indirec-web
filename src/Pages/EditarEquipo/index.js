@@ -9,7 +9,6 @@ import { aFacultities, aCampus } from "../../Utils/constants";
 import { useEffect } from "react";
 import { UPDATE, process } from "../../Service/Api";
 import Swal from "sweetalert2";
-import leftArrow from "../../Assets/icons/left-arrow.png";
 import "../../Components/Modals/EditarEquipoModal/EditarEquipoModal.css";
 
 const oInitialState = {
@@ -33,32 +32,7 @@ export const EditarEquipo = () => {
   const [listaJugadores, setListaJugadores] = useState([]); //Arreglo que guarda los jugadores que se estan agregando mediante la tabla.
   const [form, setForm] = useState(oInitialState);
 
-  const campus = [
-    "Centro Universitario",
-    "Juriquilla",
-    "Aeropuerto",
-    "Ex-prepa Centro",
-    "Prepa Norte",
-    "Prepa Sur",
-    "Centro Historico",
-  ];
   const categoria = [0, 1];
-  const facultades = [
-    "Facultad de Bellas Artes",
-    "Facultad de Ciencias Naturales",
-    "Facultad de Ciencias Políticas y Sociales",
-    "Facultad de Derecho",
-    "Facultad de Filosofía",
-    "Facultad de Informática",
-    "Facultad de Ingeniería",
-    "Facultad de Lenguas y Letras",
-    "Facultad de Medicina",
-    "Facultad de Psicología",
-    "Facultad de Contaduría",
-    "Facultad de Química",
-    "Facultad de Enfermería",
-    "Escuela de Bachilleres",
-  ];
 
   const columns = [
     {
@@ -105,7 +79,6 @@ export const EditarEquipo = () => {
             onClick={() => {
               setButtonMoreInfo(true);
               setSelected(row);
-              console.log(row);
             }}
           />
           <img
@@ -168,7 +141,6 @@ export const EditarEquipo = () => {
   const handleSubmit = async () => {
     let oSend = {
       ...form,
-      // jugadores: jugadoresToRender.map(j => j.deportistaId),
     };
     const response = await process(UPDATE, "equipos", oSend, {
       id: oSend.id,
@@ -178,7 +150,6 @@ export const EditarEquipo = () => {
         title: "Oops...",
         text: "Algo salio mal, intenta mas tarde",
       });
-      // console.log(e);
     });
 
     if (response.status === 200) {
@@ -187,7 +158,6 @@ export const EditarEquipo = () => {
         title: "Se actualizó el equipo correctamente",
         confirmButtonText: "Aceptar",
       }).then(() => {
-        // updater();
         setScreen(5);
       });
     }
@@ -207,6 +177,7 @@ export const EditarEquipo = () => {
         <div className="formEditInformationTeam">
           <div className="formContainer">
             <div className="formContainerLeft">
+
               <label  htmlFor="nombre">
                 Nombre del equipo:
               </label><br/>
@@ -221,6 +192,7 @@ export const EditarEquipo = () => {
                 required
               />
               <br />
+
               <label  htmlFor="facultad">
                 Facultad:
               </label><br/>
@@ -235,6 +207,7 @@ export const EditarEquipo = () => {
                 ))}
               </select>
               <br />
+
               <label  htmlFor="nombreEntrenador">
                 Nombre del entrenador:
               </label><br/>
@@ -251,6 +224,7 @@ export const EditarEquipo = () => {
                 required
               />
               <br />
+
               <label htmlFor="nombreAsistente" >
                 Nombre del asistente:
               </label><br/>
@@ -267,9 +241,11 @@ export const EditarEquipo = () => {
                 required
               />
               <br />
+
             </div>
 
             <div className="formContainerRight">
+
               <label htmlFor="campus" >
                 Campus:
               </label><br/>
@@ -284,6 +260,7 @@ export const EditarEquipo = () => {
                 ))}
               </select>
               <br />
+
               <label htmlFor="categoria" >
                 Categoría:
               </label><br/>
@@ -297,11 +274,12 @@ export const EditarEquipo = () => {
               >
                 {categoria.map((c) => (
                   <option value={c}>
-                    {equipo.categoria == c ? "Varonil" : "Femenil"}
+                    {equipo.categoria === c ? "Varonil" : "Femenil"}
                   </option>
                 ))}
               </select>
               <br />
+
               <label htmlFor="apellidoEntrenador" >
                 Apellido del entrenador:
               </label><br/>
@@ -318,6 +296,7 @@ export const EditarEquipo = () => {
                 required
               />
               <br />
+
               <label htmlFor="apellidoAsistente" >
                 Apellido del asistente:
               </label><br/>
@@ -334,10 +313,12 @@ export const EditarEquipo = () => {
                 required
               />
               <br />
+
             </div>
           </div>
         </div>
       </div>
+
       <div>
         <h3>Deportistas</h3>
       </div>
@@ -346,23 +327,25 @@ export const EditarEquipo = () => {
         setTrigger={setMostrarListaJugadoresEquipo}
         jugadores={listaJugadores}
         setJugadores={setListaJugadores}
-      ></ListaJugadores>
+      />
       <Table
         columns={columns}
         dataSource={equipo?.deportistas}
         loading={loading}
       />
       <div className="buttons-registrar-resultados">
-        <button className="cancelar" onClick={()=>{setScreen(5)}}>Cancelar</button>
+        <button className="cancelar" onClick={() => setScreen(5)}>Cancelar</button>
         <button
           type="submit"
           form="registrarEquipoForm"
           className="guardar"
           onClick={handleSubmit}
-        >Guardar cambios</button>
+        >
+          Guardar cambios
+        </button>
 
       </div>
-      
+
     </div>
   );
 };
