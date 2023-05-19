@@ -12,11 +12,8 @@ import close from "../../../Assets/icons/close.png";
  *  
 */
 
-const ModalQR = (props) => {
+const ModalQR = ({ datos, setMostrarModalQr, setSelected }) => {
 
-    const {setMostrarModalQr} = props;
-
-    console.log(props.datos)
     return (
         <div className="containerPrincipal-modal">
             <div className="container-modal">
@@ -26,7 +23,7 @@ const ModalQR = (props) => {
                 </div>
                 <div className="container-info">
                     <div className="container-img-qr">
-                        <QRCode value={`${JSON.stringify(props.datos)}`} level='H' className="qr"/>
+                        <QRCode value={`${JSON.stringify(datos)}`} level='H' className="qr"/>
                         <div className="container-indereq-icon">
                             <img src={indereqIcon} className="indereq-icon"/>
                         </div>
@@ -35,7 +32,10 @@ const ModalQR = (props) => {
                     <p className="info">No olvides escanearlo en tu celular.</p>
                 </div>
                 <div className="container-button">
-                    <button id="button-salir" onClick={() => setMostrarModalQr(false)}>Salir</button>
+                    <button id="button-salir" onClick={() => {
+                        setMostrarModalQr(false);
+                        setSelected({});
+                    }}>Salir</button>
                 </div>
             </div>
         </div>

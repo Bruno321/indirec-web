@@ -3,7 +3,6 @@ import { Table } from "../../Components/Table/Table";
 import { useFetchData } from "../../Hooks/Fetch.hook";
 import iconDelete from "../../Assets/icons/delete.png";
 import Swal from "sweetalert2/dist/sweetalert2.js";
-import "./Deportistas.css";
 import qr from "../../Assets/icons/qr.png";
 import iconInfo from "../../Assets/icons/more-info.png";
 import ButtonsPages from "../../Components/ButtonsPages/ButtonsPages";
@@ -14,13 +13,11 @@ import LoadingSpinner from "../../Components/LoadingSpinner/LoadingSpinner";
 export const DeportistasScreen = () => {
   //State para mostrar MAS INFORMACION de un deportista
   const [buttonMoreInfo, setButtonMoreInfo] = useState(false);
-  const [selected, setSelected] = useState();
+  const [selected, setSelected] = useState(null);
   const [showQR, setShowQR] = useState(false);
 
-  const [deportista, setDeportista] = useState({});
-
-  const [pagina, setPagina] = useState(0);
   const [deportistas, loading, change] = useFetchData("deportistas");
+  const [pagina, setPagina] = useState(0);
 
   useEffect(() => {
     change("", pagina * 10, 10);
@@ -62,7 +59,7 @@ export const DeportistasScreen = () => {
     {
       title: "Acciones",
       dataIndex: "id",
-      render: (sId, row, index) => (
+      render: (sId, row) => (
         <div
           style={{
             display: "flex",
@@ -75,9 +72,8 @@ export const DeportistasScreen = () => {
             src={qr}
             className="icons moreinfo"
             onClick={() => {
-              setSelected(row);
               const [apellidoP, apellidoM] = row.apellidos.split(" ");
-              setDeportista({
+              setSelected({
                 nombre: row.nombres,
                 apellidoP,
                 apellidoM,
@@ -152,7 +148,7 @@ export const DeportistasScreen = () => {
     <>
       <h3>Deportistas</h3>
       {console.log(deportistas)}
-      <div className="prueba">
+      <>
         <Table
           columns={columns}
           dataSource={deportistas.data}
@@ -163,7 +159,7 @@ export const DeportistasScreen = () => {
           setTrigger={setButtonMoreInfo}
           datos={selected}
         />
-      </div>
+      </>
       {!loading ? (
         <div className="container-pages">
           <ButtonsPages
@@ -176,10 +172,8 @@ export const DeportistasScreen = () => {
         <LoadingSpinner />
       )}
       {showQR ? (
-        <ModalQR datos={deportista} setMostrarModalQr={setShowQR} />
-      ) : (
-        ""
-      )}
+        <ModalQR datos={selected} setMostrarModalQr={setShowQR} setSelected={setSelected}/>
+      ) : null}
     </>
   );
 };
