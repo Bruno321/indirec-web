@@ -3,7 +3,7 @@ import { useFetchData } from "../../Hooks/Fetch.hook";
 import { NavigationContext } from "../../Context/NavigationContext";
 import { process, SAVE } from "../../Service/Api";
 import { Table } from "../Table/Table";
-import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
+import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
 import moment from "moment";
 
 import "./DatosDeLaAsistencia.css";
@@ -11,7 +11,10 @@ import "./DatosDeLaAsistencia.css";
 export const DatosDeLaAsistencia = () => {
   const { itemId, setScreen } = useContext(NavigationContext);
   const [asistencia, loading] = useFetchData(`asistencias/${itemId.id}`);
-  const [asistencias] = useFetchData('asistencias', `deportista_id=${itemId.deportista_id}`);
+  const [asistencias] = useFetchData(
+    "asistencias",
+    `deportista_id=${itemId.deportista_id}`
+  );
   // ? UseState para el rango de fechas
   // ? El rango de fechas es null por defecto (el endpoint devuelve el total de tiempo entrenado de forma semanal si no se le pasa un rango de fechas inicialmente)
   const [dateParams, setDateParams] = useState({
@@ -29,12 +32,12 @@ export const DatosDeLaAsistencia = () => {
       oSend.fechaFin = dateParams.fechaFin;
     }
 
-    const response = await process(SAVE, 'tiempo-entrenamiento', oSend);
+    const response = await process(SAVE, "tiempo-entrenamiento", oSend);
     if (response?.status === 201) {
       setTiempoEntrenado(response.data.total_trained);
     }
   }, [itemId, dateParams]);
-  
+
   useEffect(() => {
     getTiempoEntrenado();
   }, [getTiempoEntrenado]);
@@ -43,23 +46,24 @@ export const DatosDeLaAsistencia = () => {
     {
       title: "Fecha",
       dataIndex: "fecha",
-      render: date => date ? moment(date).format("DD/MM/YYYY") : "Sin registrar",
+      render: (date) =>
+        date ? moment(date).format("DD/MM/YYYY") : "Sin registrar",
     },
     {
       title: "Hora de Entrada",
       dataIndex: "horaEntrada",
-      render: hE => hE ? moment(hE).format("HH:mm") : "Sin registrar",
+      render: (hE) => (hE ? moment(hE).format("HH:mm") : "Sin registrar"),
     },
     {
       title: "Hora de Salida",
       dataIndex: "horaSalida",
-      render: hS => hS ? moment(hS).format("HH:mm") : "Sin registrar",
+      render: (hS) => (hS ? moment(hS).format("HH:mm") : "Sin registrar"),
     },
     {
       title: "Tiempo total",
       dataIndex: "id",
       render: (_, record) => {
-        if (!!(record.horaEntrada) && !!(record.horaSalida)) {
+        if (!!record.horaEntrada && !!record.horaSalida) {
           const duracion = moment.duration(
             moment(record.horaSalida, "HH:mm").diff(
               moment(record.horaEntrada, "HH:mm")
@@ -71,13 +75,12 @@ export const DatosDeLaAsistencia = () => {
         }
 
         return "Asistencia incompleta";
-
       },
     },
   ];
-  
+
   return loading ? (
-    <LoadingSpinner/>
+    <LoadingSpinner />
   ) : (
     <>
       <h3 className="margin-between-paragraphs titleDatosAsitencias">
@@ -85,13 +88,22 @@ export const DatosDeLaAsistencia = () => {
       </h3>
       <section className="infoAsistencia">
         <h2 className="margin-between-paragraphs nombreDeportista">
-          {`${asistencia.deportista?.nombres} ` + `${asistencia.deportista?.apellidos}`}
+          {`${asistencia.deportista?.nombres} ` +
+            `${asistencia.deportista?.apellidos}`}
         </h2>
         <p className="margin-between-paragraphs txtInfo txtDiasEntenados">
           Sesiones de entrenamiento totales: {asistencias.total}
         </p>
         <p className="margin-between-paragraphs txtInfo txtHorasEntenadas">
-          Tiempo total de entrenamiento: {`${tiempoEntrenado || `No hay entrenamientos registrados para ${dateParams.fechaInicio && dateParams.fechaFin ? `el rango de fechas seleccionado` : "esta semana"}`}`}
+          Tiempo total de entrenamiento:{" "}
+          {`${
+            tiempoEntrenado ||
+            `No hay entrenamientos registrados para ${
+              dateParams.fechaInicio && dateParams.fechaFin
+                ? `el rango de fechas seleccionado`
+                : "esta semana"
+            }`
+          }`}
         </p>
       </section>
       <section className="inputsFechasAsistencias">
@@ -103,29 +115,31 @@ export const DatosDeLaAsistencia = () => {
           <input
             type="date"
             className="input-range-date input-inicio"
-            onChange={e => setDateParams({
-              ...dateParams,
-              fechaInicio: e.target.value,
-            })}
+            onChange={(e) =>
+              setDateParams({
+                ...dateParams,
+                fechaInicio: e.target.value,
+              })
+            }
             required
           />
           <label>Fin:</label>
           <input
             type="date"
             className="input-range-date input-final"
-            onChange={e => setDateParams({
-              ...dateParams,
-              fechaFin: e.target.value,
-            })}
+            onChange={(e) =>
+              setDateParams({
+                ...dateParams,
+                fechaFin: e.target.value,
+              })
+            }
             required
           />
-        </section> 
+        </section>
       </section>
-      <Table
-        columns={columns}
-        dataSource={asistencias.data}
-      />
-      <br/><button className="button-aceptar" onClick={() => setScreen(1)}>
+      <Table columns={columns} dataSource={asistencias.data} />
+      <br />
+      <button className="button-aceptar" onClick={() => setScreen(1)}>
         Aceptar
       </button>
     </>
