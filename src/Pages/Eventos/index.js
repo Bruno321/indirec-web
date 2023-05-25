@@ -50,7 +50,7 @@ export const EventosScreen = () =>{
             dataIndex:'canchaJugada',
         },
         {
-            title: 'Jornadas',
+            title: 'Jornada',
             dataIndex:'jornada',
         },
         {
@@ -67,7 +67,12 @@ export const EventosScreen = () =>{
             title: 'Acciones',
             dataIndex:'id',
             render: (sId) => (
-                <>
+                <div
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  justifyContent: "space-around",
+                }}>
                     <img 
                         title="Ver más..."
                         src={iconInfo}
@@ -125,7 +130,7 @@ export const EventosScreen = () =>{
                         })
                         }}
                     />
-                </>
+                </div>
             ),
         }
     ];

@@ -18,7 +18,7 @@ const oInitialState = {
   canchaJugada: "",
   equipoVisitante: "",
   directorTecnicoVisitante: "",
-  jornada: "",
+  jornada: 0,
 };
 
 export const RegistrarEvento = () => {
@@ -163,7 +163,7 @@ export const RegistrarEvento = () => {
             <div className="column-flex">
               <label>Jornada:</label><br/>
                 <input
-                  type="text"
+                  type="number"
                   className="input-text margin-input jornada"
                   name="jornada"
                   id="jornada"
