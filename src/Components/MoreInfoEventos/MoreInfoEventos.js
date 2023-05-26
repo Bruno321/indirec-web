@@ -23,9 +23,9 @@ function MoreInfoEventos(){
         <>
             <h3>Evento: {evento?.nombre}</h3>
                 <div className="up">
+                    <label>Jornada: {evento.jornada}</label>
                     <label>Fecha: {evento.fecha ? moment(evento.fecha).format("DD/MM/YYYY") : "Sin registrar"}</label>
                     <label>Hora: {evento.hora}</label>
-                    <label>Jornada: {evento.jornada}</label>
                     <label>Cancha: {evento.canchaJugada}</label>
                 </div>
                 <div className="middle">
@@ -38,7 +38,7 @@ function MoreInfoEventos(){
                         <p>{evento.directorTecnicoLocal}</p>
                         <br></br>
                         <p>Puntaje:</p>
-                        <p>{evento.puntosLocal === null ? "--" : `${evento.puntosLocal}` }</p>
+                        <p>{evento.puntosLocal ? evento.puntosLocal : <i style={{opacity:"0.5"}}>Sin Registrar</i>}</p>                     
                     </div>
                     <div className="info">
                         <p><b>Equipo visitante</b></p>
@@ -49,7 +49,7 @@ function MoreInfoEventos(){
                         <p>{evento.directorTecnicoVisitante}</p>
                         <br></br>
                         <p>Puntaje:</p>
-                        <p>{evento.puntosVisitante === null ? "--" : `${evento.puntosVisitante}` }</p>  
+                        <p>{evento.puntosVisitante ? evento.puntosVisitante : <i style={{opacity:"0.5"}}>Sin Registrar</i>}</p>                     
                     </div>
                 </div>
                 <div className="botones-verjugadores">
@@ -73,7 +73,7 @@ function MoreInfoEventos(){
 
                 <div className="bottom-observaciones">
                     <p>Observaciones:</p>
-                    <p>{evento.incidentes === null ? "--" : `${evento.incidentes}` }</p>
+                    <p>{evento.incidentes ? evento.incidentes : "--"}</p>
                 </div>
 
                 <button className='button-aceptar' onClick={()=>setScreen(8)}>Aceptar</button>

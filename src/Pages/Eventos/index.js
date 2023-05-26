@@ -25,12 +25,8 @@ export const EventosScreen = () =>{
             dataIndex:'nombre',
         },
         {
-            title: 'D. T. Local',
-            dataIndex:'directorTecnicoLocal',
-        },
-        {
-            title: 'D. T. Visitante',
-            dataIndex:'directorTecnicoVisitante',
+            title: 'Jornada',
+            dataIndex:'jornada',
         },
         {
             title: 'Fecha',
@@ -46,29 +42,34 @@ export const EventosScreen = () =>{
             dataIndex:'canchaJugada',
         },
         {
-            title: 'Jornada',
-            dataIndex:'jornada',
-        },
-        {
             title: 'Puntaje local',
             dataIndex:'puntosLocal',
-            render: points => points || "Sin Registrar Resultados"
+            render: points => points || <i style={{opacity:"0.5"}}>Sin Registrar</i>
         },
         {
             title: 'Puntaje visitante',
             dataIndex:'puntosVisitante',
-            render: points => points || "Sin Registrar Resultados"
+            render: points => points || <i style={{opacity:"0.5"}}>Sin Registrar</i>
         },
         {
             title: 'Acciones',
             dataIndex:'id',
-            render: (sId) => (
+            render: (sId, row) => (
                 <div
                 style={{
                   display: "flex",
                   flexDirection: "row",
                   justifyContent: "space-around",
                 }}>
+                    {row.createdAt===row.updatedAt ? <img 
+                        title="Registrar resultados"
+                        src={iconEdit}
+                        className="icons edit"
+                        onClick={()=>{
+                            setItemId(sId);
+                            setScreen(9);
+                        }}
+                    />:<></>}
                     <img 
                         title="Ver más..."
                         src={iconInfo}
@@ -78,24 +79,15 @@ export const EventosScreen = () =>{
                             setScreen(10);
                         }}
                     />
-                    <img 
-                        title="Registrar resultados"
-                        src={iconEdit}
-                        className="icons edit"
-                        onClick={()=>{
-                            setItemId(sId);
-                            setScreen(9);
-                        }}
-                    />
                     <img
                         title="Eliminar"
                         src={iconDelete}
                         className='icons delete'
                         onClick={() => {
-                        setSelected(row);
+                        setItemId(sId);
                         Swal.fire({
                             title: 'ELIMINAR',
-                            text: "¿Eliminar el evento "+ row.nombreEvento + " ?",
+                            text: "¿Eliminar el evento "+ row.nombre + " ?",
                             icon: 'question',
                             showCancelButton: true,
                             confirmButtonColor: '#3085d6',
@@ -106,7 +98,7 @@ export const EventosScreen = () =>{
                             if (result.isConfirmed) {
                             Swal.fire({
                                 title: 'ATENCION',
-                                text: "¿Estas seguro de eliminar el evento "+ row.nombreEvento + " ?",
+                                text: "¿Estas seguro de eliminar el evento "+ row.nombre + " ?",
                                 icon: 'warning',
                                 showCancelButton: true,
                                 confirmButtonColor: '#3085d6',
@@ -117,7 +109,7 @@ export const EventosScreen = () =>{
                                 if (result.isConfirmed) {
                                 Swal.fire(
                                     'Eliminado satisfactoriamente',
-                                    "El evento "+ row.nombreEvento + " ha sido eliminado.",
+                                    "El evento "+ row.nombre + " ha sido eliminado.",
                                     'success'
                                 )
                                 }

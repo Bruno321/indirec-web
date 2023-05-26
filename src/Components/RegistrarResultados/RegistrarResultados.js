@@ -41,8 +41,8 @@ function RegistrarResultados(){
         const { puntosLocal, puntosVisitante, incidentes } = form;
 
         const response = await process(UPDATE, 'eventos', {
-            puntosLocal: puntosLocal || '',
-            puntosVisitante: puntosVisitante || '',
+            puntosLocal: puntosLocal || 0,
+            puntosVisitante: puntosVisitante || 0,
             incidentes: incidentes || '',
         }, { id: form.id }).catch(e => {
             Swal.fire({
@@ -75,24 +75,24 @@ function RegistrarResultados(){
                     <div>
                         <p>Puntaje del equipo {evento?.EquipoLocal?.nombre}:</p>
                         <input
-                            value={form.puntosLocal || 0}
                             type="number"
                             min="0"
                             placeholder="0"
                             id="puntosLocal"
                             name="puntosLocal"
+                            defaultValue="0"
                             onChange={e => setForm({ ...form, puntosLocal:e.target.value})}
                         />
                     </div>
                     <div>
                         <p>Puntaje del equipo {evento?.EquipoVisitante?.nombre}:</p>
                         <input
-                            value={form.puntosVisitante || 0}
                             type="number"
                             min="0"
                             placeholder="0"
                             id="puntosVisitante"
                             name="puntosVisitante"
+                            defaultValue="0"
                             onChange={e => setForm({ ...form, puntosVisitante:e.target.value})}
                         />
                     </div>
@@ -110,7 +110,23 @@ function RegistrarResultados(){
                 </div>
                 <div className="buttons-registrar-resultados">
                     <button className="cancelar" onClick={()=>{setScreen(8)}}>Cancelar</button>
-                    <button className="guardar" onClick={handleSubmit}>Guardar</button>
+                    <button className="guardar" onClick={
+                        ()=>
+                        Swal.fire({
+                            title: "ATENCIÓN",
+                            text:"NO podrás realizar cambios después",
+                            icon: "warning",
+                            showCancelButton: true,
+                            confirmButtonColor: "#3085d6",
+                            cancelButtonColor: "#d33",
+                            cancelButtonText: "Cancelar",
+                            confirmButtonText: "Confirmar",
+                        }).then((result) => {
+                            if(result.isConfirmed){
+                                handleSubmit()
+                            }
+                        })
+                        }>Guardar</button>
                 </div>
             </div>
         </>
