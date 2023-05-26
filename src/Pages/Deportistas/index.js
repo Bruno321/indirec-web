@@ -18,11 +18,6 @@ export const DeportistasScreen = () => {
   const [showQR, setShowQR] = useState(false);
 
   const [deportistas, loading, change] = useFetchData("deportistas");
-  const [pagina, setPagina] = useState(0);
-
-  useDidMountEffect(() => {
-    change("", pagina * 10, 10);
-  }, [pagina]);
 
   const columns = [
     {
@@ -152,8 +147,9 @@ export const DeportistasScreen = () => {
       <>
         <Table
           columns={columns}
-          dataSource={deportistas.data}
+          dataSource={deportistas}
           loading={loading}
+          change={change}
         />
         <MoreInfo
           trigger={buttonMoreInfo}
@@ -161,17 +157,6 @@ export const DeportistasScreen = () => {
           datos={selected}
         />
       </>
-      {!loading ? (
-        <div className="container-pages">
-          <ButtonsPages
-            numberPage={pagina}
-            setPagina={setPagina}
-            total={deportistas.total}
-          />
-        </div>
-      ) : (
-        <LoadingSpinner />
-      )}
       {showQR ? (
         <ModalQR datos={selected} setMostrarModalQr={setShowQR} setSelected={setSelected}/>
       ) : null}

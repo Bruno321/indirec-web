@@ -19,11 +19,6 @@ export const AsistenciasScreen = () => {
   const [asistencias, loading, change] = useFetchData("asistencias");
 
   const { setItemId, setScreen } = useContext(NavigationContext);
-  const [pagina, setPagina] = useState(0);
-
-  useDidMountEffect(() => {
-    change('', pagina *10, 10);
-  }, [pagina]);
 
   const columns = [
     {
@@ -77,18 +72,10 @@ export const AsistenciasScreen = () => {
       <h3>Asistencias</h3>
       <Table
         columns={columns}
-        dataSource={asistencias.data}
+        dataSource={asistencias}
         loading={loading}
+        change={change}
       />
-      {
-        !loading ? (
-          <div className="container-pages">
-            <ButtonsPages numberPage={pagina} setPagina={setPagina} total={asistencias.total}/>
-          </div>
-        ) : (
-          <LoadingSpinner/>
-        )
-      }
     </>
   );
 };

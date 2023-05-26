@@ -18,7 +18,7 @@ const ButtonsPages = ({numberPage, setPagina, total}) => {
             <div className={`buttonsPages ${numberPage <= 0 ? 'deshabilitarBtn' : ''}`} onClick={() => previousPage()}>
                 <img src={flecha}/>
             </div>
-            <span>Página {numberPage + 1}</span>
+            <span>Página {numberPage + 1} / {Math.ceil(total/10)}</span>
             <div className={`buttonsPages rotation ${(numberPage+1)*10 >= total ? 'deshabilitarBtn' : ''}`} onClick={() => nextPage()}>
                 <img src={flecha}/>
             </div>

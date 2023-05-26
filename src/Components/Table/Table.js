@@ -1,8 +1,11 @@
-import React from "react";
+import React, {useState} from "react";
 import "./Table.css";
 
 import moment from "moment/moment";
+import ButtonsPages from "../ButtonsPages/ButtonsPages";
+import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
 moment.locale('es');
+import { useDidMountEffect } from "../../Utils/DidMountEffect";
 
 const handleRender = valueToRender => {
     const type = typeof valueToRender;
@@ -13,13 +16,18 @@ const handleRender = valueToRender => {
     return valueToRender;
 };
 
-export const Table = ({ dataSource, columns, loading }) => {    
+export const Table = ({ dataSource, columns, loading, change }) => {    
+
+    const [pagina, setPagina] = useState(0);
+
+    useDidMountEffect(() => {
+        change("", pagina * 10, 10);
+    }, [pagina]);
 
     return loading ? (
-    // TODO: Add spinner
-    <p></p>
+        <LoadingSpinner/>
     ) : (
-        dataSource?.length ? (
+        dataSource.data?.length ? (
             <div className="container">
                 <table id="data">
                     <tbody>
@@ -28,7 +36,7 @@ export const Table = ({ dataSource, columns, loading }) => {
                                 <th className="th">{oColumn.title}</th>
                             ))}
                         </tr>
-                        {dataSource.map((oData, index) => (
+                        {dataSource.data.map((oData, index) => (
                             <tr key={index}>
                                 {columns.map(({ dataIndex, render }) => render === undefined ? (
                                     <td className="td-font-weight td">{oData[dataIndex]}</td>
@@ -41,6 +49,12 @@ export const Table = ({ dataSource, columns, loading }) => {
                         ))}
                     </tbody>
                 </table>
+                <ButtonsPages
+                    numberPage={pagina}
+                    setPagina={setPagina}
+                    total={dataSource.total}
+                />
+                
             </div>
         ) : (
             <div><br></br><p>No hay datos a mostrar</p></div>

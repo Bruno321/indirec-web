@@ -18,11 +18,6 @@ import { useDidMountEffect } from "../../Utils/DidMountEffect";
 export const EventosScreen = () =>{
     const {setItemId, setScreen} = useContext(NavigationContext)
     const [eventos, loading, change] = useFetchData('eventos');
-    const [pagina, setPagina] = useState(0);
-
-    useDidMountEffect(() => {
-        change('', pagina * 10, 10);
-    }, [pagina]);
 
     const columns =[
         {
@@ -141,18 +136,10 @@ export const EventosScreen = () =>{
             <h3>Eventos</h3>
             <Table
                 columns={columns}
-                dataSource={eventos.data}
+                dataSource={eventos}
                 loading={loading}
+                change={change}
             />
-            {
-                !loading ? (
-                    <div className="container-pages">
-                        <ButtonsPages numberPage={pagina} setPagina={setPagina} total={eventos.total}/>
-                    </div>
-                ) : (
-                <LoadingSpinner/>
-                )
-            }
         </>
     )
 }
