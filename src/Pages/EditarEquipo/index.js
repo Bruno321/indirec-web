@@ -330,7 +330,10 @@ export const EditarEquipo = () => {
       />
       <Table
         columns={columns}
-        dataSource={equipo?.deportistas}
+        dataSource={loading ? [] : equipo.deportistas?.length ? {
+          data: [...equipo.deportistas],
+          total: equipo.deportistas.length
+        } : []}
         loading={loading}
       />
       <div className="buttons-registrar-resultados">
