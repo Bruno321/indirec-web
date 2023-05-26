@@ -3,6 +3,7 @@ import { Table } from "../../Components/Table/Table";
 import { useFetchData } from "../../Hooks/Fetch.hook";
 import moment from "moment";
 import LoadingSpinner from "../../Components/LoadingSpinner/LoadingSpinner";
+import { useDidMountEffect } from "../../Utils/DidMountEffect";
 
 // Icons
 import iconInfo from "../../Assets/icons/more-info.png";
@@ -20,7 +21,7 @@ export const AsistenciasScreen = () => {
   const { setItemId, setScreen } = useContext(NavigationContext);
   const [pagina, setPagina] = useState(0);
 
-  useEffect(() => {
+  useDidMountEffect(() => {
     change('', pagina *10, 10);
   }, [pagina]);
 

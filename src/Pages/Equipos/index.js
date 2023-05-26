@@ -9,13 +9,14 @@ import { NavigationContext } from '../../Context/NavigationContext';
 import { URL, process, SAVE } from '../../Service/Api';
 import LoadingSpinner from '../../Components/LoadingSpinner/LoadingSpinner';
 import ButtonsPages from '../../Components/ButtonsPages/ButtonsPages';
+import { useDidMountEffect } from '../../Utils/DidMountEffect';
 
 export const EquiposScreen = () => {
   const [equipos, loading, change] = useFetchData('equipos');
   const { setItemId, setScreen } = useContext(NavigationContext);
   const [pagina, setPagina] = useState(0);
 
-  useEffect (() => {
+  useDidMountEffect (() => {
     change('', pagina * 10, 10);
   }, [pagina]);
 

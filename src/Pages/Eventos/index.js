@@ -13,13 +13,14 @@ import { Table } from "../../Components/Table/Table";
 import { useFetchData } from "../../Hooks/Fetch.hook";
 import LoadingSpinner from "../../Components/LoadingSpinner/LoadingSpinner";
 import ButtonsPages from "../../Components/ButtonsPages/ButtonsPages";
+import { useDidMountEffect } from "../../Utils/DidMountEffect";
 
 export const EventosScreen = () =>{
     const {setItemId, setScreen} = useContext(NavigationContext)
     const [eventos, loading, change] = useFetchData('eventos');
     const [pagina, setPagina] = useState(0);
 
-    useEffect(() => {
+    useDidMountEffect(() => {
         change('', pagina * 10, 10);
     }, [pagina]);
 

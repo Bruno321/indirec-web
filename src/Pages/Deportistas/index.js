@@ -9,6 +9,7 @@ import ButtonsPages from "../../Components/ButtonsPages/ButtonsPages";
 import ModalQR from "../../Components/Modals/ModalQR/ModalQR";
 import MoreInfo from "../../Components/MoreInfo/MoreInfo";
 import LoadingSpinner from "../../Components/LoadingSpinner/LoadingSpinner";
+import { useDidMountEffect } from "../../Utils/DidMountEffect";
 
 export const DeportistasScreen = () => {
   //State para mostrar MAS INFORMACION de un deportista
@@ -19,7 +20,7 @@ export const DeportistasScreen = () => {
   const [deportistas, loading, change] = useFetchData("deportistas");
   const [pagina, setPagina] = useState(0);
 
-  useEffect(() => {
+  useDidMountEffect(() => {
     change("", pagina * 10, 10);
   }, [pagina]);
 
