@@ -11,6 +11,7 @@ import ImgDocumentActive from '../../Assets/icons/document-files-white.png';
 import ModalQR from '../Modals/ModalQR/ModalQR';
 import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
 
+
 const oInitialState = {
     expediente:"",
     nombres:"",
@@ -22,7 +23,7 @@ const oInitialState = {
     telefonoEmergencia:"",
     numSeguroSocial:"",
     jugadorSeleccionado: 0,
-    numJugador:0,
+    numJugador: null,
     deporte:"Futbol",
     fotoIdentificacionOficial:null,
     foto:null,
@@ -30,6 +31,7 @@ const oInitialState = {
 };
 
 const RegistrarDeportista = () => {
+    const [showNumJugador,setShowNumJugador] = useState(0);
     const [radioButton,setRadioButton] = useState({
         si: false,
         no: false
@@ -63,7 +65,9 @@ const RegistrarDeportista = () => {
             for (const sKey in form) {
                 oSend.append(sKey, form[sKey]);
             }
-
+            if(showNumJugador === 0){
+                form.numJugador= null;
+            }
             const response = await process(SAVE_WITH_FILE, 'deportistas', oSend).catch(e => {
                 Swal.fire({
                     icon: 'error',
@@ -161,6 +165,7 @@ const RegistrarDeportista = () => {
 
         );
     }
+
 
     return(
         <>
@@ -372,6 +377,7 @@ const RegistrarDeportista = () => {
                                             no: false
                                         });
                                         setForm({...form,jugadorSeleccionado: 1});
+                                        setShowNumJugador(1);
                                     }}
                                 />
                                 <label htmlFor='deportistaSeleccionadoSi'>Si</label>
@@ -387,18 +393,23 @@ const RegistrarDeportista = () => {
                                             no: true,
                                         });
                                         setForm({...form,jugadorSeleccionado: 0});
+                                        setShowNumJugador(0);
+
                                     }}
                                 />
                                 <label htmlFor='deportistaSeleccionadoNo'>No</label><p></p>
                             </div>
-                            <label htmlFor='numeroJugador'>Número de jugador:</label><br></br>
+                            <label htmlFor='numeroJugador'
+                                style={{display: showNumJugador === 1 ? "inline" : "none" }}
+                                >Número de jugador:</label><br></br>
                             <input
                                 type="text"
                                 id='numeroJugador'
                                 className="registrarDeportista-input"
+                                style={{display: showNumJugador === 1 ? "inline" : "none" }}
                                 placeholder='00'
+                                defaultValue="null"
                                 onChange={e => setForm({...form,numJugador:e.target.value})}
-                                required
                             /><p></p>
 
                             {/* <label>Subdivisión de deporte:</label><br></br>
