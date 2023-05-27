@@ -49,14 +49,12 @@ const RegistrarDeportista = () => {
 
     const [form,setForm] = useState(oInitialState);
     const [mostrarModalQr, setMostrarModalQr] = useState(false);
-    const [datos, setDatos] = useState({});
     const [isLoading, setIsLoading] = useState(false);
 
     const handleSubmit = async (e) => {
         //Se valida si los campos del formulario estan completos
         e.preventDefault();
         setIsLoading(true);
-        debugger;
         if (validarCampos()) {
             setLoading(true);
             // console.log(form);
@@ -65,16 +63,17 @@ const RegistrarDeportista = () => {
             for (const sKey in form) {
                 oSend.append(sKey, form[sKey]);
             }
-            if(showNumJugador === 0){
+
+            if (!showNumJugador && form.numJugador) {
                 form.numJugador= null;
             }
+
             const response = await process(SAVE_WITH_FILE, 'deportistas', oSend).catch(e => {
                 Swal.fire({
                     icon: 'error',
                     title: 'Oops...',
                     text: `${e.response.data.message}`,
                 })
-                console.log(e.response.data);
             });
 
             if (response?.status === 201) {
@@ -93,7 +92,6 @@ const RegistrarDeportista = () => {
                 ).then(result => {
                     if(result.isConfirmed){
                         setMostrarModalQr(true);
-                        // datos({...datos,  'id': `${response.data.data.deportistaId}`,'nombre': `${response.data.data.nombres} ${response.data.data.apellidos}`})
                     }
                 })
             }
@@ -285,7 +283,6 @@ const RegistrarDeportista = () => {
                                 name="kardex" id="kardex"
                                 className="registrarDeportista-input inputfile"
                                 onChange={e => {
-                                    console.log(e.target.files[0]);
                                     setForm({...form, fotoCardex: e.target.files[0]});
                                     setKardex(true);
                                 }}
@@ -311,7 +308,6 @@ const RegistrarDeportista = () => {
                                 id="identificacionFile"
                                 className="registrarDeportista-input inputfile"
                                 onChange={e => {
-                                    console.log(e.target.files[0]);
                                     setForm({...form, fotoIdentificacionOficial: e.target.files[0]});
                                     setINE(true);
                                 }}
@@ -336,7 +332,6 @@ const RegistrarDeportista = () => {
                                 id = "fotoDeportista"
                                 className="registrarDeportista-input inputfile"
                                 onChange={(e)=> {
-                                    console.log(e.target.files[0]);
                                     setForm({...form, foto: e.target.files[0]});
                                     setPhoto(true);
                                 }}
@@ -408,7 +403,6 @@ const RegistrarDeportista = () => {
                                 className="registrarDeportista-input"
                                 style={{display: showNumJugador === 1 ? "inline" : "none" }}
                                 placeholder='00'
-                                defaultValue="null"
                                 onChange={e => setForm({...form,numJugador:e.target.value})}
                             /><p></p>
 
