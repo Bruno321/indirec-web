@@ -99,7 +99,7 @@ function MoreInfo({ datos, trigger, setTrigger }) {
                         <p>{datos.telefonoEmergencia}</p>
                     </div>
 
-                    <div>
+                    <div style={{display: datos.jugadorSeleccionado == '0' ? "inline" : "none" }}>
                         <b><p>Número de jugador</p></b>
                         <p>{datos.numJugador}</p>
                     </div>
