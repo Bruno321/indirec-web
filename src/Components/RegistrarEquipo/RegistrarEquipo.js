@@ -56,7 +56,6 @@ const RegistrarEquipo = () => {
                 })
             }
         }else{
-            // alert('Faltan agregar jugadores al equipo');
             Swal.fire({
                 icon: 'warning',
                 title: 'Oops...',

@@ -57,7 +57,6 @@ const RegistrarDeportista = () => {
         setIsLoading(true);
         if (validarCampos()) {
             setLoading(true);
-            // console.log(form);
             let oSend = new FormData();
 
             for (const sKey in form) {
@@ -168,7 +167,6 @@ const RegistrarDeportista = () => {
     return(
         <>
             <h3 className = "titleRegister">Registrar deportista</h3>
-            {/* <p className = "paragraphTitle">NOTA: Los campos con "*" son obligatorios</p> */}
             <br/>
             <div className='obtenerQr'>
                 <div className='formulario' onSubmit={handleSubmit}>
@@ -347,8 +345,6 @@ const RegistrarDeportista = () => {
                             </label>
                                 {handleAnswerFile(photo, 'Foto')}
                             <br/>
-                            {/* ####################### */}
-
                         </div>
 
                         <div className='form-derecha'>
@@ -405,17 +401,10 @@ const RegistrarDeportista = () => {
                                 placeholder='00'
                                 onChange={e => setForm({...form,numJugador:e.target.value})}
                             /><p></p>
-
-                            {/* <label>Subdivisión de deporte:</label><br></br>
-                            <select>
-                                <option>xddd</option>
-                            </select> */}
                         </div>
-                        {/* <input type="submit" className='CustomButton'  value="Guardar información"/> */}
                         <input type="submit" className='CustomButton'  value="Guardar información"/>
                     </form>
                 </div>
-                {/* <button type='submit' className='custom-button' value="Guardar información">Registrar</button> */}
                 {
                     isLoading
                     ? 
