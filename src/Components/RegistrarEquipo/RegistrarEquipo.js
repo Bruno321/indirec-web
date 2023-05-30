@@ -22,11 +22,22 @@ const oInitialState = {
 }
 
 const RegistrarEquipo = () => {
+    let {facultad, deporte, categoria: sexo} = oInitialState;
+
     const [mostrarListaJugadoresEquipo, setMostrarListaJugadoresEquipo] = useState(false);
     const [listaJugadores, setListaJugadores] = useState([]);
-    const [deportistas, loading] = useFetchData('deportistas', 'status=1');
+    const [deportistas, loading, change, update] = useFetchData('deportistas', `status=1&facultad=${facultad}&deporte=${deporte}&sexo=${sexo}`);
     const [form, setForm] = useState(oInitialState);
     const [isLoading, setIsLoading] = useState(false);
+
+    // debugger;
+
+    const changeValues = () => {
+        let {facultad, deporte, categoria: sexo} = form;
+        console.log(facultad, deporte, sexo);
+        change(`status=1&facultad=${facultad}&deporte=${deporte}&sexo=${sexo}`);
+        setMostrarListaJugadoresEquipo(true);
+    }
 
     const handleSubmit = async(e) => {
         e.preventDefault();
@@ -159,7 +170,7 @@ const RegistrarEquipo = () => {
                         <div className="containerTableJugadoresEquipo">
                             <TableJugadoresEquipo listaJugadores={listaJugadores}/>
                         </div>
-                        <div className="btnEditarEquipo" onClick={() => setMostrarListaJugadoresEquipo(true)}>
+                        <div className="btnEditarEquipo" onClick={() => changeValues()}>
                             <img src={PencilAlt}/>
                             Agregar jugador
                         </div>
