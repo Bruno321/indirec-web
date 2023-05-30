@@ -94,22 +94,21 @@ const Login = () => {
                     />
                 </div>
 
-                <input 
+                <button type="submit" className="btn-login">
+                    {isLoading
+                    ? 
+                        <LoadingSpinner/>
+                    :
+                        'Iniciar sesión'
+                }
+                </button>
+                {/* <input 
                     type="submit" 
                     value="Iniciar Sesión" 
                     className="btn-login" 
-                />
+                /> */}
             </form>
         </div>
-        {
-            isLoading
-            ?
-                <div style={{position: 'fixed', backgroundColor: 'rgba(255,255,255,.4)', width: '100%', height: '100%'}}>
-                    <LoadingSpinner/>
-                </div>
-            :
-                ''
-        }
         </div>
     );
 };
