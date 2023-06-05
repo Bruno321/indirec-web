@@ -143,7 +143,6 @@ export const DeportistasScreen = () => {
   return (
     <>
       <h3>Deportistas</h3>
-      {console.log(deportistas)}
       <>
         <Table
           columns={columns}
