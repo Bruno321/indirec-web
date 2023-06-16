@@ -17,6 +17,7 @@ import ButtonsPages from "../../Components/ButtonsPages/ButtonsPages";
 
 export const AsistenciasScreen = () => {
   const [asistencias, loading, change] = useFetchData("asistencias");
+  const [pagina, setPagina] = useState(0);
 
   const { setItemId, setScreen } = useContext(NavigationContext);
 
@@ -75,6 +76,8 @@ export const AsistenciasScreen = () => {
         dataSource={asistencias}
         loading={loading}
         change={change}
+        pagina={pagina}
+        setPagina={setPagina}
       />
     </>
   );

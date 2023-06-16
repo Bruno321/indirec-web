@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React from "react";
 import "./Table.css";
 
 import moment from "moment/moment";
@@ -16,12 +16,10 @@ const handleRender = valueToRender => {
     return valueToRender;
 };
 
-export const Table = ({ dataSource, columns, loading, change }) => {    
-
-    const [pagina, setPagina] = useState(0);
+export const Table = ({ dataSource, columns, loading, change, pagina, setPagina }) => {    
 
     useDidMountEffect(() => {
-        change("", pagina * 10, 10);
+        change(dataSource.queries, pagina * 10, 10);
     }, [pagina]);
 
     return loading ? (

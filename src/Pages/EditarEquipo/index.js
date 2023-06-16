@@ -30,6 +30,7 @@ export const EditarEquipo = () => {
   const [mostrarListaJugadoresEquipo, setMostrarListaJugadoresEquipo] =
     useState(false);
   const [listaJugadores, setListaJugadores] = useState([]); //Arreglo que guarda los jugadores que se estan agregando mediante la tabla.
+  const [pagina, setPagina] = useState(0);
   const [form, setForm] = useState(oInitialState);
 
   const categoria = [0, 1];
@@ -335,6 +336,8 @@ export const EditarEquipo = () => {
           total: equipo.deportistas.length
         } : []}
         loading={loading}
+        pagina={pagina}
+        setPagina={setPagina}
       />
       <div className="buttons-registrar-resultados">
         <button className="cancelar" onClick={() => setScreen(5)}>Cancelar</button>

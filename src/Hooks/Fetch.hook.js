@@ -28,5 +28,5 @@ export const useFetchData = (path, queries = '', skip = 0, limit = 0) => {
 
   const update = () => getData();
 
-  return [data, loading, onChangeParams, update];
+  return [{ ...data, queries: params.queries }, loading, onChangeParams, update];
 }

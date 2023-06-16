@@ -11,12 +11,10 @@ import { NavigationContext } from "../../Context/NavigationContext.js";
 
 import { Table } from "../../Components/Table/Table";
 import { useFetchData } from "../../Hooks/Fetch.hook";
-import LoadingSpinner from "../../Components/LoadingSpinner/LoadingSpinner";
-import ButtonsPages from "../../Components/ButtonsPages/ButtonsPages";
-import { useDidMountEffect } from "../../Utils/DidMountEffect";
 
 export const EventosScreen = () =>{
     const {setItemId, setScreen} = useContext(NavigationContext)
+    const [pagina, setPagina] = useState(0);
     const [eventos, loading, change] = useFetchData('eventos');
 
     const columns =[
@@ -57,9 +55,9 @@ export const EventosScreen = () =>{
             render: (sId, row) => (
                 <div
                 style={{
-                  display: "flex",
-                  flexDirection: "row",
-                  justifyContent: "space-around",
+                    display: "flex",
+                    flexDirection: "row",
+                    justifyContent: "space-around",
                 }}>
                     {row.createdAt===row.updatedAt ? <img 
                         title="Registrar resultados"
@@ -131,6 +129,8 @@ export const EventosScreen = () =>{
                 dataSource={eventos}
                 loading={loading}
                 change={change}
+                pagina={pagina}
+                setPagina={setPagina}
             />
         </>
     )
