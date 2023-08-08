@@ -16,6 +16,8 @@ export const EquiposScreen = () => {
   const [pagina, setPagina] = useState(0);
   const { setItemId, setScreen } = useContext(NavigationContext);
 
+  const [showSpinner, setShowSpinner] = useState(false);
+
   const columns = [
     {
       title: 'Nombre',
@@ -63,6 +65,7 @@ export const EquiposScreen = () => {
             src={pdf}
             className='icons pdf'
             onClick={async () => {
+              setShowSpinner(true);
               console.log(sId)
               const response = await process(SAVE, 'equipo-pdf', {
                 id: sId,
@@ -81,6 +84,7 @@ export const EquiposScreen = () => {
                     document.body.appendChild(link);
                     link.click();
                     link.parentNode.removeChild(link);
+                    setShowSpinner(false)
                   }, [2000])
               } else {
                 console.log(response);
@@ -142,14 +146,19 @@ export const EquiposScreen = () => {
   return (
     <>
       <h3>Equipos</h3>
-      <Table
-        columns={columns}
-        dataSource={equipos}
-        loading={loading}
-        change={change}
-        pagina={pagina}
-        setPagina={setPagina}
-      />
+      {
+      showSpinner
+      ?
+        <LoadingSpinner texto="Descargando pdf"/>
+      :
+        <Table
+          columns={columns}
+          dataSource={equipos}
+          loading={loading}
+          change={change}
+          pagina={pagina}
+          setPagina={setPagina}
+        />}
     </>
   );
 };
