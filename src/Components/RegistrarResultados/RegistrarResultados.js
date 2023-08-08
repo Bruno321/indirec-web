@@ -30,6 +30,8 @@ function RegistrarResultados(){
     //state para el update
     const [form, setForm] = useState(oInitialState);
 
+    const [showSpinner, setShowSpinner] = useState(false);
+
     useEffect(()=>{
         // if(evento) {
         //     setForm(evento);
@@ -51,6 +53,7 @@ function RegistrarResultados(){
 
     //Funcion para hendlesubmit
     const handleSubmit = async (e) =>{
+        setShowSpinner(true);
         const { puntosLocal, puntosVisitante, incidentes } = form;
 
         const response = await process(UPDATE, 'eventos', {
@@ -75,73 +78,80 @@ function RegistrarResultados(){
                 setScreen(8)
             });
         }
+        setShowSpinner(false);
     }
     
     return loading ? (
         <LoadingSpinner />
     ) : (
         <>
-        <div className="registrar-resultados-container">
-            <h3>Registrar resultados</h3>
-            <h3>Evento: {evento.nombre}</h3>
-                <div className="upper-registrar-resultados">
-                    <div>
-                        <p>Puntaje del equipo {evento?.EquipoLocal?.nombre}:</p>
-                        <input
-                            type="number"
-                            min="0"
-                            placeholder="0"
-                            id="puntosLocal"
-                            name="puntosLocal"
-                            defaultValue="0"
-                            onChange={e => setForm({ ...form, puntosLocal:e.target.value})}
-                        />
-                    </div>
-                    <div>
-                        <p>Puntaje del equipo {evento?.EquipoVisitante?.nombre}:</p>
-                        <input
-                            type="number"
-                            min="0"
-                            placeholder="0"
-                            id="puntosVisitante"
-                            name="puntosVisitante"
-                            defaultValue="0"
-                            onChange={e => setForm({ ...form, puntosVisitante:e.target.value})}
-                        />
-                    </div>
+        {
+            showSpinner
+            ?
+                <LoadingSpinner/>
+            : 
+                <div className="registrar-resultados-container">
+                    <h3>Registrar resultados</h3>
+                    <h3>Evento: {evento.nombre}</h3>
+                        <div className="upper-registrar-resultados">
+                            <div>
+                                <p>Puntaje del equipo {evento?.EquipoLocal?.nombre}:</p>
+                                <input
+                                    type="number"
+                                    min="0"
+                                    placeholder="0"
+                                    id="puntosLocal"
+                                    name="puntosLocal"
+                                    defaultValue="0"
+                                    onChange={e => setForm({ ...form, puntosLocal:e.target.value})}
+                                />
+                            </div>
+                            <div>
+                                <p>Puntaje del equipo {evento?.EquipoVisitante?.nombre}:</p>
+                                <input
+                                    type="number"
+                                    min="0"
+                                    placeholder="0"
+                                    id="puntosVisitante"
+                                    name="puntosVisitante"
+                                    defaultValue="0"
+                                    onChange={e => setForm({ ...form, puntosVisitante:e.target.value})}
+                                />
+                            </div>
+                        </div>
+                        <div className="incidents">
+                            <p>¿Sucedieron incidentes?</p>
+                            <textarea
+                                value={form.incidentes || ''}
+                                className="incidents-textarea"
+                                type="text"
+                                id="incidentes"
+                                name="incidentes"
+                                onChange={e => setForm({ ...form, incidentes:e.target.value})}
+                            />
+                        </div>
+                        <div className="buttons-registrar-resultados">
+                            <button className="cancelar" onClick={()=>{setScreen(8)}}>Cancelar</button>
+                            <button className="guardar" onClick={
+                                ()=>
+                                Swal.fire({
+                                    title: "ATENCIÓN",
+                                    text:"NO podrás realizar cambios después",
+                                    icon: "warning",
+                                    showCancelButton: true,
+                                    confirmButtonColor: "#3085d6",
+                                    cancelButtonColor: "#d33",
+                                    cancelButtonText: "Cancelar",
+                                    confirmButtonText: "Confirmar",
+                                }).then((result) => {
+                                    if(result.isConfirmed){
+                                        handleSubmit()
+                                    }
+                                })
+                                }>Guardar</button>
+                        </div>
                 </div>
-                <div className="incidents">
-                    <p>¿Sucedieron incidentes?</p>
-                    <textarea
-                        value={form.incidentes || ''}
-                        className="incidents-textarea"
-                        type="text"
-                        id="incidentes"
-                        name="incidentes"
-                        onChange={e => setForm({ ...form, incidentes:e.target.value})}
-                    />
-                </div>
-                <div className="buttons-registrar-resultados">
-                    <button className="cancelar" onClick={()=>{setScreen(8)}}>Cancelar</button>
-                    <button className="guardar" onClick={
-                        ()=>
-                        Swal.fire({
-                            title: "ATENCIÓN",
-                            text:"NO podrás realizar cambios después",
-                            icon: "warning",
-                            showCancelButton: true,
-                            confirmButtonColor: "#3085d6",
-                            cancelButtonColor: "#d33",
-                            cancelButtonText: "Cancelar",
-                            confirmButtonText: "Confirmar",
-                        }).then((result) => {
-                            if(result.isConfirmed){
-                                handleSubmit()
-                            }
-                        })
-                        }>Guardar</button>
-                </div>
-            </div>
+        }
         </>
     )
 }
