@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { NavigationContext } from "../../Context/NavigationContext.js";
 import { useFetchData } from "../../Hooks/Fetch.hook";
 import { Table } from "../../Components/Table/Table";
@@ -6,7 +6,6 @@ import iconDelete from "../../Assets/icons/delete.png";
 import iconEdit from "../../Assets/icons/edit.png";
 import ListaJugadores from "../../Components/ListaJugadores/ListaJugadores.js";
 import { aFacultities, aCampus } from "../../Utils/constants";
-import { useEffect } from "react";
 import { UPDATE, process } from "../../Service/Api";
 import Swal from "sweetalert2";
 import "../../Components/Modals/EditarEquipoModal/EditarEquipoModal.css";
@@ -32,6 +31,22 @@ export const EditarEquipo = () => {
   const [listaJugadores, setListaJugadores] = useState([]); //Arreglo que guarda los jugadores que se estan agregando mediante la tabla.
   const [pagina, setPagina] = useState(0);
   const [form, setForm] = useState(oInitialState);
+
+  useEffect(() => {
+    if (equipo.id === undefined) {
+      return 
+    }
+
+    const equipoKeys = Object.keys(equipo).sort();
+    const formKeys = Object.keys(form).sort();
+
+    if (JSON.stringify(equipoKeys) === JSON.stringify(formKeys)) {
+      return;
+    }
+
+    setForm(equipo);
+  }, [equipo]);
+
 
   const categoria = [0, 1];
 
@@ -163,12 +178,6 @@ export const EditarEquipo = () => {
       });
     }
   };
-
-  useEffect(() => {
-    if (equipo?.id) {
-      setForm(equipo);
-    }
-  }, [equipo]);
 
   return (
     <div>
