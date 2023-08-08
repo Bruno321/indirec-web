@@ -31,9 +31,22 @@ function RegistrarResultados(){
     const [form, setForm] = useState(oInitialState);
 
     useEffect(()=>{
-        if(evento) {
-            setForm(evento);
-        }
+        // if(evento) {
+        //     setForm(evento);
+        // }
+
+        if (evento.id === undefined) {
+            return 
+          }
+      
+          const eventoKeys = Object.keys(evento).sort();
+          const formKeys = Object.keys(form).sort();
+      
+          if (JSON.stringify(eventoKeys) === JSON.stringify(formKeys)) {
+            return;
+          }
+      
+          setForm(evento);
     }, [evento]);
 
     //Funcion para hendlesubmit
