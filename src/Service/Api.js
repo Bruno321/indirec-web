@@ -7,9 +7,9 @@ export const UPDATE = 'PATCH';
 export const DELETE = 'DELETE';
 export const SAVE_WITH_FILE = 'SAVE_WITH_FILE';
 
-export const DEV = false;
+export const DEV = true;
 
-export const URL = DEV ? "http://localhost:3030" : "http://20.106.129.226:3030";
+export const URL = "https://indereq.onrender.com";
 
 export const token = localStorage.getItem('token');
 
