@@ -1,10 +1,10 @@
 import React from "react";
 import "./LoadingSpinner.css";
 
-const LoadingSpinner = ({texto}) => {
+const LoadingSpinner = ({texto, login}) => {
   return (
     <>
-      <div className="spinner-container">
+      <div className={login ? "spinner-container height-60" : "spinner-container height-90"}>
         <div className="loading-spinner"></div>
         <span>{texto}</span>
       </div>

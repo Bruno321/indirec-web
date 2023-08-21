@@ -97,10 +97,10 @@ const Login = () => {
                 <button type="submit" className="btn-login">
                     {isLoading
                     ? 
-                        <LoadingSpinner/>
+                        <LoadingSpinner login={true}/>
                     :
                         'Iniciar sesión'
-                }
+                    }
                 </button>
                 {/* <input 
                     type="submit" 

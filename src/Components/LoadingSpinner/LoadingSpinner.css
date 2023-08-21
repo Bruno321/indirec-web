@@ -23,3 +23,11 @@
     align-items: center;
     height: 90%;
   }
+
+  .height-90{
+    height: 90%;
+  }
+
+  .height-60{
+    height: 130%;
+  }
