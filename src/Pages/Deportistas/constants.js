@@ -3,19 +3,10 @@ import { aFacultities } from '../../Utils/constants';
 
 export const aSearchElements = [
   {
-    label: 'Expediente',
-    name: 'expediente',
+    label: 'Expediente/Nombre',
+    name: 'expediente,nombres,apellidos',
     type: 'input',
-  },
-  {
-    label: 'Nombre(s)',
-    name: 'nombres',
-    type: 'input',
-  },
-  {
-    label: 'Apellido(s)',
-    name: 'apellidos',
-    type: 'input',
+    or: true,
   },
   {
     label: 'Facultad',
@@ -28,8 +19,6 @@ export const aSearchElements = [
 ];
 
 export const oInitState = {
-  expediente: '',
-  nombres: '',
-  apellidos: '',
-  facultad: '',
+  'expediente,nombres,apellidos': '',
+  facultad: null,
 };
