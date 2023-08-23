@@ -19,7 +19,7 @@ export const aSearchElements = [
   },
   {
     label: 'Facultad',
-    name: 'Facultad',
+    name: 'facultad',
     type: 'select',
     values: () => aFacultities.map(sF => (
       <option value={`Facultad de ${sF}`}>Facultad de {sF}</option>

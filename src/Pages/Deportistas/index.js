@@ -51,10 +51,6 @@ export const DeportistasScreen = () => {
       dataIndex: "telefonoEmergencia",
     },
     {
-      title: "No. Jugador",
-      dataIndex: "numJugador",
-    },
-    {
       title: "Acciones",
       dataIndex: "id",
       render: (sId, row) => (
