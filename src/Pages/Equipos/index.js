@@ -6,7 +6,7 @@ import iconEdit from "../../Assets/icons/edit.png";
 import pdf from "../../Assets/icons/pdf.png";
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 import { NavigationContext } from '../../Context/NavigationContext';
-import { URL, process, SAVE } from '../../Service/Api';
+import { URL, process, SAVE, DELETE } from '../../Service/Api';
 import LoadingSpinner from '../../Components/LoadingSpinner/LoadingSpinner';
 import ButtonsPages from '../../Components/ButtonsPages/ButtonsPages';
 import { useDidMountEffect } from '../../Utils/DidMountEffect';
@@ -100,44 +100,65 @@ export const EquiposScreen = () => {
               setScreen(6);
             }}
           />
-          <img
-            title="Eliminar"
-            src={iconDelete}
-            className='icons delete'
-            onClick={() => {
+   <img
+        title="Eliminar"
+        src={iconDelete}
+        className="icons delete"
+        onClick={() => {
+          Swal.fire({
+            title: 'ELIMINAR',
+            text: '¿Eliminar al equipo ' + row.nombre + '?',
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            cancelButtonText: 'Cancelar',
+            confirmButtonText: 'Confirmar',
+          }).then((result) => {
+            if (result.isConfirmed) {
               Swal.fire({
-                title: 'ELIMINAR',
-                text: "¿Eliminar al equipo " + row.nombre + "?",
-                icon: 'question',
+                title: 'ATENCION',
+                text: '¿Estás seguro de eliminar al equipo ' + row.nombre + '?',
+                icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#d33',
                 cancelButtonText: 'Cancelar',
-                confirmButtonText: 'Confirmar'
-              }).then((result) => {
+                confirmButtonText: 'Confirmar',
+              }).then(async (result) => {
                 if (result.isConfirmed) {
-                  Swal.fire({
-                    title: 'ATENCION',
-                    text: "¿Estas seguro de eliminar al equipo " + row.nombre + "?",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    cancelButtonText: 'Cancelar',
-                    confirmButtonText: 'Confirmar'
-                  }).then((result) => {
-                    if (result.isConfirmed) {
+                  try {
+                    // Llama a la función para eliminar usando el ID del equipo
+                    const response = await process(DELETE, 'equipos', null, { id: sId });
+                    if (response.status === 200) {
                       Swal.fire(
                         'Eliminado satisfactoriamente',
-                        "El equipo " + row.nombre + " ha sido eliminado.",
+                        'El equipo ' + row.nombre + ' ha sido eliminado.',
                         'success'
-                      )
+                      );
+                      // Realiza una actualización para refrescar la lista de equipos
+                      change();
+                    } else {
+                      Swal.fire(
+                        'Error',
+                        'Hubo un problema al intentar eliminar el equipo.',
+                        'error'
+                      );
                     }
-                  })
+                  } catch (error) {
+                    console.error('Error al eliminar equipo:', error);
+                    Swal.fire(
+                      'Error',
+                      'Hubo un problema al intentar eliminar el equipo.',
+                      'error'
+                    );
+                  }
                 }
-              })
-            }}
-            />
+              });
+            }
+          });
+        }}
+      />
         </div>
       ),
     }

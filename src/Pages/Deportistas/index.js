@@ -7,9 +7,10 @@ import qr from "../../Assets/icons/qr.png";
 import iconInfo from "../../Assets/icons/more-info.png";
 import ModalQR from "../../Components/Modals/ModalQR/ModalQR";
 import MoreInfo from "../../Components/MoreInfo/MoreInfo";
-import { SearchBar } from '../../Components/Filters/SearchBar';
-import { oInitState, aSearchElements } from './constants';
-import { generateQueries } from '../../Utils/functions';
+import { SearchBar } from "../../Components/Filters/SearchBar";
+import { oInitState, aSearchElements } from "./constants";
+import { generateQueries } from "../../Utils/functions";
+import { DELETE, process } from "../../Service/Api";
 
 export const DeportistasScreen = () => {
   //State para mostrar MAS INFORMACION de un deportista
@@ -116,17 +117,43 @@ export const DeportistasScreen = () => {
                     cancelButtonColor: "#d33",
                     cancelButtonText: "Cancelar",
                     confirmButtonText: "Confirmar",
-                  }).then((result) => {
+                  }).then(async (result) => {
                     if (result.isConfirmed) {
-                      Swal.fire(
-                        "Eliminado satisfactoriamente",
-                        "El deportista " +
-                          row.nombres +
-                          " " +
-                          row.apellidos +
-                          " ha sido eliminado.",
-                        "success"
-                      );
+                      try {
+                        // Llama a la función para eliminar usando el ID del deportista
+                        const response = await process(
+                          DELETE,
+                          "deportistas",
+                          null,
+                          { id: row.id }
+                        );
+                        if (response.status === 200) {
+                          Swal.fire(
+                            "Eliminado satisfactoriamente",
+                            "El deportista " +
+                              row.nombres +
+                              " " +
+                              row.apellidos +
+                              " ha sido eliminado.",
+                            "success"
+                          );
+                          // Realiza una actualización para refrescar la lista de deportistas
+                          change();
+                        } else {
+                          Swal.fire(
+                            "Error",
+                            "Hubo un problema al intentar eliminar al deportista.",
+                            "error"
+                          );
+                        }
+                      } catch (error) {
+                        console.error("Error al eliminar deportista:", error);
+                        Swal.fire(
+                          "Error",
+                          "Hubo un problema al intentar eliminar al deportista.",
+                          "error"
+                        );
+                      }
                     }
                   });
                 }
@@ -171,7 +198,11 @@ export const DeportistasScreen = () => {
         />
       </>
       {showQR ? (
-        <ModalQR datos={selected} setMostrarModalQr={setShowQR} setSelected={setSelected}/>
+        <ModalQR
+          datos={selected}
+          setMostrarModalQr={setShowQR}
+          setSelected={setSelected}
+        />
       ) : null}
     </>
   );
