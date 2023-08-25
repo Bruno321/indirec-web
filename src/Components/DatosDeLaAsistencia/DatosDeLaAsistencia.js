@@ -11,7 +11,7 @@ import "./DatosDeLaAsistencia.css";
 export const DatosDeLaAsistencia = () => {
   const { itemId, setScreen } = useContext(NavigationContext);
   const [asistencia, loading] = useFetchData(`asistencias/${itemId.id}`);
-  const [asistencias] = useFetchData(
+  const [asistencias, aLoading, change] = useFetchData(
     "asistencias",
     `deportista_id=${itemId.deportista_id}`
   );
@@ -21,6 +21,7 @@ export const DatosDeLaAsistencia = () => {
     fechaInicio: null,
     fechaFin: null,
   });
+  const [pagina, setPagina] = useState(0);
 
   const [tiempoEntrenado, setTiempoEntrenado] = useState(null);
 
@@ -137,7 +138,14 @@ export const DatosDeLaAsistencia = () => {
           />
         </section>
       </section>
-      <Table columns={columns} dataSource={asistencias.data} />
+      <Table
+        columns={columns}
+        dataSource={asistencias}
+        loading={aLoading}
+        change={change}
+        pagina={pagina}
+        setPagina={setPagina}
+      />
       <br />
       <button className="button-aceptar" onClick={() => setScreen(1)}>
         Aceptar
