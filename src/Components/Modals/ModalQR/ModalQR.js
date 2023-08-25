@@ -3,7 +3,7 @@ import React from "react";
 import "./ModalQR.css";
 
 import QRCode from "react-qr-code";
-import indereqIcon from "../../../Assets/icons/indereq-icon.png";
+// import indereqIcon from "../../../Assets/icons/indereq-icon.png";
 import close from "../../../Assets/icons/close.png";
 
 /**
@@ -25,7 +25,7 @@ const ModalQR = ({ datos, setMostrarModalQr, setSelected }) => {
                     <div className="container-img-qr">
                         <QRCode value={`${JSON.stringify(datos)}`} level='H' className="qr"/>
                         <div className="container-indereq-icon">
-                            <img src={indereqIcon} className="indereq-icon"/>
+                            {/* <img src={indereqIcon} className="indereq-icon"/> */}
                         </div>
                     </div>
                     <p className="info">QR Generado.</p>
