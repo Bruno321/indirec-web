@@ -66,12 +66,12 @@ export const DeportistasScreen = () => {
             src={qr}
             className="icons moreinfo"
             onClick={() => {
-              const [apellidoP, apellidoM] = row.apellidos.split(" ");
+              const [apellidos, apellidoM] = row.apellidos.split(" ");
               setSelected({
-                nombre: row.nombres,
-                apellidoP,
+                nombres: row.nombres,
+                apellidos,
                 apellidoM,
-                idPropio: sId,
+                id: sId,
               });
               setShowQR(true);
             }}
