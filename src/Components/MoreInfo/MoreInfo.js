@@ -93,7 +93,7 @@ function MoreInfo({ datos, trigger, setTrigger }) {
 
                     <div>
                         <b><p>Jugador seleccionado</p></b>
-                        <p>{datos.jugadorSeleccionado == '0' ? 'Si' : 'No'}</p>
+                        <p>{datos.jugadorSeleccionado ? 'Si' : 'No'}</p>
 
                         <b><p>Teléfono de emergencia</p></b>
                         <p>{datos.telefonoEmergencia}</p>

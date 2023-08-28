@@ -61,15 +61,12 @@ const RegistrarDeportista = () => {
 
             if (!showNumJugador && form.numJugador === null) {
                 delete form.numJugador;
-                // form.numJugador= null;
-                // debugger
             }
 
             for (const sKey in form) {
                 oSend.append(sKey, form[sKey]);
             }
 
-            debugger
             const response = await process(SAVE_WITH_FILE, 'deportistas', oSend).catch(e => {
                 Swal.fire({
                     icon: 'error',
