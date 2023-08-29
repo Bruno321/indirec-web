@@ -63,12 +63,13 @@ export const EventosScreen = () => {
             justifyContent: "space-around",
           }}
         >
-          {row.createdAt === row.updatedAt ? (
+          {row.createdAt === row.updatedAt && row.puntosLocal == '' && row.puntosVisitante == '' ? (
             <img
               title="Registrar resultados"
               src={iconEdit}
               className="icons edit"
               onClick={() => {
+                debugger
                 setItemId(sId);
                 setScreen(9);
               }}

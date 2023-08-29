@@ -69,7 +69,6 @@ export const DeportistasScreen = () => {
             onClick={() => {
               // const [apellidos, apellidoM] = row.apellidos.split(" ");
               const { nombres, apellidos, id } = row;
-              debugger
               setSelected({
                 nombres,
                 apellidos,
