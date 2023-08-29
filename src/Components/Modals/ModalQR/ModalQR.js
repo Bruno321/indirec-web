@@ -14,6 +14,7 @@ import close from "../../../Assets/icons/close.png";
 
 const ModalQR = ({ datos, setMostrarModalQr, setSelected }) => {
 
+    debugger
     return (
         <div className="containerPrincipal-modal">
             <div className="container-modal">

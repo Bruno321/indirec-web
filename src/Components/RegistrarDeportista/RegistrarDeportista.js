@@ -42,9 +42,8 @@ const RegistrarDeportista = () => {
     const [loading, setLoading] = useState(false);
     const [deportistaData,setDeportistaData] = useState({
         nombre:"",
-        apellidoM:"",
-        apellidoP:"",
-        idPropio:""
+        apellidos:"",
+        id:""
     })
 
     const [form,setForm] = useState(oInitialState);
@@ -76,13 +75,11 @@ const RegistrarDeportista = () => {
             });
 
             if (response?.status === 201) {
-                const { nombres: nombre, apellidos, id: idPropio } = response.data;
-                const [apellidoP, apellidoM] = apellidos.split(" ");
+                const { nombres, apellidos, id } = response.data;
                 setDeportistaData({
-                    nombre,
-                    apellidoP,
-                    apellidoM,
-                    idPropio,
+                    nombres,
+                    apellidos,
+                    id,
                 })
                 Swal.fire(
                     'Jugador agregado exitosamente',
