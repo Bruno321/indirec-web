@@ -11,10 +11,10 @@ const oInitialState = {
   nombre: "",
   fecha: "",
   hora: "",
-  deporte: "",
+  deporte_id: null,
   equipo_local_id: "",
   directorTecnicoLocal : "",
-  categoria: "",
+  categoria: null,
   canchaJugada: "",
   equipoVisitante: "",
   directorTecnicoVisitante: "",
@@ -23,6 +23,7 @@ const oInitialState = {
 
 export const RegistrarEvento = () => {
   const [equipos] = useFetchData("equipos");
+  const [deportes, deportesLoading] = useFetchData('deportes', '', 0, 50);
   const [form,setForm] = useState(oInitialState);
 
   //Se guarda en un estado el arreglo de los jugadores que corresponden a cada uno de los dos equipos.
@@ -81,6 +82,17 @@ export const RegistrarEvento = () => {
       const idJugadoresVisitantes = listaJugadoresVisitantes.map(jugador => jugador.id);
       const concatJugadores = idJugadoresLocales.concat(idJugadoresVisitantes);
       setForm(form.jugadores = concatJugadores)
+
+      if(form.deporte_id == null){
+        Swal.fire({
+            icon: 'warning',
+            title: 'Oops...',
+            text: 'Falta agregar un deporte',
+            confirmButtonText: 'Aceptar'
+        })
+        setIsLoading(false);
+        return;
+      }
 
       const response = await process(SAVE, 'eventos', form).catch(e => {
         Swal.fire({
@@ -186,8 +198,8 @@ export const RegistrarEvento = () => {
                   setForm({ ...form, categoria: e.target.value });
                 }}
               >
-                <option value="Varonil">Varonil</option>
-                <option value="Femenil">Femenil</option>
+                <option value={0}>Varonil</option>
+                <option value={1}>Femenil</option>
               </select>
             </div>
             <div className="column-flex">
@@ -196,13 +208,15 @@ export const RegistrarEvento = () => {
                   name="deporte"
                   id="deporte"
                   className="chose-sport input-select margin-input"
-                  value={form.deporte}
+                  value={form.deporte_id}
                   onChange={(e) => {
-                    setForm({ ...form, deporte: e.target.value });
+                    setForm({ ...form, deporte_id: e.target.value });
                   }}
                 >
-                  <option value="futbol">Futbol</option>
-                  <option value="basquetbol">Basquetbol</option>
+                  <option value={null}>{deportesLoading ? 'Cargando...' : 'Selecciona un deporte'}</option>
+                  {
+                    deportes.data.map(deporte => <option value={deporte.id}>{deporte.nombre}</option>)
+                  }
                 </select>
             </div>
 

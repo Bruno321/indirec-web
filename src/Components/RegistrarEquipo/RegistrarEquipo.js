@@ -13,7 +13,7 @@ const oInitialState = {
     nombre: "",
     facultad: "Facultad de Derecho",
     campus: "Centro Universitario",
-    deporte: "Futbol",
+    deporte_id: null,
     categoria: 0,
     nombreEntrenador: "",
     apellidoEntrenador: "",
@@ -22,20 +22,17 @@ const oInitialState = {
 }
 
 const RegistrarEquipo = () => {
-    let {facultad, deporte, categoria: sexo} = oInitialState;
-
     const [mostrarListaJugadoresEquipo, setMostrarListaJugadoresEquipo] = useState(false);
     const [listaJugadores, setListaJugadores] = useState([]);
-    const [deportistas, loading, change, update] = useFetchData('deportistas', `status=1&facultad=${facultad}&deporte=${deporte}&sexo=${sexo}`);
+    const [deportistas, loading, change, update] = useFetchData('deportistas', `status=-1`);
+    const [deportes, deportesLoading] = useFetchData('deportes', '', 0, 50);
     const [form, setForm] = useState(oInitialState);
     const [isLoading, setIsLoading] = useState(false);
 
-    // debugger;
-
     const changeValues = () => {
-        let {facultad, deporte, categoria: sexo} = form;
+        let {facultad, deporte_id, categoria: sexo} = form;
         console.log(facultad, deporte, sexo);
-        change(`status=1&facultad=${facultad}&deporte=${deporte}&sexo=${sexo}`);
+        change(`status=1&facultad=${facultad}&deporte_id=${deporte_id}&sexo=${sexo}&jugadorSeleccionado=1`);
         setMostrarListaJugadoresEquipo(true);
     }
 
@@ -47,6 +44,17 @@ const RegistrarEquipo = () => {
 
         setForm(form.jugadores = idJugadores)
         console.log(form)
+
+        if(form.deporte_id == null){
+            Swal.fire({
+                icon: 'warning',
+                title: 'Oops...',
+                text: 'Falta agregar un deporte',
+                confirmButtonText: 'Aceptar'
+            })
+            setIsLoading(false);
+            return;
+        }
 
         if(listaJugadores.length != 0){
             
@@ -103,9 +111,17 @@ const RegistrarEquipo = () => {
                             </div>
                             <div className="containers-input-registroEquipo">
                                 <label htmlFor="deporte">Deporte:</label>
-                                <select id="deporte" className="inputs-registro" value={form.deporte} onChange={e => setForm({...form,deporte:e.target.value})}>
-                                    <option value="Futbol">Futbol</option>
-                                    <option value="Basquetball">Basquetball</option>
+                                <select 
+                                    id="deporte" 
+                                    className="inputs-registro"
+                                    value={form.deporte_id}
+                                    onChange={e => setForm({...form,deporte_id:e.target.value})}
+                                    disabled={deportesLoading}
+                                >
+                                    <option value={null}>{deportesLoading ? 'Cargando...' : 'Selecciona un deporte'}</option>
+                                   {
+                                     deportes.data.map(deporte => <option value={deporte.id}>{deporte.nombre}</option>)
+                                   }
                                 </select>
                             </div>
                             <div className="containers-input-registroEquipo">
@@ -169,7 +185,7 @@ const RegistrarEquipo = () => {
                         <div className="containerTableJugadoresEquipo">
                             <TableJugadoresEquipo listaJugadores={listaJugadores}/>
                         </div>
-                        <div className="btnEditarEquipo" onClick={() => changeValues()}>
+                        <div className={`btnEditarEquipo`} onClick={() => changeValues()}>
                             <img src={PencilAlt}/>
                             Agregar jugador
                         </div>
