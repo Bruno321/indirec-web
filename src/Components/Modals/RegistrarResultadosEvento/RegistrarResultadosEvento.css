@@ -1,7 +1,30 @@
+.container-headers{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.more-info{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, .5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.more-info-inner{
+    padding: 30px;
+    background-color: #FFF;
+}
+
 .registrar-resultados-container input[type=number], textarea{
     height: 34px;
     border-radius: 5px;
-    margin-top: 10px;
+    margin: 10px 0px;
     border: 1px solid black;
     padding: 5px;
     box-sizing: border-box;
@@ -21,25 +44,19 @@ input[type=number] {
 }
 
 .upper-registrar-resultados{
-    padding: 15px;
     display: flex;
     justify-content: space-evenly;
-}
-
-.incidents{
-    padding: 15px;
-    margin-left: 14vw;
+    margin: 20px 0px;
 }
 
 .incidents-textarea{
     word-wrap: break-word;
     word-break: break-all;
-    width: 50vw;
-    height: 15vh;
+    width: 40vw;
+    height: 20vh;
 }
 
 .buttons-registrar-resultados{
-    padding: 15px;
     display: flex;
     justify-content: space-evenly;
 }
@@ -58,4 +75,8 @@ input[type=number] {
     padding: 12px 35px;
     border-radius: 10px;
     border: none;
+}
+
+.guardar:hover, .cancelar:hover{
+    opacity: 0.75;
 }

@@ -59,7 +59,7 @@ export const AsistenciasScreen = () => {
               className="icons moreinfo"
               onClick={() => {
                 setItemId(row);
-                setScreen(11);
+                setScreen(10);
               }}
             />
           </>

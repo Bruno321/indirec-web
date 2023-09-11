@@ -26,3 +26,7 @@
     font-size: medium;
     border-style: none;
 }
+
+button:hover, input[type="submit"]:hover{
+    opacity: .75;
+}

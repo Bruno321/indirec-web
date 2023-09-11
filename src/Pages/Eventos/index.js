@@ -12,10 +12,16 @@ import { NavigationContext } from "../../Context/NavigationContext.js";
 import { Table } from "../../Components/Table/Table";
 import { useFetchData } from "../../Hooks/Fetch.hook";
 import { process, DELETE } from "../../Service/Api";
+import RegistrarResultadosEvento from "../../Components/Modals/RegistrarResultadosEvento/RegistrarResultadosEvento";
 
 export const EventosScreen = () => {
   const { setItemId, setScreen } = useContext(NavigationContext);
   const [pagina, setPagina] = useState(0);
+
+  //States para el modal de Registrar resultados
+  const [datos, setDatos] = useState();
+  const [trigger, setTrigger] = useState(false);
+
   const [eventos, loading, change] = useFetchData("eventos");
 
   const columns = [
@@ -63,15 +69,15 @@ export const EventosScreen = () => {
             justifyContent: "space-around",
           }}
         >
-          {row.createdAt === row.updatedAt && row.puntosLocal == '' && row.puntosVisitante == '' ? (
+          {row.createdAt === row.updatedAt && row.puntosLocal === null && row.puntosVisitante === null ? (
             <img
               title="Registrar resultados"
               src={iconEdit}
               className="icons edit"
               onClick={() => {
-                debugger
                 setItemId(sId);
-                setScreen(9);
+                setDatos(row);
+                setTrigger(true);
               }}
             />
           ) : (
@@ -83,7 +89,7 @@ export const EventosScreen = () => {
             className="icons moreinfo"
             onClick={() => {
               setItemId(sId);
-              setScreen(10);
+              setScreen(9);
             }}
           />
           <img
@@ -170,6 +176,11 @@ export const EventosScreen = () => {
         pagina={pagina}
         setPagina={setPagina}
       />
+      <RegistrarResultadosEvento
+          trigger={trigger}
+          setTrigger={setTrigger}
+          datos={datos}
+        />
     </>
   );
 };
