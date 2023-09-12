@@ -42,6 +42,8 @@ export async function process(operation, model, payload = {}, params = {}) {
   };
 
   switch (operation) {
+    case GET:
+      return await API.get(`/${model}/${id}`, null, oAuth);
     case FIND:
       return await API.get(
         `/${model}?${queries ? queries + '&' : ''}${
@@ -49,8 +51,6 @@ export async function process(operation, model, payload = {}, params = {}) {
         }&$skip=${skip}`,
         oAuth
       );
-    // case FIND:
-    //   return await API.get(`/${model}`, oAuth);
     case SAVE:
       return await API.post(`/${model}`, payload, oAuth);
     case SAVE_WITH_FILE:
@@ -60,8 +60,6 @@ export async function process(operation, model, payload = {}, params = {}) {
           'Content-Type': 'multipart/form-data',
         },
       });
-    // case UPDATE:
-    //   return await API.patch(`/${model}/${id}`, payload, oAuth);
       case UPDATE:
       return await API.patch(`/${model}/${id}`, payload, oAuth);
     case DELETE:

@@ -1,53 +1,29 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext, useEffect, useCallback } from "react";
 import { NavigationContext } from "../../../Context/NavigationContext";
 import { useFetchData } from "../../../Hooks/Fetch.hook";
-import { UPDATE, process } from "../../../Service/Api"; 
+import { UPDATE, process, GET } from "../../../Service/Api"; 
 import LoadingSpinner from "../../LoadingSpinner/LoadingSpinner";
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 
 import './RegistrarResultadosEvento.css';
 
 const oInitialState = {
-    nombreEvento: '',
-    fechaEvento: '',
-    horaEvento: '',
-    equipoLocal: '',
-    directorTecnicoLocal: '',
     puntosLocal: '',
-    canchaJugada: '',
-    equipoVisitante: '',
-    directorTecnicoVisitante: '',
     puntosVisitante: '',
-    jornada: '',
     incidentes: ''
 }
 
-function RegistrarResultadosEvento({ datos, trigger, setTrigger }) {
-    //Context de navigation
-    const { itemId, setScreen } = useContext(NavigationContext)
-    //fetches
-    const [evento, loading] = useFetchData(`eventos/${itemId}`);
+function RegistrarResultadosEvento({ datos, trigger, setTrigger, update }) {    
+    console.log(datos)
     //state para el update
     const [form, setForm] = useState(oInitialState);
-
-
 
     const [showSpinner, setShowSpinner] = useState(false);
 
     useEffect(() => {
-        if (evento.id === undefined) {
-            return
-        }
-
-        const eventoKeys = Object.keys(evento).sort();
-        const formKeys = Object.keys(form).sort();
-
-        if (JSON.stringify(eventoKeys) === JSON.stringify(formKeys)) {
-            return;
-        }
-
-        setForm(evento);
-    }, [evento]);
+        if(datos == undefined) return;
+        setForm(datos)
+    }, [datos])
 
     //Funcion para hendlesubmit
     const handleSubmit = async (e) => {
@@ -73,8 +49,8 @@ function RegistrarResultadosEvento({ datos, trigger, setTrigger }) {
                 title: 'Se registraron los resultados',
                 confirmButtonText: 'Aceptar'
             }).then(() => {
-                setScreen(8)
-                setTrigger(false)
+                setTrigger(false);
+                update();
             });
         }
         setShowSpinner(false);
@@ -143,7 +119,11 @@ function RegistrarResultadosEvento({ datos, trigger, setTrigger }) {
                                     handleSubmit()
                                 }
                             })
-                    }>Guardar</button>
+                    }>
+                        {
+                            showSpinner ? <LoadingSpinner login={true}/> : "Guardar"
+                        }
+                    </button>
                 </div>
             </div>
             </div>

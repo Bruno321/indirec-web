@@ -22,7 +22,7 @@ export const EventosScreen = () => {
   const [datos, setDatos] = useState();
   const [trigger, setTrigger] = useState(false);
 
-  const [eventos, loading, change] = useFetchData("eventos");
+  const [eventos, loading, change, update] = useFetchData("eventos");
 
   const columns = [
     {
@@ -69,7 +69,8 @@ export const EventosScreen = () => {
             justifyContent: "space-around",
           }}
         >
-          {row.createdAt === row.updatedAt && row.puntosLocal === null && row.puntosVisitante === null ? (
+          {/* {row.createdAt === row.updatedAt && row.puntosLocal === null && row.puntosVisitante === null ? ( */}
+          {true ? (
             <img
               title="Registrar resultados"
               src={iconEdit}
@@ -138,7 +139,7 @@ export const EventosScreen = () => {
                             "success"
                           );
                           // Realiza una actualización para refrescar la lista de eventos
-                          change();
+                          update();
                         } else {
                           Swal.fire(
                             "Error",
@@ -180,6 +181,7 @@ export const EventosScreen = () => {
           trigger={trigger}
           setTrigger={setTrigger}
           datos={datos}
+          update={update}
         />
     </>
   );
