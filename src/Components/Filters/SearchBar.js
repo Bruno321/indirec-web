@@ -83,9 +83,9 @@ export const SearchBar = ({
                       onChange={({ target }) => getDateForm(target)}
                       placeholder={placeholder}
                       style={{ width: '100%' }}
-                      value={search[name] || 0}
+                      value={search[name] || -1}
                     >
-                      <option disabled selected value={0}> -- Selecciona una opción -- </option>
+                      <option disabled selected value={-1}> -- Selecciona una opción -- </option>
                       {typeof values === 'function' && values()}
                     </select>
                   ) : type === 'date' ? (

@@ -1,9 +1,10 @@
 import React, { useState, useContext, useEffect } from "react";
 import { Table } from "../../Components/Table/Table";
 import { useFetchData } from "../../Hooks/Fetch.hook";
+import { SearchBar } from "../../Components/Filters/SearchBar";
+import { oInitState, aSearchElements } from "./constants";
+import { generateQueries } from "../../Utils/functions";
 import moment from "moment";
-import LoadingSpinner from "../../Components/LoadingSpinner/LoadingSpinner";
-import { useDidMountEffect } from "../../Utils/DidMountEffect";
 
 // Icons
 import iconInfo from "../../Assets/icons/more-info.png";
@@ -13,11 +14,11 @@ import { NavigationContext } from "../../Context/NavigationContext.js";
 
 // Estilos
 import "./index.css";
-import ButtonsPages from "../../Components/ButtonsPages/ButtonsPages";
 
 export const AsistenciasScreen = () => {
   const [asistencias, loading, change] = useFetchData("asistencias");
   const [pagina, setPagina] = useState(0);
+  const [search, setSearch] = useState(oInitState);
 
   const { setItemId, setScreen } = useContext(NavigationContext);
 
@@ -68,9 +69,24 @@ export const AsistenciasScreen = () => {
     },
   ];
 
+  const _handleReset = () => {
+    setPagina(0);
+    setSearch(oInitState);
+    change();
+  };
+
+  const _handleSearch = () => change(generateQueries(search, aSearchElements));
+
+
   return (
     <>
       <h3>Asistencias</h3>
+      <SearchBar
+        elements={aSearchElements}
+        handleReset={_handleReset}
+        handleSearch={_handleSearch}
+        {...{ search, setSearch }}
+      />
       <Table
         columns={columns}
         dataSource={asistencias}

@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext } from 'react';
 import { Table } from '../../Components/Table/Table';
 import { useFetchData } from '../../Hooks/Fetch.hook';
 import iconDelete from "../../Assets/icons/delete.png";
@@ -8,11 +8,15 @@ import Swal from 'sweetalert2/dist/sweetalert2.js';
 import { NavigationContext } from '../../Context/NavigationContext';
 import { URL, process, SAVE, DELETE } from '../../Service/Api';
 import LoadingSpinner from '../../Components/LoadingSpinner/LoadingSpinner';
-import ButtonsPages from '../../Components/ButtonsPages/ButtonsPages';
-import { useDidMountEffect } from '../../Utils/DidMountEffect';
+
+import { SearchBar } from "../../Components/Filters/SearchBar";
+import { oInitState, aSearchElements } from "./constants";
+import { generateQueries } from "../../Utils/functions";
 
 export const EquiposScreen = () => {
   const [equipos, loading, change] = useFetchData('equipos');
+  const [deportes] = useFetchData("deportes", '', 0, 50);
+  const [search, setSearch] = useState(oInitState);
   const [pagina, setPagina] = useState(0);
   const { setItemId, setScreen } = useContext(NavigationContext);
 
@@ -91,7 +95,7 @@ export const EquiposScreen = () => {
               setScreen(6);
             }}
           />
-   <img
+      <img
         title="Eliminar"
         src={iconDelete}
         className="icons delete"
@@ -155,22 +159,38 @@ export const EquiposScreen = () => {
     }
   ];
 
+  const _handleReset = () => {
+    setPagina(0);
+    setSearch(oInitState);
+    change();
+  };
+
+  const _handleSearch = () => change(generateQueries(search, aSearchElements(deportes.data)));
+
   return (
     <>
       <h3>Equipos</h3>
       {
-      showSpinner
-      ?
+        showSpinner ?
         <LoadingSpinner texto="Descargando pdf"/>
-      :
-        <Table
-          columns={columns}
-          dataSource={equipos}
-          loading={loading}
-          change={change}
-          pagina={pagina}
-          setPagina={setPagina}
-        />}
+        :
+        <>
+          <SearchBar
+            elements={aSearchElements(deportes.data)}
+            handleReset={_handleReset}
+            handleSearch={_handleSearch}
+            {...{ search, setSearch }}
+          />
+          <Table
+            columns={columns}
+            dataSource={equipos}
+            loading={loading}
+            change={change}
+            pagina={pagina}
+            setPagina={setPagina}
+          />
+        </>
+      }
     </>
   );
 };

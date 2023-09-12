@@ -19,12 +19,12 @@ export const generateQueries = (values, config, prefix) => {
 
       if ((oValue === 0 || (oValue && oValue !== '')) && type !== 'range-date') {
         if (or) {
-          aQueries.push(`$or[${nOrCounter}][${sField}][$like]=%${oValue}%`);
+          aQueries.push(`$or[${nOrCounter}][${sField}][$iLike]=%${oValue}%`);
           nOrCounter++;
         } else {
           if (type === 'input') {
             const sFieldName = prefix ? `${prefix}[${sField}]` : sField;
-            aQueries.push(`${sFieldName}[$like]=%${oValue}%`);
+            aQueries.push(`${sFieldName}[$iLike]=%${oValue}%`);
           } else if (type === 'date') {
             const sFieldName = prefix ? `${prefix}[date]` : 'date';
             if (sField.indexOf('_ini') > -1) {

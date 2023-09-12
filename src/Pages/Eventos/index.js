@@ -14,6 +14,10 @@ import { useFetchData } from "../../Hooks/Fetch.hook";
 import { process, DELETE } from "../../Service/Api";
 import RegistrarResultadosEvento from "../../Components/Modals/RegistrarResultadosEvento/RegistrarResultadosEvento";
 
+import { SearchBar } from "../../Components/Filters/SearchBar";
+import { oInitState, aSearchElements } from "./constants";
+import { generateQueries } from "../../Utils/functions";
+
 export const EventosScreen = () => {
   const { setItemId, setScreen } = useContext(NavigationContext);
   const [pagina, setPagina] = useState(0);
@@ -22,7 +26,10 @@ export const EventosScreen = () => {
   const [datos, setDatos] = useState();
   const [trigger, setTrigger] = useState(false);
 
+  const [search, setSearch] = useState(oInitState);
+
   const [eventos, loading, change, update] = useFetchData("eventos");
+  const [deportes] = useFetchData("deportes", '', 0, 50);
 
   const columns = [
     {
@@ -69,8 +76,7 @@ export const EventosScreen = () => {
             justifyContent: "space-around",
           }}
         >
-          {/* {row.createdAt === row.updatedAt && row.puntosLocal === null && row.puntosVisitante === null ? ( */}
-          {true ? (
+          {row.createdAt === row.updatedAt && row.puntosLocal === null && row.puntosVisitante === null ? (
             <img
               title="Registrar resultados"
               src={iconEdit}
@@ -166,9 +172,23 @@ export const EventosScreen = () => {
     },
   ];
 
+  const _handleReset = () => {
+    setPagina(0);
+    setSearch(oInitState);
+    change();
+  };
+
+  const _handleSearch = () => change(generateQueries(search, aSearchElements(deportes.data)));
+
   return (
     <>
       <h3>Eventos</h3>
+      <SearchBar
+        elements={aSearchElements(deportes.data)}
+        handleReset={_handleReset}
+        handleSearch={_handleSearch}
+        {...{ search, setSearch }}
+      />
       <Table
         columns={columns}
         dataSource={eventos}

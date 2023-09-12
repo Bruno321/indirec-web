@@ -21,6 +21,7 @@ export const DeportistasScreen = () => {
   const [showQR, setShowQR] = useState(false);
 
   const [deportistas, loading, change] = useFetchData("deportistas");
+  const [deportes] = useFetchData("deportes", '', 0, 50);
 
   const columns = [
     {
@@ -171,14 +172,14 @@ export const DeportistasScreen = () => {
     change();
   };
 
-  const _handleSearch = () => change(generateQueries(search, aSearchElements));
+  const _handleSearch = () => change(generateQueries(search, aSearchElements(deportes.data)));
 
   return (
     <>
       <h3>Deportistas</h3>
       <>
         <SearchBar
-          elements={aSearchElements}
+          elements={aSearchElements(deportes.data)}
           handleReset={_handleReset}
           handleSearch={_handleSearch}
           {...{ search, setSearch }}

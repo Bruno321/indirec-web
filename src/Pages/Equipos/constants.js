@@ -3,10 +3,9 @@ import { aFacultities } from '../../Utils/constants';
 
 export const aSearchElements = (aSports) => [
   {
-    label: 'Expediente/Nombre',
-    name: 'expediente,nombres,apellidos',
+    label: 'Nombre del Equipo',
+    name: 'nombre',
     type: 'input',
-    or: true,
   },
   {
     label: 'Deporte',
@@ -15,6 +14,17 @@ export const aSearchElements = (aSports) => [
     values: () => aSports.map(oSport => (
       <option value={oSport.id}>{oSport.nombre}</option>
     )),
+  },
+  {
+    label: 'Categoria',
+    name: 'categoria',
+    type: 'select',
+    values: () => (
+      <>
+        <option value={0}>Varonil</option>
+        <option value={1}>Femenil</option>
+      </>
+    )
   },
   {
     label: 'Facultad',
@@ -27,7 +37,8 @@ export const aSearchElements = (aSports) => [
 ];
 
 export const oInitState = {
-  'expediente,nombres,apellidos': '',
+  nombre: '',
   deporte_id: null,
+  categoria: null,
   facultad: null,
 };
