@@ -78,16 +78,15 @@ function MoreInfoEventos() {
       <section className="directoresTecnicos-section">
         <section className="director-tecnico-local">
           <p>Director técnico:</p>
-          {/* <p>{evento.directorTecnicoLocal}</p> */}
-          <p>Pep Guardiola</p>
+          <p>{evento.directorTecnicoLocal}</p>
           <button
             className="ver-jugadores"
             onClick={() => {
-              setEquipoIdTable(evento.EquipoLocal.id);
+              setEquipoIdTable(evento.equipo_local_id);
               setJugadores(
                 evento.eventos_details.filter(
                   ({ deportista }) =>
-                    deportista.equipo.id === evento.equipo_local_id
+                    deportista.equipo_id === evento.equipo_local_id
                 )
               );
               setTrigger(true);
@@ -104,11 +103,11 @@ function MoreInfoEventos() {
           <button
             className="ver-jugadores"
             onClick={() => {
-              setEquipoIdTable(evento.EquipoVisitante.id);
+              setEquipoIdTable(evento.equipo_visitante_id);
               setJugadores(
                 evento.eventos_details.filter(
                   ({ deportista }) =>
-                    deportista.equipo.id === evento.equipo_visitante_id
+                    deportista.equipo_id === evento.equipo_visitante_id
                 )
               );
               setTrigger(true);
