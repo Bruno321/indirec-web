@@ -47,38 +47,31 @@ export const DatosDeLaAsistencia = () => {
     {
       title: "Fecha",
       dataIndex: "fecha",
-      render: (date) =>
-        date ? moment(date).format("DD/MM/YYYY") : "Sin registrar",
+      render: (date) => (date ? moment(date).format("DD/MM/YYYY") : "Sin registrar"),
     },
     {
       title: "Hora de Entrada",
       dataIndex: "horaEntrada",
-      render: (hE) => (hE ? moment(hE).format("HH:mm") : "Sin registrar"),
+      render: (hE) => (hE ? moment(hE, "HH:mm").format("HH:mm") : "Sin registrar"),
     },
     {
       title: "Hora de Salida",
       dataIndex: "horaSalida",
-      render: (hS) => (hS ? moment(hS).format("HH:mm") : "Sin registrar"),
+      render: (hS) => (hS ? moment(hS, "HH:mm").format("HH:mm") : "Sin registrar"),
     },
     {
       title: "Tiempo total",
       dataIndex: "id",
       render: (_, record) => {
-        if (!!record.horaEntrada && !!record.horaSalida) {
-          const duracion = moment.duration(
-            moment(record.horaSalida, "HH:mm").diff(
-              moment(record.horaEntrada, "HH:mm")
-            )
-          );
-          return (
-            duracion.hours() + " hora(s) ," + duracion.minutes() + " minuto(s)"
-          );
+        if (record.horaEntrada && record.horaSalida) {
+          const duracion = moment.duration(moment(record.horaSalida, "HH:mm").diff(moment(record.horaEntrada, "HH:mm")));
+          return `${duracion.hours()} hora(s), ${duracion.minutes()} minuto(s)`;
         }
-
         return "Asistencia incompleta";
       },
     },
   ];
+  
 
   return loading ? (
     <LoadingSpinner />

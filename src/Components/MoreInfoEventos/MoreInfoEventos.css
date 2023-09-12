@@ -1,43 +1,155 @@
-.more-info-eventos-container{
-    position: relative;
-    height: 100%;
-    width: 100%;
+/* NUEVO CSS */
+.eventInformationHeader {
+}
+.titleEvent {
+  font-weight: 500;
+  font-size: 32px;
+  text-align: center;
+
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
 
-.up{
-    margin: 20px;
+.score-section-with-teams {
+  /* background-color: pink; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 35px;
+  padding-bottom: 35px;
+}
+.local-info p:nth-child(1),
+.visitante-info p:nth-child(1) {
+  font-size: 24px;
+  font-weight: 400;
+}
+.local-info p:nth-child(2),
+.visitante-info p:nth-child(2) {
+  font-size: 14px;
+}
+.local-info {
+  display: flex;
+  flex-direction: column;
+  margin-right: 40px;
+}
+
+.score-info-section {
+  display: flex;
+  flex-direction: row;
+  font-size: 30px;
+  font-weight: 500;
+}
+.visitante-info {
+  margin-left: 40px;
+}
+
+.separador-jornada {
+  width: 100%;
+  height: 40px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.separador-jornada p {
+  width: 90%;
+  height: 100%;
+
+  background-color: #003070;
+  color: #ffffff;
+
+  font-weight: 600;
+  font-size: 20px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.basic-information-evento {
+  /* background-color: pink; */
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  place-items: center;
+  width: 90%;
+  margin: 0 5%;
+}
+
+.fecha-info, .hora-info, .cancha-info {
+    padding: 12.5px 0;
     display: flex;
-    justify-content: space-around;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
-.middle{
+.fecha-info p:nth-child(1), .hora-info p:nth-child(1), .cancha-info p:nth-child(1){
+    /* background-color: red; */
+    font-size: 24px;
+    font-weight: 500;
+    padding-bottom: 5px;
+}
+.fecha-info p:nth-child(2), .hora-info p:nth-child(2), .cancha-info p:nth-child(2){
+    /* background-color: red; */
+    font-size: 16px;
+    font-weight: 400;
+    padding-bottom: 5px;
+}
+
+.directoresTecnicos-section{
+  padding: 20px 0;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  align-items: center;
+  justify-content: center;
+  width: 90%;
+  margin: 0 5%;
+}
+.ver-jugadores {
+  color: white;
+  background-color: #003070;
+  padding: 15px 50px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+}
+
+.director-tecnico-local, .director-tecnico-visitante{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.director-tecnico-local p:nth-child(1), .director-tecnico-visitante p:nth-child(1), .bottom-observaciones p:nth-child(1){
+font-size: 24px;
+font-weight: 500;
+padding: 5px 0;
+}
+
+.director-tecnico-local p:nth-child(2), .director-tecnico-visitante p:nth-child(2), .bottom-observaciones p:nth-child(2){
+  font-size: 16px;
+  font-weight: 400;
+  padding: 0 0 10px 0;
+  }
+
+
+  .btn-aceptar-section{
+    width: 90%;
+    margin: 0 5%;
     display: flex;
-    justify-content: space-around;
-}
+    justify-content: center;
+    align-items: center;
+    height: auto;
+    padding: 15px 0;
+  }
 
-.ver-jugadores{
-    color: white;
-    background-color: #003070;
-    padding: 8px 15px;
+  .button-aceptar{
+    width: 200px;
+    height: 40px;
     border-radius: 10px;
-    border: none;
-    cursor: pointer;
-}
-
-.botones-verjugadores{
-    display: flex;
-    justify-content: space-around;
-}
-
-.bottom-observaciones{
-    padding: 30px;
-}
-
-.button-aceptar{
-    color: white;
     background-color: #003070;
-    padding: 12px 20px;
-    border-radius: 10px;
+    color: #ffffff;
     border: none;
-    float: right;
-}
+  }
