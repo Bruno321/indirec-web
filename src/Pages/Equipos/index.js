@@ -33,22 +33,13 @@ export const EquiposScreen = () => {
     },
     {
       title: 'Deporte',
-      dataIndex: 'deporte',
+      dataIndex: 'deporte_id',
+      render: (_, row) => (row.deporte?.nombre || 'Sin asignar'),
     },
     {
       title: 'Categoria',
       dataIndex: 'categoria',
       render: c => c ? 'Femenil' : 'Masculino',
-    },
-    {
-      title: 'Entrenador',
-      dataIndex: 'nombreEntrenador',
-      render: (_, row) => `${row.nombreEntrenador} ${row.apellidoEntrenador}`,
-    },
-    {
-      title: 'Asistente',
-      dataIndex: 'nombreAsistente',
-      render: (_, row) => `${row.nombreAsistente} ${row.apellidoAsistente}`,
     },
     {
       title: 'Acciones',

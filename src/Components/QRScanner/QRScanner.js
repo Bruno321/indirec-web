@@ -45,7 +45,7 @@ const QRScanner = () => {
                           Swal.fire({
                             title: '<h1 class="modal-status">Escaneo exitoso</h1>',
                             html:
-                              '<h1 class="modal-title">Bienvenido</h1>' +
+                              `<h1 class="modal-title">${response.data.horaSalida ? "Hasta pronto" : "Bienvenido"}</h1>` +
                               `<h1 class="modal-deportista">${response.data.deportista.nombres} ${response.data.deportista.apellidos}</h1>` + 
                               `<img src="${response.data.deportista.foto}" class="qr-image"/>`+ //aqui va lo del usuario
                               `<h1 class="modal-text">Se registró la ${response.data.horaSalida ? "salida" : "entrada"} exitosamente</h1>`

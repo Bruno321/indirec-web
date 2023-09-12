@@ -10,6 +10,8 @@ import ImgDocumentDeactivate from '../../Assets/icons/document-files-gray.png';
 import ImgDocumentActive from '../../Assets/icons/document-files-white.png';
 import ModalQR from '../Modals/ModalQR/ModalQR';
 import LoadingSpinner from '../LoadingSpinner/LoadingSpinner';
+import { useFetchData } from '../../Hooks/Fetch.hook';
+import {NavigationContext} from '../../Context/NavigationContext';
 
 
 const oInitialState = {
@@ -24,7 +26,7 @@ const oInitialState = {
     numSeguroSocial:"",
     jugadorSeleccionado: 0,
     numJugador: null,
-    deporte:"Futbol",
+    deporte_id: null,
     fotoIdentificacionOficial:null,
     foto:null,
     fotoCardex:null,
@@ -49,6 +51,11 @@ const RegistrarDeportista = () => {
     const [form,setForm] = useState(oInitialState);
     const [mostrarModalQr, setMostrarModalQr] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
+    const [deportes, deportesLoading] = useFetchData('deportes', '', 0, 50);
+    console.log(deportes);
+    // useEffect(() => {
+    //     if(deportes.data.length == 0) return;
+    // }, [deportes.data]);
 
     const handleSubmit = async (e) => {
         //Se valida si los campos del formulario estan completos
@@ -346,9 +353,17 @@ const RegistrarDeportista = () => {
 
                         <div className='form-derecha'>
                             <label htmlFor='deporte'>Deporte:</label><br></br>
-                            <select id='deporte' value={form.deporte} className="select" onChange={e => setForm({...form,deporte:e.target.value})}>
-                                <option value="Futbol">Futbol</option>
-                                <option value="Basquetball">Basquetball</option>
+                            <select 
+                                id='deporte' 
+                                value={form.deporte_id} 
+                                className="select" 
+                                onChange={e => setForm({...form,deporte_id:e.target.value})}
+                                disabled={deportesLoading}
+                            >
+                                <option value={null}>{deportesLoading ? 'Cargando...' : 'Selecciona un deporte'}</option>
+                                {
+                                deportes.data.map(deporte => <option value={deporte.id}>{deporte.nombre}</option>)
+                                }
                             </select><p></p>
 
                             <label htmlFor='deportistaSeleccionadoSi'>Deportista seleccionado:</label><br></br>

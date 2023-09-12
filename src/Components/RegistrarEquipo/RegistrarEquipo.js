@@ -8,6 +8,8 @@ import Swal from 'sweetalert2';
 import { useFetchData } from '../../Hooks/Fetch.hook';
 import { process, SAVE } from '../../Service/Api';
 import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
+import {NavigationContext} from "../../Context/NavigationContext";
+import { useContext } from "react";
 
 const oInitialState = {
     nombre: "",
@@ -28,6 +30,7 @@ const RegistrarEquipo = () => {
     const [deportes, deportesLoading] = useFetchData('deportes', '', 0, 50);
     const [form, setForm] = useState(oInitialState);
     const [isLoading, setIsLoading] = useState(false);
+    const { setScreen } = useContext(NavigationContext);
 
     const changeValues = () => {
         let {facultad, deporte_id, categoria: sexo} = form;
@@ -72,6 +75,8 @@ const RegistrarEquipo = () => {
                     icon: 'success',
                     title: 'El registro fue exitoso',
                     confirmButtonText: 'Aceptar'
+                }).then(() => {
+                    setScreen(5);
                 })
             }
         }else{
@@ -149,14 +154,14 @@ const RegistrarEquipo = () => {
                                     <label htmlFor="nombreEntrenador">Nombre(s):</label>
                                     <input type="text" id="nombreEntrenador" 
                                         className="inputs-registro" name="nombreEntrenador" 
-                                        placeholder="Nombre del entrenador" required
+                                        placeholder="Nombre del entrenador"
                                         onChange={e => setForm({...form,nombreEntrenador:e.target.value})}
                                     />
                                 </div>
                                 <div className="containers-input-registroEquipo">
                                     <label htmlFor="apellidosEntrenador">Apellidos:</label>
                                     <input type="text" id="apellidosEntrenador" className="inputs-registro" 
-                                        name="apellidosEntrenador" placeholder="Apellidos del entrendador" required
+                                        name="apellidosEntrenador" placeholder="Apellidos del entrendador"
                                         onChange={e => setForm({...form,apellidoEntrenador:e.target.value})}
                                     />
                                 </div>
@@ -166,14 +171,14 @@ const RegistrarEquipo = () => {
                                 <div className="containers-input-registroEquipo">
                                     <label htmlFor="nombreAsistente">Nombre(s):</label>     
                                     <input type="text" id="nombreAsistente" className="inputs-registro" 
-                                        name="nombreAsistente" placeholder="Nombre del asistente" required
+                                        name="nombreAsistente" placeholder="Nombre del asistente"
                                         onChange={e => setForm({...form,nombreAsistente:e.target.value})}
                                     />
                                 </div>
                                 <div className="containers-input-registroEquipo">
                                     <label htmlFor="apellidosAsistente">Apellidos:</label>
                                     <input type="text" id="apellidosAsistente" className="inputs-registro" 
-                                        name="apellidosAsistente" placeholder="Apellidos del asistente" required
+                                        name="apellidosAsistente" placeholder="Apellidos del asistente"
                                         onChange={e => setForm({...form,apellidoAsistente:e.target.value})}
                                     />
                                 </div>

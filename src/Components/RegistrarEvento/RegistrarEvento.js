@@ -6,6 +6,8 @@ import Swal from "sweetalert2";
 import ListaJugadores from '../ListaJugadores/ListaJugadores';
 import { useFetchData } from '../../Hooks/Fetch.hook';
 import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
+import {NavigationContext} from "../../Context/NavigationContext";
+import { useContext } from "react";
 
 const oInitialState = {
   nombre: "",
@@ -14,7 +16,7 @@ const oInitialState = {
   deporte_id: null,
   equipo_local_id: "",
   directorTecnicoLocal: "",
-  categoria: null,
+  categoria: 0,
   canchaJugada: "",
   equipoVisitante: "",
   directorTecnicoVisitante: "",
@@ -25,6 +27,7 @@ export const RegistrarEvento = () => {
   const [equipos] = useFetchData("equipos");
   const [deportes, deportesLoading] = useFetchData('deportes', '', 0, 50);
   const [form, setForm] = useState(oInitialState);
+  const { setScreen } = useContext(NavigationContext);
 
   //Se guarda en un estado el arreglo de los jugadores que corresponden a cada uno de los dos equipos.
   const [jugadoresLocales, setJugadoresLocales] = useState();
@@ -112,6 +115,7 @@ export const RegistrarEvento = () => {
           text: 'Algo salio mal, intenta mas tarde',
         })
         console.log(e);
+        setIsLoading(false);
       });
 
       if (response.status === 201) {
@@ -119,6 +123,8 @@ export const RegistrarEvento = () => {
           icon: 'success',
           title: 'El registro fue exitoso',
           confirmButtonText: 'Aceptar'
+        }).then(() => {
+          setScreen(8);
         })
       }
     } else {
@@ -127,6 +133,7 @@ export const RegistrarEvento = () => {
         title: 'Oops...',
         text: 'Los equipos deben de ser diferentes',
       })
+      setIsLoading(false);
     }
     setIsLoading(false);
   };
@@ -205,6 +212,7 @@ export const RegistrarEvento = () => {
                 id="categoria"
                 className="chose-categoria input-select margin-input"
                 value={form.categoria}
+                defaultValue={0}
                 onChange={(e) => {
                   setForm({ ...form, categoria: e.target.value });
                 }}
@@ -293,7 +301,6 @@ export const RegistrarEvento = () => {
                 onChange={(e) =>
                   setForm({ ...form, directorTecnicoLocal: e.target.value })
                 }
-                required
               />
             </div>
             <div className="middle-side versus-title">
@@ -345,7 +352,6 @@ export const RegistrarEvento = () => {
                 onChange={(e) =>
                   setForm({ ...form, directorTecnicoVisitante: e.target.value })
                 }
-                required
               />
               <br />
             </div>

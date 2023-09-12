@@ -5,6 +5,8 @@ import "./ModalQR.css";
 import QRCode from "react-qr-code";
 // import indereqIcon from "../../../Assets/icons/indereq-icon.png";
 import close from "../../../Assets/icons/close.png";
+import {NavigationContext} from "../../../Context/NavigationContext";
+import { useContext } from "react";
 
 /**
  * @param datos dentro del componente se pasa un objeto con el id y el nombre.
@@ -13,6 +15,9 @@ import close from "../../../Assets/icons/close.png";
 */
 
 const ModalQR = ({ datos, setMostrarModalQr, setSelected }) => {
+
+    const {setScreen} = useContext(NavigationContext);
+
     return (
         <div className="containerPrincipal-modal">
             <div className="container-modal">
@@ -33,7 +38,8 @@ const ModalQR = ({ datos, setMostrarModalQr, setSelected }) => {
                 <div className="container-button">
                     <button id="button-salir" onClick={() => {
                         setMostrarModalQr(false);
-                        setSelected({});
+                        // setSelected({});
+                        setScreen(0);
                     }}>Salir</button>
                 </div>
             </div>

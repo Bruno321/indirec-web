@@ -76,8 +76,8 @@ function MoreInfo({ datos, trigger, setTrigger }) {
                 </div>
                 <div className='middle'>
                     <div>
-                        {/* <b><p>Deporte</p></b>
-                        <p>{datos.deporte}</p> */}
+                        <b><p>Deporte</p></b>
+                        <p>{datos.deporte?.nombre}</p>
 
                         <b><p>Correo electrónico</p></b>
                         <p>{datos.correo}</p>
