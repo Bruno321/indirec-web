@@ -3,23 +3,15 @@ import moment from 'moment';
 import trashIcon from '../../Assets/icons/trash.png';
 import searchIcon from '../../Assets/icons/search.png';
 
-const Row = ({ children, style = {} }) => 
-  <div style={{
-    ...style,
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-  }}>
+import './SearchBar.css'
+
+const Row = ({ children }) => 
+  <div className='search-bar-row'>
     {children}
   </div>;
 
-const Col = ({ children, style = {} }) => 
-  <div style={{
-    ...style,
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'space-around',
-  }}>
+const Col = ({ children }) => 
+  <div className='search-bar-column'>
     {children}
   </div>;
 
@@ -52,9 +44,7 @@ export const SearchBar = ({
 
   return (
     <div layout="vertical">
-      <Row
-        style={{ flexDirection: 'row-reverse', justifyContent: 'start' }}
-      >
+      <Row>
         {elements
           .filter(({ visible = true }) => visible)
           .map(
@@ -79,6 +69,7 @@ export const SearchBar = ({
                 {label} <br/>
                   {type === 'input' || type === 'input-fixed' ? (
                     <input
+                      className='search-input-text'
                       name={name}
                       onChange={({ target }) => getDateForm(target)}
                       placeholder={placeholder}
@@ -87,6 +78,7 @@ export const SearchBar = ({
                     />
                   ) : type === 'select' ? (
                     <select
+                      className='search-input-select'
                       name={name}
                       onChange={({ target }) => getDateForm(target)}
                       placeholder={placeholder}
@@ -110,10 +102,10 @@ export const SearchBar = ({
           )}
           <Col>
             <>
-              <br/>
               <button
                 onClick={handleSearch}
-                style={{ backgroundColor: '#FFF', borderStyle: 'none', boxShadow: 'none' }}
+                title='Buscar'
+                className='search-button'
               >
                 <img src={searchIcon} width={32} height={32}/>
               </button>
@@ -122,16 +114,10 @@ export const SearchBar = ({
           <Col>
             {handleReset && (
               <>
-                <br/>
                 <button
                   onClick={handleReset}
-                  style={{
-                    backgroundColor: '#FFF',
-                    borderStyle: 'none',
-                    boxShadow: 'none',
-                    color: '#F05249',
-                    marginLeft: 10,
-                  }}
+                  title='Limpiar búsqueda'
+                  className='search-reset'
                 >
                   <img src={trashIcon} width={32} height={32}/>
                 </button>

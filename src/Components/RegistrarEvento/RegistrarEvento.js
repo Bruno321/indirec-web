@@ -13,7 +13,7 @@ const oInitialState = {
   hora: "",
   deporte_id: null,
   equipo_local_id: "",
-  directorTecnicoLocal : "",
+  directorTecnicoLocal: "",
   categoria: null,
   canchaJugada: "",
   equipoVisitante: "",
@@ -24,7 +24,7 @@ const oInitialState = {
 export const RegistrarEvento = () => {
   const [equipos] = useFetchData("equipos");
   const [deportes, deportesLoading] = useFetchData('deportes', '', 0, 50);
-  const [form,setForm] = useState(oInitialState);
+  const [form, setForm] = useState(oInitialState);
 
   //Se guarda en un estado el arreglo de los jugadores que corresponden a cada uno de los dos equipos.
   const [jugadoresLocales, setJugadoresLocales] = useState();
@@ -46,6 +46,9 @@ export const RegistrarEvento = () => {
   const [limpiarJugadoresLocales, setLimpiarJugadoresLocales] = useState(false);
   const [limpiarJugadoresVisitantes, setLimpiarJugadoresVisitantes] = useState(false);
 
+  //State para NO mostrar el mismo equipo a seleccionar
+  const [equiposDisponibles, setEquiposDisponibles] = useState(equipos.data);
+
   const [isLoading, setIsLoading] = useState(false);
 
   //UseEffect para el equipo local
@@ -60,6 +63,14 @@ export const RegistrarEvento = () => {
     fetchEquipoLocal();
   }, [equipoLocal]);
 
+  // Filtra los equipos disponibles para el segundo select
+  useEffect(() => {
+    const equiposFiltrados = equipos.data.filter(
+      (equipo) => equipo.id !== form.equipo_local_id
+    );
+    setEquiposDisponibles(equiposFiltrados);
+  }, [form.equipo_local_id]);
+
   //UseEffect para el equipo visitante
   useEffect(() => {
     const fetchEquipoVisitante = async () => {
@@ -73,22 +84,22 @@ export const RegistrarEvento = () => {
   }, [equipoVisitante]);
 
   //Función para enviar los datos del formulario correspondientes a la api.
-  const handleSubmit = async(e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
-    if(esMismoEquipo(equipoLocal, equipoVisitante)){
+    if (esMismoEquipo(equipoLocal, equipoVisitante)) {
 
       const idJugadoresLocales = listaJugadoresLocales.map(jugador => jugador.id);
       const idJugadoresVisitantes = listaJugadoresVisitantes.map(jugador => jugador.id);
       const concatJugadores = idJugadoresLocales.concat(idJugadoresVisitantes);
       setForm(form.jugadores = concatJugadores)
 
-      if(form.deporte_id == null){
+      if (form.deporte_id == null) {
         Swal.fire({
-            icon: 'warning',
-            title: 'Oops...',
-            text: 'Falta agregar un deporte',
-            confirmButtonText: 'Aceptar'
+          icon: 'warning',
+          title: 'Oops...',
+          text: 'Falta agregar un deporte',
+          confirmButtonText: 'Aceptar'
         })
         setIsLoading(false);
         return;
@@ -103,14 +114,14 @@ export const RegistrarEvento = () => {
         console.log(e);
       });
 
-      if(response.status === 201){
+      if (response.status === 201) {
         Swal.fire({
           icon: 'success',
           title: 'El registro fue exitoso',
           confirmButtonText: 'Aceptar'
         })
       }
-    }else{
+    } else {
       Swal.fire({
         icon: 'error',
         title: 'Oops...',
@@ -126,27 +137,27 @@ export const RegistrarEvento = () => {
 
   return (
     <>
-      <h3 className="title-form">Registrar evento</h3><br/>
+      <h3 className="title-form">Registrar evento</h3><br />
       <section className="form-section">
         <form id="registrarEventoForm" onSubmit={handleSubmit}>
           <div className="first-part">
             <div className="column-flex">
-              <label style={{marginBottom:"0px"}}>Nombre del evento: </label>
+              <label style={{ marginBottom: "0px" }}>Nombre del evento: </label>
               <br />
               <input
                 type="text"
-                className="input-text input-name" 
+                className="input-text input-name"
                 id="nombre"
                 name="nombre"
                 placeholder="Nombre del evento"
-                onChange={e => setForm({...form, nombre:e.target.value})} 
+                onChange={e => setForm({ ...form, nombre: e.target.value })}
                 required
               />
               <br />
             </div>
-            
+
             <div className="column-flex">
-              <label style={{marginBottom:"0px"}}>Fecha del evento: </label>
+              <label style={{ marginBottom: "0px" }}>Fecha del evento: </label>
               <br />
               <input
                 type="date"
@@ -154,41 +165,41 @@ export const RegistrarEvento = () => {
                 name="fecha"
                 className="input-date input-date-event"
                 placeholder="dd-mm-yyyy"
-                onChange = {e => setForm({...form, fecha: e.target.value})}
+                onChange={e => setForm({ ...form, fecha: e.target.value })}
                 required
               />
             </div>
 
             <div className="column-flex">
-              <label style={{marginBottom:"0px"}}>Hora del evento: </label>
+              <label style={{ marginBottom: "0px" }}>Hora del evento: </label>
               <br />
               <input
                 type="time"
-                id = "hora"
-                name = "hora"
+                id="hora"
+                name="hora"
                 className="input-time input-timeEvent"
-                onChange ={e => setForm({...form, hora: e.target.value})}
+                onChange={e => setForm({ ...form, hora: e.target.value })}
                 required
               />
             </div>
 
             <div className="column-flex">
-              <label>Jornada:</label><br/>
-                <input
-                  type="number"
-                  className="input-text margin-input jornada"
-                  name="jornada"
-                  id="jornada"
-                  placeholder="00"
-                  onChange={(e) => setForm({ ...form, jornada: e.target.value })}
-                  required
-                />
+              <label>Jornada:</label><br />
+              <input
+                type="number"
+                className="input-text margin-input jornada"
+                name="jornada"
+                id="jornada"
+                placeholder="00"
+                onChange={(e) => setForm({ ...form, jornada: e.target.value })}
+                required
+              />
             </div>
           </div>
 
           <div className="first-part">
             <div className="column-flex">
-              <label>Categoría:</label><br/>
+              <label>Categoría:</label><br />
               <select
                 name="categoria"
                 id="categoria"
@@ -203,58 +214,58 @@ export const RegistrarEvento = () => {
               </select>
             </div>
             <div className="column-flex">
-              <label>Deporte:</label><br/>
-                <select
-                  name="deporte"
-                  id="deporte"
-                  className="chose-sport input-select margin-input"
-                  value={form.deporte_id}
-                  onChange={(e) => {
-                    setForm({ ...form, deporte_id: e.target.value });
-                  }}
-                >
-                  <option value={null}>{deportesLoading ? 'Cargando...' : 'Selecciona un deporte'}</option>
-                  {
-                    deportes.data.map(deporte => <option value={deporte.id}>{deporte.nombre}</option>)
-                  }
-                </select>
+              <label>Deporte:</label><br />
+              <select
+                name="deporte"
+                id="deporte"
+                className="chose-sport input-select margin-input"
+                value={form.deporte_id}
+                onChange={(e) => {
+                  setForm({ ...form, deporte_id: e.target.value });
+                }}
+              >
+                <option value={null}>{deportesLoading ? 'Cargando...' : 'Selecciona un deporte'}</option>
+                {
+                  deportes.data.map(deporte => <option value={deporte.id}>{deporte.nombre}</option>)
+                }
+              </select>
             </div>
 
             <div className="column-flex">
-              <label>Cancha:</label><br/>
-                <input
-                  type="text"
-                  className="input-text margin-input"
-                  name="canchaDeJuego"
-                  id="canchaDeJuego"
-                  placeholder="Cancha de juego"
-                  onChange={(e) =>
-                    setForm({ ...form, canchaJugada: e.target.value })
-                  }
-                  required
-                />
+              <label>Cancha:</label><br />
+              <input
+                type="text"
+                className="input-text margin-input"
+                name="canchaDeJuego"
+                id="canchaDeJuego"
+                placeholder="Cancha de juego"
+                onChange={(e) =>
+                  setForm({ ...form, canchaJugada: e.target.value })
+                }
+                required
+              />
             </div>
           </div>
-        
+
           <div className="second-part">
-          <div className="left-side">
+            <div className="left-side">
               <label className="label-title">Equipo Local:</label>
-              <select 
-                className="input-text margin-input-right" 
-                name="equipoLocal" id="equipoLocal" 
-                value={form.equipo_local_id} 
+              <select
+                className="input-text margin-input-right"
+                name="equipoLocal" id="equipoLocal"
+                value={form.equipo_local_id}
                 onChange={e => {
-                  setForm({...form, equipo_local_id:e.target.value}, 
-                  setEquipoLocal(e.target.value)), 
-                  console.log('idEquipo', e.target.value)
+                  setForm({ ...form, equipo_local_id: e.target.value },
+                    setEquipoLocal(e.target.value)),
+                    console.log('idEquipo', e.target.value)
                   setLimpiarJugadoresLocales(!limpiarJugadoresLocales)
                 }}
               >
                 {
-                  !equipoLocal 
-                  ? 
+                  !equipoLocal
+                    ?
                     <option value="">Selecciona una opción...</option>
-                  :
+                    :
                     ''
                 }
                 {equipos.data.map(item =>
@@ -273,7 +284,7 @@ export const RegistrarEvento = () => {
               ) : (
                 ""
               )}
-              <br/><label className="label-title">Director Técnico Local:</label>
+              <br /><label className="label-title">Director Técnico Local:</label>
               <input
                 type="text"
                 className="input-text margin-input-right"
@@ -290,26 +301,26 @@ export const RegistrarEvento = () => {
             </div>
             <div className="right-side">
               <label className="label-title">Equipo Visitante:</label>
-              <select 
-                className="input-text margin-input-right" 
-                name="equipoVisitante" 
-                id="equipoVisitante" 
-                value={form.equipo_visitante_id} 
+              <select
+                className="input-text margin-input-right"
+                name="equipoVisitante"
+                id="equipoVisitante"
+                value={form.equipo_visitante_id}
                 onChange={e => {
-                  setForm({...form, equipo_visitante_id:e.target.value}), 
-                  setEquipoVisitante(e.target.value)
+                  setForm({ ...form, equipo_visitante_id: e.target.value }),
+                    setEquipoVisitante(e.target.value)
                   console.log('idEquipo', e.target.value)
                   setLimpiarJugadoresVisitantes(!limpiarJugadoresVisitantes)
                 }}
               >
                 {
                   !equipoVisitante
-                  ? 
+                    ?
                     <option value="">Selecciona una opción...</option>
-                  :
+                    :
                     ""
                 }
-                {equipos.data.map(item => 
+                {equiposDisponibles.map((item) =>
                   <option key={item.id} value={item.id}>
                     {item.nombre}
                   </option>
@@ -325,7 +336,7 @@ export const RegistrarEvento = () => {
               ) : (
                 ""
               )}
-              <br/><label className="label-title">Director Técnico Visitante:</label>
+              <br /><label className="label-title">Director Técnico Visitante:</label>
               <input
                 type="text"
                 className="input-text margin-input-right"
@@ -375,13 +386,13 @@ export const RegistrarEvento = () => {
         </form>
       </section>
       {
-          isLoading
-          ? 
-              <div style={{position: 'fixed', top: '0', left: '0', width: '100%', height: '100%', backgroundColor: 'rgba(0, 0, 0, .5)'}}>
-                  <LoadingSpinner/>
-              </div>
+        isLoading
+          ?
+          <div style={{ position: 'fixed', top: '0', left: '0', width: '100%', height: '100%', backgroundColor: 'rgba(0, 0, 0, .5)' }}>
+            <LoadingSpinner />
+          </div>
           :
-              ''
+          ''
       }
     </>
   );

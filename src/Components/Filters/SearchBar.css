@@ -1,0 +1,31 @@
+.search-bar-row{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.search-bar-column{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.search-input-text, .search-input-select{
+    border-width: 1px;
+    border-radius: 5px;
+    margin-top: 5px;
+}
+
+.search-button{
+    background-color: #FFF;
+    border-style: none;
+    box-shadow: none;
+}
+
+.search-reset{
+    background-color: #FFF;
+    border-style: none;
+    box-shadow: none;
+    color: #F05249;
+    margin-left: 10;
+}
