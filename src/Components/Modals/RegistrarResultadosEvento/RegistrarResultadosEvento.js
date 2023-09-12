@@ -85,9 +85,24 @@ function RegistrarResultadosEvento({ datos, trigger, setTrigger }) {
             <div className="more-info-inner">
             <div className="registrar-resultados-container">
                 <div className="container-headers">
-                    <h3>Registrar resultados</h3>   
-                    <h3>{datos.nombre}</h3> 
+                    <h2>Registrar resultados</h2>
                 </div>
+
+                <div className="upper-title">
+                    <div className="evento-title">
+                        <h3>{datos?.EquipoLocal?.nombre}</h3>
+                        <h4>LOCAL</h4>
+                    </div>
+                    
+                    <div className="custom-box-vs">VS</div>
+
+                    <div className="evento-title">
+                        <h3>{datos?.EquipoVisitante?.nombre}</h3>
+                        <h4>VISITANTE</h4>
+                    </div>
+                </div>
+
+                <div className="custom-box-jornada"><h3>Jornada {datos?.jornada}</h3></div>
                 
                 <div className="upper-registrar-resultados">
                     <div>
